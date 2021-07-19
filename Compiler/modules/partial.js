@@ -384,11 +384,15 @@ define('Compiler/modules/partial', [
             }
 
             var beforeFunctionCall = '(function(){' +
-               'attrsForTemplate = ' + createAttribs + '; scopeForTemplate = ' + callDataArg + ';' +
+               'attrsForTemplate = ' + createAttribs + '; scopeForTemplate = ' + callDataArg + '; ' +
+               'scopeForTemplate.__$$attributes = attrsForTemplate;' +
                '}).apply(this),';
-            var functionCall = tmplFuncGenerator.createTemplateFunctionCall(tpl, [
-               'this', 'scopeForTemplate', 'attrsForTemplate', 'context', 'isVdom'
-            ]) + ',';
+            var functionCallArguments = (
+               this.useReact
+                  ? ['this', 'scopeForTemplate']
+                  : ['this', 'scopeForTemplate', 'attrsForTemplate', 'context', 'isVdom']
+            );
+            var functionCall = tmplFuncGenerator.createTemplateFunctionCall(tpl, functionCallArguments) + ',';
             var afterFunctionCall = '(function(){attrsForTemplate = null;scopeForTemplate = null;}).apply(),';
 
             return beforeFunctionCall + functionCall + afterFunctionCall;

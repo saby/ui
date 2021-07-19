@@ -1,14 +1,28 @@
 
 const EMPTY_STRING = '';
 
-function replaceAnonymousFunctionName(name: string, text: string): string {
-   return text.replace('function anonymous', `function ${name}`);
-}
-
 export interface ITemplateFunctionGenerator {
    createTemplateFunction(body: string): Function;
    createTemplateFunctionString(body: string, name?: string): string;
    createTemplateFunctionCall(name: string, args: string[]): string;
+}
+
+abstract class BaseTemplateFunctionGenerator implements ITemplateFunctionGenerator {
+   abstract createTemplateFunction(body: string): Function;
+
+   createTemplateFunctionString(body: string, name: string = EMPTY_STRING): string {
+      const text = this.createTemplateFunction(body).toString();
+      return BaseTemplateFunctionGenerator.replaceAnonymousFunctionName(name, text);
+   }
+
+   createTemplateFunctionCall(name: string, args: string[]): string {
+      const params = args.join(', ');
+      return `${name}.call(${params})`;
+   }
+
+   private static replaceAnonymousFunctionName(name: string, text: string): string {
+      return text.replace('function anonymous', `function ${name}`);
+   }
 }
 
 const TEMPLATE_PARAMETERS = [
@@ -21,26 +35,41 @@ const TEMPLATE_PARAMETERS = [
    'generatorConfig'
 ];
 
-class TemplateFunctionGenerator implements ITemplateFunctionGenerator {
+class TemplateFunctionGenerator extends BaseTemplateFunctionGenerator {
    createTemplateFunction(body: string): Function {
       const params = TEMPLATE_PARAMETERS.join(', ');
       return new Function(params, body);
    }
+}
 
-   createTemplateFunctionString(body: string, name: string = EMPTY_STRING): string {
-      const text = this.createTemplateFunction(body).toString();
-      return replaceAnonymousFunctionName(name, text);
-   }
+const REACT_TEMPLATE_PARAMETERS = [
+   'props'
+];
 
-   createTemplateFunctionCall(name: string, args: string[]): string {
-      const params = args.join(', ');
-      return `${name}.call(${params})`;
+/**
+ * TODO: инициализировать переменные Wasaby через аргументы шаблонной функции react
+ */
+export const REACT_PARAMETERS_INIT = `
+var data = props;
+var attr = props.__$$attributes;
+var context = props.__$$context;
+var isVdom = props.__$$isVdom;
+var sets = props.__$$sets;
+var forceCompatible = props.__$$forceCompatible;
+var generatorConfig = props.__$$generatorConfig;
+
+`;
+
+class ReactTemplateFunctionGenerator extends BaseTemplateFunctionGenerator {
+   createTemplateFunction(body: string): Function {
+      const params = REACT_TEMPLATE_PARAMETERS.join(', ');
+      return new Function(params, REACT_PARAMETERS_INIT + body);
    }
 }
 
 export function createTemplateFunctionGenerator(useReact: boolean): ITemplateFunctionGenerator {
    if (useReact) {
-      // TODO: release
+      return new ReactTemplateFunctionGenerator();
    }
    return new TemplateFunctionGenerator();
 }
