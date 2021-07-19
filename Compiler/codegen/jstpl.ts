@@ -3,6 +3,8 @@
  * @author Крылов М.А.
  */
 
+import { genCreateForwardRef } from './TClosure';
+
 const INIT_T_HELPERS = `
 if (typeof thelpers === "undefined" || !thelpers._isTClosure) {
    eval("var thelpers = null;");
@@ -104,7 +106,11 @@ define('/*#MODULE_EXTENSION#*/!/*#MODULE_NAME#*/', /*#DEPENDENCIES#*/, function(
    };
    /*#DELETE IT END#*/
 
-   return templateFunction;
+   var forwardRef = ${genCreateForwardRef("templateFunction")};
+   forwardRef.stable = templateFunction.stable;
+   forwardRef.reactiveProps = templateFunction.reactiveProps;
+   forwardRef.isWasabyTemplate = templateFunction.isWasabyTemplate;
+   return forwardRef;
 });
 `;
 
@@ -230,7 +236,9 @@ export const INCLUDED_TEMPLATE = `
       /*#DELETE IT END#*/
       bindFn.isWasabyTemplate = /*#IS_WASABY_TEMPLATE#*/;
 
-      return bindFn;
+      var forwardRef = ${genCreateForwardRef("bindFn")};
+      forwardRef.isWasabyTemplate = bindFn.isWasabyTemplate;
+      return forwardRef;
    })(),
    internal: /*#INTERNAL#*/,
    isWasabyTemplate: /*#IS_WASABY_TEMPLATE#*/
@@ -255,7 +263,9 @@ export const INCLUDED_TEMPLATE_REACT = `
       /*#DELETE IT END#*/
       bindFn.isWasabyTemplate = /*#IS_WASABY_TEMPLATE#*/;
 
-      return bindFn;
+      var forwardRef = ${genCreateForwardRef("bindFn")};
+      forwardRef.isWasabyTemplate = bindFn.isWasabyTemplate;
+      return forwardRef;
    })()
 `;
 
@@ -268,9 +278,13 @@ export const OBJECT_TEMPLATE = `
    var scope = Object.create(data);
    scope.viewController = viewController || null;
    var func = ( /*#TEMPLATE#*/ );
-   this.func = thelpers.makeFunctionSerializable(func, scope);
+   func = thelpers.makeFunctionSerializable(func, scope);
    /*#INTERNAL#*/;
-   this.func.isWasabyTemplate = /*#IS_WASABY_TEMPLATE#*/;
+   func.isWasabyTemplate = /*#IS_WASABY_TEMPLATE#*/;
+
+   var forwardRef = ${genCreateForwardRef("func")};
+   forwardRef.isWasabyTemplate = func.isWasabyTemplate;
+   this.func = forwardRef;
 })).func
 `;
 
@@ -282,9 +296,13 @@ export const OBJECT_TEMPLATE_REACT = `
    var scope = Object.create(data);
    scope.viewController = viewController || null;
    var func = ( /*#TEMPLATE#*/ );
-   this.func = thelpers.makeFunctionSerializable(func, scope);
+   func = thelpers.makeFunctionSerializable(func, scope);
    /*#INTERNAL#*/;
-   this.func.isWasabyTemplate = /*#IS_WASABY_TEMPLATE#*/;
+   func.isWasabyTemplate = /*#IS_WASABY_TEMPLATE#*/;
+
+   var forwardRef = ${genCreateForwardRef("func")};
+   forwardRef.isWasabyTemplate = func.isWasabyTemplate;
+   this.func = forwardRef;
 })).func
 `;
 
@@ -308,10 +326,14 @@ ${INIT_KEY_AND_CONTROLLER}
  * @deprecated
  */
 export const PRIVATE_TEMPLATE_HEADER = `
-(function () {
-  includedTemplates["/*#NAME#*/"] = (/*#TEMPLATE_FUNCTION#*/.bind({
-    includedTemplates: includedTemplates
-  }));
+(function() {
+  includedTemplates["/*#NAME#*/"] = (function() {
+    var func = (/*#TEMPLATE_FUNCTION#*/).bind({
+       includedTemplates: includedTemplates
+    });
+    var forwardRef = ${genCreateForwardRef("func")};
+    return forwardRef;
+  })();
 })(),
 `;
 
