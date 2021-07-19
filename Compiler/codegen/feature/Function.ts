@@ -43,7 +43,8 @@ class TemplateFunctionGenerator extends BaseTemplateFunctionGenerator {
 }
 
 const REACT_TEMPLATE_PARAMETERS = [
-   'props'
+   'props',
+   'ref'
 ];
 
 /**

@@ -389,7 +389,7 @@ define('Compiler/modules/partial', [
                '}).apply(this),';
             var functionCallArguments = (
                this.useReact
-                  ? ['this', 'scopeForTemplate']
+                  ? ['this', 'scopeForTemplate', 'ref']
                   : ['this', 'scopeForTemplate', 'attrsForTemplate', 'context', 'isVdom']
             );
             var functionCall = tmplFuncGenerator.createTemplateFunctionCall(tpl, functionCallArguments) + ',';
