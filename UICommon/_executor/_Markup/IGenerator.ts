@@ -30,6 +30,7 @@ import { IControl }  from 'UICommon/interfaces';
  * @author Тэн В.А.
  */
 export interface IGenerator {
+   generatorConfig?: IGeneratorConfig;
 
    createControlNew(
       type: string,
