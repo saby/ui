@@ -55,7 +55,8 @@ define('Compiler/modules/data/array', [
       //  В таком случае создается контентная опция и сразу вызывается. Результат - строка (верстка).
       var postfixCall = string ? '(Object.create(data), null, context)' : '';
       var dirtyCh = generateInternal(string, injected, this.includedFn, this.internalFunctions, fileName);
-      var func = codegenFeatureFunction.createTemplateFunction(funcText);
+      var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(this.useReact);
+      var func = tmplFuncGenerator.createTemplateFunction(funcText);
       var funcName = this.setFunctionName(func, wsTemplateName, undefined, cleanPropertyName);
       this.includedFunctions[cleanPropertyName] = func;
       if (this.privateFn) {
@@ -69,7 +70,7 @@ define('Compiler/modules/data/array', [
       }
 
       if (this.useReact) {
-         functionToWrap = codegenFeatureFunction.generateTemplateFunctionCall(functionToWrap, [
+         functionToWrap = tmplFuncGenerator.createTemplateFunctionCall(functionToWrap, [
             'scope', 'props', 'attr', 'context', 'isVdom', 'sets', 'forceCompatible', 'generatorConfig'
          ]);
       }

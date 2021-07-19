@@ -264,8 +264,9 @@ define('Compiler/modules/partial', [
       }
 
       // TMPL compiler
+      var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(this.useReact);
       var inlineTemplateBody = this.getString(tag.children, {}, this.handlers, {}, true);
-      var inlineTemplateFunction = '(' + codegenFeatureFunction.createTemplateFunctionString(
+      var inlineTemplateFunction = '(' + tmplFuncGenerator.createTemplateFunctionString(
          templates.generatePartialTemplate() + inlineTemplateBody, 'f2'
       ) + ')';
       return Generator.genCreateControlNew(
@@ -372,11 +373,12 @@ define('Compiler/modules/partial', [
             );
 
             var tpl;
+            var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(this.useReact);
             if (this.includedFn) {
                tpl = tag.attribs._wstemplatename.data.value;
             } else {
                var body = this.getString(tag.children, {}, this.handlers, {}, true);
-               tpl = '(' + codegenFeatureFunction.createTemplateFunctionString(
+               tpl = '(' + tmplFuncGenerator.createTemplateFunctionString(
                   templates.generatePartialTemplate() + body, 'f2'
                ) + ')';
             }
@@ -384,7 +386,7 @@ define('Compiler/modules/partial', [
             var beforeFunctionCall = '(function(){' +
                'attrsForTemplate = ' + createAttribs + '; scopeForTemplate = ' + callDataArg + ';' +
                '}).apply(this),';
-            var functionCall = codegenFeatureFunction.generateTemplateFunctionCall(tpl, [
+            var functionCall = tmplFuncGenerator.createTemplateFunctionCall(tpl, [
                'this', 'scopeForTemplate', 'attrsForTemplate', 'context', 'isVdom'
             ]) + ',';
             var afterFunctionCall = '(function(){attrsForTemplate = null;scopeForTemplate = null;}).apply(),';

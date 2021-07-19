@@ -125,10 +125,11 @@ define('Compiler/codegen/templates', [
          }
       }
 
+      var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(useReact);
       if (templateFunction.includedFn) {
          for (functionName in templateFunction.includedFn) {
             if (templateFunction.includedFn.hasOwnProperty(functionName)) {
-               includedTemplates += codegenFeatureFunction.createTemplateFunctionString(
+               includedTemplates += tmplFuncGenerator.createTemplateFunctionString(
                   templateFunction.includedFn[functionName], functionName
                );
                localDependenciesList += 'depsLocal["' + functionName + '"] = ' + functionName + ';';

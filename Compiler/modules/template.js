@@ -45,7 +45,8 @@ define('Compiler/modules/template', [
                this.includedFn[name] = functionString;
                return '';
             }
-            var templateFunctionString = codegenFeatureFunction.createTemplateFunctionString(functionString);
+            var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(this.useReact);
+            var templateFunctionString = tmplFuncGenerator.createTemplateFunctionString(functionString);
             result = templates.generatePrivateTemplateHeader(name, templateFunctionString);
             return result;
          }

@@ -250,8 +250,8 @@ define('Compiler/codegen/function', [
          return res;
       },
       getFunction: function getFunction(ast, data, handlers, attributes, internal) {
-         // eslint-disable-next-line no-empty-function
-         var func = function() { };
+         var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(this.useReact);
+         var func = tmplFuncGenerator.createTemplateFunction('/* no template function */');
          var str = 'no function';
          try {
             // После аннотации мы знаем имена детей, которые будут находится в _children,
@@ -260,7 +260,7 @@ define('Compiler/codegen/function', [
             this.childrenStorage = ast.childrenStorage;
 
             str = this.getString(ast, data, handlers, attributes, internal);
-            func = codegenFeatureFunction.createTemplateFunction(str);
+            func = tmplFuncGenerator.createTemplateFunction(str);
             func.includedFunctions = this.includedFunctions;
             func.privateFn = this.privateFn;
             func.includedFn = this.includedFn;

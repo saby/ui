@@ -291,7 +291,8 @@ define('Compiler/modules/data/object', [
          // Сделано для того чтобы попадала родительская область видимости при применении инлайн-шаблона
          var generatedTemplate = this.getString(html, {}, this.handlers, {}, true);
          var funcText = templates.generateTemplate(htmlPropertyName, generatedTemplate, this.handlers.fileName, false);
-         var func = codegenFeatureFunction.createTemplateFunction(funcText);
+         var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(this.useReact);
+         var func = tmplFuncGenerator.createTemplateFunction(funcText);
          var funcName = this.setFunctionName(func, undefined, undefined, htmlPropertyName);
          this.includedFunctions[htmlPropertyName] = func;
          if (this.privateFn) {
@@ -324,7 +325,7 @@ define('Compiler/modules/data/object', [
          if (this.includedFn) {
 
             if (this.useReact) {
-               fAsString = codegenFeatureFunction.generateTemplateFunctionCall(fAsString, [
+               fAsString = tmplFuncGenerator.createTemplateFunctionCall(fAsString, [
                   'scope', 'props', 'attr', 'context', 'isVdom', 'sets', 'forceCompatible', 'generatorConfig'
                ]);
             }
