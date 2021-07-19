@@ -132,7 +132,7 @@ export function createTagDefaultVdom<T extends HTMLElement, P extends React.HTML
     return React.createElement<P, T>(tagName, newProps, ...flatChildren);
 }
 
-export function joinElements(elements: string[]): string {
+export function joinElements(elements: string[], key?, defCollection?): string {
     if (Array.isArray(elements)) {
         let res = '';
         elements.forEach((element) => {
