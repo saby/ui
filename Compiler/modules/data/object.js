@@ -342,7 +342,7 @@ define('Compiler/modules/data/object', [
          } else {
             templateObject.html = FSC.wrapAroundObject(
                templates.generateObjectTemplate(
-                  fAsString, 'this.func.internal = ' + dirtyCh, undefined, this.isWasabyTemplate, this.useReact
+                  fAsString, 'func.internal = ' + dirtyCh, undefined, this.isWasabyTemplate, this.useReact
                )
             );
          }

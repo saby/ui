@@ -28,7 +28,7 @@ define('Compiler/modules/data/array', [
       var dirtyCh = '';
       if (!string) {
          if (!includedFn) {
-            dirtyCh = 'this.func.internal = ';
+            dirtyCh = 'func.internal = ';
          }
          if (injected && injected.internal) {
             dirtyCh += FSC.getStr(injected.internal);
