@@ -2,12 +2,14 @@ import {
     Attr,
     VoidTags as voidElements,
     TAttributes,
-    IAttributes, INodeAttribute
+    IAttributes,
+    INodeAttribute,
+    IGeneratorConfig
 } from 'UICommon/Executor';
 import {CreateChildrenRef} from './Vdom/Refs/CreateChildrenRef';
 import {CreateEventRef} from './Vdom/Refs/CreateEventRef';
 import {convertAttributes, WasabyAttributes} from './Attributes';
-import { ArrayUtils } from 'UICommon/Utils';
+import { ArrayUtils, CommonUtils as Common } from 'UICommon/Utils';
 
 import { IWasabyEvent } from 'UICommon/Events';
 import {AttrToDecorate} from './interfaces';
@@ -180,4 +182,26 @@ function decorateAttrs(attr1: TAttributes, attr2: TAttributes): string {
     return attrToStr(Attr.joinAttrs(attr1, attr2));
 }
 
-
+/**
+ * Если существует другой разрешатель имен в config.js. Мы его найдем и используем для подключения.
+ * @param tpl
+ * @param includedTemplates
+ * @param _deps
+ * @param config
+ * @param parent
+ * @returns {*}
+ */
+export function stringTemplateResolver<T = Control, K>(
+    tpl: string,
+    includedTemplates: Common.IncludedTemplates<K>,
+    _deps: Common.Deps<T, K>,
+    config: IGeneratorConfig,
+    parent?: Control
+): T | K | Common.IDefaultExport<T> {
+    const resolver = config && config.resolvers ? Common.findResolverInConfig(tpl, config.resolvers) : undefined;
+    if (resolver) {
+        return resolver(tpl);
+    } else {
+        return Common.depsTemplateResolver<T, K>(tpl, includedTemplates, _deps);
+    }
+}
