@@ -9,12 +9,13 @@
 
 export { isModuleExists } from './_deps/RecursiveWalker';
 export { ICollectedDeps } from './_deps/Interface';
-import HeadData, { headDataStore, addPageDeps } from './_deps/HeadData';
+import HeadData, { headDataStore, addPageDeps, executeSyncOrAsync } from './_deps/HeadData';
 import { DepsCollector } from './_deps/DepsCollector';
 
 export {
     HeadData,
     headDataStore,
+    executeSyncOrAsync,
     addPageDeps,
     DepsCollector
 };
