@@ -2,6 +2,7 @@
 import { constants } from 'Env/Env';
 import { getDebugDeps, getDepsCollectorParams, getUnpackDepsFromCookie, isDebug } from 'UICommon/_deps/RecursiveWalker';
 import * as Library from 'WasabyLoader/Library';
+import * as ModulesLoader from 'WasabyLoader/ModulesLoader';
 import { DepsCollector } from './DepsCollector';
 import * as AppEnv from 'Application/Env';
 import { IStore } from 'Application/Interface';
@@ -193,6 +194,43 @@ export function addPageDeps(modules: string[]): void {
         const parsedInfo: {name: string} = Library.parse(moduleName);
         headDataStore.read('pushDepComponent')(parsedInfo.name);
     });
+}
+
+/**
+ * Для некоторых контролов на сервере существует потребность грузить зависимости по заранее недетерминированному
+ * условию так, как будто бы они указаны в зависимости RequireJS для define.
+ * Иными словами - для контрола это должно выглядеть синхронно на сервере.
+ * На сервере загрузка будет происходить синхронно. Указанные зависимости также будут добавляться
+ * к зависимостям страницы. На клиенте загрузка будет происходить синхронно только в том случае,
+ * если все указанные зависимости уже загружены средствами RequireJS
+ * @param deps массив требуемых зависимостей.
+ * @param code код, который нужно выполнить после резолва всех зависимостей. Функция.
+ * Формальными аргументами в функцию будут поступать зарезолвленные зависимости в порядке из указания в массиве deps
+ */
+export function executeSyncOrAsync(deps: string[], code: Function): Promise<void> | void {
+    if (constants.isServerSide) {
+        addPageDeps(deps);
+        code.apply(null, deps.map(ModulesLoader.loadSync));
+        return;
+    }
+
+    let hasPromise: boolean = false;
+    const loadData = deps.map((moduleName) => {
+        if (ModulesLoader.isLoaded(moduleName)) {
+            return ModulesLoader.loadSync(moduleName);
+        }
+
+        hasPromise = true;
+        return import(moduleName);
+    });
+
+    if (hasPromise) {
+        return Promise.all(loadData).then((loadedDeps: unknown[]) => {
+            code.apply(null, loadedDeps);
+        });
+    }
+
+    code.apply(null, loadData);
 }
 
 function getSerializedData(): ISerializedData {
