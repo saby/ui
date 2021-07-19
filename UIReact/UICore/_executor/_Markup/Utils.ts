@@ -26,7 +26,7 @@ interface IControlData {
  * @author Тэн В.А.
  */
 
-export function createTagDefaultText(tag, attrs, children, attrToDecorate?, defCollection?): string {
+export function createTagDefault(tag, attrs, children, attrToDecorate?, defCollection?): string {
     if (!attrToDecorate) {
         attrToDecorate = {};
     }
@@ -54,7 +54,7 @@ export function createTagDefaultText(tag, attrs, children, attrToDecorate?, defC
     if (~voidElements.indexOf(tag)) {
         return '<' + tag + mergedAttrsStr + ' />';
     }
-    return '<' + tag + mergedAttrsStr + '>' + joinElementsDefault(children) + '</' + tag + '>';
+    return '<' + tag + mergedAttrsStr + '>' + joinElements(children) + '</' + tag + '>';
 }
 
 export function createTagDefaultVdom<T extends HTMLElement, P extends React.HTMLAttributes<T>>(
@@ -132,12 +132,12 @@ export function createTagDefaultVdom<T extends HTMLElement, P extends React.HTML
     return React.createElement<P, T>(tagName, newProps, ...flatChildren);
 }
 
-export function joinElementsDefault(elements: string[]): string {
+export function joinElements(elements: string[]): string {
     if (Array.isArray(elements)) {
         let res = '';
         elements.forEach((element) => {
             if (Array.isArray(element)) {
-                element = joinElementsDefault(element);
+                element = joinElements(element);
             }
             res += (element || '');
         });

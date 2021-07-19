@@ -13,7 +13,7 @@ import { IWasabyEvent } from 'UICommon/_events/IEvents';
 import { Generator } from '../Generator';
 import React from "react";
 import {TemplateOrigin} from '../interfaces';
-import { createTagDefaultText, joinElementsDefault } from '../Utils';
+import { createTagDefault, joinElements } from '../Utils';
 
 /**
  * @author Тэн В.А.
@@ -57,11 +57,11 @@ export class GeneratorText extends Generator implements IGenerator {
    }
 
    joinElements(elements: string[]): string {
-      return joinElementsDefault(elements);
+      return joinElements(elements);
    }
 
    createTag(tag, attrs, children, attrToDecorate?, defCollection?): string {
-     return createTagDefaultText(tag, attrs, children, attrToDecorate, defCollection);
+     return createTagDefault(tag, attrs, children, attrToDecorate, defCollection);
    }
 
    createDirective(text: string): string {
