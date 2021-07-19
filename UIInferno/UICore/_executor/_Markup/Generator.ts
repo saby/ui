@@ -265,7 +265,7 @@ export class Generator {
    private createController: Function;
    private resolver: Function;
 
-   private readonly generatorConfig: IGeneratorConfig;
+   readonly generatorConfig: IGeneratorConfig;
 
    constructor(config: IGeneratorConfig) {
       if (config) {
