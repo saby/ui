@@ -250,7 +250,7 @@ define('Compiler/codegen/function', [
          return res;
       },
       getFunction: function getFunction(ast, data, handlers, attributes, internal) {
-         var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(this.useReact);
+         var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(handlers.useReact);
          var func = tmplFuncGenerator.createTemplateFunction('/* no template function */');
          var str = 'no function';
          try {
