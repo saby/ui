@@ -21,6 +21,9 @@ import { Control } from 'UICore/Base';
 import { WasabyEvents } from 'UICore/Events';
 
 export class Generator implements IGenerator {
+    constructor(config = {}) {
+        // для совместимого генератора
+    }
     /**
      * В старых генераторах в этой функции была общая логика, как я понимаю.
      * Сейчас общей логики нет, поэтому функция по сути не нужна.
