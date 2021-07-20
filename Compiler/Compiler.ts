@@ -21,6 +21,15 @@ import { ITranslationKey } from './i18n/Dictionary';
  */
 const USE_GENERATE_CODE_FOR_TRANSLATIONS = false;
 
+// FIXME: Разобраться с пробелами в текстовых узлах
+function shouldPreprocessTextNodes(options: IOptions): boolean {
+   const uiModuleName = options.modulePath.getInterfaceModule();
+   if (uiModuleName === 'HelpFilling') {
+      return false;
+   }
+   return options.modulePath.extension === 'wml';
+}
+
 /**
  * Represents compiler interface.
  */
@@ -214,7 +223,6 @@ abstract class BaseCompiler implements ICompiler {
       return new Promise<ITraversed>((resolve: any, reject: any) => {
          try {
             // TODO: реализовать whitespace visitor и убрать флаг needPreprocess
-            const needPreprocess = options.modulePath.extension === 'wml';
             const errorHandler = createErrorHandler(!options.fromBuilderTmpl);
             // tslint:disable:prefer-const
             let parsed = parse(source.text, options.fileName, {
@@ -225,7 +233,7 @@ abstract class BaseCompiler implements ICompiler {
                rudeWhiteSpaceCleaning: true,
                normalizeLineFeed: true,
                cleanWhiteSpaces: true,
-               needPreprocess,
+               needPreprocess: shouldPreprocessTextNodes(options),
                tagDescriptor: getWasabyTagDescription,
                errorHandler
             });
