@@ -20,7 +20,6 @@ export interface ISyntheticEvent {
     propagating: Function;
     stopImmediatePropagation: Function;
     result?: unknown;
-    toPartial?: boolean;
 }
 
 export interface IEventConfig {
@@ -75,6 +74,7 @@ export interface IWasabyEvent {
     value: string;
     viewController: IControl;
     bindValue?: string;
+    toPartial?: boolean;
 }
 
 export interface IWasabyEventSystem {
