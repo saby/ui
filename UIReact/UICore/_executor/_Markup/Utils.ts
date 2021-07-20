@@ -4,12 +4,13 @@ import {
     TAttributes,
     IAttributes,
     INodeAttribute,
-    IGeneratorConfig
+    IGeneratorConfig,
+    CommonUtils as Common
 } from 'UICommon/Executor';
 import {CreateChildrenRef} from './Vdom/Refs/CreateChildrenRef';
 import {CreateEventRef} from './Vdom/Refs/CreateEventRef';
 import {convertAttributes, WasabyAttributes} from './Attributes';
-import { ArrayUtils, CommonUtils as Common } from 'UICommon/Utils';
+import { ArrayUtils } from 'UICommon/Utils';
 
 import { IWasabyEvent } from 'UICommon/Events';
 import {AttrToDecorate} from './interfaces';
