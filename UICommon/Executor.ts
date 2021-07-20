@@ -66,7 +66,8 @@ export {
     TEvents,
     IControlConfig,
     TProps,
-    ITemplateNode
+    ITemplateNode,
+    IControl
 } from './_executor/_Markup/IGeneratorType';
 
 export {
