@@ -20,6 +20,7 @@ export interface ISyntheticEvent {
     propagating: Function;
     stopImmediatePropagation: Function;
     result?: unknown;
+    toPartial?: boolean;
 }
 
 export interface IEventConfig {
