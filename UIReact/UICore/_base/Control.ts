@@ -558,6 +558,7 @@ export default class Control<TOptions extends IControlOptions = {},
             return;
         }
         releaseProperties<TOptions, TState>(this);
+        this._$controlMounted = false;
     }
 
 

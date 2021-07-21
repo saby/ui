@@ -128,7 +128,7 @@ export default class WasabyEventsReact extends WasabyEvents implements IWasabyEv
                         /* Также игнорируем обработчики контрола, который выпустил событие.
                          * То есть, сам на себя мы не должны реагировать
                          * */
-                        if (!fn.control._destroyed && (!controlNode || fn.control !== controlNode.control)) {
+                        if (fn.control._$controlMounted && (!controlNode || fn.control !== controlNode.control)) {
                             try {
                                 let needCallHandler = native;
                                 if (!needCallHandler) {
@@ -151,7 +151,7 @@ export default class WasabyEventsReact extends WasabyEvents implements IWasabyEv
                          * актуально для ссылок, когда основное действие делать в mousedown, а он
                          * срабатывает быстрее click'а. Поэтому контрол может быть уже задестроен
                          */
-                        if (fn.control._destroyed && eventObject.type === 'click') {
+                        if (!fn.control._$controlMounted && eventObject.type === 'click') {
                             eventObject.preventDefault();
                         }
                         /* Проверяем, нужно ли дальше распространять событие по controlNodes */
