@@ -579,6 +579,10 @@ define('Compiler/codegen/function', [
          }
          var attribs = typeof decor === 'function' ? decor(tag.attribs) : tag.attribs;
          var processed = this._processAttributesObj(attribs, data, tag);
+         if (tag.__$ws_hasReactRef && this.useReact) {
+            // Пробросим ref для react, поскольку находимся в корне шаблона (файла)
+            processed.ref = FSC.wrapAroundExec('ref');
+         }
          Object.keys(processed.attributes).forEach(function(attributeName) {
             processed.attributes[attributeName] = processed.attributes[attributeName]
                .replace(/^' \+ (.*?) \+ '$/g, function(str, p) {

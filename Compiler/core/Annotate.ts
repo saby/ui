@@ -430,6 +430,12 @@ function checkForTranslations(scope: Scope, program: ProgramNode | null): void {
     }
 }
 
+function markReactRefProperty(children: Ast.Ast[]): void {
+    for (let index = 0; index < children.length; ++index) {
+        children[index].__$ws_hasReactRef = true;
+    }
+}
+
 /**
  * Abstract syntax tree annotator.
  */
@@ -461,6 +467,7 @@ class InternalVisitor implements Ast.IAstVisitor {
             scope,
             counters: new Counters()
         };
+        markReactRefProperty(nodes);
         this.stack.push(AbstractNodeType.ROOT);
         for (let index = 0; index < nodes.length; ++index) {
             nodes[index].accept(this, context);
@@ -683,6 +690,7 @@ class InternalVisitor implements Ast.IAstVisitor {
             container,
             counters: context.counters
         };
+        markReactRefProperty(node.__$ws_content);
         this.stack.push(AbstractNodeType.DIRECTIVE);
         visitAll(node.__$ws_content, this, childContext);
         this.stack.pop();
@@ -707,6 +715,9 @@ class InternalVisitor implements Ast.IAstVisitor {
             container,
             counters: context.counters
         };
+        if (node.__$ws_hasReactRef) {
+            markReactRefProperty(node.__$ws_consequent);
+        }
         this.stack.push(AbstractNodeType.DIRECTIVE);
         visitAll(node.__$ws_consequent, this, childContext);
         this.stack.pop();
@@ -733,6 +744,9 @@ class InternalVisitor implements Ast.IAstVisitor {
             container,
             counters: context.counters
         };
+        if (node.__$ws_hasReactRef) {
+            markReactRefProperty(node.__$ws_consequent);
+        }
         this.stack.push(AbstractNodeType.DIRECTIVE);
         visitAll(node.__$ws_consequent, this, childContext);
         this.stack.pop();

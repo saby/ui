@@ -27,6 +27,7 @@ export function createTemplateConfig(internal: string, isRootTag: boolean): stri
  * @param internal {string} Internal collection
  * @param isRootTag {string} Root tag flag
  * @param key {string} Node key
+ * @param useRef {boolean} Use ref property for react
  * @param mergeType {string} Context and attributes merge type
  */
 export function createConfigNew(
@@ -36,10 +37,12 @@ export function createConfigNew(
    internal: string,
    isRootTag: boolean,
    key: string,
-   mergeType: string
+   mergeType: string,
+   useRef: boolean
 ): string {
    return `{`
       + `attr: attr,`
+      + (useRef ? 'ref: ref,' : '')
       + `data: data,`
       + `ctx: this,`
       + `isVdom: isVdom,`

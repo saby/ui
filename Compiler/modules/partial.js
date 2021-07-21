@@ -159,7 +159,8 @@ define('Compiler/modules/partial', [
       var mergeType = getMergeType(tag, decor);
       var context = (tagIsModule || tagIsDynamicPartial) ? 'isVdom ? context + "part_" + (templateCount++) : context' : 'context';
       var config = FeaturePartial.createConfigNew(
-         compositeAttributes, scope, context, internal, tag.isRootTag, tag.key, mergeType
+         compositeAttributes, scope, context, internal, tag.isRootTag,
+         tag.key, mergeType, (tag.__$ws_hasReactRef && this.useReact)
       );
 
       var result = {
@@ -389,9 +390,13 @@ define('Compiler/modules/partial', [
                '}).apply(this),';
             var functionCallArguments = (
                this.useReact
-                  ? ['this', 'scopeForTemplate', 'ref']
+                  ? ['this', 'scopeForTemplate']
                   : ['this', 'scopeForTemplate', 'attrsForTemplate', 'context', 'isVdom']
             );
+            if (tag.__$ws_hasReactRef && this.useReact) {
+               // Пробросим ref для react, поскольку находимся в корне шаблона (файла)
+               functionCallArguments.push('ref');
+            }
             var functionCall = tmplFuncGenerator.createTemplateFunctionCall(tpl, functionCallArguments) + ',';
             var afterFunctionCall = '(function(){attrsForTemplate = null;scopeForTemplate = null;}).apply(),';
 
