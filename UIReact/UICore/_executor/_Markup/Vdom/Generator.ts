@@ -60,12 +60,12 @@ export class GeneratorVdom extends Generator implements IGenerator {
             chainOfRef.add(new CreateOriginRef(originRef));
         }
 
-        return {
-            ...resolvedOptionsExtended,
-            ...{ events },
+        const clonedOptions = resolvedOptionsExtended;
+        return Object.assign(clonedOptions, {
+            events,
             ref: chainOfRef.execute(),
             _$parentsChildrenPromises: config.viewController?._$childrenPromises
-        };
+        });
     }
 
     /*
