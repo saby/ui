@@ -500,7 +500,7 @@ function checkSameEnvironment(env: IDOMEnvironment,
                 }
             }
         }
-        return htmlEnv || startFromDiv;
+        return htmlEnv || element.controlNodes[0].environment === env;
     }
     return element.controlNodes[0].environment === env;
 }

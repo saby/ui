@@ -5,7 +5,7 @@ import type { JML } from 'Application/Page';
 import { getResourceUrl } from 'UI/Utils';
 import escapeHtml = require('Core/helpers/String/escapeHtml');
 import { IHeadOptions } from 'UI/_head/Interface';
-
+import { constants } from 'Env/Env';
 
 export function createTitle(title: string): void {
    AppHead.getInstance().createTag('title', {}, title);
@@ -66,7 +66,10 @@ export function createMetaScriptsAndLinks(cfg: IHeadOptions): void {
          // на старых страницах прилетают js-скрипты в поле jsLinks - их добавляем на страницу через API JSLinks
          // @ts-ignore
          if (item.tag === 'script' && item.attrs.src) {
-            JsLinksAPI.createTag(item.tag, item.attrs);
+            if (constants.isServerSide) {
+               JsLinksAPI.createTag(item.tag, item.attrs);
+            }
+
             return;
          }
 
