@@ -157,8 +157,9 @@ define('Compiler/modules/partial', [
 
       var mergeType = getMergeType(tag, decor);
       var context = (tagIsModule || tagIsDynamicPartial) ? 'isVdom ? context + "part_" + (templateCount++) : context' : 'context';
+      var dynamicOptionNames = FeaturePartial.getDynamicOptionNames(tag);
       var config = FeaturePartial.createConfigNew(
-         compositeAttributes, scope, context, internal, tag.isRootTag, tag.key, mergeType
+         compositeAttributes, scope, context, internal, tag.isRootTag, tag.key, mergeType, dynamicOptionNames
       );
 
       var result = {
