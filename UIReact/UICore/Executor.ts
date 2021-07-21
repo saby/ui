@@ -20,7 +20,6 @@ export {
 export * as MarkupUtils from './_executor/_Markup/Utils';
 export {
     IGeneratorAttrs,
-    TemplateOrigin,
     IControlConfig,
     TemplateResult,
     AttrToDecorate
