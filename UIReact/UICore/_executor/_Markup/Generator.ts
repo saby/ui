@@ -298,6 +298,36 @@ function resolveControlName(controlData: IControlOptions, attributes: Attr.IAttr
     return attr;
 }
 
+const basicPrototype: object = Object.getPrototypeOf({});
+// получаем все ключи на объекте и его прототипах
+function getKeysWithPrototypes(obj: Object): string[] {
+    const keys: string[] = [];
+    let currentPrototype: object = obj;
+
+    while(currentPrototype && currentPrototype !== basicPrototype) {
+        const currentPrototypeKeys = Object.keys(currentPrototype);
+        currentPrototype = Object.getPrototypeOf(currentPrototype);
+
+        for (let i = 0; i < currentPrototypeKeys.length; i++) {
+            keys.push(currentPrototypeKeys[i]);
+        }
+    }
+
+    return keys;
+}
+// выпрямляем объект, перекладывая все свойства на прототипе наверх.
+// если так не сделать, реакт потеряет все свойства, которые были на прототипе
+// свойства изначально на прототипе, чтобы работали скоупы, там на основе одного скоупа может создаться новый через
+// object.create, чтобы функционировали контентные опции
+function flattenObject(obj: Object): Object {
+    const keys = getKeysWithPrototypes(obj);
+    const result = {};
+    keys.forEach((key) => {
+        const value = obj[key];
+        result[key] = value;
+    });
+    return result;
+}
 /**
  * Получает конструктор контрола по его названию и создаёт его с переданными опциями.
  * @param origin Либо сам шаблон/конструктор контрола, либо строка, по которой его можно получить.
@@ -322,7 +352,8 @@ function createWsControl(
         scope.key = decorAttribs.attributes.key;
         delete decorAttribs.attributes.key;
     }
-    return React.createElement(origin, scope);
+    const flatScope = flattenObject(scope);
+    return React.createElement(origin, flatScope);
 }
 /**
  * Получает шаблон по его названию и строит его.
