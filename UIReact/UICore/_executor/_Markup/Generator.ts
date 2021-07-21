@@ -126,6 +126,10 @@ export class Generator implements IGenerator {
         if (Common.isOptionalString<TemplateOrigin>(origin)) {
             return null;
         }
+        // здесь обрабатывается просто строка, которую передали в partial - она должна вставиться как строка
+        if (typeof origin === 'string') {
+            return '' + origin;
+        }
         // игнорируем выводимое значение null для совместимости с реализацией wasaby
         if (origin === null) {
             return null;
