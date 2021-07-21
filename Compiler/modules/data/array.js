@@ -71,7 +71,7 @@ define('Compiler/modules/data/array', [
 
       if (this.useReact) {
          functionToWrap = tmplFuncGenerator.createTemplateFunctionCall(functionToWrap, [
-            'scope', 'props'
+            'scope', 'props', 'ref'
          ]);
       }
 
