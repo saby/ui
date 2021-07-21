@@ -485,6 +485,7 @@ export default class Control<TOptions extends IControlOptions = {},
                 this._$afterMountResolver = undefined;
                 this._$childrenPromises = [];
                 this._options = newOptions;
+                this._optionsVersions = Options.collectObjectVersions(this._options);
                 makeWasabyObservable<TOptions, TState>(this);
                 this._componentDidMount(newOptions);
                 setTimeout(() => {
@@ -493,6 +494,7 @@ export default class Control<TOptions extends IControlOptions = {},
             });
         } else {
             this._options = newOptions;
+            this._optionsVersions = Options.collectObjectVersions(this._options);
             makeWasabyObservable<TOptions, TState>(this);
             this._componentDidMount(newOptions);
             setTimeout(() => {
@@ -526,16 +528,44 @@ export default class Control<TOptions extends IControlOptions = {},
                 logError(e);
             }
         }
-        const changedOptions = !!Options.getChangedOptions(
-            newProps,
-            this._options,
-            false,
-            this._optionsVersions
-        );
         const reactiveStartUpdate = newState.observableVersion !== this.state.observableVersion;
         // Если обновление запустила реактивность, нам надо перерисовать компонент
         const componentLoaded = newState.loading !== this.state.loading;
-        return (changedOptions && this._shouldUpdate(newOptions)) || reactiveStartUpdate || componentLoaded;
+
+        if (reactiveStartUpdate) {
+            return true;
+        }
+        if (componentLoaded) {
+            return true;
+        }
+
+        const oldAttrs = this._options._$attributes?.attributes || {};
+        const newAttrs = newProps._$attributes?.attributes || {};
+        const changedAttrs = Options.getChangedOptions(newAttrs, oldAttrs, false, {}, true);
+
+        const oldOpts = {...this._options};
+        const newOpts = {...newProps};
+        delete oldOpts._$attributes;
+        delete oldOpts._$createdFromCode;
+        delete oldOpts._$parentsChildrenPromises;
+        delete oldOpts.events;
+        delete newOpts._$attributes;
+        delete newOpts._$createdFromCode;
+        delete newOpts._$parentsChildrenPromises;
+        delete newOpts.events;
+
+        const changedOptions = !!Options.getChangedOptions(
+            newOpts,
+            oldOpts,
+            false,
+            this._optionsVersions
+        );
+        if (changedAttrs || changedOptions) {
+            if (this._shouldUpdate(newOptions)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     componentDidUpdate(): void {
