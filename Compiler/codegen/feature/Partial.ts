@@ -26,7 +26,7 @@ export function createTemplateConfig(internal: string, isRootTag: boolean): stri
  * @param component {BaseWasabyElement} Component node.
  * @returns {string[]} Array of dynamic component option names.
  */
-export function getDynamicOptionNames(component: Ast.BaseWasabyElement): string[] {
+export function getBlockOptionNames(component: Ast.BaseWasabyElement): string[] {
    const names = [];
    for (const name in component.__$ws_options) {
       const option = component.__$ws_options[name];
@@ -48,7 +48,7 @@ export function getDynamicOptionNames(component: Ast.BaseWasabyElement): string[
  * @param isRootTag {string} Root tag flag
  * @param key {string} Node key
  * @param mergeType {string} Context and attributes merge type
- * @param dynamicOptionNames {string[]} Array of dynamic component option names.
+ * @param blockOptionNames {string[]} Array of dynamic component option names.
  */
 export function createConfigNew(
    compositeAttributes: string,
@@ -58,7 +58,7 @@ export function createConfigNew(
    isRootTag: boolean,
    key: string,
    mergeType: string,
-   dynamicOptionNames: string[]
+   blockOptionNames: string[]
 ): string {
    return `{`
       + `attr: attr,`
@@ -77,6 +77,6 @@ export function createConfigNew(
       + `isRootTag: ${isRootTag},`
       + (internal ? `internal: isVdom ? ${internal} : {},` : '')
       + `mergeType: "${mergeType}",`
-      + `dynamicOptionNames: ${JSON.stringify(dynamicOptionNames)}`
+      + `blockOptionNames: ${JSON.stringify(blockOptionNames)}`
       + `}`;
 }
