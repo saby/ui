@@ -14,7 +14,8 @@ define('Compiler/codegen/function', [
    'Compiler/codegen/templates',
    'Compiler/codegen/Generator',
    'Compiler/codegen/TClosure',
-   'Compiler/Config'
+   'Compiler/Config',
+   'Compiler/codegen/feature/Function'
 ], function processingModule(
    Helpers,
    Process,
@@ -31,7 +32,8 @@ define('Compiler/codegen/function', [
    templates,
    Generator,
    TClosure,
-   builderConfig
+   builderConfig,
+   codegenFeatureFunction
 ) {
    'use strict';
 
@@ -248,8 +250,8 @@ define('Compiler/codegen/function', [
          return res;
       },
       getFunction: function getFunction(ast, data, handlers, attributes, internal) {
-         // eslint-disable-next-line no-empty-function
-         var func = function() { };
+         var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(handlers.useReact);
+         var func = tmplFuncGenerator.createTemplateFunction('/* no template function */');
          var str = 'no function';
          try {
             // После аннотации мы знаем имена детей, которые будут находится в _children,
@@ -258,8 +260,7 @@ define('Compiler/codegen/function', [
             this.childrenStorage = ast.childrenStorage;
 
             str = this.getString(ast, data, handlers, attributes, internal);
-            // eslint-disable-next-line no-new-func
-            func = new Function('data, attr, context, isVdom, sets, forceCompatible, generatorConfig', str);
+            func = tmplFuncGenerator.createTemplateFunction(str);
             func.includedFunctions = this.includedFunctions;
             func.privateFn = this.privateFn;
             func.includedFn = this.includedFn;
@@ -578,6 +579,10 @@ define('Compiler/codegen/function', [
          }
          var attribs = typeof decor === 'function' ? decor(tag.attribs) : tag.attribs;
          var processed = this._processAttributesObj(attribs, data, tag);
+         if (tag.__$ws_hasReactRef && this.useReact) {
+            // Пробросим ref для react, поскольку находимся в корне шаблона (файла)
+            processed.ref = FSC.wrapAroundExec('ref');
+         }
          Object.keys(processed.attributes).forEach(function(attributeName) {
             processed.attributes[attributeName] = processed.attributes[attributeName]
                .replace(/^' \+ (.*?) \+ '$/g, function(str, p) {

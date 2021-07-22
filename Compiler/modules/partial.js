@@ -8,10 +8,11 @@ define('Compiler/modules/partial', [
    'Compiler/codegen/templates',
    'Compiler/codegen/TClosure',
    'Compiler/codegen/feature/Partial',
-   'Compiler/codegen/Internal'
+   'Compiler/codegen/Internal',
+   'Compiler/codegen/feature/Function'
 ], function partialLoader(
    injectedDataForce, names, Process, parse, FSC,
-   Generator, templates, TClosure, FeaturePartial, Internal
+   Generator, templates, TClosure, FeaturePartial, Internal, codegenFeatureFunction
 ) {
    'use strict';
 
@@ -158,7 +159,8 @@ define('Compiler/modules/partial', [
       var mergeType = getMergeType(tag, decor);
       var context = (tagIsModule || tagIsDynamicPartial) ? 'isVdom ? context + "part_" + (templateCount++) : context' : 'context';
       var config = FeaturePartial.createConfigNew(
-         compositeAttributes, scope, context, internal, tag.isRootTag, tag.key, mergeType
+         compositeAttributes, scope, context, internal, tag.isRootTag,
+         tag.key, mergeType, (tag.__$ws_hasReactRef && this.useReact)
       );
 
       var result = {
@@ -263,8 +265,11 @@ define('Compiler/modules/partial', [
       }
 
       // TMPL compiler
+      var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(this.useReact);
       var inlineTemplateBody = this.getString(tag.children, {}, this.handlers, {}, true);
-      var inlineTemplateFunction = templates.generatePartialTemplate(inlineTemplateBody);
+      var inlineTemplateFunction = '(' + tmplFuncGenerator.createTemplateFunctionString(
+         templates.generatePartialTemplate() + inlineTemplateBody, 'f2'
+      ) + ')';
       return Generator.genCreateControlNew(
          'inline',
          templateValue,
@@ -300,12 +305,12 @@ define('Compiler/modules/partial', [
             var decorInternal = (tag.internal && Object.keys(tag.internal).length > 0)
                ? FSC.getStr(tag.internal)
                : null;
-            
+
             if (Internal.canUseNewInternalFunctions() && this.internalFunctions) {
                // TODO: Test and remove code above
                decorInternal = Internal.generate(tag.__$ws_internalTree, this.internalFunctions);
             }
-            
+
             var createTmplCfg = FeaturePartial.createTemplateConfig(!decorInternal ? '{}' : decorInternal, tag.isRootTag);
 
             if (tagIsDynamicPartial) {
@@ -369,18 +374,33 @@ define('Compiler/modules/partial', [
             );
 
             var tpl;
+            var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(this.useReact);
             if (this.includedFn) {
                tpl = tag.attribs._wstemplatename.data.value;
             } else {
                var body = this.getString(tag.children, {}, this.handlers, {}, true);
-               tpl = templates.generatePartialTemplate(body);
+               tpl = '(' + tmplFuncGenerator.createTemplateFunctionString(
+                  templates.generatePartialTemplate() + body, 'f2'
+               ) + ')';
             }
 
-            return '(function(){' +
-               'attrsForTemplate = ' + createAttribs + '; scopeForTemplate = ' + callDataArg + ';' +
-               '}).apply(this),' + tpl +
-               '.call(this, scopeForTemplate, attrsForTemplate, context, isVdom),' +
-               '(function(){attrsForTemplate = null;scopeForTemplate = null;}).apply(),';
+            var beforeFunctionCall = '(function(){' +
+               'attrsForTemplate = ' + createAttribs + '; scopeForTemplate = ' + callDataArg + '; ' +
+               'scopeForTemplate.__$$attributes = attrsForTemplate;' +
+               '}).apply(this),';
+            var functionCallArguments = (
+               this.useReact
+                  ? ['this', 'scopeForTemplate']
+                  : ['this', 'scopeForTemplate', 'attrsForTemplate', 'context', 'isVdom']
+            );
+            if (tag.__$ws_hasReactRef && this.useReact) {
+               // Пробросим ref для react, поскольку находимся в корне шаблона (файла)
+               functionCallArguments.push('ref');
+            }
+            var functionCall = tmplFuncGenerator.createTemplateFunctionCall(tpl, functionCallArguments) + ',';
+            var afterFunctionCall = '(function(){attrsForTemplate = null;scopeForTemplate = null;}).apply(),';
+
+            return beforeFunctionCall + functionCall + afterFunctionCall;
          }
          return resolveStatement;
       }

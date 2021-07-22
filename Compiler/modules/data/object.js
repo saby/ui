@@ -7,8 +7,20 @@ define('Compiler/modules/data/object', [
    'Compiler/modules/utils/parse',
    'Compiler/codegen/templates',
    'Compiler/codegen/TClosure',
-   'Compiler/codegen/Internal'
-], function objectLoader(ErrorHandlerLib, tagUtils, DTC, common, FSC, parseUtils, templates, TClosure, Internal) {
+   'Compiler/codegen/Internal',
+   'Compiler/codegen/feature/Function'
+], function objectLoader(
+   ErrorHandlerLib,
+   tagUtils,
+   DTC,
+   common,
+   FSC,
+   parseUtils,
+   templates,
+   TClosure,
+   Internal,
+   codegenFeatureFunction
+) {
    'use strict';
 
    /**
@@ -279,9 +291,8 @@ define('Compiler/modules/data/object', [
          // Сделано для того чтобы попадала родительская область видимости при применении инлайн-шаблона
          var generatedTemplate = this.getString(html, {}, this.handlers, {}, true);
          var funcText = templates.generateTemplate(htmlPropertyName, generatedTemplate, this.handlers.fileName, false);
-
-         // eslint-disable-next-line no-new-func
-         var func = new Function('data, attr, context, isVdom, sets, forceCompatible, generatorConfig', funcText);
+         var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(this.useReact);
+         var func = tmplFuncGenerator.createTemplateFunction(funcText);
          var funcName = this.setFunctionName(func, undefined, undefined, htmlPropertyName);
          this.includedFunctions[htmlPropertyName] = func;
          if (this.privateFn) {
@@ -312,6 +323,13 @@ define('Compiler/modules/data/object', [
             }
          }
          if (this.includedFn) {
+
+            if (this.useReact) {
+               fAsString = tmplFuncGenerator.createTemplateFunctionCall(fAsString, [
+                  'scope', 'props', 'ref'
+               ]);
+            }
+
             templateObject.html = FSC.wrapAroundObject(
                templates.generateIncludedTemplate(
                   fAsString,
@@ -324,7 +342,7 @@ define('Compiler/modules/data/object', [
          } else {
             templateObject.html = FSC.wrapAroundObject(
                templates.generateObjectTemplate(
-                  fAsString, 'this.func.internal = ' + dirtyCh, undefined, this.isWasabyTemplate, this.useReact
+                  fAsString, 'func.internal = ' + dirtyCh, undefined, this.isWasabyTemplate, this.useReact
                )
             );
          }

@@ -432,6 +432,11 @@ export interface IInternal {
 export abstract class Ast {
 
    /**
+    * Has ref property in decl.
+    */
+   __$ws_hasReactRef: boolean;
+
+   /**
     * Abstract syntax node key in the abstract syntax tree.
     */
    __$ws_key: number;
@@ -475,11 +480,11 @@ export abstract class Ast {
     * @param flags {Flags} Node flags.
     */
    protected constructor(flags: Flags = Flags.VALIDATED) {
+      this.__$ws_hasReactRef = false;
       this.__$ws_key =  0;
       this.__$ws_flags = flags;
       this.__$ws_isRootNode = false;
       this.__$ws_internal = null;
-      this.__$ws_lexicalContext = null;
       this.__$ws_internalTree = null;
       this.__$ws_container = null;
       this.__$ws_uniqueIndex = null;
