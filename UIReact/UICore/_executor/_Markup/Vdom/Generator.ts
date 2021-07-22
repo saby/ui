@@ -52,10 +52,7 @@ export class GeneratorVdom extends Generator implements IGenerator {
     ): IControlOptions & { ref: IResponsibilityHandler } {
         const chainOfRef = new ChainOfRef();
         const createChildrenRef = new CreateChildrenRef(config.viewController, name);
-        // TODO: удалить tagName по задаче https://online.sbis.ru/opendoc.html?guid=41170c27-2019-4090-8646-801e2e82d23a
-        const createEventRef = new CreateEventRef('', { events });
         chainOfRef.add(createChildrenRef);
-        chainOfRef.add(createEventRef);
         if (originRef) {
             chainOfRef.add(new CreateOriginRef(originRef));
         }
@@ -146,22 +143,8 @@ export class GeneratorVdom extends Generator implements IGenerator {
         /* если события объявляется на контроле, и корневом элементе шаблона, то мы должны смержить события,
          * без этого события объявленные на контроле будут потеряны
          */
-        const extractedEvents = { ...attrToDecorate.events, ...attrs.events };
-        if (Object.keys(extractedEvents).length) {
-            let eventsMeta;
-            if (attrToDecorate.events && attrToDecorate.events.meta && Object.keys(attrToDecorate.events.meta).length) {
-                eventsMeta = {...attrToDecorate.events.meta};
-            }
-            if (attrs.events && attrs.events.meta && Object.keys(attrs.events.meta).length) {
-                eventsMeta = {...attrs.events.meta};
-            }
-            Object.defineProperty(extractedEvents, 'meta', {
-                configurable: true,
-                value: eventsMeta
-            });
-        }
         const eventsObject = {
-            events: extractedEvents
+            events: Attr.mergeEvents(attrToDecorate.events, attrs.events) || {}
         };
         /**
          * Объединяет атрибуты, указанные на элементе, с атрибутами, которые пришли сверху

@@ -90,6 +90,9 @@ export default class Control<TOptions extends IControlOptions = {},
     _moduleName: string;
     reactiveValues: Record<string, unknown>;
     private readonly _instId: string = 'inst_' + countInst++;
+    // на этот флаг заточена часть поведения платформенных и прикладных контролов
+    // TODO: удалить по задаче https://online.sbis.ru/opendoc.html?guid=fac81b21-02fa-40ea-8be3-071a7eeb74c6
+    _destroyed: boolean;
 
     protected _notify(eventName: string, args?: unknown[], options?: { bubbling?: boolean }): unknown {
         return callNotify(this, eventName, args, options);
@@ -558,7 +561,10 @@ export default class Control<TOptions extends IControlOptions = {},
             return;
         }
         releaseProperties<TOptions, TState>(this);
-        this._$controlMounted = false;
+
+        // на этот флаг заточена часть поведения платформенных и прикладных контролов
+        // TODO: удалить по задаче https://online.sbis.ru/opendoc.html?guid=fac81b21-02fa-40ea-8be3-071a7eeb74c6
+        this._destroyed = true;
     }
 
 
