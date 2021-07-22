@@ -34,6 +34,7 @@ import { constants } from 'Env/Env';
 import { ErrorViewer } from './ErrorViewer';
 import { CreateControlRef } from './Refs/CreateControlRef';
 import { CreateHocRef } from './Refs/CreateHocRef';
+import {skipChangedOptions} from 'UICommon/_base/Control';
 
 export type IControlConstructor<P = IControlOptions> = React.ComponentType<P>;
 
@@ -55,6 +56,12 @@ export default class Control<TOptions extends IControlOptions = {},
      * Используется для того, чтобы не перерисовывать компонент, пока не закончится асинхронный beforeMount.
      */
     private _$asyncInProgress: boolean = false;
+    /**
+     * Блочные опции, заданные в шаблонизаторе для контрола. Нужны, чтобы не сравнивать из при принятии решения
+     * о перерисовке, так как эти опции создаются в шаблоне каждый раз заново и по сути всегда одинаковые, они не должны
+     * влиять на перерисовку. А internal внутри них должны влиять, это сравнивается отдельно
+     */
+    private _$blockOptionNames: string[] = [];
     /**
      * Набор детей контрола, для которых задан атрибут name.
      */
@@ -548,20 +555,20 @@ export default class Control<TOptions extends IControlOptions = {},
 
         const oldOpts = {...this._options};
         const newOpts = {...newProps};
-        delete oldOpts._$attributes;
-        delete oldOpts._$createdFromCode;
-        delete oldOpts._$parentsChildrenPromises;
-        delete oldOpts.events;
-        delete newOpts._$attributes;
-        delete newOpts._$createdFromCode;
-        delete newOpts._$parentsChildrenPromises;
-        delete newOpts.events;
+        skipChangedOptions.forEach((opt) => {
+           delete oldOpts[opt];
+           delete newOpts[opt];
+        });
 
         const changedOptions = !!Options.getChangedOptions(
             newOpts,
             oldOpts,
             false,
-            this._optionsVersions
+            this._optionsVersions,
+            undefined,
+            undefined,
+            undefined,
+            newProps._$blockOptionNames
         );
         if (changedAttrs || changedOptions) {
             if (this._shouldUpdate(newOptions)) {
