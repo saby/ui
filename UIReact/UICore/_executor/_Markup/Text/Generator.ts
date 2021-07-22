@@ -9,11 +9,11 @@ import {
    TAttributes,
    IGenerator
 } from 'UICommon/Executor';
+import { Attr } from 'UICommon/Executor';
 import { IWasabyEvent } from 'UICommon/_events/IEvents';
 import { Generator } from '../Generator';
 import React from "react";
 import {TemplateOrigin} from '../interfaces';
-import { createTagDefault, joinElements } from '../Utils';
 
 /**
  * @author Тэн В.А.
@@ -57,11 +57,51 @@ export class GeneratorText extends Generator implements IGenerator {
    }
 
    joinElements(elements: string[]): string {
-      return joinElements(elements);
+      if (Array.isArray(elements)) {
+         let res = '';
+         const self = this;
+         elements.forEach(function joinOneElement(element) {
+            if (Array.isArray(element)) {
+               element = self.joinElements(element);
+            }
+            res += (element || '');
+         });
+
+         return res;
+      } else {
+         throw new Error('joinElements: elements is not array');
+      }
    }
 
    createTag(tag, attrs, children, attrToDecorate?, defCollection?): string {
-     return createTagDefault(tag, attrs, children, attrToDecorate, defCollection);
+      if (!attrToDecorate) {
+         attrToDecorate = {};
+      }
+      if (!attrs) {
+         attrs = {attributes: {}};
+      }
+
+      let mergedAttrs = Attr.processMergeAttributes(
+          attrToDecorate.attributes as IAttributes,
+          attrs.attributes as IAttributes
+      );
+
+      Object.keys(mergedAttrs).forEach((attrName) => {
+         if (attrName.indexOf('top:') === 0) {
+            const newAttrName = attrName.replace('top:', '');
+            mergedAttrs[newAttrName] = mergedAttrs[newAttrName] || mergedAttrs[attrName];
+            delete mergedAttrs[attrName];
+         }
+      });
+
+      const mergedAttrsStr = mergedAttrs
+          ? decorateAttrs(mergedAttrs, {})
+          : '';
+      // tslint:disable-next-line:no-bitwise
+      if (~voidElements.indexOf(tag)) {
+         return '<' + tag + mergedAttrsStr + ' />';
+      }
+      return '<' + tag + mergedAttrsStr + '>' + this.joinElements(children) + '</' + tag + '>';
    }
 
    createDirective(text: string): string {
@@ -73,4 +113,23 @@ export class GeneratorText extends Generator implements IGenerator {
    }
 }
 
+function decorateAttrs(attr1: TAttributes, attr2: TAttributes): string {
+   function wrapUndef(value: string): string {
+      if (value === undefined || value === null) {
+         return '';
+      } else {
+         return value;
+      }
+   }
 
+   const attrToStr = (attrs: Array<string>): string => {
+      let str = '';
+      for (const attr in attrs) {
+         if (attrs.hasOwnProperty(attr)) {
+            str += (wrapUndef(attrs[attr]) !== '' ? ' ' + (attr + '="' + attrs[attr] + '"') : '');
+         }
+      }
+      return str;
+   };
+   return attrToStr(Attr.joinAttrs(attr1, attr2));
+}
