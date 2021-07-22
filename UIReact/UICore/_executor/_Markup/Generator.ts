@@ -12,14 +12,17 @@ import {
     IGeneratorNameObject, ITplFunction
 } from 'UICommon/Executor';
 import { IWasabyEvent } from 'UICommon/Events';
+import { resolveControlName } from './Utils';
 
 import { TemplateFunction, IControlOptions } from 'UICommon/Base';
 import type { TIState } from 'UICommon/interfaces';
 import type { IGeneratorAttrs, TemplateOrigin, IControlConfig, TemplateResult, AttrToDecorate } from './interfaces';
 import { Control } from 'UICore/Base';
-import { WasabyEvents } from 'UICore/Events';
 
 export class Generator implements IGenerator {
+    constructor(config = {}) {
+        // для совместимого генератора
+    }
     /**
      * В старых генераторах в этой функции была общая логика, как я понимаю.
      * Сейчас общей логики нет, поэтому функция по сути не нужна.
@@ -48,8 +51,8 @@ export class Generator implements IGenerator {
             Helper.processMergeAttributes(config.attr.attributes, decorAttribs);
 
         let fullEvents = {...events};
-        if (config && config.attr && config.attr.events){
-            fullEvents = WasabyEvents.mergeEvents(events, config.attr.events);
+        if (config && config.mergeType === 'attribute' && config.attr && config.attr.events){
+            fullEvents = Attr.mergeEvents(config.attr.events, events);
         }
 
         const templateAttributes: IGeneratorAttrs = {
@@ -125,6 +128,10 @@ export class Generator implements IGenerator {
         // Здесь может быть незарезолвленный контрол optional!. Поэтому результат должен быть пустым
         if (Common.isOptionalString<TemplateOrigin>(origin)) {
             return null;
+        }
+        // здесь обрабатывается просто строка, которую передали в partial - она должна вставиться как строка
+        if (typeof origin === 'string') {
+            return '' + origin;
         }
         // игнорируем выводимое значение null для совместимости с реализацией wasaby
         if (origin === null) {
@@ -212,7 +219,7 @@ function getLibraryTpl(tpl: IGeneratorNameObject,
     }
     return controlClass;
 }
-function resolveTpl(tpl: TemplateOrigin,
+export function resolveTpl(tpl: TemplateOrigin,
                     includedTemplates: Common.IncludedTemplates,
                     deps: Common.Deps<typeof Control>
 ): Common.IDefaultExport<typeof Control> | typeof Control | TemplateFunction | Common.IDefaultExport<typeof Control> |
@@ -233,7 +240,7 @@ function resolveTpl(tpl: TemplateOrigin,
     return tpl;
 }
 
-function resolveTemplateArray(
+export function resolveTemplateArray(
     parent: Control<IControlOptions>,
     templateArray: Common.ITemplateArray<TemplateFunction | ITplFunction<TemplateFunction>>,
     resolvedScope: IControlOptions,
@@ -275,7 +282,7 @@ function resolveTemplate(template: TemplateFunction | ITplFunction<TemplateFunct
     return resolvedTemplate;
 }
 
-function resolveTemplateFunction(parent: Control<IControlOptions>,
+export function resolveTemplateFunction(parent: Control<IControlOptions>,
                                  template: TemplateFunction | Function,
                                  resolvedScope: IControlOptions,
                                  decorAttribs: IGeneratorAttrs): TemplateResult {
@@ -285,19 +292,37 @@ function resolveTemplateFunction(parent: Control<IControlOptions>,
     }
     return template.call(parent, resolvedScope, decorAttribs, undefined, true, undefined, undefined) as TemplateResult;
 }
-function resolveControlName(controlData: IControlOptions, attributes: Attr.IAttributes):
-    Attr.IAttributes {
-    const attr = attributes || {};
-    if (controlData && typeof controlData.name === 'string') {
-        attr.name = controlData.name;
-    } else {
-        if (attributes && typeof attributes.name === 'string') {
-            controlData.name = attributes.name;
+
+const basicPrototype: object = Object.getPrototypeOf({});
+// получаем все ключи на объекте и его прототипах
+function getKeysWithPrototypes(obj: Object): string[] {
+    const keys: string[] = [];
+    let currentPrototype: object = obj;
+
+    while(currentPrototype && currentPrototype !== basicPrototype) {
+        const currentPrototypeKeys = Object.keys(currentPrototype);
+        currentPrototype = Object.getPrototypeOf(currentPrototype);
+
+        for (let i = 0; i < currentPrototypeKeys.length; i++) {
+            keys.push(currentPrototypeKeys[i]);
         }
     }
-    return attr;
-}
 
+    return keys;
+}
+// выпрямляем объект, перекладывая все свойства на прототипе наверх.
+// если так не сделать, реакт потеряет все свойства, которые были на прототипе
+// свойства изначально на прототипе, чтобы работали скоупы, там на основе одного скоупа может создаться новый через
+// object.create, чтобы функционировали контентные опции
+function flattenObject(obj: Object): Object {
+    const keys = getKeysWithPrototypes(obj);
+    const result = {};
+    keys.forEach((key) => {
+        const value = obj[key];
+        result[key] = value;
+    });
+    return result;
+}
 /**
  * Получает конструктор контрола по его названию и создаёт его с переданными опциями.
  * @param origin Либо сам шаблон/конструктор контрола, либо строка, по которой его можно получить.
@@ -322,7 +347,8 @@ function createWsControl(
         scope.key = decorAttribs.attributes.key;
         delete decorAttribs.attributes.key;
     }
-    return React.createElement(origin, scope);
+    const flatScope = flattenObject(scope);
+    return React.createElement(origin, flatScope);
 }
 /**
  * Получает шаблон по его названию и строит его.
@@ -364,7 +390,7 @@ function createTemplate(
     // );
 }
 
-function logResolverError(tpl: TemplateOrigin, parent: Control<IControlOptions>): void {
+export function logResolverError(tpl: TemplateOrigin, parent: Control<IControlOptions>): void {
     if (typeof tpl !== 'string') {
         let errorText = 'Ошибка в шаблоне! ';
         if (Common.isLibraryModule(tpl)) {
