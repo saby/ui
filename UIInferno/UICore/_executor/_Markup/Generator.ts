@@ -265,7 +265,7 @@ export class Generator {
    private createController: Function;
    private resolver: Function;
 
-   readonly generatorConfig: IGeneratorConfig;
+   private readonly generatorConfig: IGeneratorConfig;
 
    constructor(config: IGeneratorConfig) {
       if (config) {
@@ -412,6 +412,104 @@ export class Generator {
          Logger.asyncRenderErrorLog(err);
       });
    };
+
+   prepareWsControl(name: GeneratorTemplateOrigin,
+                    data: IControlData,
+                    attrs: IGeneratorAttrs,
+                    templateCfg: ICreateControlTemplateCfg,
+                    context: string,
+                    deps: TDeps): GeneratorObject | Promise<unknown> | Error {
+      let preparedData = dataResolver(data, templateCfg, attrs, name);
+      attrs = preparedData[2];
+      const userData = preparedData[1];
+      name = nameResolver.call(this, name);
+      let res;
+      const type = 'wsControl';
+      if (Common.isCompat()) {
+         res = timing.methodExecutionTime(this.createWsControl, this, [name, userData, attrs, context, deps]);
+         return checkResult.call(this, res, type, name);
+      }
+      res = this.createWsControl(name, userData, attrs, context, deps);
+      return checkResult.call(this, res, type, name);
+   }
+
+   prepareTemplate(name: GeneratorTemplateOrigin,
+                   data: IControlData,
+                   attrs: IGeneratorAttrs,
+                   templateCfg: ICreateControlTemplateCfg,
+                   context: string,
+                   deps: TDeps,
+                   config: IGeneratorConfig): GeneratorObject | Promise<unknown> | Error {
+      let preparedData = dataResolver(data, templateCfg, attrs, name);
+      attrs = preparedData[2];
+      const userData = preparedData[1];
+      name = nameResolver.call(this, name);
+      let res;
+      const type = 'template';
+      if (Common.isCompat()) {
+         res = timing.methodExecutionTime(this.createTemplate, this, [name, userData, attrs, context, deps, config]);
+         return checkResult.call(this, res, type, name);
+      }
+      res = this.createTemplate(name, userData, attrs, context, deps, config);
+      return checkResult.call(this, res, type, name);
+   }
+
+   prepareController(name: GeneratorTemplateOrigin,
+                     data: IControlData,
+                     attrs: IGeneratorAttrs,
+                     templateCfg: ICreateControlTemplateCfg,
+                     context: string,
+                     deps: TDeps): GeneratorObject | Promise<unknown> | Error {
+      let preparedData = dataResolver(data, templateCfg, attrs, name);
+      attrs = preparedData[2];
+      const userData = preparedData[1];
+      name = nameResolver(name);
+      let res;
+      const type = 'controller';
+      if (Common.isCompat()) {
+         res = timing.methodExecutionTime(this.createController, this, [name, userData, attrs, context, deps]);
+         return checkResult.call(this, res, type, name);
+      }
+      res = this.createController(name, userData, attrs, context, deps);
+      return checkResult.call(this, res, type, name);
+   }
+
+   prepareResolver(name: GeneratorTemplateOrigin,
+                   data: IControlData,
+                   attrs: IGeneratorAttrs,
+                   templateCfg: ICreateControlTemplateCfg,
+                   context: string,
+                   deps: TDeps,
+                   includedTemplates: TIncludedTemplate,
+                   config: IGeneratorConfig,
+                   contextObj?: GeneratorEmptyObject,
+                   defCollection?: IGeneratorDefCollection | void): GeneratorObject | Promise<unknown> | Error {
+      let preparedData = dataResolver(data, templateCfg, attrs, name);
+      attrs = preparedData[2];
+      const userData = preparedData[1];
+      name = nameResolver(name);
+      let res;
+      const type = 'resolver';
+      let handl, i;
+      if (attrs.events && Object.keys(attrs.events).length) {
+         for (i in attrs.events) {
+            if (attrs.events.hasOwnProperty(i)) {
+               for (handl = 0; handl < attrs.events[i].length; handl++) {
+                  if (!attrs.events[i][handl].isControl) {
+                     attrs.events[i][handl].toPartial = true;
+                  }
+               }
+            }
+         }
+      }
+      if (Common.isCompat()) {
+         res = timing.methodExecutionTime(this.resolver, this, [name, userData, attrs, context, deps, includedTemplates, config, defCollection]);
+         return checkResult.call(this, res, type, name);
+      }
+      res = this.resolver(name, userData, attrs, context, deps, includedTemplates, config, defCollection);
+      return checkResult.call(this, res, type, name);
+
+   }
 
    createControl(type: string,
                  name: GeneratorTemplateOrigin,
