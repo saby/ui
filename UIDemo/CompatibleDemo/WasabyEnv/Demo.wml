@@ -106,4 +106,41 @@
         </div>
     </div>
     <hr/>
+    <div class="compatibleDemo__column">
+        <div class="compatibleDemo__row">
+            <b>Создание wasaby-контрола в cлое совместимости через Base.Control.createControl().</b>
+        </div>
+        <div class="compatibleDemo__row">
+            <Controls.buttons:Button href="{{'/UIDemo/app/CompatibleDemo%252FCompat%252FWasaby%252FCreateControl%252FIndex'}}" fontSize="s" inlineHeight="l" caption="Wasaby-контрол в ws3 окружении"/>
+        </div>
+    </div>
+    <hr/>
+    <div class="compatibleDemo__column">
+        <div class="compatibleDemo__row">
+            <b>Создание wasaby-контрола в ws3 окружении через CoreCreator.</b>
+        </div>
+        <div class="compatibleDemo__row">
+            <Controls.buttons:Button href="{{'/UIDemo/app/CompatibleDemo%252FCompat%252FWasaby%252FCoreCreator%252FIndex'}}" fontSize="s" inlineHeight="l" caption="Wasaby-контрол в ws3 окружении"/>
+        </div>
+    </div>
+    <hr/>
+    <div class="compatibleDemo__column">
+        <div class="compatibleDemo__row">
+            <b>Создание wasaby-контрола в ws3 окружении через Base.Control.createControl(). С опцией value</b>
+        </div>
+        <div class="compatibleDemo__row">
+            Проблемы:
+        </div>
+        <div class="compatibleDemo__row">
+            <div class="compatibleDemo__column">
+                <div class="compatibleDemo__row">
+                    1) Контрол нельзя будет редактировать.
+                </div>
+            </div>
+        </div>
+        <div class="compatibleDemo__row">
+            <Controls.buttons:Button href="{{'/UIDemo/app/CompatibleDemo%252FCompat%252FWasaby%252FCreateControlWithValue%252FIndex'}}" fontSize="s" inlineHeight="l" caption="Wasaby-контрол в ws3 окружении с опцией value"/>
+        </div>
+    </div>
+    <hr/>
 </div>
