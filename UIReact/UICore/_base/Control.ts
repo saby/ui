@@ -34,7 +34,7 @@ import { constants } from 'Env/Env';
 import { ErrorViewer } from './ErrorViewer';
 import { CreateControlRef } from './Refs/CreateControlRef';
 import { CreateHocRef } from './Refs/CreateHocRef';
-import {skipChangedOptions} from 'UICommon/_base/Control';
+import {skipChangedOptions} from 'UICommon/Base';
 
 export type IControlConstructor<P = IControlOptions> = React.ComponentType<P>;
 
