@@ -7,9 +7,8 @@ import { assert } from 'chai';
 // tslint:disable-next-line:ban-ts-ignore
 // @ts-ignore
 import { JSDOM } from 'jsdom';
-import TestControl from './Container';
-import TestControl2 from './Container2';
-describe('Тесты работы ключей в шаблонизаторе', () => {
+import Container from './Container';
+describe('Тесты принятия решения о перерисовке', () => {
     let container;
     let sandbox;
 
@@ -68,43 +67,18 @@ describe('Тесты работы ключей в шаблонизаторе', (
         });
     }
 
-    it('Выставленные ключи для контролов внутри цикла позволяют избежать лишних перерисовок контролов', async () => {
+    it('Блочные опции в шаблоне должны игнорироваться', async () => {
         let inst;
         act(() => {
-            inst = render(<TestControl />, container);
+            inst = render(<Container />, container);
         });
         await tickAsync(0);
         await tickAsync(0);
-        inst.keys = [2,3,4,5];
-        await tickAsync(0);
-        await tickAsync(0);
-        inst.keys = [3,4,5];
-        await tickAsync(0);
-        await tickAsync(0);
-        inst.keys = [4,5];
+        inst.aaa = 234;
         await tickAsync(0);
         await tickAsync(0);
 
-        assert.equal(inst._children.item_5.updated, 0);
-    });
-
-    it('Выставленные ключи для контролов внутри цикла позволяют избежать лишних перерисовок контролов 2', async () => {
-        let inst;
-        act(() => {
-            inst = render(<TestControl2 />, container);
-        });
-        await tickAsync(0);
-        await tickAsync(0);
-        inst.keys = [2,3,4,5];
-        await tickAsync(0);
-        await tickAsync(0);
-        inst.keys = [3,4,5];
-        await tickAsync(0);
-        await tickAsync(0);
-        inst.keys = [4,5];
-        await tickAsync(0);
-        await tickAsync(0);
-
-        assert.equal(inst._children.item_5.updated, 0);
+        assert.equal(inst._children.control.updated, 1);
+        assert.equal(inst._children.control._children.innerControl.updated, 0);
     });
 });

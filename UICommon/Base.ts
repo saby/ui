@@ -4,6 +4,5 @@
  * @author Шипин А.А.
  */
 
- export { getProxyChildren } from './_base/ProxyChildren';
-
-export { IControlOptions, TemplateFunction } from './_base/Control';
+export { getProxyChildren } from './_base/ProxyChildren';
+export { IControlOptions, TemplateFunction, skipChangedOptions } from './_base/Control';

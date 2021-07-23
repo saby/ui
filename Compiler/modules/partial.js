@@ -157,8 +157,9 @@ define('Compiler/modules/partial', [
 
       var mergeType = getMergeType(tag, decor);
       var context = (tagIsModule || tagIsDynamicPartial) ? 'isVdom ? context + "part_" + (templateCount++) : context' : 'context';
+      var blockOptionNames = FeaturePartial.getBlockOptionNames(tag);
       var config = FeaturePartial.createConfigNew(
-         compositeAttributes, scope, context, internal, tag.isRootTag, tag.key, mergeType
+         compositeAttributes, scope, context, internal, tag.isRootTag, tag.key, mergeType, blockOptionNames
       );
 
       var result = {
@@ -300,12 +301,12 @@ define('Compiler/modules/partial', [
             var decorInternal = (tag.internal && Object.keys(tag.internal).length > 0)
                ? FSC.getStr(tag.internal)
                : null;
-            
+
             if (Internal.canUseNewInternalFunctions() && this.internalFunctions) {
                // TODO: Test and remove code above
                decorInternal = Internal.generate(tag.__$ws_internalTree, this.internalFunctions);
             }
-            
+
             var createTmplCfg = FeaturePartial.createTemplateConfig(!decorInternal ? '{}' : decorInternal, tag.isRootTag);
 
             if (tagIsDynamicPartial) {
