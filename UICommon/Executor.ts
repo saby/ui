@@ -17,7 +17,8 @@ export {
     RequireHelper,
     invisibleNodeTagName,
     VoidTags,
-    ConfigResolver
+    ConfigResolver,
+    Class
 } from './_executor/Utils';
 
 export { onElementMount, onElementUnmount } from './_executor/_Utils/ChildrenManager';
@@ -65,7 +66,8 @@ export {
     TEvents,
     IControlConfig,
     TProps,
-    ITemplateNode
+    ITemplateNode,
+    IControl
 } from './_executor/_Markup/IGeneratorType';
 
 export {

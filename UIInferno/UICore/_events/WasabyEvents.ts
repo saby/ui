@@ -397,6 +397,10 @@ export default class WasabyEventsInferno extends WasabyEvents implements IWasaby
     }
 
     //#endregion
+
+    static mergeEvents(currentEvents: any, newEvents: any): any {
+        // for compatible generator
+    }
 }
 
 /*
