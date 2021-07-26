@@ -3,6 +3,8 @@
  * @author Крылов М.А.
  */
 
+import * as Ast from 'Compiler/core/Ast';
+
 /**
  * Generate template config.
  * @param internal {string} Internal collection.
@@ -20,6 +22,24 @@ export function createTemplateConfig(internal: string, isRootTag: boolean): stri
 }
 
 /**
+ * Get dynamic component option names.
+ * @param component {BaseWasabyElement} Component node.
+ * @returns {string[]} Array of dynamic component option names.
+ */
+export function getBlockOptionNames(component: Ast.BaseWasabyElement): string[] {
+   const names = [];
+   for (const name in component.__$ws_options) {
+      const option = component.__$ws_options[name];
+      if (option.hasFlag(Ast.Flags.UNPACKED)) {
+         // Игнорируем опции, которые были заданы на атрибуте тега компонента
+         continue;
+      }
+      names.push(name);
+   }
+   return names;
+}
+
+/**
  * Generate component config.
  * @param compositeAttributes {string} [deprecated] composite attributes
  * @param scope {string} Scope object
@@ -28,6 +48,7 @@ export function createTemplateConfig(internal: string, isRootTag: boolean): stri
  * @param isRootTag {string} Root tag flag
  * @param key {string} Node key
  * @param mergeType {string} Context and attributes merge type
+ * @param blockOptionNames {string[]} Array of dynamic component option names.
  */
 export function createConfigNew(
    compositeAttributes: string,
@@ -36,7 +57,8 @@ export function createConfigNew(
    internal: string,
    isRootTag: boolean,
    key: string,
-   mergeType: string
+   mergeType: string,
+   blockOptionNames: string[]
 ): string {
    return `{`
       + `attr: attr,`
@@ -54,6 +76,7 @@ export function createConfigNew(
       + `key: key + "${key}",`
       + `isRootTag: ${isRootTag},`
       + (internal ? `internal: isVdom ? ${internal} : {},` : '')
-      + `mergeType: "${mergeType}"`
+      + `mergeType: "${mergeType}",`
+      + `blockOptionNames: ${JSON.stringify(blockOptionNames)}`
       + `}`;
 }
