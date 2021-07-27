@@ -14,21 +14,25 @@ export interface IMetaStack {
     * @param {IMeta} meta
     * @returns {IMetaState}
     * @example
+    * <pre>
     * import { getMetaStack } from 'UI/Base';
     * const meta: IMeta = { title: 'Page title' }
     * const state: IMetaState = getMetaStack().push(meta);
+    * </pre>
     */
    push(meta: IMeta): IMetaState;
    /**
     * Удалить состояние
     * @param {IMetaState} state
     * @example
+    * <pre>
     * import { getMetaStack } from 'UI/Base';
     * const meta: IMeta = { title: 'Page title' }
     * const stack: IMetaStack = getMetaStack();
     * const state: IMetaState = stack.push(meta);
     *  ...
     * stack.remove(state);
+    * </pre>
     */
    remove(state: IMetaState): void;
 }
@@ -74,8 +78,10 @@ export interface IMetaStateInternal extends IMetaState {
     * @returns {ISerializedMetaState}
     * @private
     * @example
+    * <pre>
     * const state = new State(meta);
     * deserializeState(state.serialize()).equal(state)) === true;
+    * </pre>
     */
    serialize(): ISerializedMetaState;
    /**
@@ -97,16 +103,18 @@ export type IDeserializeMeta = (s: ISerializedMetaState) => IMetaStateInternal;
  * Мета-данные страницы
  * @public
  * @example
- * const meta: IMeta = {
- *    title: 'Page title',
- *    og: {
- *        description: 'Some Description',
- *        title: 'Example title',
- *        image: 'http://site.com/images/example.jpg',
- *        type: 'article',
- *        url: 'http://www.site.com/example'
+ * <pre>
+ *    const meta: IMeta = {
+ *       title: 'Page title',
+ *       og: {
+ *           description: 'Some Description',
+ *           title: 'Example title',
+ *           image: 'http://site.com/images/example.jpg',
+ *           type: 'article',
+ *           url: 'http://www.site.com/example'
+ *       }
  *    }
- * }
+ * </pre>
  * @author Печеркин С.В.
  */
 export interface IMeta {

@@ -11,20 +11,22 @@
  * remove(IMetaState): void - для удаления метаданных
  * Через данное API можно работать ТОЛЬКО с такими метатегами как title и og.
  * @example
- * import { getMetaStack } from 'UI/Base';
- * const meta: IMeta = {
- *    title: 'Page title',
- *    og: {
- *        description: 'Some Description',
- *        title: 'Example title',
- *        image: 'http://site.com/images/example.jpg',
- *        type: 'article',
- *        url: 'http://www.site.com/example'
- *    }
- * }
- * getMetaStack().push(meta);
- * const state: IMetaState = stack.push(meta);
- * getMetaStack().remove(state);
+ * <pre>
+ *  import { getMetaStack } from 'UI/Base';
+ *  const meta: IMeta = {
+ *     title: 'Page title',
+ *     og: {
+ *         description: 'Some Description',
+ *         title: 'Example title',
+ *         image: 'http://site.com/images/example.jpg',
+ *         type: 'article',
+ *         url: 'http://www.site.com/example'
+ *     }
+ *  }
+ *  getMetaStack().push(meta);
+ *  const state: IMetaState = stack.push(meta);
+ *  getMetaStack().remove(state);
+ * </pre>
  * @faq Как добавлять мета данные на страницу? Как сейчас реализована работа с метаданными?
  * По общему правилу нужно вызвать функцию getMetaStack, который возвращает синглтон MetaStack и использовать его API (push, remove).
  * Но нередко metastack уже реализован на платформенном уровне, и скорее всего нет необходимости обращаться к этому API напрямую,
