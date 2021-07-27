@@ -19,6 +19,14 @@ export interface IControlOptions {
     _$attributes?: object;
     _$parentsChildrenPromises?: Promise<void>[];
 }
+// в опциях хранятся служебные поля, которые не должны влиять на перерисовку контрола в shouldComponentUpdate
+export const skipChangedOptions = [
+  '_$attributes',
+  '_$createdFromCode',
+  '_$parentsChildrenPromises',
+  '_$blockOptionNames',
+  'events'
+];
 
 /**
  * IErrorViewer необходим для отлова и показа ошибки в контроле WasabyOverReact

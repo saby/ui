@@ -34,6 +34,7 @@ import { constants } from 'Env/Env';
 import { ErrorViewer } from './ErrorViewer';
 import { CreateControlRef } from './Refs/CreateControlRef';
 import { CreateHocRef } from './Refs/CreateHocRef';
+import {skipChangedOptions} from 'UICommon/Base';
 
 export type IControlConstructor<P = IControlOptions> = React.ComponentType<P>;
 
@@ -55,6 +56,12 @@ export default class Control<TOptions extends IControlOptions = {},
      * Используется для того, чтобы не перерисовывать компонент, пока не закончится асинхронный beforeMount.
      */
     private _$asyncInProgress: boolean = false;
+    /**
+     * Блочные опции, заданные в шаблонизаторе для контрола. Нужны, чтобы не сравнивать из при принятии решения
+     * о перерисовке, так как эти опции создаются в шаблоне каждый раз заново и по сути всегда одинаковые, они не должны
+     * влиять на перерисовку. А internal внутри них должны влиять, это сравнивается отдельно
+     */
+    private _$blockOptionNames: string[] = [];
     /**
      * Набор детей контрола, для которых задан атрибут name.
      */
@@ -488,6 +495,7 @@ export default class Control<TOptions extends IControlOptions = {},
                 this._$afterMountResolver = undefined;
                 this._$childrenPromises = [];
                 this._options = newOptions;
+                this._optionsVersions = Options.collectObjectVersions(this._options);
                 makeWasabyObservable<TOptions, TState>(this);
                 this._componentDidMount(newOptions);
                 setTimeout(() => {
@@ -496,6 +504,7 @@ export default class Control<TOptions extends IControlOptions = {},
             });
         } else {
             this._options = newOptions;
+            this._optionsVersions = Options.collectObjectVersions(this._options);
             makeWasabyObservable<TOptions, TState>(this);
             this._componentDidMount(newOptions);
             setTimeout(() => {
@@ -529,16 +538,44 @@ export default class Control<TOptions extends IControlOptions = {},
                 logError(e);
             }
         }
-        const changedOptions = !!Options.getChangedOptions(
-            newProps,
-            this._options,
-            false,
-            this._optionsVersions
-        );
         const reactiveStartUpdate = newState.observableVersion !== this.state.observableVersion;
         // Если обновление запустила реактивность, нам надо перерисовать компонент
         const componentLoaded = newState.loading !== this.state.loading;
-        return (changedOptions && this._shouldUpdate(newOptions)) || reactiveStartUpdate || componentLoaded;
+
+        if (reactiveStartUpdate) {
+            return true;
+        }
+        if (componentLoaded) {
+            return true;
+        }
+
+        const oldAttrs = this._options._$attributes?.attributes || {};
+        const newAttrs = newProps._$attributes?.attributes || {};
+        const changedAttrs = Options.getChangedOptions(newAttrs, oldAttrs, false, {}, true);
+
+        const oldOpts = {...this._options};
+        const newOpts = {...newProps};
+        skipChangedOptions.forEach((opt) => {
+           delete oldOpts[opt];
+           delete newOpts[opt];
+        });
+
+        const changedOptions = !!Options.getChangedOptions(
+            newOpts,
+            oldOpts,
+            false,
+            this._optionsVersions,
+            undefined,
+            undefined,
+            undefined,
+            newProps._$blockOptionNames
+        );
+        if (changedAttrs || changedOptions) {
+            if (this._shouldUpdate(newOptions)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     componentDidUpdate(): void {

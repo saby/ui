@@ -257,7 +257,8 @@ export function getChangedOptions(
    versionsStorage: object = EMPTY_OBJECT,
    checkPrevValue: boolean = false,
    prefix: string = EMPTY_STRING,
-   isCompound: boolean = false
+   isCompound: boolean = false,
+   blockOptionNames: string[] = []
 ): TOptions | null {
    // TODO: ignoreDirtyChecking, checkPrevValue, isCompound вынести в битовый флаг
    // TODO: отказаться от префиксов в пользу древовидной структуры хранилища версий (сейчас словарь по сути)
@@ -328,8 +329,12 @@ export function getChangedOptions(
             }
             if (Array.isArray(next[property]) && next[property]) {
                if (!isTemplateArray(next[property] as ITemplateArray)) {
-                  hasChanges = true;
-                  changes[property] = next[property];
+                  if (blockOptionNames.indexOf(property) !== -1) {
+                     continue;
+                  } else {
+                     hasChanges = true;
+                     changes[property] = next[property];
+                  }
                } else {
                   if (!prev[property]) {
                      hasChanges = true;
@@ -405,6 +410,8 @@ export function getChangedOptions(
                   hasChanges = true;
                   changes[property] = next[property];
                }
+            } else if (blockOptionNames.indexOf(property) !== -1) {
+               continue;
             } else {
                hasChanges = true;
                changes[property] = next[property];
