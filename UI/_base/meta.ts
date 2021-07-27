@@ -11,7 +11,7 @@
  * remove(IMetaState): void - для удаления метаданных
  * Через данное API можно работать ТОЛЬКО с такими метатегами как title и og.
  * @example
- * <pre>
+ * <pre class="brush: js">
  *  import { getMetaStack } from 'UI/Base';
  *  const meta: IMeta = {
  *     title: 'Page title',

@@ -14,7 +14,7 @@ export interface IMetaStack {
     * @param {IMeta} meta
     * @returns {IMetaState}
     * @example
-    * <pre>
+    * <pre class="brush: js">
     * import { getMetaStack } from 'UI/Base';
     * const meta: IMeta = { title: 'Page title' }
     * const state: IMetaState = getMetaStack().push(meta);
@@ -25,7 +25,7 @@ export interface IMetaStack {
     * Удалить состояние
     * @param {IMetaState} state
     * @example
-    * <pre>
+    * <pre class="brush: js">
     * import { getMetaStack } from 'UI/Base';
     * const meta: IMeta = { title: 'Page title' }
     * const stack: IMetaStack = getMetaStack();
@@ -78,7 +78,7 @@ export interface IMetaStateInternal extends IMetaState {
     * @returns {ISerializedMetaState}
     * @private
     * @example
-    * <pre>
+    * <pre class="brush: js">
     * const state = new State(meta);
     * deserializeState(state.serialize()).equal(state)) === true;
     * </pre>
@@ -103,7 +103,7 @@ export type IDeserializeMeta = (s: ISerializedMetaState) => IMetaStateInternal;
  * Мета-данные страницы
  * @public
  * @example
- * <pre>
+ * <pre class="brush: js">
  *    const meta: IMeta = {
  *       title: 'Page title',
  *       og: {
