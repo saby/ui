@@ -81,7 +81,6 @@ interface ICollectorOptions {
     rootIndex: number;
     depth: number;
     allocator: IndexAllocator;
-    removeSelfIdentifiers: boolean;
 }
 
 export class Container {
@@ -191,13 +190,12 @@ export class Container {
         join.children.push(container);
     }
 
-    getInternalStructure(removeSelfIdentifiers: boolean = false): InternalNode {
+    getInternalStructure(): InternalNode {
         const allocator = new IndexAllocator(this.getCurrentProgramIndex());
         const options: ICollectorOptions = {
             rootIndex: this.index,
             depth: 0,
-            allocator,
-            removeSelfIdentifiers
+            allocator
         };
         const node = this.collectInternalStructure(options);
         optimize(node);
@@ -238,7 +236,6 @@ export class Container {
         const childrenOptions: ICollectorOptions = {
             rootIndex: options.rootIndex,
             allocator: options.allocator,
-            removeSelfIdentifiers: options.removeSelfIdentifiers,
             depth: options.depth + 1
         };
         for (let index = 0; index < this.children.length; ++index) {
@@ -257,7 +254,7 @@ export class Container {
             prevChild = child;
             child.setParent(node);
         }
-        if (!options.removeSelfIdentifiers && options.depth === 0 && this.type === ContainerType.CONTENT_OPTION) {
+        if (options.depth === 0 && this.type === ContainerType.CONTENT_OPTION) {
             return node;
         }
         if (this.selfIdentifiers.length > 0) {
