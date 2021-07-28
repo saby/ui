@@ -79,6 +79,7 @@ export default class Link extends Base implements ICssEntity {
     */
    mountElement(): Promise<void> {
       return new Promise((resolve, reject) => {
+         let timeout: number;
          const timestamp = Date.now();
          const onerror = () => {
             reject(new Error(
@@ -90,10 +91,13 @@ export default class Link extends Base implements ICssEntity {
          };
          const attrs = generateAttrs(this);
          this.headTagId = HeadAPI.getInstance().createTag('link', attrs, null, {
-            load: resolve.bind(null),
+            load: () => {
+               clearTimeout(timeout);
+               resolve();
+            },
             error: onerror
          });
-         setTimeout(onerror, TIMEOUT);
+         timeout = setTimeout(onerror, TIMEOUT);
       });
    }
 }
