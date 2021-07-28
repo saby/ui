@@ -592,6 +592,8 @@ export default class Control<TOptions extends IControlOptions = {},
     }
 
     componentWillUnmount(): void {
+        // на фазу unmount могут позвать нотифай события который приведет к зацикливанию
+        this._notify = () => { return; };
         this._beforeUnmount.apply(this);
         // Не нужно очищать реактивные свойства
         if (!this.reactiveValues) {

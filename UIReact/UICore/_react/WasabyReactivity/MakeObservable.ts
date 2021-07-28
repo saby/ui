@@ -68,11 +68,13 @@ function observeProps<P, S extends object | void>(instance: Control<P, S>): void
                 if (!this.hasOwnProperty('reactiveValues')) {
                     this.reactiveValues = Object.create(this.reactiveValues);
                 }
-                if (this.reactiveValues[propName] !== newVal) {
-                    this.reactiveValues[propName] = newVal;
-                    checkMutableTypes(newVal as IVersionable | unknown[], this, propName);
-                    updateInstance(this);
+                // делаем проверку с учетом NaN === NaN
+                if (isEqualProps(this.reactiveValues[propName], newVal)) {
+                    return;
                 }
+                this.reactiveValues[propName] = newVal;
+                checkMutableTypes(newVal as IVersionable | unknown[], this, propName);
+                updateInstance(this);
             },
             get(): unknown {
                 if (descriptor?.get) {
@@ -252,4 +254,18 @@ export function pauseReactive(instance: object, action: Function): void {
             pauseReactiveMap.delete(instance);
         }
     }
+}
+
+function isEqualProps<T, P>(oldVal: T, newVal: P): boolean {
+    return isNanValue(oldVal) === isNanValue(newVal);
+}
+
+function isNanValue(value: unknown): unknown | string {
+    if (value || typeof(value) === 'undefined') {
+        return value;
+    }
+    if (isNaN(value as number)) {
+        return '_$$NaN';
+    }
+    return value;
 }
