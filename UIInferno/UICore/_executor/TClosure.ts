@@ -39,7 +39,7 @@ export function callIFun(fn: Function, ctx: object, args: unknown[]): unknown {
    if (args.some(arg => typeof arg === 'undefined')) {
       return undefined;
    }
-   return fn.call(ctx, args);
+   return fn.apply(ctx, args);
 }
 
 export {
