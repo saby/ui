@@ -145,3 +145,13 @@ export function genPlainMergeContext(inner: string, outer: string): string {
 export function genPlainMerge(inner: string, outer: string, cloneFirst?: string): string {
    return `${VAR_MODULE_NAME}.plainMerge(${inner}, ${outer}, ${cloneFirst})`;
 }
+
+/**
+ * Generate internal function call.
+ * @param fn {string} Function expression.
+ * @param ctx {string} Function context.
+ * @param args {string[]} Function arguments.
+ */
+export function genCallInternalFunction(fn: string, ctx: string, args: string[]): string {
+   return `${VAR_MODULE_NAME}.callIFun(${fn}, ${ctx}, [${args.join(',')}])`;
+}
