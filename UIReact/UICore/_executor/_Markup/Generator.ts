@@ -290,7 +290,11 @@ export function resolveTemplateFunction(parent: Control<IControlOptions>,
         anonymousFnError(template, parent);
         return null;
     }
-    return template.call(parent, resolvedScope, decorAttribs, undefined, true, undefined, undefined) as TemplateResult;
+    let isVdom = true;
+    if (decorAttribs.hasOwnProperty('isVdom')) {
+        isVdom = decorAttribs.isVdom;
+    }
+    return template.call(parent, resolvedScope, decorAttribs, undefined, isVdom, undefined, undefined) as TemplateResult;
 }
 
 const basicPrototype: object = Object.getPrototypeOf({});
