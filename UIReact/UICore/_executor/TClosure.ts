@@ -25,15 +25,13 @@ function getIfNeedGeneratorCompatible(forceCompatible: boolean, config) {
 }
 
 export function createGenerator(isVdom, forceCompatible = false, config) {
-   if (isVdom !== false) {
-      return Vdom(config);
-   }
-
    const Compatible = getIfNeedGeneratorCompatible(forceCompatible, config);
    if (Compatible) {
       return Compatible;
    }
-
+   if (isVdom) {
+      return Vdom(config);
+   }
    return Text(config);
 }
 
