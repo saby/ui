@@ -4,7 +4,7 @@
 
 import { createErrorHandler } from 'Compiler/utils/ErrorHandler';
 import { getDotsScopeSubstitution } from 'Compiler/codegen/Compatible';
-import { genDecorate, genGetter, genSetter } from 'Compiler/codegen/TClosure';
+import { genDecorate, genGetter, genSetter, genCallInternalFunction } from 'Compiler/codegen/TClosure';
 import * as FSC from 'Compiler/modules/data/utils/functionStringCreator';
 import * as common from 'Compiler/modules/utils/common';
 import * as decorators from 'Compiler/expressions/Decorators';
@@ -190,29 +190,8 @@ export class ExpressionVisitor implements N.IExpressionVisitor<IExpressionVisito
         };
     }
 
-    buildArgumentsArray(args: N.Node[], context: IExpressionVisitorContext): string {
-        const elements = args.map((node: N.Node) => node.accept(this, context)).toString();
-        return `[${elements}]`;
-    }
-
-    buildSafeCheckArgumentsChain(args: N.Node[], context: IExpressionVisitorContext): string {
-        let result = '';
-        let counter = 0;
-        for (let index = 0; index < args.length; ++index) {
-            const itemCheck = args[index].accept(this, context);
-            const hasFunctionCall = Walkers.containsFunctionCall(args[index], context.fileName);
-            if (typeof itemCheck === 'string' && itemCheck.indexOf('thelpers.getter') > -1) {
-                if (counter > 0) {
-                    result += '&&';
-                }
-                result += `(${itemCheck})`;
-                if (!hasFunctionCall) {
-                    result += '!==undefined';
-                }
-                ++counter;
-            }
-        }
-        return result;
+    buildArgumentsArray(args: N.Node[], context: IExpressionVisitorContext): string[] {
+        return args.map((node: N.Node) => node.accept(this, context) as string);
     }
 
     visitArrayExpressionNode(node: N.ArrayExpressionNode, context: IExpressionVisitorContext): string {
@@ -236,38 +215,18 @@ export class ExpressionVisitor implements N.IExpressionVisitor<IExpressionVisito
             }
             const args = this.buildArgumentsArray(node.arguments, context);
             // FIXME: Use instanceof
-            let object: string = 'funcContext';
+            let callContext: string = 'funcContext';
             if (node.callee.type === 'MemberExpression') {
                 const calleeNode = node.callee as N.MemberExpressionNode;
-                object = calleeNode.object.accept(this, context) as string;
+                callContext = calleeNode.object.accept(this, context) as string;
             }
             if (typeof context.attributeName === 'string' && /__dirtyCheckingVars_\d+$/gi.test(context.attributeName) || context.isDirtyChecking) {
-                // Эта проверка используется для проброса переменных из замыкания(dirtyCheckingVars)
-                // Значения переменных из замыкания вычисляются в момент создания контентной опции
-                // и пробрасываются через все контролы, оборачивающие контент.
-                // Если в замыкании используется функция, в какой-то момент этой функции может не оказаться,
-                // мы попытаемся ее вызвать и упадем с TypeError
-                // Поэтому нужно проверить ее наличие. Кроме того, нужно проверить, что аргументы этой функции,
-                // если такие есть, тоже не равны undefined, иначе может случиться TypeError внутри функции
-                // Изначально здесь была проверка без !== undefined. Но такая проверка некорректно работала
-                // в случае, если одно из проверяемых значения было рано 0, например.
-                // Вообще этой проверки быть не должно. От нее можно избавиться,
-                // если не пробрасывать dirtyCheckingVars там, где это не нужно.
-                const functionSafeCheck = `(${callee}) !== undefined`;
-                const argsSafeCheck = this.buildSafeCheckArgumentsChain(node.arguments, context);
-                let safeCheckExpression = functionSafeCheck;
-                if (argsSafeCheck.length > 0) {
-                    safeCheckExpression += `&&${argsSafeCheck}`;
-                }
-                if (context.isDirtyChecking && typeof context.safeCheckVariable === 'string') {
-                    return `(((${context.safeCheckVariable})=(${safeCheckExpression}))&&${callee}.apply(${object}, ${args}))`;
-                }
-                return `(${safeCheckExpression}&&${callee}.apply(${object}, ${args}))`;
+                return genCallInternalFunction(callee, callContext, args);
             }
-            return `${callee}.apply(${object}, ${args})`;
+            return `${callee}.apply(${callContext}, [${args.join(',')}])`;
         }
         errorHandler.error(
-            'Обшибка при обработке выражения вызова функции. Object to call on is "'
+            'Ошибка при обработке выражения вызова функции. Object to call on is "'
             + node.callee.string + '" equals to ' + callee,
             {
                 fileName: context.fileName
