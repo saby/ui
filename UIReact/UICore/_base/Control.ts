@@ -354,6 +354,13 @@ export default class Control<TOptions extends IControlOptions = {},
 
     /**
      * Хук жизненного цикла контрола. Вызывается перед обновлением контрола.
+     * @deprecated
+     */
+    protected _beforeRender(): void {
+        // Do
+    }
+    /**
+     * Хук жизненного цикла контрола. Вызывается перед обновлением контрола.
      *
      * @param newOptions Опции, полученные контролом. Устаревшие опции можно найти в this._options.
      * @param newContext Контекст, полученный контролом. Устаревшие контексты можно найти в this._context.
@@ -544,40 +551,49 @@ export default class Control<TOptions extends IControlOptions = {},
         // Если обновление запустила реактивность, нам надо перерисовать компонент
         const componentLoaded = newState.loading !== this.state.loading;
 
+        let result = false;
         if (reactiveStartUpdate) {
-            return true;
+            result = true;
         }
         if (componentLoaded) {
-            return true;
+            result = true;
         }
 
-        const oldAttrs = this._options._$attributes?.attributes || {};
-        const newAttrs = newProps._$attributes?.attributes || {};
-        const changedAttrs = Options.getChangedOptions(newAttrs, oldAttrs, false, {}, true);
+        if (!result) {
+            const oldAttrs = this._options._$attributes?.attributes || {};
+            const newAttrs = newProps._$attributes?.attributes || {};
+            const changedAttrs = Options.getChangedOptions(newAttrs, oldAttrs, false, {}, true);
 
-        const oldOpts = {...this._options};
-        const newOpts = {...newProps};
-        skipChangedOptions.forEach((opt) => {
-           delete oldOpts[opt];
-           delete newOpts[opt];
-        });
+            const oldOpts = {...this._options};
+            const newOpts = {...newProps};
+            skipChangedOptions.forEach((opt) => {
+                delete oldOpts[opt];
+                delete newOpts[opt];
+            });
 
-        const changedOptions = !!Options.getChangedOptions(
-            newOpts,
-            oldOpts,
-            false,
-            this._optionsVersions,
-            undefined,
-            undefined,
-            undefined,
-            newProps._$blockOptionNames
-        );
-        if (changedAttrs || changedOptions) {
-            if (this._shouldUpdate(newOptions)) {
-                return true;
+            const changedOptions = !!Options.getChangedOptions(
+                newOpts,
+                oldOpts,
+                false,
+                this._optionsVersions,
+                undefined,
+                undefined,
+                undefined,
+                newProps._$blockOptionNames
+            );
+            if (changedAttrs || changedOptions) {
+                if (this._shouldUpdate(newOptions)) {
+                    result = true;
+                }
             }
         }
-        return false;
+
+        if (result) {
+            pauseReactive(this, () => {
+                this._beforeRender();
+            });
+        }
+        return result;
     }
 
     componentDidUpdate(): void {
