@@ -547,23 +547,40 @@ export default class Control<TOptions extends IControlOptions = {},
                 logError(e);
             }
         }
-        const reactiveStartUpdate = newState.observableVersion !== this.state.observableVersion;
-        // Если обновление запустила реактивность, нам надо перерисовать компонент
-        const componentLoaded = newState.loading !== this.state.loading;
 
         let result = false;
-        if (reactiveStartUpdate) {
-            result = true;
-        }
-        if (componentLoaded) {
-            result = true;
+
+        // Если обновление запустила реактивность, нам надо перерисовать компонент
+        if (!result) {
+            const reactiveStartUpdate = newState.observableVersion !== this.state.observableVersion;
+            if (reactiveStartUpdate) {
+                result = true;
+            }
         }
 
+        // проверяем закончилась ли фаза загрузки
+        if (!result) {
+            const componentLoaded = newState.loading !== this.state.loading;
+            if (componentLoaded) {
+                result = true;
+            }
+        }
+
+        // проверяем изменились ли атрибуты
         if (!result) {
             const oldAttrs = this._options._$attributes?.attributes || {};
             const newAttrs = newProps._$attributes?.attributes || {};
             const changedAttrs = Options.getChangedOptions(newAttrs, oldAttrs, false, {}, true);
 
+            if (changedAttrs) {
+                if (this._shouldUpdate(newOptions)) {
+                    result = true;
+                }
+            }
+        }
+
+        // проверяем изменились ли опции
+        if (!result) {
             const oldOpts = {...this._options};
             const newOpts = {...newProps};
             skipChangedOptions.forEach((opt) => {
@@ -581,17 +598,24 @@ export default class Control<TOptions extends IControlOptions = {},
                 undefined,
                 newProps._$blockOptionNames
             );
-            if (changedAttrs || changedOptions) {
+            if (changedOptions) {
                 if (this._shouldUpdate(newOptions)) {
                     result = true;
                 }
             }
         }
 
+        // зовем _beforeRender, но только если перерисовка реально происходит
         if (result) {
-            pauseReactive(this, () => {
-                this._beforeRender();
-            });
+            if (this._$controlMounted) {
+                try {
+                    pauseReactive(this, () => {
+                        this._beforeRender();
+                    });
+                } catch (e) {
+                    logError(e);
+                }
+            }
         }
         return result;
     }
