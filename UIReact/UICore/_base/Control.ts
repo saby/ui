@@ -352,6 +352,13 @@ export default class Control<TOptions extends IControlOptions = {},
 
     /**
      * Хук жизненного цикла контрола. Вызывается перед обновлением контрола.
+     * @deprecated
+     */
+    protected _beforeRender(): void {
+        // Do
+    }
+    /**
+     * Хук жизненного цикла контрола. Вызывается перед обновлением контрола.
      *
      * @param newOptions Опции, полученные контролом. Устаревшие опции можно найти в this._options.
      * @param newContext Контекст, полученный контролом. Устаревшие контексты можно найти в this._context.
@@ -538,44 +545,77 @@ export default class Control<TOptions extends IControlOptions = {},
                 logError(e);
             }
         }
-        const reactiveStartUpdate = newState.observableVersion !== this.state.observableVersion;
+
+        let result = false;
+
         // Если обновление запустила реактивность, нам надо перерисовать компонент
-        const componentLoaded = newState.loading !== this.state.loading;
-
-        if (reactiveStartUpdate) {
-            return true;
-        }
-        if (componentLoaded) {
-            return true;
-        }
-
-        const oldAttrs = this._options._$attributes?.attributes || {};
-        const newAttrs = newProps._$attributes?.attributes || {};
-        const changedAttrs = Options.getChangedOptions(newAttrs, oldAttrs, false, {}, true);
-
-        const oldOpts = {...this._options};
-        const newOpts = {...newProps};
-        skipChangedOptions.forEach((opt) => {
-           delete oldOpts[opt];
-           delete newOpts[opt];
-        });
-
-        const changedOptions = !!Options.getChangedOptions(
-            newOpts,
-            oldOpts,
-            false,
-            this._optionsVersions,
-            undefined,
-            undefined,
-            undefined,
-            newProps._$blockOptionNames
-        );
-        if (changedAttrs || changedOptions) {
-            if (this._shouldUpdate(newOptions)) {
-                return true;
+        if (!result) {
+            const reactiveStartUpdate = newState.observableVersion !== this.state.observableVersion;
+            if (reactiveStartUpdate) {
+                result = true;
             }
         }
-        return false;
+
+        // проверяем закончилась ли фаза загрузки
+        if (!result) {
+            const componentLoaded = newState.loading !== this.state.loading;
+            if (componentLoaded) {
+                result = true;
+            }
+        }
+
+        // проверяем изменились ли атрибуты
+        if (!result) {
+            const oldAttrs = this._options._$attributes?.attributes || {};
+            const newAttrs = newProps._$attributes?.attributes || {};
+            const changedAttrs = Options.getChangedOptions(newAttrs, oldAttrs, false, {}, true);
+
+            if (changedAttrs) {
+                if (this._shouldUpdate(newOptions)) {
+                    result = true;
+                }
+            }
+        }
+
+        // проверяем изменились ли опции
+        if (!result) {
+            const oldOpts = {...this._options};
+            const newOpts = {...newProps};
+            skipChangedOptions.forEach((opt) => {
+                delete oldOpts[opt];
+                delete newOpts[opt];
+            });
+
+            const changedOptions = !!Options.getChangedOptions(
+                newOpts,
+                oldOpts,
+                false,
+                this._optionsVersions,
+                undefined,
+                undefined,
+                undefined,
+                newProps._$blockOptionNames
+            );
+            if (changedOptions) {
+                if (this._shouldUpdate(newOptions)) {
+                    result = true;
+                }
+            }
+        }
+
+        // зовем _beforeRender, но только если перерисовка реально происходит
+        if (result) {
+            if (this._$controlMounted) {
+                try {
+                    pauseReactive(this, () => {
+                        this._beforeRender();
+                    });
+                } catch (e) {
+                    logError(e);
+                }
+            }
+        }
+        return result;
     }
 
     componentDidUpdate(): void {
