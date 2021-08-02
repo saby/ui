@@ -137,6 +137,15 @@ export function createTagDefault(tag: string,
    return '<' + tag + mergedAttrsStr + '>' + joinElements(children, undefined, defCollection) + '</' + tag + '>';
 }
 
+export function createTagDefaultVdom(tag: string,
+                                     attrs: IBaseAttrs | {attributes: unknown},
+                                     children: GeneratorStringArray,
+                                     attrToDecorate?: TAttributes,
+                                     defCollection?: IGeneratorDefCollection,
+                                     control?: GeneratorEmptyObject): string {
+   // поддержка совместимого api
+   return createTagDefault(tag, attrs, children, attrToDecorate, defCollection, control);
+}
 /**
  *
  * @param attr1
