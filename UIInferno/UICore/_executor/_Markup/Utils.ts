@@ -238,6 +238,12 @@ export function joinElements(elements: Array<unknown>,
    }
 }
 
+export function joinElementsVdom(elements: Array<unknown>,
+                             key?: string,
+                             defCollection?: IGeneratorDefCollection): GeneratorStringArray | GeneratorError  {
+   return joinElements(elements, key, defCollection);
+}
+
 export function resolveControlName<TOptions extends IControlData>(controlData: TOptions,
                                                                   attributes: TAttributes | INodeAttribute): TAttributes | INodeAttribute {
    const attr = attributes || {};
