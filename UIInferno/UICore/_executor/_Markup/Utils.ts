@@ -4,9 +4,9 @@
 import * as Decorate from '../_Expressions/Decorate';
 import { _FocusAttrs } from 'UICore/Focus';
 import { IControl } from 'UICommon/interfaces';
+import type { Control } from 'UICore/Base';
 import {
    Attr,
-   GeneratorEmptyObject,
    GeneratorError,
    GeneratorStringArray,
    IBaseAttrs,
@@ -94,7 +94,7 @@ export function createTagDefault(tag: string,
                                  children: GeneratorStringArray,
                                  attrToDecorate?: TAttributes,
                                  defCollection?: IGeneratorDefCollection,
-                                 control?: GeneratorEmptyObject): string {
+                                 control?: Control): string {
    if (tag === invisibleNodeTagName) {
       return invisibleNodeHTML;
    }
@@ -142,7 +142,7 @@ export function createTagDefaultVdom(tag: string,
                                      children: GeneratorStringArray,
                                      attrToDecorate?: TAttributes,
                                      defCollection?: IGeneratorDefCollection,
-                                     control?: GeneratorEmptyObject): string {
+                                     control?: Control): string {
    // поддержка совместимого api
    return createTagDefault(tag, attrs, children, attrToDecorate, defCollection, control);
 }
