@@ -68,7 +68,10 @@ function observeProps<P, S extends object | void>(instance: Control<P, S>): void
                 if (!this.hasOwnProperty('reactiveValues')) {
                     this.reactiveValues = Object.create(this.reactiveValues);
                 }
-                if (this.reactiveValues[propName] !== newVal) {
+                // делаем проверку с учетом NaN === NaN
+                if (this.reactiveValues[propName] !== newVal &&
+                    !(Number.isNaN(this.reactiveValues[propName]) && Number.isNaN(newVal as number))
+                ) {
                     this.reactiveValues[propName] = newVal;
                     checkMutableTypes(newVal as IVersionable | unknown[], this, propName);
                     updateInstance(this);
