@@ -42,6 +42,8 @@ export type IControlChildren = Record<string, Element | Control | Control<IContr
 
 let countInst = 1;
 
+const EMPTY_FUNC = () => { return; };
+
 /**
  * Базовый контрол, наследник React.Component с поддержкой совместимости с Wasaby
  * @author Шипин А.А.
@@ -632,16 +634,19 @@ export default class Control<TOptions extends IControlOptions = {},
     }
 
     componentWillUnmount(): void {
+        // на этот флаг заточена часть поведения платформенных и прикладных контролов
+        // TODO: удалить по задаче https://online.sbis.ru/opendoc.html?guid=fac81b21-02fa-40ea-8be3-071a7eeb74c6
+        this._destroyed = true;
+        releaseProperties<TOptions, TState>(this);
+
         this._beforeUnmount.apply(this);
+
+        this._forceUpdate = EMPTY_FUNC;
+        this.componentWillUnmount = EMPTY_FUNC;
         // Не нужно очищать реактивные свойства
         if (!this.reactiveValues) {
             return;
         }
-        releaseProperties<TOptions, TState>(this);
-
-        // на этот флаг заточена часть поведения платформенных и прикладных контролов
-        // TODO: удалить по задаче https://online.sbis.ru/opendoc.html?guid=fac81b21-02fa-40ea-8be3-071a7eeb74c6
-        this._destroyed = true;
     }
 
 
