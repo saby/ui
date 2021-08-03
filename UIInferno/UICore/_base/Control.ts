@@ -694,6 +694,11 @@ class Control<TOptions extends IControlOptions = {}, TState extends TIState = vo
       // can be overridden
    }
 
+   setState(data: unknown): void {
+      // метод существует для обратной совместимости с React.Component
+      // при использовании https://wi.sbis.ru/docs/js/Application/State/ISerializableState?v=21.3100
+   }
+
    /**
     * Хук жизненного цикла контрола. Вызывается непосредственно перед установкой контрола в DOM-окружение.
     *
