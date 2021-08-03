@@ -38,7 +38,29 @@ export interface WasabyAttributes {
    'xml:lang'?: string;
    name?: string;
    ref?: React.MutableRefObject<HTMLElement> | React.LegacyRef<HTMLElement>;
+   spellcheck?: string | boolean;
+   autocorrect?: string;
+   autocapitalize?: string;
+   inputmode?: string;
+   autocomplete?: string;
 }
+
+/**
+ * шаблоны замены атрибутов в реактовские аналоги
+ */
+const replacementTemplates = {
+   spellcheck: 'spellCheck',
+   autocorrect: 'autoCorrect',
+   autocapitalize: 'autoCapitalize',
+   inputmode: 'inputMode',
+   autocomplete: 'autoComplete',
+   class: 'className'
+};
+/**
+ * Дефолтные атрибуты в html элементах, хранятся как ключи в replacementTemplates.
+ * Дефолтные атрибуты такие как class (вместо className в реакте), spellcheck и т.д.
+ */
+const keysReplacementTemplates = Object.keys(replacementTemplates);
 
 /**
  * Конвертирует наши атрибуты в реактовские аналоги.
@@ -49,10 +71,15 @@ export function convertAttributes<
    P extends React.HTMLAttributes<T>
 >(attributes: WasabyAttributes & P): P {
    const convertedAttributes = (attributes as unknown) as P;
-   if (attributes.class) {
-      convertedAttributes.className = attributes.class;
-      delete attributes.class;
-   }
+   /** замена атрибута и удаление старого */
+   Object.keys(attributes).forEach(key => {
+      if(!keysReplacementTemplates.includes(key)) {
+         return;
+      }
+      convertedAttributes[replacementTemplates[key]] = attributes[key];
+      delete attributes[key];
+   });
+   /** замена атрибута c обработкой значения с типом данных Number и удаление старого */
    if (attributes.tabindex) {
       convertedAttributes.tabIndex = Number(attributes.tabindex);
       delete attributes.tabindex;
