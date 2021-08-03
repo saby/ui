@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { isInit } from 'Application/Initializer';
 import { getStateReceiver } from 'Application/Env';
-import { IStateReceiverMeta } from 'Application/State';
+import { IStateReceiverMeta, ISerializableState } from 'Application/State';
 import { EMPTY_THEME, getThemeController } from 'UICommon/theme/controller';
 import { getResourceUrl, Logger, needToBeCompatible } from 'UICommon/Utils';
 import { Options } from 'UICommon/Vdom';
@@ -423,26 +423,19 @@ export default class Control<TOptions extends IControlOptions = {},
      * @private
      */
     private saveReceivedState(beforeMountResult: Promise<TState | void> | TState | void, options: TOptions): void {
-        const meta: IStateReceiverMeta = {ulid: options.rskey, moduleName: this._moduleName};
-        if (beforeMountResult instanceof Promise) {
-            beforeMountResult.then((receivedState) => {
-                if (receivedState && isInit()) {
-                    this._registerReceivedState(receivedState, meta);
-                }
-            });
+        if (!beforeMountResult || !isInit()) {
             return;
         }
 
-        this._registerReceivedState(beforeMountResult, meta);
-    }
-
-    private _registerReceivedState(receivedState: TState | void, meta: IStateReceiverMeta): void {
-        if (receivedState && isInit()) {
-            getStateReceiver().register(meta, {
-                getState: () => (receivedState as Record<string, any>),
-                setState: () => void 0
-            });
+        const meta: IStateReceiverMeta = {ulid: options.rskey, moduleName: this._moduleName};
+        if (beforeMountResult instanceof Promise) {
+            return getStateReceiver().register(meta, beforeMountResult);
         }
+
+        getStateReceiver().register(meta, {
+            getState: () => (beforeMountResult as Record<string, any>),
+            setState: () => void 0
+        });
     }
 
     /**
