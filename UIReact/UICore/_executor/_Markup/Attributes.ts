@@ -40,6 +40,31 @@ export interface WasabyAttributes {
    ref?: React.MutableRefObject<HTMLElement> | React.LegacyRef<HTMLElement>;
 }
 
+interface IStandardAttributes {
+   spellcheck?: boolean | 'false' | 'true';
+   autocorrect?: string;
+   autocapitalize?: string;
+   inputmode?: string;
+   autocomplete?: string;
+   class?: string;
+}
+/**
+ * Шаблоны замены стандартных атрибутов в реактовские аналоги
+ * Стандартные атрибуты такие как class (вместо className в реакте), spellcheck и т.д.
+ */
+const replacementTemplates = {
+   spellcheck: 'spellCheck',
+   autocorrect: 'autoCorrect',
+   autocapitalize: 'autoCapitalize',
+   inputmode: 'inputMode',
+   autocomplete: 'autoComplete',
+   class: 'className'
+};
+/**
+ * Стандартные атрибуты в html элементах, хранятся как ключи в replacementTemplates.
+ */
+const keysReplacementTemplates = Object.keys(replacementTemplates);
+
 /**
  * Конвертирует наши атрибуты в реактовские аналоги.
  * @param attributes
@@ -47,12 +72,17 @@ export interface WasabyAttributes {
 export function convertAttributes<
    T extends HTMLElement,
    P extends React.HTMLAttributes<T>
->(attributes: WasabyAttributes & P): P {
+>(attributes: IStandardAttributes & WasabyAttributes & P): P {
    const convertedAttributes = (attributes as unknown) as P;
-   if (attributes.class) {
-      convertedAttributes.className = attributes.class;
-      delete attributes.class;
-   }
+   /** замена атрибута и удаление старого */
+   Object.keys(attributes).forEach(key => {
+      if(!keysReplacementTemplates.includes(key)) {
+         return;
+      }
+      convertedAttributes[replacementTemplates[key]] = attributes[key];
+      delete attributes[key];
+   });
+   /** замена атрибута c обработкой значения с типом данных Number и удаление старого */
    if (attributes.tabindex) {
       convertedAttributes.tabIndex = Number(attributes.tabindex);
       delete attributes.tabindex;
