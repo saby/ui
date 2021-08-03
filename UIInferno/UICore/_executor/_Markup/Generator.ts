@@ -27,6 +27,8 @@ import {
    IControlConfig
 } from 'UICommon/Executor';
 
+import { object } from 'Types/util';
+
 const defRegExp = /(\[def-[\w\d]+\])/g;
 
 function isLibraryTpl(tpl, deps) {
@@ -498,17 +500,10 @@ export class Generator {
       if (!value) {
          return false;
       }
-      const valueArray = value.split('.');
-      let cursor = data;
-      let prevCursor = data;
-      for (let i = 0; i < valueArray.length; i++) {
-         prevCursor = cursor;
-         cursor = cursor[valueArray[i]];
-         if (typeof cursor === 'undefined') {
-            Logger.error(`Bind на несуществующее поле "${value}". Поле ${valueArray[i]} не найдено в ${JSON.stringify(prevCursor)}.`, event.viewController);
-            return false;
-         }
-      }
+      if (object.extractValue(data, value)) {
+         Logger.error(`Bind на несуществующее поле "${value}".`, event.viewController);
+         return false;
+      }   
       return true;
    }
    prepareEvents(events) {
