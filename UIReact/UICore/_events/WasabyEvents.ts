@@ -23,6 +23,7 @@ import { WasabyEventsDebug } from './WasabyEventsDebug';
 import { Control } from 'UICore/Control';
 import { Set } from 'Types/shim';
 import { Logger } from 'UICommon/Utils';
+import { object } from 'Types/util';
 
 type TElement =  HTMLElement & {
     eventProperties?: Record<string, IWasabyEvent[]>;
@@ -295,24 +296,19 @@ export default class WasabyEventsReact extends WasabyEvents implements IWasabyEv
             this.clearInputValue(domElement);
         }
     }
+
     private static checkBindValue(event, value) {
         const data = event.data;
         if (!value) {
             return false;
         }
-        const valueArray = value.split('.');
-        let cursor = data;
-        let prevCursor = data;
-        for (let i = 0; i < valueArray.length; i++) {
-            prevCursor = cursor;
-            cursor = cursor[valueArray[i]];
-            if (typeof cursor === 'undefined') {
-                Logger.error(`Bind на несуществующее поле "${value}". Поле ${valueArray[i]} не найдено в ${JSON.stringify(prevCursor)}.`, event.viewController);
-                return false;
-            }
+        if (object.extractValue(data, value)) {
+            Logger.error(`Bind на несуществующее поле "${value}".`, event.viewController);
+            return false;
         }
         return true;
     }
+
     private prepareEvents(events: Record<string, IWasabyEvent[]>): void {
         Object.keys(events).forEach((eventName) => {
             const eventArr = events[eventName];
