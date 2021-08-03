@@ -26,7 +26,8 @@ function getIfNeedGeneratorCompatible(forceCompatible: boolean, config) {
 
 export function createGenerator(isVdom, forceCompatible = false, config) {
    const Compatible = getIfNeedGeneratorCompatible(forceCompatible, config);
-   if (Compatible) {
+   // если передали флаг isVdom=true надо использовать именно vdom генератор
+   if (Compatible && !isVdom) {
       return Compatible;
    }
    if (isVdom) {

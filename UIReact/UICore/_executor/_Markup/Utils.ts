@@ -149,6 +149,14 @@ export function joinElements(elements: string[], key?, defCollection?): string {
     }
 }
 
+export function joinElementsVdom(elements: React.ReactNode): React.ReactNode {
+    if (Array.isArray(elements)) {
+        return ArrayUtils.flatten(elements, true, true);
+    } else {
+        throw new Error('joinElements: elements is not array');
+    }
+}
+
 export function resolveControlName<TOptions extends IControlData>(controlData: TOptions,
     attributes: TAttributes | INodeAttribute): TAttributes | INodeAttribute {
     const attr = attributes || {};
