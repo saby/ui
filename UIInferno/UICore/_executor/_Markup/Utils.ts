@@ -4,9 +4,9 @@
 import * as Decorate from '../_Expressions/Decorate';
 import { _FocusAttrs } from 'UICore/Focus';
 import { IControl } from 'UICommon/interfaces';
+import type { Control } from 'UICore/Base';
 import {
    Attr,
-   GeneratorEmptyObject,
    GeneratorError,
    GeneratorStringArray,
    IBaseAttrs,
@@ -94,7 +94,7 @@ export function createTagDefault(tag: string,
                                  children: GeneratorStringArray,
                                  attrToDecorate?: TAttributes,
                                  defCollection?: IGeneratorDefCollection,
-                                 control?: GeneratorEmptyObject): string {
+                                 control?: Control): string {
    if (tag === invisibleNodeTagName) {
       return invisibleNodeHTML;
    }
@@ -137,6 +137,15 @@ export function createTagDefault(tag: string,
    return '<' + tag + mergedAttrsStr + '>' + joinElements(children, undefined, defCollection) + '</' + tag + '>';
 }
 
+export function createTagDefaultVdom(tag: string,
+                                     attrs: IBaseAttrs | {attributes: unknown},
+                                     children: GeneratorStringArray,
+                                     attrToDecorate?: TAttributes,
+                                     defCollection?: IGeneratorDefCollection,
+                                     control?: Control): string {
+   // поддержка совместимого api
+   return createTagDefault(tag, attrs, children, attrToDecorate, defCollection, control);
+}
 /**
  *
  * @param attr1
@@ -227,6 +236,12 @@ export function joinElements(elements: Array<unknown>,
    } else {
       throw new Error('joinElements: elements is not array');
    }
+}
+
+export function joinElementsVdom(elements: Array<unknown>,
+                             key?: string,
+                             defCollection?: IGeneratorDefCollection): GeneratorStringArray | GeneratorError  {
+   return joinElements(elements, key, defCollection);
 }
 
 export function resolveControlName<TOptions extends IControlData>(controlData: TOptions,
