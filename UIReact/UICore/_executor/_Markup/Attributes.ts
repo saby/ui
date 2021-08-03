@@ -38,15 +38,19 @@ export interface WasabyAttributes {
    'xml:lang'?: string;
    name?: string;
    ref?: React.MutableRefObject<HTMLElement> | React.LegacyRef<HTMLElement>;
-   spellcheck?: string | boolean;
+}
+
+interface IStandardAttributes {
+   spellcheck?: boolean | 'false' | 'true';
    autocorrect?: string;
    autocapitalize?: string;
    inputmode?: string;
    autocomplete?: string;
+   class?: string;
 }
-
 /**
- * шаблоны замены атрибутов в реактовские аналоги
+ * Шаблоны замены стандартных атрибутов в реактовские аналоги
+ * Стандартные атрибуты такие как class (вместо className в реакте), spellcheck и т.д.
  */
 const replacementTemplates = {
    spellcheck: 'spellCheck',
@@ -57,8 +61,7 @@ const replacementTemplates = {
    class: 'className'
 };
 /**
- * Дефолтные атрибуты в html элементах, хранятся как ключи в replacementTemplates.
- * Дефолтные атрибуты такие как class (вместо className в реакте), spellcheck и т.д.
+ * Стандартные атрибуты в html элементах, хранятся как ключи в replacementTemplates.
  */
 const keysReplacementTemplates = Object.keys(replacementTemplates);
 
@@ -69,7 +72,7 @@ const keysReplacementTemplates = Object.keys(replacementTemplates);
 export function convertAttributes<
    T extends HTMLElement,
    P extends React.HTMLAttributes<T>
->(attributes: WasabyAttributes & P): P {
+>(attributes: IStandardAttributes & WasabyAttributes & P): P {
    const convertedAttributes = (attributes as unknown) as P;
    /** замена атрибута и удаление старого */
    Object.keys(attributes).forEach(key => {
