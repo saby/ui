@@ -295,12 +295,29 @@ export default class WasabyEventsReact extends WasabyEvents implements IWasabyEv
             this.clearInputValue(domElement);
         }
     }
-
+    private static checkBindValue(event, value) {
+        const data = event.data;
+        if (!value) {
+            return false;
+        }
+        const valueArray = value.split('.');
+        let cursor = data;
+        let prevCursor = data;
+        for (let i = 0; i < valueArray.length; i++) {
+            prevCursor = cursor;
+            cursor = cursor[valueArray[i]];
+            if (typeof cursor === 'undefined') {
+                Logger.error(`Bind на несуществующее поле "${value}". Поле ${valueArray[i]} не найдено в ${JSON.stringify(prevCursor)}.`, event.viewController);
+                return false;
+            }
+        }
+        return true;
+    }
     private prepareEvents(events: Record<string, IWasabyEvent[]>): void {
         Object.keys(events).forEach((eventName) => {
             const eventArr = events[eventName];
             eventArr.forEach((event: IWasabyEvent) => {
-                if (event.bindValue) {
+                if (WasabyEventsReact.checkBindValue(event, event.bindValue)) {
                     event.fn = function (eventObj: SyntheticEvent, value: unknown): void {
                         if (!event.handler(this.viewController, value)) {
                             event.handler(this.data, value);

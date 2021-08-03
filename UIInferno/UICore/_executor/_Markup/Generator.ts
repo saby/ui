@@ -24,8 +24,7 @@ import {
    TIncludedTemplate,
    TObject,
    IControlUserData,
-   IControlConfig,
-   getter
+   IControlConfig
 } from 'UICommon/Executor';
 
 const defRegExp = /(\[def-[\w\d]+\])/g;
@@ -494,12 +493,29 @@ export class Generator {
          return checkResult.call(this, res, type, name);
       }
    };
-
+   private static checkBindValue(event, value) {
+      const data = event.data;
+      if (!value) {
+         return false;
+      }
+      const valueArray = value.split('.');
+      let cursor = data;
+      let prevCursor = data;
+      for (let i = 0; i < valueArray.length; i++) {
+         prevCursor = cursor;
+         cursor = cursor[valueArray[i]];
+         if (typeof cursor === 'undefined') {
+            Logger.error(`Bind на несуществующее поле "${value}". Поле ${valueArray[i]} не найдено в ${JSON.stringify(prevCursor)}.`, event.viewController);
+            return false;
+         }
+      }
+      return true;
+   }
    prepareEvents(events) {
       Object.keys(events).forEach((eventName) => {
          const eventArr = events[eventName];
          eventArr.forEach((event) => {
-            if (event.bindValue) {
+            if (Generator.checkBindValue(event, event.bindValue)) {
                event.fn = function (eventObj, value) {
                   if (!event.handler(this.viewController, value)) {
                      event.handler(this.data, value);
