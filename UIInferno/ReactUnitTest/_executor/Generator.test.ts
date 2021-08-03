@@ -1,7 +1,6 @@
 import { assert } from 'chai';
 
 import { GeneratorBase } from 'UICore/Executor';
-import TestControlSync from 'ReactUnitTest/_executor/FakeControl';
 
 describe('Generator Base', () => {
     describe('Bind Check', () => {
@@ -15,17 +14,14 @@ describe('Generator Base', () => {
         let fakeControl = null;
         let res = null;
         beforeEach(() =>  {
-            fakeControl = new TestControlSync();
             fakeEvent.data = null;
             fakeEvent.bindValue = '';
-            fakeEvent.viewController = fakeControl;
             res = null;
         });
         afterEach(() =>  {
             fakeControl = null;
             fakeEvent.data = null;
             fakeEvent.bindValue = '';
-            fakeEvent.viewController = null;
             res = null;
         });
         it('bind simple', () => {
