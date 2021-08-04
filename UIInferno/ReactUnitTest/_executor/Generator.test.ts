@@ -42,15 +42,15 @@ describe('Generator Base', () => {
             res = GeneratorBase.checkBindValue(fakeEvent, fakeEvent.bindValue);
             assert.isTrue(res);
         });
-        it('bind array of object wrong', () => {
-            fakeEvent.data = {data: [{type: 0}], anyProp: 0};
-            fakeEvent.bindValue = 'data.value';
-            res = GeneratorBase.checkBindValue(fakeEvent, fakeEvent.bindValue);
-            assert.isFalse(res);
-        });
         it('bind array of object with sub props', () => {
             fakeEvent.data = {data: [{sub: {value: 0}, value: 0}, {type: {value: 0},value: 0}, {type: 0}], anyProp: 0};
             fakeEvent.bindValue = 'data.sub.value';
+            res = GeneratorBase.checkBindValue(fakeEvent, fakeEvent.bindValue);
+            assert.isTrue(res);
+        });
+        it('bind array of object wrong', () => {
+            fakeEvent.data = {data: [{type: 0}], anyProp: 0};
+            fakeEvent.bindValue = 'data.value';
             res = GeneratorBase.checkBindValue(fakeEvent, fakeEvent.bindValue);
             assert.isFalse(res);
         });
