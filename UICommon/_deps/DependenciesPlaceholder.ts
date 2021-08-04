@@ -58,7 +58,7 @@ function addTimeTester(cfg: IOptions): void {
    [{
       type: 'text/javascript',
       key: 'boomerang',
-      src: getResourceUrl('/cdn/Boomerang/v.0.0.2.js')
+      src: getResourceUrl('/cdn/Boomerang/v.0.0.3.js')
    }, {
       type: 'text/javascript',
       key: 'timetester',
