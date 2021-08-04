@@ -500,7 +500,7 @@ export class Generator {
          if (obj === undefined) {
             return false;
          }
-         if ((obj.hasOwnProperty([propName[index]]) || typeof obj[propName[index]] !== 'undefined') && propName.length === index + 1) {
+         if (propName[index] in obj && propName.length === index + 1) {
             return true;
          }
          if (Array.isArray(obj[propName[index]])) {
