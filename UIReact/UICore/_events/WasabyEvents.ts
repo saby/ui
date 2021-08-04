@@ -302,7 +302,7 @@ export default class WasabyEventsReact extends WasabyEvents implements IWasabyEv
             if (obj === undefined) {
                 return false;
             }
-            if (obj.hasOwnProperty(propName[index]) && propName.length === index + 1) {
+            if (typeof obj[propName[index]] !== 'undefined' && propName.length === index + 1) {
                 return true;
             }
             if (Array.isArray(obj[propName[index]])) {
