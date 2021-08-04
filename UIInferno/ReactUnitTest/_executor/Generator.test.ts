@@ -11,7 +11,6 @@ describe('Generator Base', () => {
             isControl: true,
             viewController: null
         };
-        let fakeControl = null;
         let res = null;
         beforeEach(() =>  {
             fakeEvent.data = null;
@@ -19,7 +18,6 @@ describe('Generator Base', () => {
             res = null;
         });
         afterEach(() =>  {
-            fakeControl = null;
             fakeEvent.data = null;
             fakeEvent.bindValue = '';
             res = null;
@@ -43,10 +41,16 @@ describe('Generator Base', () => {
             assert.isTrue(res);
         });
         it('bind array of object with sub props', () => {
-            fakeEvent.data = {data: [{sub: {value: 0}, value: 0}, {type: {value: 0},value: 0}, {type: 0}], anyProp: 0};
-            fakeEvent.bindValue = 'data.sub.value';
+            fakeEvent.data = {data: [{sub: {value: 0}, value: 0}], anyProp: 0};
+            fakeEvent.bindValue = 'data.value';
             res = GeneratorBase.checkBindValue(fakeEvent, fakeEvent.bindValue);
             assert.isTrue(res);
+        });
+        it('bind array of object with sub props wrong', () => {
+            fakeEvent.data = {data: [{sub: {value: 0}, value: 0}, {type: {value: 0}, value: 0}, {type: 0}], anyProp: 0};
+            fakeEvent.bindValue = 'data.sub.value';
+            res = GeneratorBase.checkBindValue(fakeEvent, fakeEvent.bindValue);
+            assert.isFalse(res);
         });
         it('bind array of object wrong', () => {
             fakeEvent.data = {data: [{type: 0}], anyProp: 0};
