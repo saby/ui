@@ -18,7 +18,7 @@ export interface IControlOptions {
     errorViewer?: IErrorViewer;
     _$attributes?: object;
     _$parentsChildrenPromises?: Promise<void>[];
-    _$blockOptionNames: string[];
+    _$blockOptionNames?: string[];
 }
 // в опциях хранятся служебные поля, которые не должны влиять на перерисовку контрола в shouldComponentUpdate
 export const skipChangedOptions = [
