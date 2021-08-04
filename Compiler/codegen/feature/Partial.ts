@@ -6,22 +6,6 @@
 import * as Ast from 'Compiler/core/Ast';
 
 /**
- * Generate template config.
- * @param internal {string} Internal collection.
- * @param isRootTag {boolean} Root tag flag.
- */
-export function createTemplateConfig(internal: string, isRootTag: boolean): string {
-   return `{
-      "isRootTag": ${!!isRootTag},
-      "data": data,
-      "ctx": this,
-      "pName": typeof currentPropertyName !== "undefined" ? currentPropertyName : undefined,
-      "viewController": viewController,
-      ${ internal ? `"internal": isVdom ? ${internal} : {}, ` : '' }
-   }`;
-}
-
-/**
  * Get dynamic component option names.
  * @param component {BaseWasabyElement} Component node.
  * @returns {string[]} Array of dynamic component option names.
