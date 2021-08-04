@@ -27,6 +27,7 @@ import {
    IControlConfig,
    getter
 } from 'UICommon/Executor';
+import {IControlOptions} from 'UICommon/Base';
 
 const defRegExp = /(\[def-[\w\d]+\])/g;
 
@@ -321,7 +322,7 @@ export class Generator {
       data.internal.parent = data.internal.parent || templateCfg.viewController;
 
       attrs.internal = data.internal;
-      const userData = data.user;
+      const userData = this.calculateOptions(data.user, config);
 
       // временное решение до тех пор пока опция темы не перестанет быть наследуемой
       // добавлено тут https://online.sbis.ru/opendoc.html?guid=5a70cc3b-0d05-4071-8ba3-3dd6cd1ba0bd
@@ -621,4 +622,8 @@ export class Generator {
       this.resolver = resolver;
       this.cacheModules = generatorContext.cacheModules;
    }
+
+   protected abstract calculateOptions(
+       resolvedOptionsExtended: IControlOptions,
+       config: IControlConfig): IControlOptions;
 }

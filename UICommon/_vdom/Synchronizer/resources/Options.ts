@@ -2,7 +2,7 @@
 
 import { Set } from 'Types/shim';
 import { IVersionable } from 'Types/entity';
-import { IControlOptions } from 'UICommon/Base';
+import {IControlOptions, skipChangedOptions} from 'UICommon/Base';
 
 export interface IVersionableArray {
    getArrayVersion?(): number;
@@ -251,8 +251,8 @@ export function isContentOption(value: unknown): boolean {
 }
 
 export function getChangedOptions(
-   next: TOptions = EMPTY_OBJECT,
-   prev: TOptions = EMPTY_OBJECT,
+   _next: TOptions = EMPTY_OBJECT,
+   _prev: TOptions = EMPTY_OBJECT,
    ignoreDirtyChecking: boolean = false,
    versionsStorage: object = EMPTY_OBJECT,
    checkPrevValue: boolean = false,
@@ -260,6 +260,14 @@ export function getChangedOptions(
    isCompound: boolean = false,
    blockOptionNames: string[] = []
 ): TOptions | null {
+   // убираем лишние служебные поля, которые не нужно сравнивать
+   const prev = {..._prev};
+   const next = {..._next};
+   skipChangedOptions.forEach((opt) => {
+      delete prev[opt];
+      delete next[opt];
+   });
+
    // TODO: ignoreDirtyChecking, checkPrevValue, isCompound вынести в битовый флаг
    // TODO: отказаться от префиксов в пользу древовидной структуры хранилища версий (сейчас словарь по сути)
    const properties = getKeys(next, prev);
