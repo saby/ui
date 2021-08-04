@@ -17,7 +17,6 @@ import { Generator } from '../Generator';
 import { ChainOfRef, CreateOriginRef, IResponsibilityHandler } from 'UICore/Ref';
 import { CreateEventRef } from './Refs/CreateEventRef';
 import { CreateChildrenRef } from './Refs/CreateChildrenRef';
-import { joinElementsVdom } from '../Utils';
 
 export class GeneratorVdom extends Generator implements IGenerator {
     /**
@@ -110,7 +109,11 @@ export class GeneratorVdom extends Generator implements IGenerator {
     Так что пока этот метод ничего не делает.
      */
     joinElements(elements: React.ReactNode): React.ReactNode {
-        return joinElementsVdom(elements);
+        if (Array.isArray(elements)) {
+            return ArrayUtils.flatten(elements, true, true);
+        } else {
+            throw new Error('joinElements: elements is not array');
+        }
     }
 
     /**
