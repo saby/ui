@@ -225,6 +225,9 @@ function setDefaultValues(config: IControlConfig): void {
    if (config.isRootTag === undefined) {
       config.isRootTag = false;
    }
+   if (config.depsLocal === undefined) {
+      config.depsLocal = { };
+   }
    if (config.blockOptionNames === undefined) {
       config.blockOptionNames = [];
    }
