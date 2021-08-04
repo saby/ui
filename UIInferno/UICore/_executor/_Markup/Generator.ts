@@ -521,7 +521,6 @@ export class Generator {
       }
       if (!checkNested(data, valueArray, 0)) {
          Logger.error(`Bind на несуществующее поле "${value}".`, event.viewController);
-         return false;
       }
       return true;
    }
