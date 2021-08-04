@@ -35,7 +35,8 @@ const whiteList = {
    "Controls/scroll:_scrollContext": true,
    "Controls/scroll:_stickyHeaderContext": true,
    "UI/State:AppData": true,
-   "Layout/Selector/__SelectorContext": true // Временное поле для раскладки окна выбора по новому дизайну
+   "Layout/Selector/__SelectorContext": true, // Временное поле для раскладки окна выбора по новому дизайну
+   "Controls/stickyEnvironment:PinController": true
 };
 
 function compositeGetVersion() {
