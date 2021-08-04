@@ -28,6 +28,7 @@ import {
 } from 'UICommon/Executor';
 
 import { object } from 'Types/util';
+import { Record } from 'Types/entity';
 
 const defRegExp = /(\[def-[\w\d]+\])/g;
 
@@ -510,6 +511,9 @@ export class Generator {
                checkArray.push(checkNested(obj[propName[index]][i], propName, index + 1));
             }
             return checkArray.indexOf(false) <= -1;
+         }
+         if (obj[propName[index]] instanceof Record) {
+            return typeof obj.get(propName[index]) !== 'undefined';
          }
          return checkNested(obj[propName[index]], propName, index + 1);
       };
