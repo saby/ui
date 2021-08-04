@@ -205,7 +205,7 @@ export interface IControlConfig {
    ctx: any;
    isVdom: boolean;
    context: any;
-   depsLocal: any;
+   depsLocal?: any;
    includedTemplates: any;
    pName?: string;
    viewController: any;
