@@ -513,7 +513,7 @@ export class Generator {
             return checkArray.indexOf(false) <= -1;
          }
          if (obj[propName[index]] instanceof Record) {
-            return typeof obj.get(propName[index]) !== 'undefined';
+            return true
          }
          return checkNested(obj[propName[index]], propName, index + 1);
       };
