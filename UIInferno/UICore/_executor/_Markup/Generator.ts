@@ -215,12 +215,34 @@ interface INewArguments {
    config: any;
 }
 
+function setDefaultValues(config: IControlConfig): void {
+   if (config.compositeAttributes === undefined) {
+      config.compositeAttributes = null;
+   }
+   if (config.scope === undefined) {
+      config.scope = null;
+   }
+   if (config.isRootTag === undefined) {
+      config.isRootTag = false;
+   }
+   if (config.blockOptionNames === undefined) {
+      config.blockOptionNames = [];
+   }
+   if (config.mergeType === undefined) {
+      config.mergeType = 'context';
+   }
+   if (config.internal === undefined) {
+      config.internal = { };
+   }
+}
+
 function prepareNewArguments(
     attributes: any,
     events: any,
     options: any, // FIXME: Record<string, unknown>
     config: IControlConfig
 ): INewArguments {
+   setDefaultValues(config);
    const decorAttribs = {
       attributes: config.compositeAttributes === null
           ? attributes
