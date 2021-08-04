@@ -496,29 +496,29 @@ export class Generator {
       }
    };
    private static checkBindValue(event, value) {
-      const checkNested = (obj, valueArray, index) => {
+      const checkNested = (obj, propName, index) => {
          if (obj === undefined) {
             return false;
          }
-         if (obj.hasOwnProperty(valueArray[index]) && valueArray.length === index + 1) {
+         if (obj.hasOwnProperty(propName[index]) && propName.length === index + 1) {
             return true;
          }
-         if (Array.isArray(obj[valueArray[index]])) {
+         if (Array.isArray(obj[propName[index]])) {
             // могли сделать bind на массив внутри объекта, надо проверить что все поля совпадают
             let checkArray = [];
-            for (let i = 0; i < obj[valueArray[index]].length; i++) {
-               checkArray.push(checkNested(obj[valueArray[index]][i], valueArray, index + 1));
+            for (let i = 0; i < obj[propName[index]].length; i++) {
+               checkArray.push(checkNested(obj[propName[index]][i], propName, index + 1));
             }
             return checkArray.indexOf(false) <= -1;
          }
-         return checkNested(obj[valueArray[index]], valueArray, index + 1);
+         return checkNested(obj[propName[index]], propName, index + 1);
       };
 
-      const data = event.data;
-      const valueArray = value.split('.');
       if (!value) {
          return false;
       }
+      const data = event.data;
+      const valueArray = value.split('.');
       if (!checkNested(data, valueArray, 0)) {
          Logger.error(`Bind на несуществующее поле "${value}".`, event.viewController);
       }
