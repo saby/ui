@@ -90,7 +90,7 @@ define('Compiler/codegen/templates', [
     * Сгенерировать define-модуль шаблона wml-шаблона.
     * @param moduleName Имя модуля.
     * @param moduleExtension Расширение шаблона.
-    * @param templateFunction Функция шаблона, содержащая privateFn, includedFn.
+    * @param templateFunction Функция шаблона, содержащая contentOptionFunctions, inlineTemplateBodies.
     * @param dependencies Массив зависимостей.
     * @param reactiveProperties Массив имен реактивных свойств.
     * @param hasTranslations Флаг наличия в единице трансляции конструкции локализации.
@@ -114,19 +114,19 @@ define('Compiler/codegen/templates', [
          }
       }
 
-      if (templateFunction.privateFn) {
-         for (index = 0; index < templateFunction.privateFn.length; ++index) {
-            functionName = getPrivateFunctionName(templateFunction.privateFn[index], index);
-            functionBody = templateFunction.privateFn[index].toString()
+      if (templateFunction.contentOptionFunctions) {
+         for (index = 0; index < templateFunction.contentOptionFunctions.length; ++index) {
+            functionName = getPrivateFunctionName(templateFunction.contentOptionFunctions[index], index);
+            functionBody = templateFunction.contentOptionFunctions[index].toString()
                .replace('function anonymous', 'function ' + functionName);
             privateTemplates += functionBody;
          }
       }
 
-      if (templateFunction.includedFn) {
-         for (functionName in templateFunction.includedFn) {
-            if (templateFunction.includedFn.hasOwnProperty(functionName)) {
-               includedTemplates += 'function ' + functionName + '(data, attr, context, isVdom, sets, forceCompatible, generatorConfig)' + templateFunction.includedFn[functionName];
+      if (templateFunction.inlineTemplateBodies) {
+         for (functionName in templateFunction.inlineTemplateBodies) {
+            if (templateFunction.inlineTemplateBodies.hasOwnProperty(functionName)) {
+               includedTemplates += 'function ' + functionName + '(data, attr, context, isVdom, sets, forceCompatible, generatorConfig)' + templateFunction.inlineTemplateBodies[functionName];
                localDependenciesList += 'depsLocal["' + functionName + '"] = ' + functionName + ';';
             }
          }
@@ -165,7 +165,7 @@ define('Compiler/codegen/templates', [
     * Сгенерировать define-модуль шаблона tmpl-шаблона.
     * @param moduleName Имя модуля.
     * @param moduleExtension Расширение шаблона.
-    * @param templateFunction Функция шаблона, содержащая privateFn, includedFn.
+    * @param templateFunction Функция шаблона, содержащая contentOptionFunctions, inlineTemplateBodies.
     * @param dependencies Массив зависимостей.
     * @param reactiveProperties Массив имен реактивных свойств.
     * @param hasTranslations Флаг наличия в единице трансляции конструкции локализации.
