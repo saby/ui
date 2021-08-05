@@ -199,22 +199,23 @@ export type TAttributes = Record<string, unknown>;
 export type TEvents = Record<string, unknown>;
 
 export interface IControlConfig {
-   compositeAttributes: any;
+   compositeAttributes?: any;
    attr: any;
    data: any;
    ctx: any;
    isVdom: boolean;
    context: any;
-   depsLocal: any;
+   depsLocal?: any;
    includedTemplates: any;
-   pName: string;
+   pName?: string;
    viewController: any;
-   isRootTag: boolean;
-   internal: any;
-   scope: any;
+   isRootTag?: boolean;
+   internal?: any;
+   scope?: any;
    key: any;
    defCollection: any;
-   mergeType: 'none' | 'attribute' | 'context';
+   mergeType?: 'none' | 'attribute' | 'context';
+   blockOptionNames?: string[];
 }
 
 // Типы сопоставления для случаем когда однозначно описать тип не можем
