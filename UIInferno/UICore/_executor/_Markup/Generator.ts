@@ -533,7 +533,7 @@ export class Generator {
          }
       }
       if (!checkNested(data, valueArray, 0)) {
-         Logger.error(`Bind на несуществующее поле "${value}".`, event.viewController);
+         Logger.warn(`Bind на несуществующее поле "${value}". Bind может работать не правильно`, event.viewController);
       }
       return true;
    }
