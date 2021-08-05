@@ -27,6 +27,7 @@ import {
    TObject
 } from 'UICommon/Executor';
 import { createTagDefault, joinElements, stringTemplateResolver } from '../Utils'
+import { IControlOptions } from 'UICommon/Base';
 
 const markupBuilder = new Builder();
 
@@ -381,6 +382,11 @@ export class GeneratorText implements IGenerator {
    calculateScope(scope) {
       return Scope.calculateScope(scope, Scope.controlPropMerge);
    };
+
+   protected calculateOptions(
+       resolvedOptionsExtended: IControlOptions): IControlOptions {
+      return resolvedOptionsExtended;
+   }
 
    private isValidTemplateError(fn: any, tpl: GeneratorTemplateOrigin, reason: string): void {
       Logger.error(`Не удалось построить верстку.` +
