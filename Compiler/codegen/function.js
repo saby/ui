@@ -109,7 +109,6 @@ define('Compiler/codegen/function', [
        */
       _controlsData: { },
       handlers: { },
-      includedFunctions: { },
       getFuncNameByFile: getFuncNameByFile,
       childrenStorage: [ ],
       getFuncNameByTemplate: function(wsTemplateName) {
@@ -212,7 +211,6 @@ define('Compiler/codegen/function', [
        */
       getString: function getString(ast, data, handlers, attributes, internal) {
          var decor = this.decorate(attributes);
-         var res = '';
 
          /**
           * Нам нужно пометить эту функцию, что она генерирует атрибуты для КОРНЕВОГО тега
@@ -241,11 +239,7 @@ define('Compiler/codegen/function', [
          if (str) {
             str = '' + str.replace(/\n/g, ' ');
          }
-         if (!internal) {
-            res += templates.generateTemplateHead();
-         }
-         res += templates.generateTemplateBody(handlers.fileName, str, handlers.generateTranslations);
-         return res;
+         return templates.generateTemplate(handlers.fileName, str, handlers.generateTranslations, !internal);
       },
       getFunction: function getFunction(ast, data, handlers, attributes, internal) {
          // eslint-disable-next-line no-empty-function
@@ -260,9 +254,8 @@ define('Compiler/codegen/function', [
             str = this.getString(ast, data, handlers, attributes, internal);
             // eslint-disable-next-line no-new-func
             func = new Function('data, attr, context, isVdom, sets, forceCompatible, generatorConfig', str);
-            func.includedFunctions = this.includedFunctions;
-            func.privateFn = this.privateFn;
-            func.includedFn = this.includedFn;
+            func.inlineTemplateFunctions = this.inlineTemplateFunctions;
+            func.contentOptionStringBodies = this.contentOptionStringBodies;
             func.functionNames = this.functionNames;
             func.internalFunctions = this.internalFunctions;
          } catch (error) {

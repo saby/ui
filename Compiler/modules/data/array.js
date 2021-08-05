@@ -19,21 +19,21 @@ define('Compiler/modules/data/array', [
       return propertyName ? propertyName.split('/').pop() : propertyName;
    }
 
-   function generateInternal(string, injected, includedFn, internalFunctions) {
+   function generateInternal(string, injected, contentOptionStringBodies, internalFunctions) {
       if (Internal.canUseNewInternalFunctions() && internalFunctions) {
          return FSC.getStr(Internal.generate(injected.__$ws_internalTree, internalFunctions));
       }
 
       var dirtyCh = '';
       if (!string) {
-         if (!includedFn) {
+         if (!contentOptionStringBodies) {
             dirtyCh = 'this.func.internal = ';
          }
          if (injected && injected.internal) {
             dirtyCh += FSC.getStr(injected.internal);
          } else {
             dirtyCh += '{}';
-            if (!includedFn) {
+            if (!contentOptionStringBodies) {
                dirtyCh += ';';
             }
          }
@@ -47,20 +47,19 @@ define('Compiler/modules/data/array', [
       var wsTemplateName = injected && injected.attribs && injected.attribs._wstemplatename;
       var generatedTemplate = this.getString(html, { }, this.handlers, { }, true);
       var fileName = this.handlers.fileName;
-      var funcText = templates.generateTemplate(cleanPropertyName, generatedTemplate, fileName, !!string);
+      var funcText = templates.generateContentTemplate(cleanPropertyName, generatedTemplate, fileName, !!string);
       var functionToWrap;
 
       // Важно: параметр string устанавливается в true, когда на контентной опции задан тип type="string".
       //  В таком случае создается контентная опция и сразу вызывается. Результат - строка (верстка).
       var postfixCall = string ? '(Object.create(data), null, context)' : '';
-      var dirtyCh = generateInternal(string, injected, this.includedFn, this.internalFunctions, fileName);
+      var dirtyCh = generateInternal(string, injected, this.contentOptionStringBodies, this.internalFunctions, fileName);
 
       // eslint-disable-next-line no-new-func
       var func = new Function('data, attr, context, isVdom, sets, forceCompatible, generatorConfig', funcText);
       var funcName = this.setFunctionName(func, wsTemplateName, undefined, cleanPropertyName);
-      this.includedFunctions[cleanPropertyName] = func;
-      if (this.privateFn) {
-         this.privateFn.push(func);
+      if (this.inlineTemplateFunctions) {
+         this.inlineTemplateFunctions.push(func);
          functionToWrap = funcName;
       } else {
          functionToWrap = func
@@ -68,14 +67,14 @@ define('Compiler/modules/data/array', [
             .replace('function anonymous', 'function ' + funcName)
             .replace(/\n/g, ' ');
       }
-      if (this.includedFn) {
+      if (this.contentOptionStringBodies) {
          // Режим wml
-         generatedString = templates.generateIncludedTemplate(
+         generatedString = templates.generateContentOption(
             functionToWrap, dirtyCh ? ('isVdom?' + dirtyCh + ':{}') : '{}', postfixCall, this.isWasabyTemplate, this.useReact
          );
       } else {
          // Режим tmpl
-         generatedString = templates.generateObjectTemplate(
+         generatedString = templates.generateContentOptionTmpl(
             functionToWrap, dirtyCh, postfixCall, this.isWasabyTemplate, this.useReact
          );
       }

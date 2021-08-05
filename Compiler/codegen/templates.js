@@ -47,16 +47,16 @@ define('Compiler/codegen/templates', [
    var foreachTemplate = preprocessRawTemplate(jstpl.FOREACH);
    var headTemplate = preprocessRawTemplate(jstpl.HEAD);
    var bodyTemplate = preprocessRawTemplate(jstpl.BODY);
-   var stringTemplate = preprocessRawTemplate(jstpl.STRING_TEMPLATE);
-   var functionTemplate = preprocessRawTemplate(jstpl.FUNCTION_TEMPLATE);
+   var contentTemplateString = preprocessRawTemplate(jstpl.CONTENT_TEMPLATE_STRING);
+   var contentTemplateFunction = preprocessRawTemplate(jstpl.CONTENT_TEMPLATE_FUNCTION);
 
-   var objectTemplate = preprocessRawTemplate(jstpl.OBJECT_TEMPLATE);
-   var includedTemplate = preprocessRawTemplate(jstpl.INCLUDED_TEMPLATE);
-   var objectTemplateReact = preprocessRawTemplate(jstpl.OBJECT_TEMPLATE_REACT);
-   var includedTemplateReact = preprocessRawTemplate(jstpl.INCLUDED_TEMPLATE_REACT);
+   var contentOption = preprocessRawTemplate(jstpl.CONTENT_OPTION);
+   var contentOptionReact = preprocessRawTemplate(jstpl.CONTENT_OPTION_REACT);
+   var contentOptionTmpl = preprocessRawTemplate(jstpl.CONTENT_OPTION_TMPL);
+   var contentOptionTmplReact = preprocessRawTemplate(jstpl.CONTENT_OPTION_TMPL_REACT);
 
-   var privateTemplate = preprocessRawTemplate(jstpl.PRIVATE_TEMPLATE);
-   var privateTemplateHeader = preprocessRawTemplate(jstpl.PRIVATE_TEMPLATE_HEADER);
+   var inlineTemplate = preprocessRawTemplate(jstpl.INLINE_TEMPLATE);
+   var inlineTemplateTmpl = preprocessRawTemplate(jstpl.INLINE_TEMPLATE_TMPL);
    var partialTemplate = preprocessRawTemplate(jstpl.PARTIAL_TEMPLATE);
 
    /**
@@ -87,10 +87,10 @@ define('Compiler/codegen/templates', [
    }
 
    /**
-    * Сгенерировать define-модуль шаблона.
+    * Сгенерировать define-модуль шаблона wml-шаблона.
     * @param moduleName Имя модуля.
     * @param moduleExtension Расширение шаблона.
-    * @param templateFunction Функция шаблона, содержащая privateFn, includedFn.
+    * @param templateFunction Функция шаблона, содержащая inlineTemplateFunctions, contentOptionStringBodies.
     * @param dependencies Массив зависимостей.
     * @param reactiveProperties Массив имен реактивных свойств.
     * @param hasTranslations Флаг наличия в единице трансляции конструкции локализации.
@@ -114,19 +114,19 @@ define('Compiler/codegen/templates', [
          }
       }
 
-      if (templateFunction.privateFn) {
-         for (index = 0; index < templateFunction.privateFn.length; ++index) {
-            functionName = getPrivateFunctionName(templateFunction.privateFn[index], index);
-            functionBody = templateFunction.privateFn[index].toString()
+      if (templateFunction.inlineTemplateFunctions) {
+         for (index = 0; index < templateFunction.inlineTemplateFunctions.length; ++index) {
+            functionName = getPrivateFunctionName(templateFunction.inlineTemplateFunctions[index], index);
+            functionBody = templateFunction.inlineTemplateFunctions[index].toString()
                .replace('function anonymous', 'function ' + functionName);
             privateTemplates += functionBody;
          }
       }
 
-      if (templateFunction.includedFn) {
-         for (functionName in templateFunction.includedFn) {
-            if (templateFunction.includedFn.hasOwnProperty(functionName)) {
-               includedTemplates += 'function ' + functionName + '(data, attr, context, isVdom, sets, forceCompatible, generatorConfig)' + templateFunction.includedFn[functionName];
+      if (templateFunction.contentOptionStringBodies) {
+         for (functionName in templateFunction.contentOptionStringBodies) {
+            if (templateFunction.contentOptionStringBodies.hasOwnProperty(functionName)) {
+               includedTemplates += 'function ' + functionName + '(data, attr, context, isVdom, sets, forceCompatible, generatorConfig)' + templateFunction.contentOptionStringBodies[functionName];
                localDependenciesList += 'depsLocal["' + functionName + '"] = ' + functionName + ';';
             }
          }
@@ -161,7 +161,17 @@ define('Compiler/codegen/templates', [
          .replace(/\/\*#REACTIVE_PROPERTIES#\*\//g, generateReturnValueFunction(JSON.stringify(reactiveProperties)));
    }
 
-   function generateTmplDefine(moduleName, moduleExtension, templateFunction, dependencies, reactiveProperties, hasTranslations) {
+   /**
+    * Сгенерировать define-модуль шаблона tmpl-шаблона.
+    * @param moduleName Имя модуля.
+    * @param moduleExtension Расширение шаблона.
+    * @param templateFunction Функция шаблона, содержащая inlineTemplateFunctions, contentOptionStringBodies.
+    * @param dependencies Массив зависимостей.
+    * @param reactiveProperties Массив имен реактивных свойств.
+    * @param hasTranslations Флаг наличия в единице трансляции конструкции локализации.
+    * @returns {string} Сгенерированный текст шаблона.
+    */
+   function generateDefineTmpl(moduleName, moduleExtension, templateFunction, dependencies, reactiveProperties, hasTranslations) {
       var index;
       var mainTemplateFunctionName = templateFunction.name;
       if (mainTemplateFunctionName === 'anonymous' || mainTemplateFunctionName === undefined) {
@@ -235,92 +245,60 @@ define('Compiler/codegen/templates', [
    }
 
    /**
-    * Сгенерировать заголовок функции шаблона - блок инициализации переменных.
-    * @returns {string} Сгенерированный блок кода.
-    */
-   function generateTemplateHead() {
-      return headTemplate;
-   }
-
-   /**
     * Сгенерировать тело функции шаблона - блок формирования верстки.
     * @param fileName Путь к файлу шаблона.
     * @param markupGeneration Блок генерации верстки.
     * @param hasTranslations Флаг наличия в единице трансляции конструкции локализации.
+    * @param appendHeader Флаг включения заголовка с инициализацией переменных.
     * @returns {string} Сгенерированный блок кода.
     */
-   function generateTemplateBody(fileName, markupGeneration, hasTranslations) {
+   function generateTemplate(fileName, markupGeneration, hasTranslations, appendHeader) {
       var initRkFunction = EMPTY_STRING;
+      var header = appendHeader ? headTemplate : EMPTY_STRING;
       if (hasTranslations) {
          initRkFunction = 'var rk = thelpers.getRk(filename);';
       }
-      return bodyTemplate
+      return header + bodyTemplate
          .replace(/\/\*#INITIALIZE_RK_FUNCTION#\*\//g, generateReturnValueFunction(initRkFunction))
          .replace(/\/\*#FILE_NAME#\*\//g, fileName)
          .replace(/\/\*#MARKUP_GENERATION#\*\//g, generateReturnValueFunction(markupGeneration));
    }
 
    /**
-    * Сгенерировать контентный шаблон.
-    * FIXME: Уточнить этот вид шаблона.
-    * @param propertyName Имя свойства контентного шаблона.
+    * Сгенерировать тело функции контентной опции.
+    * @param propertyName Имя контентной опции.
     * @param templateBody Тело шаблона.
     * @param fileName Путь к файлу шаблона.
     * @param isString Метка: генерировать шаблон для строки или функции.
-    * @returns {string} Сгенерированный блок кода.
+    * @returns {string} Сгенерированное тело функции контентной опции.
     */
-   function generateTemplate(propertyName, templateBody, fileName, isString) {
-      var tmpl = isString ? stringTemplate : functionTemplate;
+   function generateContentTemplate(propertyName, templateBody, fileName, isString) {
+      var tmpl = isString ? contentTemplateString : contentTemplateFunction;
       return tmpl
          .replace(/\/\*#PROPERTY_NAME#\*\//g, generateReturnValueFunction(propertyName))
-         .replace(/\/\*#TEMPLATE_BODY#\*\//g, generateReturnValueFunction(templateBody));
+         .replace(/\/\*#TEMPLATE_BODY#\*\//g, generateReturnValueFunction(templateBody))
+         .replace(/\/\*#CONFIG__CURRENT_PROPERTY_NAME#\*\//g, generateReturnValueFunction('pName: currentPropertyName,'));
    }
 
    /**
-    * Сгенерировать non-included наблон.
-    * FIXME: Уточнить этот вид шаблона.
-    * @param template Шаблон.
+    * Сгенерировать контентную опцию для wml шаблона.
+    * Полученный блок кода - значение контентной опции в блоке "options".
+    * @param template Имя функции контентной опции.
     * @param internal Набор internal выражений.
     * @param postfix Строка, которую необходимо добавить в конце сгенерированного блока.
     * @param isWasabyTemplate Флаг wml шаблона.
     * @param useReact Флаг генерации кода для React.
-    * @returns {string} Сгенерированный блок кода.
+    * @returns {string} Значение контентной опции для блока "options".
     */
-   function generateObjectTemplate(template, internal, postfix, isWasabyTemplate, useReact) {
+   function generateContentOption(template, internal, postfix, isWasabyTemplate, useReact) {
       var postfixCall = postfix || '';
       if (useReact) {
-         // TODO: Implement
-         return objectTemplateReact
-            .replace('/*#TEMPLATE#*/', generateReturnValueFunction(template))
-            .replace(/\/\*#IS_WASABY_TEMPLATE#\*\//g, isWasabyTemplate)
-            .replace('/*#INTERNAL#*/', generateReturnValueFunction(internal)) + postfixCall;
-      }
-      return objectTemplate
-         .replace('/*#TEMPLATE#*/', generateReturnValueFunction(template))
-         .replace(/\/\*#IS_WASABY_TEMPLATE#\*\//g, isWasabyTemplate)
-         .replace('/*#INTERNAL#*/', generateReturnValueFunction(internal)) + postfixCall;
-   }
-
-
-   /**
-    * Сгенерировать included наблон.
-    * FIXME: Уточнить этот вид шаблона.
-    * @param template Шаблон.
-    * @param internal Набор internal выражений.
-    * @param postfix Строка, которую необходимо добавить в конце сгенерированного блока.
-    * @param isWasabyTemplate Флаг wml шаблона.
-    * @param useReact Флаг генерации кода для React.
-    * @returns {string} Сгенерированный блок кода.
-    */
-   function generateIncludedTemplate(template, internal, postfix, isWasabyTemplate, useReact) {
-      var postfixCall = postfix || '';
-      if (useReact) {
-         return includedTemplateReact
+         return contentOptionReact
             .replace('/*#TEMPLATE#*/', generateReturnValueFunction(template))
             .replace('/*#TEMPLATE_JSON#*/', generateReturnValueFunction(template))
             .replace(/\/\*#IS_WASABY_TEMPLATE#\*\//g, isWasabyTemplate);
       }
-      return includedTemplate
+      return contentOption
          .replace('/*#TEMPLATE#*/', generateReturnValueFunction(template))
          .replace('/*#TEMPLATE_JSON#*/', generateReturnValueFunction(template))
          .replace(/\/\*#IS_WASABY_TEMPLATE#\*\//g, isWasabyTemplate)
@@ -328,50 +306,83 @@ define('Compiler/codegen/templates', [
    }
 
    /**
-    * Сгенерировать private шаблон
-    * @param body {string} Тело шаблона.
-    * @returns {string} Сгенерированный блок кода.
+    * Сгенерировать контентную опцию для tmpl шаблона.
+    * Полученный блок кода - значение контентной опции в блоке "options".
+    * @param templateBody Тело шаблонной функции.
+    * @param internal Набор internal выражений.
+    * @param postfix Строка, которую необходимо добавить в конце сгенерированного блока.
+    * @param isWasabyTemplate Флаг wml шаблона.
+    * @param useReact Флаг генерации кода для React.
+    * @returns {string} Значение контентной опции для блока "options".
     */
-   function generatePrivateTemplate(body) {
-      return privateTemplate
-         .replace('/*#BODY#*/', generateReturnValueFunction(body));
+   function generateContentOptionTmpl(templateBody, internal, postfix, isWasabyTemplate, useReact) {
+      var postfixCall = postfix || '';
+      if (useReact) {
+         return contentOptionTmplReact
+            .replace('/*#TEMPLATE#*/', generateReturnValueFunction(templateBody))
+            .replace(/\/\*#IS_WASABY_TEMPLATE#\*\//g, isWasabyTemplate)
+            .replace('/*#INTERNAL#*/', generateReturnValueFunction(internal))
+            .replace(/\/\*#CONFIG__CURRENT_PROPERTY_NAME#\*\//g, generateReturnValueFunction('pName: currentPropertyName,')) + postfixCall;
+      }
+      return contentOptionTmpl
+         .replace('/*#TEMPLATE#*/', generateReturnValueFunction(templateBody))
+         .replace(/\/\*#IS_WASABY_TEMPLATE#\*\//g, isWasabyTemplate)
+         .replace('/*#INTERNAL#*/', generateReturnValueFunction(internal))
+         .replace(/\/\*#CONFIG__CURRENT_PROPERTY_NAME#\*\//g, generateReturnValueFunction('pName: currentPropertyName,')) + postfixCall;
    }
 
    /**
-    * Сгенерировать заголовок private шаблона
+    * Сгенерировать тело функции inline-шаблона.
+    * @param body {string} Тело шаблона.
+    * @returns {string} Сгенерированный блок кода.
+    */
+   function generateInlineTemplate(body) {
+      return inlineTemplate
+         .replace('/*#BODY#*/', generateReturnValueFunction(body))
+         .replace(/\/\*#CONFIG__CURRENT_PROPERTY_NAME#\*\//g, EMPTY_STRING);
+   }
+
+   /**
+    * Сгенерировать тело функции inline-шаблона.
     * @param name {string} Имя шаблона.
     * @param body {string} Тело шаблона.
     * @returns {string} Сгенерированный блок кода.
     */
-   function generatePrivateTemplateHeader(name, body) {
-      return privateTemplateHeader
+   function generateInlineTemplateTmpl(name, body) {
+      return inlineTemplateTmpl
          .replace('/*#NAME#*/', generateReturnValueFunction(name))
-         .replace('/*#BODY#*/', generateReturnValueFunction(body));
+         .replace('/*#BODY#*/', generateReturnValueFunction(body))
+         .replace(/\/\*#CONFIG__CURRENT_PROPERTY_NAME#\*\//g, EMPTY_STRING);
    }
 
    /**
-    * Сгенерировать partial шаблон
+    * Сгенерировать inline-шаблон для tmpl шаблона.
+    * @todo Уточнить данный тип шаблона.
+    * Генерация кода для <ws:partial template="inline_template_name" />
     * @param body {string} Тело шаблона.
     * @returns {string} Сгенерированный блок кода.
     */
    function generatePartialTemplate(body) {
       return partialTemplate
-         .replace('/*#BODY#*/', generateReturnValueFunction(body));
+         .replace('/*#BODY#*/', generateReturnValueFunction(body))
+         .replace(/\/\*#CONFIG__CURRENT_PROPERTY_NAME#\*\//g, EMPTY_STRING);
    }
 
    return {
       clearSourceFromDeprecated: clearSourceFromDeprecated,
-      generateDefine: generateDefine,
-      generateTmplDefine: generateTmplDefine,
+
       generateFor: generateFor,
       generateForeach: generateForeach,
-      generateTemplateHead: generateTemplateHead,
-      generateTemplateBody: generateTemplateBody,
+
+      generateDefine: generateDefine,
+      generateInlineTemplate: generateInlineTemplate,
       generateTemplate: generateTemplate,
-      generateObjectTemplate: generateObjectTemplate,
-      generateIncludedTemplate: generateIncludedTemplate,
-      generatePrivateTemplate: generatePrivateTemplate,
-      generatePrivateTemplateHeader: generatePrivateTemplateHeader,
+      generateContentTemplate: generateContentTemplate,
+      generateContentOption: generateContentOption,
+
+      generateDefineTmpl: generateDefineTmpl,
+      generateInlineTemplateTmpl: generateInlineTemplateTmpl,
+      generateContentOptionTmpl: generateContentOptionTmpl,
       generatePartialTemplate: generatePartialTemplate
    };
 });
