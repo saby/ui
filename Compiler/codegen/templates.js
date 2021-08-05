@@ -87,6 +87,20 @@ define('Compiler/codegen/templates', [
    }
 
    /**
+    * Выполнить подстановку переменной с именем контентной опции.
+    * @param source Текст шаблона.
+    * @param hasVariable Флаг наличия переменной currentPropertyName в тексте шаблона.
+    * @return Обработанный текст шаблона.
+    */
+   function replaceContentOptionName(source, hasVariable) {
+      var pattern = /\/\*#CONFIG__CURRENT_PROPERTY_NAME#\*\//g;
+      if (hasVariable) {
+         return source.replace(pattern, generateReturnValueFunction('pName: currentPropertyName,'));
+      }
+      return source.replace(pattern, EMPTY_STRING);
+   }
+
+   /**
     * Сгенерировать define-модуль шаблона wml-шаблона.
     * @param moduleName Имя модуля.
     * @param moduleExtension Расширение шаблона.
@@ -258,10 +272,11 @@ define('Compiler/codegen/templates', [
       if (hasTranslations) {
          initRkFunction = 'var rk = thelpers.getRk(filename);';
       }
-      return header + bodyTemplate
+      var source = header + bodyTemplate
          .replace(/\/\*#INITIALIZE_RK_FUNCTION#\*\//g, generateReturnValueFunction(initRkFunction))
          .replace(/\/\*#FILE_NAME#\*\//g, fileName)
          .replace(/\/\*#MARKUP_GENERATION#\*\//g, generateReturnValueFunction(markupGeneration));
+      return replaceContentOptionName(source, isRootFunction);
    }
 
    /**
@@ -274,9 +289,10 @@ define('Compiler/codegen/templates', [
     */
    function generateContentTemplate(propertyName, templateBody, fileName, isString) {
       var tmpl = isString ? contentTemplateString : contentTemplateFunction;
-      return tmpl
+      var source = tmpl
          .replace(/\/\*#PROPERTY_NAME#\*\//g, generateReturnValueFunction(propertyName))
          .replace(/\/\*#TEMPLATE_BODY#\*\//g, generateReturnValueFunction(templateBody));
+      return replaceContentOptionName(source, true);
    }
 
    /**
@@ -316,16 +332,19 @@ define('Compiler/codegen/templates', [
     */
    function generateContentOptionTmpl(templateBody, internal, postfix, isWasabyTemplate, useReact) {
       var postfixCall = postfix || '';
+      var source;
       if (useReact) {
-         return contentOptionTmplReact
+         source = contentOptionTmplReact
             .replace('/*#TEMPLATE#*/', generateReturnValueFunction(templateBody))
             .replace(/\/\*#IS_WASABY_TEMPLATE#\*\//g, isWasabyTemplate)
             .replace('/*#INTERNAL#*/', generateReturnValueFunction(internal)) + postfixCall;
+         return replaceContentOptionName(source, true);
       }
-      return contentOptionTmpl
+      source = contentOptionTmpl
          .replace('/*#TEMPLATE#*/', generateReturnValueFunction(templateBody))
          .replace(/\/\*#IS_WASABY_TEMPLATE#\*\//g, isWasabyTemplate)
          .replace('/*#INTERNAL#*/', generateReturnValueFunction(internal)) + postfixCall;
+      return replaceContentOptionName(source, true);
    }
 
    /**
@@ -334,8 +353,9 @@ define('Compiler/codegen/templates', [
     * @returns {string} Сгенерированный блок кода.
     */
    function generateInlineTemplate(body) {
-      return inlineTemplate
+      var source = inlineTemplate
          .replace('/*#BODY#*/', generateReturnValueFunction(body));
+      return replaceContentOptionName(source);
    }
 
    /**
@@ -345,9 +365,10 @@ define('Compiler/codegen/templates', [
     * @returns {string} Сгенерированный блок кода.
     */
    function generateInlineTemplateTmpl(name, body) {
-      return inlineTemplateTmpl
+      var source = inlineTemplateTmpl
          .replace('/*#NAME#*/', generateReturnValueFunction(name))
          .replace('/*#BODY#*/', generateReturnValueFunction(body));
+      return replaceContentOptionName(source);
    }
 
    /**
@@ -356,8 +377,9 @@ define('Compiler/codegen/templates', [
     * @returns {string} Сгенерированный блок кода.
     */
    function generatePartialTemplate(body) {
-      return partialTemplate
+      var source = partialTemplate
          .replace('/*#BODY#*/', generateReturnValueFunction(body));
+      return replaceContentOptionName(source);
    }
 
    return {
