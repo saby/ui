@@ -256,73 +256,76 @@ define('Compiler/codegen/templates', [
       }
       return bodyTemplate
          .replace(/\/\*#INITIALIZE_RK_FUNCTION#\*\//g, generateReturnValueFunction(initRkFunction))
-         .replace(/\/\*#FILE_NAME#\*\//g, fileName)
+         .replace(/\/\*#FILE_NAME#\*\//g, generateReturnValueFunction(fileName))
          .replace(/\/\*#MARKUP_GENERATION#\*\//g, generateReturnValueFunction(markupGeneration));
    }
 
    /**
-    * Сгенерировать контентный шаблон.
-    * FIXME: Уточнить этот вид шаблона.
-    * @param propertyName Имя свойства контентного шаблона.
+    * Сгенерировать тело функции шаблона контентной опции для wml шаблона.
+    * @param propertyName Имя контентной опции.
     * @param templateBody Тело шаблона.
     * @param fileName Путь к файлу шаблона.
     * @param isString Метка: генерировать шаблон для строки или функции.
-    * @returns {string} Сгенерированный блок кода.
+    * @returns {string} Сгенерированное тело функции шаблона контентной опции.
     */
    function generateTemplate(propertyName, templateBody, fileName, isString) {
+      // Шаблон контентной опции. Переменная currentPropertyName определена
+      var pNameStr = 'pName: currentPropertyName,';
+
       var tmpl = isString ? stringTemplate : functionTemplate;
       return tmpl
          .replace(/\/\*#PROPERTY_NAME#\*\//g, generateReturnValueFunction(propertyName))
-         .replace(/\/\*#TEMPLATE_BODY#\*\//g, generateReturnValueFunction(templateBody));
+         .replace(/\/\*#TEMPLATE_BODY#\*\//g, generateReturnValueFunction(templateBody))
+         .replace(/\/\*#CONFIG__CURRENT_PROPERTY_NAME#\*\//g, generateReturnValueFunction(pNameStr));
    }
 
    /**
-    * Сгенерировать non-included наблон.
-    * FIXME: Уточнить этот вид шаблона.
-    * @param template Шаблон.
+    * Сгенерировать контентную опцию для tmpl шаблона.
+    * Полученный блок кода - значение контентной опции в блоке "options".
+    * @param templateBody Тело шаблона.
     * @param internal Набор internal выражений.
     * @param postfix Строка, которую необходимо добавить в конце сгенерированного блока.
     * @param isWasabyTemplate Флаг wml шаблона.
     * @param useReact Флаг генерации кода для React.
-    * @returns {string} Сгенерированный блок кода.
+    * @returns {string} Значение контентной опции для блока "options".
     */
-   function generateObjectTemplate(template, internal, postfix, isWasabyTemplate, useReact) {
+   function generateObjectTemplate(templateBody, internal, postfix, isWasabyTemplate, useReact) {
       var postfixCall = postfix || '';
       if (useReact) {
          // TODO: Implement
          return objectTemplateReact
-            .replace('/*#TEMPLATE#*/', generateReturnValueFunction(template))
+            .replace('/*#TEMPLATE#*/', generateReturnValueFunction(templateBody))
             .replace(/\/\*#IS_WASABY_TEMPLATE#\*\//g, isWasabyTemplate)
             .replace('/*#INTERNAL#*/', generateReturnValueFunction(internal)) + postfixCall;
       }
       return objectTemplate
-         .replace('/*#TEMPLATE#*/', generateReturnValueFunction(template))
+         .replace('/*#TEMPLATE#*/', generateReturnValueFunction(templateBody))
          .replace(/\/\*#IS_WASABY_TEMPLATE#\*\//g, isWasabyTemplate)
          .replace('/*#INTERNAL#*/', generateReturnValueFunction(internal)) + postfixCall;
    }
 
 
    /**
-    * Сгенерировать included наблон.
-    * FIXME: Уточнить этот вид шаблона.
-    * @param template Шаблон.
+    * Сгенерировать контентную опцию для wml шаблона.
+    * Полученный блок кода - значение контентной опции в блоке "options".
+    * @param templateBody Тело шаблона.
     * @param internal Набор internal выражений.
     * @param postfix Строка, которую необходимо добавить в конце сгенерированного блока.
     * @param isWasabyTemplate Флаг wml шаблона.
     * @param useReact Флаг генерации кода для React.
-    * @returns {string} Сгенерированный блок кода.
+    * @returns {string} Значение контентной опции для блока "options".
     */
-   function generateIncludedTemplate(template, internal, postfix, isWasabyTemplate, useReact) {
+   function generateIncludedTemplate(templateBody, internal, postfix, isWasabyTemplate, useReact) {
       var postfixCall = postfix || '';
       if (useReact) {
          return includedTemplateReact
-            .replace('/*#TEMPLATE#*/', generateReturnValueFunction(template))
-            .replace('/*#TEMPLATE_JSON#*/', generateReturnValueFunction(template))
+            .replace('/*#TEMPLATE#*/', generateReturnValueFunction(templateBody))
+            .replace('/*#TEMPLATE_JSON#*/', generateReturnValueFunction(templateBody))
             .replace(/\/\*#IS_WASABY_TEMPLATE#\*\//g, isWasabyTemplate);
       }
       return includedTemplate
-         .replace('/*#TEMPLATE#*/', generateReturnValueFunction(template))
-         .replace('/*#TEMPLATE_JSON#*/', generateReturnValueFunction(template))
+         .replace('/*#TEMPLATE#*/', generateReturnValueFunction(templateBody))
+         .replace('/*#TEMPLATE_JSON#*/', generateReturnValueFunction(templateBody))
          .replace(/\/\*#IS_WASABY_TEMPLATE#\*\//g, isWasabyTemplate)
          .replace('/*#INTERNAL#*/', generateReturnValueFunction(internal)) + postfixCall;
    }
@@ -334,7 +337,8 @@ define('Compiler/codegen/templates', [
     */
    function generatePrivateTemplate(body) {
       return privateTemplate
-         .replace('/*#BODY#*/', generateReturnValueFunction(body));
+         .replace('/*#BODY#*/', generateReturnValueFunction(body))
+         .replace(/\/\*#CONFIG__CURRENT_PROPERTY_NAME#\*\//g, EMPTY_STRING);
    }
 
    /**
@@ -346,7 +350,8 @@ define('Compiler/codegen/templates', [
    function generatePrivateTemplateHeader(name, body) {
       return privateTemplateHeader
          .replace('/*#NAME#*/', generateReturnValueFunction(name))
-         .replace('/*#BODY#*/', generateReturnValueFunction(body));
+         .replace('/*#BODY#*/', generateReturnValueFunction(body))
+         .replace(/\/\*#CONFIG__CURRENT_PROPERTY_NAME#\*\//g, EMPTY_STRING);
    }
 
    /**

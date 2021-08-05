@@ -73,12 +73,12 @@ export function createConfigNew(
       + `defCollection: defCollection,`
       + `depsLocal: ${depsLocalValue},`
       + `includedTemplates: includedTemplates,`
-      + `pName: typeof currentPropertyName !== 'undefined' ? currentPropertyName : undefined,`
       + `viewController: viewController,`
       + `context: ${context},`
+      + `key: key + "${key}",`
+      + ('/*#CONFIG__CURRENT_PROPERTY_NAME#*/' /* pName: value */)
       + (compositeAttributes ? `compositeAttributes: ${compositeAttributes},` : EMPTY_STRING)
       + (scope ? `scope: ${scope},` : EMPTY_STRING)
-      + `key: key + "${key}",`
       + (isRootTag ? `isRootTag: ${isRootTag},` : EMPTY_STRING)
       + (internal ? `internal: isVdom ? ${internal} : {},` : EMPTY_STRING)
       + (mergeType !== 'context' ? `mergeType: "${mergeType}",` : EMPTY_STRING)

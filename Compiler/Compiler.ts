@@ -142,6 +142,20 @@ interface ITraversed {
 }
 
 /**
+ * Check compiled JS code is valid.
+ * @param text {string} JS code.
+ */
+function validateCompiledText(text: string): void {
+   const commentLikeSubsPattern = /\/\*#[A-Z_0-9]+#\*\//;
+   if (commentLikeSubsPattern.test(text)) {
+      const firstPattern = text.match(commentLikeSubsPattern);
+      throw new Error(
+         `(внутренняя ошибка компилятора) Обнаружена необработанная подстановка ${firstPattern[0]}`
+      );
+   }
+}
+
+/**
  * Represents base compiler methods for wml and tmpl.
  */
 abstract class BaseCompiler implements ICompiler {
@@ -192,9 +206,11 @@ abstract class BaseCompiler implements ICompiler {
       if (!tmplFunc) {
          throw new Error('Шаблон не может быть построен. Не загружены зависимости.');
       }
-      return this.generateModule(
+      const text = this.generateModule(
           tmplFunc, traversed.dependencies, traversed.ast.reactiveProps, options.modulePath, traversed.hasTranslations
       );
+      validateCompiledText(text);
+      return text;
    }
 
    /**
