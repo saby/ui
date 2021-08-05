@@ -31,7 +31,6 @@ define('Compiler/codegen/bridge', [
       }
       processingToFunction.privateFn = [];
       processingToFunction.includedFn = { };
-      processingToFunction.includedFunctions = { };
       processingToFunction.internalFunctions = [];
    }
 
@@ -47,7 +46,6 @@ define('Compiler/codegen/bridge', [
             processingToFunction.functionNames[name] = 1;
          }
       }
-      processingToFunction.includedFunctions = { };
       processingToFunction.privateFn = null;
       processingToFunction.includedFn = null;
       processingToFunction.internalFunctions = null;
@@ -58,7 +56,6 @@ define('Compiler/codegen/bridge', [
     */
    function cleanWorkspace() {
       processingToFunction.functionNames = null;
-      processingToFunction.includedFunctions = null;
       processingToFunction.privateFn = null;
       processingToFunction.includedFn = null;
       processingToFunction.internalFunctions = null;

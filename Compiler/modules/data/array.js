@@ -58,7 +58,6 @@ define('Compiler/modules/data/array', [
       // eslint-disable-next-line no-new-func
       var func = new Function('data, attr, context, isVdom, sets, forceCompatible, generatorConfig', funcText);
       var funcName = this.setFunctionName(func, wsTemplateName, undefined, cleanPropertyName);
-      this.includedFunctions[cleanPropertyName] = func;
       if (this.privateFn) {
          this.privateFn.push(func);
          functionToWrap = funcName;
