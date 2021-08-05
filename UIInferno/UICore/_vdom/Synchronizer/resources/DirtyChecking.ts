@@ -659,7 +659,16 @@ export function rebuildNode(environment: IDOMEnvironment, node: IControlNode, fo
             const oldOptions = oldTemplateNode.controlProperties;
             const newOptions = newTemplateNode.controlProperties;
             // @ts-ignore
-            const changedOptions = getChangedOptions(newOptions, oldOptions, false, oldTemplateNode.optionsVersions);
+            const changedOptions = getChangedOptions(
+                newOptions,
+                oldOptions,
+                false,
+                oldTemplateNode.optionsVersions,
+                undefined,
+                undefined,
+                undefined,
+                newOptions._$blockOptionNames
+            );
             const oldAttrs = oldTemplateNode.attributes.attributes;
             const newAttrs = newTemplateNode.attributes.attributes || {};
             // @ts-ignore
@@ -930,7 +939,7 @@ export function rebuildNode(environment: IDOMEnvironment, node: IControlNode, fo
         let changedOptions = getChangedOptions(
             newOptions, oldOptions,
             newVNode.compound,
-            oldOptionsVersions, false, '', newVNode.compound);
+            oldOptionsVersions, false, '', newVNode.compound, newOptions._$blockOptionNames);
         const changedContext = getChangedOptions(
             newChildNodeContext,
             oldChildNodeContext,
@@ -967,7 +976,7 @@ export function rebuildNode(environment: IDOMEnvironment, node: IControlNode, fo
                 if (instanceCtr && !instanceCtr.__$$blockSetProperties) {
                     // CompoundControld could have changed its options by itself, so we have to check which options
                     // really have to be updated
-                    const realCh = getChangedOptions(newOptions, instanceCtr._options || {}, newVNode.compound, {}, false, '', newVNode.compound);
+                    const realCh = getChangedOptions(newOptions, instanceCtr._options || {}, newVNode.compound, {}, false, '', newVNode.compound, newOptions._$blockOptionNames);
                     if (realCh) {
                         instanceCtr.__$$blockSetProperties = true;
 

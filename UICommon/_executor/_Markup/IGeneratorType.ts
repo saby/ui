@@ -215,6 +215,7 @@ export interface IControlConfig {
    key: any;
    defCollection: any;
    mergeType: 'none' | 'attribute' | 'context';
+   blockOptionNames?: string[];
 }
 
 // Типы сопоставления для случаем когда однозначно описать тип не можем
