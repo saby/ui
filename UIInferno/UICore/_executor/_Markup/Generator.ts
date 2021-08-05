@@ -501,6 +501,9 @@ export class Generator {
          if (obj === undefined) {
             return false;
          }
+         if (obj === null) {
+            return true;
+         }
          if (propName[index] in obj && propName.length === index + 1) {
             return true;
          }
