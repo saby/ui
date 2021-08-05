@@ -23,8 +23,6 @@ import { WasabyEventsDebug } from './WasabyEventsDebug';
 import { Control } from 'UICore/Control';
 import { Set } from 'Types/shim';
 import { Logger } from 'UICommon/Utils';
-import { object } from 'Types/util';
-import {Record} from 'Types/entity';
 
 type TElement =  HTMLElement & {
     eventProperties?: Record<string, IWasabyEvent[]>;

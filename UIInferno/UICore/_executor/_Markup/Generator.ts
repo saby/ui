@@ -27,9 +27,6 @@ import {
    IControlConfig
 } from 'UICommon/Executor';
 
-import { object } from 'Types/util';
-import { Record } from 'Types/entity';
-
 const defRegExp = /(\[def-[\w\d]+\])/g;
 
 function isLibraryTpl(tpl, deps) {
