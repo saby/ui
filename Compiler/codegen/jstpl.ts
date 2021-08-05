@@ -165,7 +165,7 @@ var defCollection = {
    id: [],
    def: undefined
 };
-var viewController = thelpers.calcParent(this, typeof currentPropertyName === 'undefined' ? undefined : currentPropertyName, data);
+var viewController = thelpers.calcParent(this, currentPropertyName, data);
 
 /*#TEMPLATE_BODY#*/
 `;
@@ -198,7 +198,7 @@ var defCollection = {
    id: [],
    def: undefined
 };
-var viewController = thelpers.calcParent(this, typeof currentPropertyName === 'undefined' ? undefined : currentPropertyName, data);
+var viewController = thelpers.calcParent(this, undefined, data);
 `;
 
 /**
@@ -299,7 +299,7 @@ export const PRIVATE_TEMPLATE = `{
     id: [],
     def: undefined
   };
-  var viewController = thelpers.calcParent(this, typeof currentPropertyName === "undefined" ? undefined : currentPropertyName, data);
+  var viewController = thelpers.calcParent(this, undefined, data);
   /*#BODY#*/
 }
 `;
