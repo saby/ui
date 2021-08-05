@@ -16,6 +16,8 @@ export * as MarkupUtils from './_executor/_Markup/Utils';
 export { ResolveControlName } from './_executor/_Markup/ResolveControlName';
 export { Generator as GeneratorBase } from './_executor/_Markup/Generator';
 
+export { CreateTagVdom } from './_executor/_Markup/Component';
+
 export function resolveTemplateFunction(
     parent: any,
     template: any,
