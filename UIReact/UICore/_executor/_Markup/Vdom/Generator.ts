@@ -3,7 +3,8 @@ import { Logger, ArrayUtils } from 'UICommon/Utils';
 import {
     CommonUtils as Common,
     IGenerator,
-    Scope
+    Scope,
+    IGeneratorComponent
 } from 'UICommon/Executor';
 import { WasabyAttributes } from '../Attributes';
 import { IWasabyEvent } from 'UICommon/Events';
@@ -17,7 +18,6 @@ import { ChainOfRef, CreateOriginRef, IResponsibilityHandler } from 'UICore/Ref'
 import { CreateChildrenRef } from '../Refs/CreateChildrenRef';
 
 import { CreateTagVdom } from '../Component/CreateTagVdom';
-import { IGeneratorComponent } from '../Component/IGeneratorComponent';
 
 export class GeneratorVdom extends Generator implements IGenerator {
     private createTagComponent: IGeneratorComponent;
