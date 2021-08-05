@@ -298,62 +298,10 @@ define('Compiler/modules/partial', [
             tag.decorAttribs = decorAttribs;
             var preparedScope = prepareScope.call(this, tag, data);
             var strPreparedScope = FSC.getStr(preparedScope);
-            var decorInternal = (tag.internal && Object.keys(tag.internal).length > 0)
-               ? FSC.getStr(tag.internal)
-               : null;
-
-            if (Internal.canUseNewInternalFunctions() && this.internalFunctions) {
-               // TODO: Test and remove code above
-               decorInternal = Internal.generate(tag.__$ws_internalTree, this.internalFunctions);
-            }
-
-            var createTmplCfg = FeaturePartial.createTemplateConfig(!decorInternal ? '{}' : decorInternal, tag.isRootTag);
-
-            if (tagIsDynamicPartial) {
-               // FIXME: Need to process injectedTemplate to get generated code fragment from _wstemplatename
-               Process.processExpressions(
-                  tag.injectedTemplate, data, this.fileName, undefined, preparedScope
-               );
-               var templateName = calculateData(tag.attribs._wstemplatename).slice(1, -1);
-               var partialAttributes = decor && decor.isMainAttrs
-                  ? TClosure.genPlainMergeAttr('attr', FSC.getStr(decorAttribs))
-                  : FSC.getStr(decorAttribs);
-               return Generator.genCreateControlResolver(
-                  templateName,
-                  strPreparedScope,
-                  partialAttributes,
-                  createTmplCfg
-               ) + ',';
-            }
 
             var createAttribs = decor
                ? TClosure.genPlainMergeAttr('attr', FSC.getStr(decorAttribs))
                : TClosure.genPlainMergeContext('attr', FSC.getStr(decorAttribs));
-
-            if (tagIsModule) {
-               return Generator.genCreateControlModule(
-                  FSC.getStr(getLibraryModulePath(tag)),
-                  strPreparedScope,
-                  createAttribs,
-                  createTmplCfg
-               ) + ',';
-            }
-            if (tagIsWsControl) {
-               return Generator.genCreateControl(
-                  '"' + getWsTemplateName(tag) + '"',
-                  strPreparedScope,
-                  createAttribs,
-                  createTmplCfg
-               ) + ',';
-            }
-            if (tagIsTemplate) {
-               return Generator.genCreateControlTemplate(
-                  '"' + tag.attribs._wstemplatename.data.value + '"',
-                  strPreparedScope,
-                  createAttribs,
-                  createTmplCfg
-               ) + ',';
-            }
 
             // Start code generation for construction:
             // <ws:partial template="inline_template_name" />
