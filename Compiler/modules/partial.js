@@ -159,7 +159,8 @@ define('Compiler/modules/partial', [
       var context = (tagIsModule || tagIsDynamicPartial) ? 'isVdom ? context + "part_" + (templateCount++) : context' : 'context';
       var blockOptionNames = FeaturePartial.getBlockOptionNames(tag);
       var config = FeaturePartial.createConfigNew(
-         compositeAttributes, scope, context, internal, tag.isRootTag, tag.key, mergeType, blockOptionNames
+         compositeAttributes, scope, context, internal, tag.isRootTag,
+         tag.key, mergeType, blockOptionNames, this.handlers.fromBuilderTmpl
       );
 
       var result = {
