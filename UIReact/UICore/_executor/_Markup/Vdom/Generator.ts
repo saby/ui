@@ -17,7 +17,7 @@ import { Generator } from '../Generator';
 import { ChainOfRef, CreateOriginRef, IResponsibilityHandler } from 'UICore/Ref';
 import { CreateChildrenRef } from '../Refs/CreateChildrenRef';
 
-import { CreateTagVdom } from '../Component/CreateTagVdom';
+import { CreateTagVdom } from '../Component';
 
 export class GeneratorVdom extends Generator implements IGenerator {
     private createTagComponent: IGeneratorComponent;
