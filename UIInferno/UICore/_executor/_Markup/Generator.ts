@@ -523,6 +523,12 @@ export class Generator {
       }
       const data = event.data;
       const valueArray = value.split('.');
+      const re = /\[\s*\S*]/ig;
+      for (const index in valueArray) {
+         if (re.test(valueArray[index])) {
+            valueArray[index] = valueArray[index].split(re)[0];
+         }
+      }
       if (!checkNested(data, valueArray, 0)) {
          Logger.error(`Bind на несуществующее поле "${value}".`, event.viewController);
       }
