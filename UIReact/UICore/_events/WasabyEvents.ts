@@ -24,6 +24,7 @@ import { Control } from 'UICore/Control';
 import { Set } from 'Types/shim';
 import { Logger } from 'UICommon/Utils';
 import { object } from 'Types/util';
+import {Record} from 'Types/entity';
 
 type TElement =  HTMLElement & {
     eventProperties?: Record<string, IWasabyEvent[]>;
@@ -297,21 +298,27 @@ export default class WasabyEventsReact extends WasabyEvents implements IWasabyEv
         }
     }
 
-    private static checkBindValue(event: IWasabyEvent, value: string): boolean {
+    private static checkBindValue(event, value) {
         const checkNested = (obj, propName, index) => {
             if (obj === undefined) {
                 return false;
             }
-            if ((obj.hasOwnProperty([propName[index]]) || typeof obj[propName[index]] !== 'undefined') && propName.length === index + 1) {
+            if (obj === null) {
+                return true;
+            }
+            if (propName[index] in obj && propName.length === index + 1) {
                 return true;
             }
             if (Array.isArray(obj[propName[index]])) {
                 // могли сделать bind на массив внутри объекта, надо проверить что все поля совпадают
-                const checkArray = [];
+                let checkArray = [];
                 for (let i = 0; i < obj[propName[index]].length; i++) {
                     checkArray.push(checkNested(obj[propName[index]][i], propName, index + 1));
                 }
                 return checkArray.indexOf(false) <= -1;
+            }
+            if (obj[propName[index]] instanceof Record) {
+                return true
             }
             return checkNested(obj[propName[index]], propName, index + 1);
         };
@@ -321,12 +328,17 @@ export default class WasabyEventsReact extends WasabyEvents implements IWasabyEv
         }
         const data = event.data;
         const valueArray = value.split('.');
+        const re = /\[\s*\S*]/ig;
+        for (const index in valueArray) {
+            if (re.test(valueArray[index])) {
+                valueArray[index] = valueArray[index].split(re)[0];
+            }
+        }
         if (!checkNested(data, valueArray, 0)) {
-            Logger.error(`Bind на несуществующее поле "${value}".`, event.viewController);
+            Logger.warn(`Bind на несуществующее поле "${value}". Bind может работать не правильно`, event.viewController);
         }
         return true;
     }
-
     private prepareEvents(events: Record<string, IWasabyEvent[]>): void {
         Object.keys(events).forEach((eventName) => {
             const eventArr = events[eventName];
