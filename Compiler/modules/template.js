@@ -40,11 +40,11 @@ define('Compiler/modules/template', [
             var result, functionString;
             functionString = this.getString(tag.children, {}, this.handlers, {}, true);
             if (this.includedFn) {
-               functionString = templates.generateInlineTemplate(functionString);
+               functionString = templates.generatePrivateTemplate(functionString);
                this.includedFn[name] = functionString;
                return '';
             }
-            result = templates.generateInlineTemplateTmpl(name, functionString);
+            result = templates.generatePrivateTemplateHeader(name, functionString);
             return result;
          }
          return templateReady;

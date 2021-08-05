@@ -21,9 +21,6 @@ import { ITranslationKey } from './i18n/Dictionary';
  */
 const USE_GENERATE_CODE_FOR_TRANSLATIONS = false;
 
-// Паттерн подстановок генерации кода вида /*#паттерн#*/.
-const COMMENT_LIKE_SUBSTITUTION_PATERN = /\/\*#[A-Z_0-9]+#\*\//;
-
 // FIXME: Разобраться с пробелами в текстовых узлах
 function shouldPreprocessTextNodes(options: IOptions): boolean {
    const uiModuleName = options.modulePath.getInterfaceModule();
@@ -145,19 +142,6 @@ interface ITraversed {
 }
 
 /**
- * Check compiled JS code.
- * @param text {string} Compiled JS code.
- */
-function validateCompiledText(text: string): void {
-   if (COMMENT_LIKE_SUBSTITUTION_PATERN.test(text)) {
-      const firstPattern = text.match(COMMENT_LIKE_SUBSTITUTION_PATERN);
-      throw new Error(
-         `(внутренняя ошибка компилятора) Обнаружена необработанная подстановка ${firstPattern[0]}`
-      );
-   }
-}
-
-/**
  * Represents base compiler methods for wml and tmpl.
  */
 abstract class BaseCompiler implements ICompiler {
@@ -208,11 +192,9 @@ abstract class BaseCompiler implements ICompiler {
       if (!tmplFunc) {
          throw new Error('Шаблон не может быть построен. Не загружены зависимости.');
       }
-      const text = this.generateModule(
+      return this.generateModule(
           tmplFunc, traversed.dependencies, traversed.ast.reactiveProps, options.modulePath, traversed.hasTranslations
       );
-      validateCompiledText(text);
-      return text;
    }
 
    /**
@@ -320,7 +302,7 @@ class CompilerTmpl extends BaseCompiler {
     * @param hasTranslations Translation unit contains translation constructions.
     */
    generateModule(func: any, deps: string[], reactive: string[], path: ModulePath, hasTranslations: boolean): string {
-      return templates.generateDefineTmpl(
+      return templates.generateTmplDefine(
          path.module, path.extension, func, deps, reactive, hasTranslations
       );
    }

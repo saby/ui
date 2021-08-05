@@ -278,7 +278,7 @@ define('Compiler/modules/data/object', [
 
          // Сделано для того чтобы попадала родительская область видимости при применении инлайн-шаблона
          var generatedTemplate = this.getString(html, {}, this.handlers, {}, true);
-         var funcText = templates.generateContentTemplate(htmlPropertyName, generatedTemplate, this.handlers.fileName, false);
+         var funcText = templates.generateTemplate(htmlPropertyName, generatedTemplate, this.handlers.fileName, false);
 
          // eslint-disable-next-line no-new-func
          var func = new Function('data, attr, context, isVdom, sets, forceCompatible, generatorConfig', funcText);
@@ -313,7 +313,7 @@ define('Compiler/modules/data/object', [
          }
          if (this.includedFn) {
             templateObject.html = FSC.wrapAroundObject(
-               templates.generateContentOption(
+               templates.generateIncludedTemplate(
                   fAsString,
                   dirtyCh ? ('isVdom?' + dirtyCh + ':{}') : '{}',
                   undefined,
@@ -323,7 +323,7 @@ define('Compiler/modules/data/object', [
             );
          } else {
             templateObject.html = FSC.wrapAroundObject(
-               templates.generateContentOptionTmpl(
+               templates.generateObjectTemplate(
                   fAsString, 'this.func.internal = ' + dirtyCh, undefined, this.isWasabyTemplate, this.useReact
                )
             );

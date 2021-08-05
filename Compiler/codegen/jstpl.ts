@@ -142,7 +142,7 @@ export const FOREACH = `(function forTemplate() {
  * Output template code fragment.
  * @deprecated
  */
-export const CONTENT_TEMPLATE_FUNCTION = `/*#DELETE IT START#*/
+export const FUNCTION_TEMPLATE = `/*#DELETE IT START#*/
 if (typeof context === "undefined") {
    var context = arguments[2];
 }
@@ -205,7 +205,7 @@ var viewController = thelpers.calcParent(this, undefined, data);
  * Output template code fragment.
  * @deprecated
  */
-export const CONTENT_OPTION = `{
+export const INCLUDED_TEMPLATE = `{
    func: (function () {
       var scope = Object.create(data);
       scope.viewController = viewController || null;
@@ -228,7 +228,7 @@ export const CONTENT_OPTION = `{
 /**
  * Узел контентной опции (wml)
  */
-export const CONTENT_OPTION_REACT = `
+export const INCLUDED_TEMPLATE_REACT = `
     (function () {
       var scope = Object.create(data);
       scope.viewController = viewController || null;
@@ -251,7 +251,7 @@ export const CONTENT_OPTION_REACT = `
  * Output template code fragment.
  * @deprecated
  */
-export const CONTENT_OPTION_TMPL = `(new(function () {
+export const OBJECT_TEMPLATE = `(new(function () {
    var scope = Object.create(data);
    scope.viewController = viewController || null;
    var func = ( /*#TEMPLATE#*/ );
@@ -264,7 +264,7 @@ export const CONTENT_OPTION_TMPL = `(new(function () {
 /**
  * Узел контентной опции (tmpl)
  */
-export const CONTENT_OPTION_TMPL_REACT = `(new(function () {
+export const OBJECT_TEMPLATE_REACT = `(new(function () {
    var scope = Object.create(data);
    scope.viewController = viewController || null;
    var func = ( /*#TEMPLATE#*/ );
@@ -292,7 +292,7 @@ export const PARTIAL_TEMPLATE = `(function f2(data, attr) {
  * Output template code fragment.
  * @deprecated
  */
-export const INLINE_TEMPLATE = `{
+export const PRIVATE_TEMPLATE = `{
   var key = thelpers.validateNodeKey(attr && attr.key);
   var templateCount = 0;
   var defCollection = {
@@ -308,7 +308,7 @@ export const INLINE_TEMPLATE = `{
  * Output template code fragment.
  * @deprecated
  */
-export const INLINE_TEMPLATE_TMPL = `(function () {
+export const PRIVATE_TEMPLATE_HEADER = `(function () {
   includedTemplates["/*#NAME#*/"] = (function (data, attr, context, isVdom) {
     /*#BODY#*/
   }.bind({
@@ -321,7 +321,7 @@ export const INLINE_TEMPLATE_TMPL = `(function () {
  * Output template code fragment.
  * @deprecated
  */
-export const CONTENT_TEMPLATE_STRING = `/*#DELETE IT START#*/
+export const STRING_TEMPLATE = `/*#DELETE IT START#*/
 if (typeof context === "undefined") {
    var context = arguments[2];
 }
