@@ -39,6 +39,7 @@ import {
 import { TGeneratorNode } from './IVdomType';
 import { cutFocusAttributes } from '../Utils';
 import { VNode } from 'Inferno/third-party/index';
+import { IControlOptions } from 'UICommon/Base';
 
 const emtpyProps = {
    attributes: {},
@@ -530,6 +531,15 @@ export class GeneratorVdom implements IGenerator {
          }
       }
       return resolvedTemplate;
+   }
+
+   protected calculateOptions(
+       options: IControlOptions,
+       config: IControlConfig
+   ): IControlOptions {
+      return Object.assign(options, {
+         _$blockOptionNames: config.blockOptionNames
+      });
    }
 
    resolveTemplateArray(parent: any, templateArray: any, resolvedScope: any, decorAttribs: any, context: any): any {
