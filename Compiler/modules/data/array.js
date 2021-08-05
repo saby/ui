@@ -47,7 +47,7 @@ define('Compiler/modules/data/array', [
       var wsTemplateName = injected && injected.attribs && injected.attribs._wstemplatename;
       var generatedTemplate = this.getString(html, { }, this.handlers, { }, true);
       var fileName = this.handlers.fileName;
-      var funcText = templates.generateTemplate(cleanPropertyName, generatedTemplate, fileName, !!string);
+      var funcText = templates.generateContentTemplate(cleanPropertyName, generatedTemplate, fileName, !!string);
       var functionToWrap;
 
       // Важно: параметр string устанавливается в true, когда на контентной опции задан тип type="string".
@@ -70,12 +70,12 @@ define('Compiler/modules/data/array', [
       }
       if (this.includedFn) {
          // Режим wml
-         generatedString = templates.generateIncludedTemplate(
+         generatedString = templates.generateContentOption(
             functionToWrap, dirtyCh ? ('isVdom?' + dirtyCh + ':{}') : '{}', postfixCall, this.isWasabyTemplate, this.useReact
          );
       } else {
          // Режим tmpl
-         generatedString = templates.generateObjectTemplate(
+         generatedString = templates.generateContentOptionTmpl(
             functionToWrap, dirtyCh, postfixCall, this.isWasabyTemplate, this.useReact
          );
       }
