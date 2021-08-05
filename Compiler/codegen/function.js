@@ -212,7 +212,6 @@ define('Compiler/codegen/function', [
        */
       getString: function getString(ast, data, handlers, attributes, internal) {
          var decor = this.decorate(attributes);
-         var res = '';
 
          /**
           * Нам нужно пометить эту функцию, что она генерирует атрибуты для КОРНЕВОГО тега
@@ -241,11 +240,7 @@ define('Compiler/codegen/function', [
          if (str) {
             str = '' + str.replace(/\n/g, ' ');
          }
-         if (!internal) {
-            res += templates.generateTemplateHead();
-         }
-         res += templates.generateTemplateBody(handlers.fileName, str, handlers.generateTranslations);
-         return res;
+         return templates.generateTemplate(handlers.fileName, str, handlers.generateTranslations, !internal);
       },
       getFunction: function getFunction(ast, data, handlers, attributes, internal) {
          // eslint-disable-next-line no-empty-function

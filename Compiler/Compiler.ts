@@ -320,7 +320,7 @@ class CompilerTmpl extends BaseCompiler {
     * @param hasTranslations Translation unit contains translation constructions.
     */
    generateModule(func: any, deps: string[], reactive: string[], path: ModulePath, hasTranslations: boolean): string {
-      return templates.generateTmplDefine(
+      return templates.generateDefineTmpl(
          path.module, path.extension, func, deps, reactive, hasTranslations
       );
    }
