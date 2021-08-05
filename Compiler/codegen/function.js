@@ -202,14 +202,14 @@ define('Compiler/codegen/function', [
 
       /**
        * Получение результирущего объекта
-       * @param  {Array} ast  AST array of entities
-       * @param  {Object} data Data
-       * @param handlers
-       * @param attributes
-       * @param internal
-       * @return {Object}      Generated html-string
+       * @param ast {Array} Список AST узлов.
+       * @param data {Object} Данные компиляции.
+       * @param handlers {object} Конфигурация компиляции.
+       * @param attributes {object} Атрибуты узла.
+       * @param isNotRootFunction {boolean} Флаг, означающий, что
+       * обрабатываемый AST узел НЕ (!!!) порождает новую шаблонную функцию.
        */
-      getString: function getString(ast, data, handlers, attributes, internal) {
+      getString: function getString(ast, data, handlers, attributes, isNotRootFunction) {
          var decor = this.decorate(attributes);
 
          /**
@@ -239,7 +239,7 @@ define('Compiler/codegen/function', [
          if (str) {
             str = '' + str.replace(/\n/g, ' ');
          }
-         return templates.generateTemplate(handlers.fileName, str, handlers.generateTranslations, !internal);
+         return templates.generateTemplate(handlers.fileName, str, handlers.generateTranslations, !isNotRootFunction);
       },
       getFunction: function getFunction(ast, data, handlers, attributes, internal) {
          // eslint-disable-next-line no-empty-function
