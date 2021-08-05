@@ -3,13 +3,12 @@ import { convertAttributes, WasabyAttributes } from '../Attributes';
 import { IWasabyEvent } from 'UICommon/Events';
 import { AttrToDecorate } from '../interfaces';
 import { ArrayUtils } from 'UICommon/Utils';
-import { Attr } from 'UICommon/Executor';
+import { Attr, IGeneratorComponent } from 'UICommon/Executor';
 import { ChainOfRef, CreateOriginRef } from 'UICore/Ref';
 import { CreateEventRef } from '../Refs/CreateEventRef';
 import { CreateChildrenRef } from '../Refs/CreateChildrenRef';
 import type { Control } from 'UICore/Base';
 
-import { IGeneratorComponent } from './IGeneratorComponent';
 
 export class CreateTagVdom implements IGeneratorComponent {
     create<T extends HTMLElement, P extends React.HTMLAttributes<T>>(

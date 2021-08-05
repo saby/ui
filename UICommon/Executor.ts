@@ -21,6 +21,8 @@ export {
     Class
 } from './_executor/Utils';
 
+export { IGeneratorComponent } from './_executor/_Markup/Component';
+
 export { onElementMount, onElementUnmount } from './_executor/_Utils/ChildrenManager';
 
 export { pauseReactive, setPauseReactive } from './_executor/pauseReactive';

@@ -18,7 +18,7 @@ export {
     resolveControlName
 } from './_executor/_Markup/Generator';
 export * as MarkupUtils from './_executor/_Markup/Utils';
-export { CreateTagVdom, IGeneratorComponent } from './_executor/_Markup/Component';
+export { CreateTagVdom } from './_executor/_Markup/Component';
 export {
     IGeneratorAttrs,
     IControlConfig,
