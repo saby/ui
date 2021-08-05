@@ -38,7 +38,7 @@ define('Compiler/modules/template', [
          var name = validateTemplateName.call(this, tag);
          function templateReady() {
             var result, functionString;
-            functionString = this.getString(tag.children, {}, this.handlers, {}, true);
+            functionString = this.getString(tag.children, {}, this.handlers, {}, false);
             if (this.inlineTemplateBodies) {
                functionString = templates.generateInlineTemplate(functionString);
                this.inlineTemplateBodies[name] = functionString;

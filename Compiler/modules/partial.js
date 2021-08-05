@@ -265,7 +265,7 @@ define('Compiler/modules/partial', [
       }
 
       // TMPL compiler
-      var inlineTemplateBody = this.getString(tag.children, {}, this.handlers, {}, true);
+      var inlineTemplateBody = this.getString(tag.children, {}, this.handlers, {}, false);
       var inlineTemplateFunction = templates.generatePartialTemplate(inlineTemplateBody);
       return Generator.genCreateControlNew(
          'inline',
@@ -322,7 +322,7 @@ define('Compiler/modules/partial', [
             if (this.inlineTemplateBodies) {
                tpl = tag.attribs._wstemplatename.data.value;
             } else {
-               var body = this.getString(tag.children, {}, this.handlers, {}, true);
+               var body = this.getString(tag.children, {}, this.handlers, {}, false);
                tpl = templates.generatePartialTemplate(body);
             }
 

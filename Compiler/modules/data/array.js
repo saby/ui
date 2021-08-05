@@ -45,7 +45,7 @@ define('Compiler/modules/data/array', [
    function generateFunction(htmlPropertyName, html, string, injected) {
       var generatedString, cleanPropertyName = clearPropertyName(htmlPropertyName);
       var wsTemplateName = injected && injected.attribs && injected.attribs._wstemplatename;
-      var generatedTemplate = this.getString(html, { }, this.handlers, { }, true);
+      var generatedTemplate = this.getString(html, { }, this.handlers, { }, false);
       var fileName = this.handlers.fileName;
       var funcText = templates.generateContentTemplate(cleanPropertyName, generatedTemplate, fileName, !!string);
       var functionToWrap;

@@ -206,10 +206,9 @@ define('Compiler/codegen/function', [
        * @param data {Object} Данные компиляции.
        * @param handlers {object} Конфигурация компиляции.
        * @param attributes {object} Атрибуты узла.
-       * @param isNotRootFunction {boolean} Флаг, означающий, что
-       * обрабатываемый AST узел НЕ (!!!) порождает новую шаблонную функцию.
+       * @param appendHeader Флаг, означающий, что необходимо включить заголовок с переменными.
        */
-      getString: function getString(ast, data, handlers, attributes, isNotRootFunction) {
+      getString: function getString(ast, data, handlers, attributes, appendHeader) {
          var decor = this.decorate(attributes);
 
          /**
@@ -239,9 +238,9 @@ define('Compiler/codegen/function', [
          if (str) {
             str = '' + str.replace(/\n/g, ' ');
          }
-         return templates.generateTemplate(handlers.fileName, str, handlers.generateTranslations, !isNotRootFunction);
+         return templates.generateTemplate(handlers.fileName, str, handlers.generateTranslations, appendHeader);
       },
-      getFunction: function getFunction(ast, data, handlers, attributes, internal) {
+      getFunction: function getFunction(ast, data, handlers, attributes, appendHeader) {
          // eslint-disable-next-line no-empty-function
          var func = function() { };
          var str = 'no function';
@@ -251,7 +250,7 @@ define('Compiler/codegen/function', [
             // до модуля Event
             this.childrenStorage = ast.childrenStorage;
 
-            str = this.getString(ast, data, handlers, attributes, internal);
+            str = this.getString(ast, data, handlers, attributes, appendHeader);
             // eslint-disable-next-line no-new-func
             func = new Function('data, attr, context, isVdom, sets, forceCompatible, generatorConfig', str);
             func.contentOptionFunctions = this.contentOptionFunctions;

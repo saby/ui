@@ -204,7 +204,7 @@ abstract class BaseCompiler implements ICompiler {
          ) && traversed.hasTranslations
       };
       // tslint:disable:prefer-const
-      let tmplFunc = codegenBridge.getFunction(traversed.ast, null, codeGenOptions, null);
+      let tmplFunc = codegenBridge.getFunction(traversed.ast, null, codeGenOptions, null, true);
       if (!tmplFunc) {
          throw new Error('Шаблон не может быть построен. Не загружены зависимости.');
       }

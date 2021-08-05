@@ -263,12 +263,12 @@ define('Compiler/codegen/templates', [
     * @param fileName Путь к файлу шаблона.
     * @param markupGeneration Блок генерации верстки.
     * @param hasTranslations Флаг наличия в единице трансляции конструкции локализации.
-    * @param isRootFunction Флаг, означающий, что обрабатываемый AST узел порождает (!!!) новую шаблонную функцию.
+    * @param appendHeader Флаг, означающий, что необходимо включить заголовок с переменными.
     * @returns {string} Сгенерированный блок кода.
     */
-   function generateTemplate(fileName, markupGeneration, hasTranslations, isRootFunction) {
+   function generateTemplate(fileName, markupGeneration, hasTranslations, appendHeader) {
       var initRkFunction = EMPTY_STRING;
-      var header = isRootFunction ? headTemplate : EMPTY_STRING;
+      var header = appendHeader ? headTemplate : EMPTY_STRING;
       if (hasTranslations) {
          initRkFunction = 'var rk = thelpers.getRk(filename);';
       }
@@ -276,7 +276,10 @@ define('Compiler/codegen/templates', [
          .replace(/\/\*#INITIALIZE_RK_FUNCTION#\*\//g, generateReturnValueFunction(initRkFunction))
          .replace(/\/\*#FILE_NAME#\*\//g, fileName)
          .replace(/\/\*#MARKUP_GENERATION#\*\//g, generateReturnValueFunction(markupGeneration));
-      return replaceContentOptionName(source, !isRootFunction);
+      if (appendHeader) {
+         return replaceContentOptionName(source);
+      }
+      return source;
    }
 
    /**

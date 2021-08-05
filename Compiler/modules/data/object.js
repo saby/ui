@@ -239,7 +239,7 @@ define('Compiler/modules/data/object', [
             result = FSC.wrapAroundObject(
                '(' +
                this.getFunction(
-                  html, templateObject.data, this.handlers, undefined, true
+                  html, templateObject.data, this.handlers, undefined, false
                ).toString().replace(/\n/g, ' ') +
                ')(Object.create(data), null, context)'
             );
@@ -277,7 +277,7 @@ define('Compiler/modules/data/object', [
          }
 
          // Сделано для того чтобы попадала родительская область видимости при применении инлайн-шаблона
-         var generatedTemplate = this.getString(html, {}, this.handlers, {}, true);
+         var generatedTemplate = this.getString(html, {}, this.handlers, {}, false);
          var funcText = templates.generateContentTemplate(htmlPropertyName, generatedTemplate, this.handlers.fileName, false);
 
          // eslint-disable-next-line no-new-func

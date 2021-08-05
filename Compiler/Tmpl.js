@@ -123,7 +123,7 @@ define('Compiler/Tmpl', [
 
       // FIXME: удалить, когда точно будут известны клиенты шаблонизатора.
       config.fileName = config.fileName || config.filename;
-      functionResult = codegenBridge.getFunction(ast, null, config, null);
+      functionResult = codegenBridge.getFunction(ast, null, config, null, true);
       functionResult.reactiveProps = ast.reactiveProps;
       return functionResult;
    }
