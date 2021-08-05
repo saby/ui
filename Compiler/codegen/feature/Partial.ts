@@ -60,7 +60,7 @@ export function createConfigNew(
       + `viewController: viewController,`
       + `context: ${context},`
       + `key: key + "${key}",`
-      + `pName: typeof currentPropertyName !== 'undefined' ? currentPropertyName : undefined,`
+      + ('/*#CONFIG__CURRENT_PROPERTY_NAME#*/' /* pName: value */)
       + (compositeAttributes ? `compositeAttributes: ${compositeAttributes},` : EMPTY_STRING)
       + (scope ? `scope: ${scope},` : EMPTY_STRING)
       + (isRootTag ? `isRootTag: ${isRootTag},` : EMPTY_STRING)

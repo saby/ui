@@ -245,26 +245,20 @@ define('Compiler/codegen/templates', [
    }
 
    /**
-    * Сгенерировать заголовок функции шаблона - блок инициализации переменных.
-    * @returns {string} Сгенерированный блок кода.
-    */
-   function generateTemplateHead() {
-      return headTemplate;
-   }
-
-   /**
     * Сгенерировать тело функции шаблона - блок формирования верстки.
     * @param fileName Путь к файлу шаблона.
     * @param markupGeneration Блок генерации верстки.
     * @param hasTranslations Флаг наличия в единице трансляции конструкции локализации.
+    * @param appendHeader Флаг включения заголовка с инициализацией переменных.
     * @returns {string} Сгенерированный блок кода.
     */
-   function generateTemplateBody(fileName, markupGeneration, hasTranslations) {
+   function generateTemplate(fileName, markupGeneration, hasTranslations, appendHeader) {
       var initRkFunction = EMPTY_STRING;
+      var header = appendHeader ? headTemplate : EMPTY_STRING;
       if (hasTranslations) {
          initRkFunction = 'var rk = thelpers.getRk(filename);';
       }
-      return bodyTemplate
+      return header + bodyTemplate
          .replace(/\/\*#INITIALIZE_RK_FUNCTION#\*\//g, generateReturnValueFunction(initRkFunction))
          .replace(/\/\*#FILE_NAME#\*\//g, fileName)
          .replace(/\/\*#MARKUP_GENERATION#\*\//g, generateReturnValueFunction(markupGeneration));
@@ -282,7 +276,8 @@ define('Compiler/codegen/templates', [
       var tmpl = isString ? contentTemplateString : contentTemplateFunction;
       return tmpl
          .replace(/\/\*#PROPERTY_NAME#\*\//g, generateReturnValueFunction(propertyName))
-         .replace(/\/\*#TEMPLATE_BODY#\*\//g, generateReturnValueFunction(templateBody));
+         .replace(/\/\*#TEMPLATE_BODY#\*\//g, generateReturnValueFunction(templateBody))
+         .replace(/\/\*#CONFIG__CURRENT_PROPERTY_NAME#\*\//g, generateReturnValueFunction('pName: currentPropertyName,'));
    }
 
    /**
@@ -326,26 +321,29 @@ define('Compiler/codegen/templates', [
          return contentOptionTmplReact
             .replace('/*#TEMPLATE#*/', generateReturnValueFunction(templateBody))
             .replace(/\/\*#IS_WASABY_TEMPLATE#\*\//g, isWasabyTemplate)
-            .replace('/*#INTERNAL#*/', generateReturnValueFunction(internal)) + postfixCall;
+            .replace('/*#INTERNAL#*/', generateReturnValueFunction(internal))
+            .replace(/\/\*#CONFIG__CURRENT_PROPERTY_NAME#\*\//g, generateReturnValueFunction('pName: currentPropertyName,')) + postfixCall;
       }
       return contentOptionTmpl
          .replace('/*#TEMPLATE#*/', generateReturnValueFunction(templateBody))
          .replace(/\/\*#IS_WASABY_TEMPLATE#\*\//g, isWasabyTemplate)
-         .replace('/*#INTERNAL#*/', generateReturnValueFunction(internal)) + postfixCall;
+         .replace('/*#INTERNAL#*/', generateReturnValueFunction(internal))
+         .replace(/\/\*#CONFIG__CURRENT_PROPERTY_NAME#\*\//g, generateReturnValueFunction('pName: currentPropertyName,')) + postfixCall;
    }
 
    /**
-    * Сгенерировать private шаблон
+    * Сгенерировать тело функции inline-шаблона.
     * @param body {string} Тело шаблона.
     * @returns {string} Сгенерированный блок кода.
     */
    function generateInlineTemplate(body) {
       return inlineTemplate
-         .replace('/*#BODY#*/', generateReturnValueFunction(body));
+         .replace('/*#BODY#*/', generateReturnValueFunction(body))
+         .replace(/\/\*#CONFIG__CURRENT_PROPERTY_NAME#\*\//g, EMPTY_STRING);
    }
 
    /**
-    * Сгенерировать заголовок private шаблона
+    * Сгенерировать тело функции inline-шаблона.
     * @param name {string} Имя шаблона.
     * @param body {string} Тело шаблона.
     * @returns {string} Сгенерированный блок кода.
@@ -353,18 +351,21 @@ define('Compiler/codegen/templates', [
    function generateInlineTemplateTmpl(name, body) {
       return inlineTemplateTmpl
          .replace('/*#NAME#*/', generateReturnValueFunction(name))
-         .replace('/*#BODY#*/', generateReturnValueFunction(body));
+         .replace('/*#BODY#*/', generateReturnValueFunction(body))
+         .replace(/\/\*#CONFIG__CURRENT_PROPERTY_NAME#\*\//g, EMPTY_STRING);
    }
 
    /**
-    * Сгенерировать partial шаблон
+    * Сгенерировать inline-шаблон для tmpl шаблона.
     * @todo Уточнить данный тип шаблона.
+    * Генерация кода для <ws:partial template="inline_template_name" />
     * @param body {string} Тело шаблона.
     * @returns {string} Сгенерированный блок кода.
     */
    function generatePartialTemplate(body) {
       return partialTemplate
-         .replace('/*#BODY#*/', generateReturnValueFunction(body));
+         .replace('/*#BODY#*/', generateReturnValueFunction(body))
+         .replace(/\/\*#CONFIG__CURRENT_PROPERTY_NAME#\*\//g, EMPTY_STRING);
    }
 
    return {
@@ -375,8 +376,7 @@ define('Compiler/codegen/templates', [
 
       generateDefine: generateDefine,
       generateInlineTemplate: generateInlineTemplate,
-      generateTemplateHead: generateTemplateHead,
-      generateTemplateBody: generateTemplateBody,
+      generateTemplate: generateTemplate,
       generateContentTemplate: generateContentTemplate,
       generateContentOption: generateContentOption,
 
