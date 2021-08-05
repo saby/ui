@@ -276,7 +276,7 @@ define('Compiler/codegen/templates', [
          .replace(/\/\*#INITIALIZE_RK_FUNCTION#\*\//g, generateReturnValueFunction(initRkFunction))
          .replace(/\/\*#FILE_NAME#\*\//g, fileName)
          .replace(/\/\*#MARKUP_GENERATION#\*\//g, generateReturnValueFunction(markupGeneration));
-      return replaceContentOptionName(source, isRootFunction);
+      return replaceContentOptionName(source, !isRootFunction);
    }
 
    /**
