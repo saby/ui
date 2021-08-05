@@ -254,8 +254,8 @@ define('Compiler/codegen/function', [
             str = this.getString(ast, data, handlers, attributes, internal);
             // eslint-disable-next-line no-new-func
             func = new Function('data, attr, context, isVdom, sets, forceCompatible, generatorConfig', str);
-            func.privateFn = this.privateFn;
-            func.includedFn = this.includedFn;
+            func.contentOptionFunctions = this.contentOptionFunctions;
+            func.inlineTemplateBodies = this.inlineTemplateBodies;
             func.functionNames = this.functionNames;
             func.internalFunctions = this.internalFunctions;
          } catch (error) {

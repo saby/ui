@@ -252,7 +252,7 @@ define('Compiler/modules/partial', [
       }
 
       // WML compiler
-      if (this.includedFn) {
+      if (this.inlineTemplateBodies) {
          return Generator.genCreateControlNew(
             'inline',
             templateValue,
@@ -319,7 +319,7 @@ define('Compiler/modules/partial', [
             );
 
             var tpl;
-            if (this.includedFn) {
+            if (this.inlineTemplateBodies) {
                tpl = tag.attribs._wstemplatename.data.value;
             } else {
                var body = this.getString(tag.children, {}, this.handlers, {}, true);

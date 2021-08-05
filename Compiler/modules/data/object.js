@@ -283,11 +283,11 @@ define('Compiler/modules/data/object', [
          // eslint-disable-next-line no-new-func
          var func = new Function('data, attr, context, isVdom, sets, forceCompatible, generatorConfig', funcText);
          var funcName = this.setFunctionName(func, undefined, undefined, htmlPropertyName);
-         if (this.privateFn) {
-            this.privateFn.push(func);
+         if (this.contentOptionFunctions) {
+            this.contentOptionFunctions.push(func);
          }
          var fAsString = '';
-         if (this.privateFn) {
+         if (this.contentOptionFunctions) {
             fAsString = funcName;
          } else {
             fAsString = func
@@ -306,11 +306,11 @@ define('Compiler/modules/data/object', [
             dirtyCh += FSC.getStr(currentInternalForInjected);
          } else {
             dirtyCh += '{}';
-            if (!this.includedFn) {
+            if (!this.inlineTemplateBodies) {
                dirtyCh += ';';
             }
          }
-         if (this.includedFn) {
+         if (this.inlineTemplateBodies) {
             templateObject.html = FSC.wrapAroundObject(
                templates.generateContentOption(
                   fAsString,
