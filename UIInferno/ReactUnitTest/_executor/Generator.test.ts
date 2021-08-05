@@ -6,19 +6,18 @@ import { Logger } from 'UICommon/Utils';
 
 describe('Generator Base', () => {
     describe('Bind Check', () => {
-        const originalLogger = Logger;
-        let errorMessage;
-        let errorStub;
-        const loggerErrorMock = (msg) => {
-            errorMessage = msg;
+        let warnMessage;
+        let warnStub;
+        const loggerWarnMock = (msg) => {
+            warnMessage = msg;
         };
         before(() => {
-            errorMessage = '';
-            errorStub = sinon.stub(Logger, 'error').callsFake(loggerErrorMock);
+            warnMessage = '';
+            warnStub = sinon.stub(Logger, 'warn').callsFake(loggerWarnMock);
         });
         after(() => {
-            errorMessage = '';
-            errorStub.restore();
+            warnMessage = '';
+            warnStub.restore();
         });
         const fakeEvent = {
             bindValue: '',
@@ -32,7 +31,7 @@ describe('Generator Base', () => {
             fakeEvent.data = null;
             fakeEvent.bindValue = '';
             res = null;
-            errorMessage = '';
+            warnMessage = '';
         });
         afterEach(() =>  {
             fakeEvent.data = null;
@@ -43,37 +42,37 @@ describe('Generator Base', () => {
             fakeEvent.data = {data: 0, anyProp: 0};
             fakeEvent.bindValue = 'data';
             res = GeneratorBase.checkBindValue(fakeEvent, fakeEvent.bindValue);
-            assert.equal(errorMessage, '');
+            assert.equal(warnMessage, '');
         });
         it('bind object', () => {
             fakeEvent.data = {data: {value: 0}, anyProp: 0};
             fakeEvent.bindValue = 'data.value';
             res = GeneratorBase.checkBindValue(fakeEvent, fakeEvent.bindValue);
-            assert.equal(errorMessage, '');
+            assert.equal(warnMessage, '');
         });
         it('bind array of object', () => {
             fakeEvent.data = {data: [{value: 0}, {value: 0}, {value: 0}], anyProp: 0};
             fakeEvent.bindValue = 'data.value';
             res = GeneratorBase.checkBindValue(fakeEvent, fakeEvent.bindValue);
-            assert.equal(errorMessage, '');
+            assert.equal(warnMessage, '');
         });
         it('bind array of object with sub props', () => {
             fakeEvent.data = {data: [{sub: {value: 0}, value: 0}], anyProp: 0};
             fakeEvent.bindValue = 'data.value';
             res = GeneratorBase.checkBindValue(fakeEvent, fakeEvent.bindValue);
-            assert.equal(errorMessage, '');
+            assert.equal(warnMessage, '');
         });
         it('bind array of object with sub props wrong', () => {
             fakeEvent.data = {data: [{sub: {value: 0}, value: 0}, {type: {value: 0}, value: 0}, {type: 0}], anyProp: 0};
             fakeEvent.bindValue = 'data.sub.value';
             res = GeneratorBase.checkBindValue(fakeEvent, fakeEvent.bindValue);
-            assert.include(errorMessage, 'Bind на несуществующее поле');
+            assert.include(warnMessage, 'Bind на несуществующее поле');
         });
         it('bind array of object wrong', () => {
             fakeEvent.data = {data: [{type: 0}], anyProp: 0};
             fakeEvent.bindValue = 'data.value';
             res = GeneratorBase.checkBindValue(fakeEvent, fakeEvent.bindValue);
-            assert.include(errorMessage, 'Bind на несуществующее поле');
+            assert.include(warnMessage, 'Bind на несуществующее поле');
         });
     });
 
