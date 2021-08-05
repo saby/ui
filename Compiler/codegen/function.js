@@ -109,7 +109,6 @@ define('Compiler/codegen/function', [
        */
       _controlsData: { },
       handlers: { },
-      includedFunctions: { },
       getFuncNameByFile: getFuncNameByFile,
       childrenStorage: [ ],
       getFuncNameByTemplate: function(wsTemplateName) {
@@ -260,9 +259,8 @@ define('Compiler/codegen/function', [
             str = this.getString(ast, data, handlers, attributes, internal);
             // eslint-disable-next-line no-new-func
             func = new Function('data, attr, context, isVdom, sets, forceCompatible, generatorConfig', str);
-            func.includedFunctions = this.includedFunctions;
-            func.privateFn = this.privateFn;
-            func.includedFn = this.includedFn;
+            func.inlineTemplateFunctions = this.inlineTemplateFunctions;
+            func.contentOptionStringBodies = this.contentOptionStringBodies;
             func.functionNames = this.functionNames;
             func.internalFunctions = this.internalFunctions;
          } catch (error) {

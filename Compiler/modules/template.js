@@ -39,9 +39,9 @@ define('Compiler/modules/template', [
          function templateReady() {
             var result, functionString;
             functionString = this.getString(tag.children, {}, this.handlers, {}, true);
-            if (this.includedFn) {
+            if (this.contentOptionStringBodies) {
                functionString = templates.generateInlineTemplate(functionString);
-               this.includedFn[name] = functionString;
+               this.contentOptionStringBodies[name] = functionString;
                return '';
             }
             result = templates.generateInlineTemplateTmpl(name, functionString);
