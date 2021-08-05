@@ -159,7 +159,8 @@ define('Compiler/modules/partial', [
       var context = (tagIsModule || tagIsDynamicPartial) ? 'isVdom ? context + "part_" + (templateCount++) : context' : 'context';
       var blockOptionNames = FeaturePartial.getBlockOptionNames(tag);
       var config = FeaturePartial.createConfigNew(
-         compositeAttributes, scope, context, internal, tag.isRootTag, tag.key, mergeType, blockOptionNames
+         compositeAttributes, scope, context, internal, tag.isRootTag,
+         tag.key, mergeType, blockOptionNames, this.handlers.fromBuilderTmpl
       );
 
       var result = {
@@ -251,7 +252,7 @@ define('Compiler/modules/partial', [
       }
 
       // WML compiler
-      if (this.includedFn) {
+      if (this.inlineTemplateBodies) {
          return Generator.genCreateControlNew(
             'inline',
             templateValue,
@@ -318,7 +319,7 @@ define('Compiler/modules/partial', [
             );
 
             var tpl;
-            if (this.includedFn) {
+            if (this.inlineTemplateBodies) {
                tpl = tag.attribs._wstemplatename.data.value;
             } else {
                var body = this.getString(tag.children, {}, this.handlers, {}, true);
