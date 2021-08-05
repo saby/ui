@@ -574,16 +574,9 @@ export default class Control<TOptions extends IControlOptions = {},
 
         // проверяем изменились ли опции
         if (!result) {
-            const oldOpts = {...this._options};
-            const newOpts = {...newProps};
-            skipChangedOptions.forEach((opt) => {
-                delete oldOpts[opt];
-                delete newOpts[opt];
-            });
-
             const changedOptions = !!Options.getChangedOptions(
-                newOpts,
-                oldOpts,
+                newProps,
+                this._options,
                 false,
                 this._optionsVersions,
                 undefined,

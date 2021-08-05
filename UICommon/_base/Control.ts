@@ -18,6 +18,7 @@ export interface IControlOptions {
     errorViewer?: IErrorViewer;
     _$attributes?: object;
     _$parentsChildrenPromises?: Promise<void>[];
+    _$blockOptionNames?: string[];
 }
 // в опциях хранятся служебные поля, которые не должны влиять на перерисовку контрола в shouldComponentUpdate
 export const skipChangedOptions = [
@@ -25,6 +26,8 @@ export const skipChangedOptions = [
   '_$createdFromCode',
   '_$parentsChildrenPromises',
   '_$blockOptionNames',
+  // todo нужно переименовать в _$events или вообще удалить потому что они есть в атрибутах. опасно, может пересечься с прикладной опцией по имени
+  // https://online.sbis.ru/opendoc.html?guid=488c7b3c-6c85-45d8-a13b-f1aff8c7e412
   'events'
 ];
 
