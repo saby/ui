@@ -174,7 +174,7 @@ define('UICommon/_state/TemplateDeserialization', ['UICommon/_state/FunctionHead
       depsLocalRegex = new RegExp(',\\s*[\'"]?depsLocal[\'"]?:\\s*(\\w+),', 'g');
       depsLocalMatch = body.match(depsLocalRegex);
       if (depsLocalMatch) {
-         depsLocal = depsLocalMatch.pop().split(',')[1].trim();
+         depsLocal = depsLocalMatch.pop().split(',')[1].split(':')[1].trim();
          if (isValidIdentifierName(depsLocal)) {
             identifiers.depsLocal = depsLocal;
             return compatibilityHeader.replace(/depsLocal/g, depsLocal);
