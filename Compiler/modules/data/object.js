@@ -283,7 +283,6 @@ define('Compiler/modules/data/object', [
          // eslint-disable-next-line no-new-func
          var func = new Function('data, attr, context, isVdom, sets, forceCompatible, generatorConfig', funcText);
          var funcName = this.setFunctionName(func, undefined, undefined, htmlPropertyName);
-         this.includedFunctions[htmlPropertyName] = func;
          if (this.privateFn) {
             this.privateFn.push(func);
          }
