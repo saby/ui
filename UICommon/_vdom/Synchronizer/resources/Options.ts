@@ -267,6 +267,9 @@ export function getChangedOptions(
       delete prev[opt];
       delete next[opt];
    });
+   blockOptionNames.forEach((optionName) => {
+      Object.defineProperty(next[optionName], '_$blockOption', {value: true, enumerable: false});
+   });
 
    // TODO: ignoreDirtyChecking, checkPrevValue, isCompound вынести в битовый флаг
    // TODO: отказаться от префиксов в пользу древовидной структуры хранилища версий (сейчас словарь по сути)
@@ -337,7 +340,7 @@ export function getChangedOptions(
             }
             if (Array.isArray(next[property]) && next[property]) {
                if (!isTemplateArray(next[property] as ITemplateArray)) {
-                  if (blockOptionNames.indexOf(property) !== -1) {
+                  if (next[property]?._$blockOption === true) {
                      continue;
                   } else {
                      hasChanges = true;
@@ -418,7 +421,7 @@ export function getChangedOptions(
                   hasChanges = true;
                   changes[property] = next[property];
                }
-            } else if (blockOptionNames.indexOf(property) !== -1) {
+            } else if (next[property]?._$blockOption === true) {
                continue;
             } else {
                hasChanges = true;
