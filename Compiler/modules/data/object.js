@@ -278,17 +278,16 @@ define('Compiler/modules/data/object', [
 
          // Сделано для того чтобы попадала родительская область видимости при применении инлайн-шаблона
          var generatedTemplate = this.getString(html, {}, this.handlers, {}, true);
-         var funcText = templates.generateTemplate(htmlPropertyName, generatedTemplate, this.handlers.fileName, false);
+         var funcText = templates.generateContentTemplate(htmlPropertyName, generatedTemplate, this.handlers.fileName, false);
 
          // eslint-disable-next-line no-new-func
          var func = new Function('data, attr, context, isVdom, sets, forceCompatible, generatorConfig', funcText);
          var funcName = this.setFunctionName(func, undefined, undefined, htmlPropertyName);
-         this.includedFunctions[htmlPropertyName] = func;
-         if (this.privateFn) {
-            this.privateFn.push(func);
+         if (this.contentOptionFunctions) {
+            this.contentOptionFunctions.push(func);
          }
          var fAsString = '';
-         if (this.privateFn) {
+         if (this.contentOptionFunctions) {
             fAsString = funcName;
          } else {
             fAsString = func
@@ -307,13 +306,13 @@ define('Compiler/modules/data/object', [
             dirtyCh += FSC.getStr(currentInternalForInjected);
          } else {
             dirtyCh += '{}';
-            if (!this.includedFn) {
+            if (!this.inlineTemplateBodies) {
                dirtyCh += ';';
             }
          }
-         if (this.includedFn) {
+         if (this.inlineTemplateBodies) {
             templateObject.html = FSC.wrapAroundObject(
-               templates.generateIncludedTemplate(
+               templates.generateContentOption(
                   fAsString,
                   dirtyCh ? ('isVdom?' + dirtyCh + ':{}') : '{}',
                   undefined,
@@ -323,7 +322,7 @@ define('Compiler/modules/data/object', [
             );
          } else {
             templateObject.html = FSC.wrapAroundObject(
-               templates.generateObjectTemplate(
+               templates.generateContentOptionTmpl(
                   fAsString, 'this.func.internal = ' + dirtyCh, undefined, this.isWasabyTemplate, this.useReact
                )
             );
