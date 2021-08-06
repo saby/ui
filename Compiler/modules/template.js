@@ -38,13 +38,13 @@ define('Compiler/modules/template', [
          var name = validateTemplateName.call(this, tag);
          function templateReady() {
             var result, functionString;
-            functionString = this.getString(tag.children, {}, this.handlers, {}, true);
-            if (this.includedFn) {
-               functionString = templates.generatePrivateTemplate(functionString);
-               this.includedFn[name] = functionString;
+            functionString = this.getString(tag.children, {}, this.handlers, {}, false);
+            if (this.inlineTemplateBodies) {
+               functionString = templates.generateInlineTemplate(functionString);
+               this.inlineTemplateBodies[name] = functionString;
                return '';
             }
-            result = templates.generatePrivateTemplateHeader(name, functionString);
+            result = templates.generateInlineTemplateTmpl(name, functionString);
             return result;
          }
          return templateReady;
