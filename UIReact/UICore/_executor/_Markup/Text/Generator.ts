@@ -1,24 +1,29 @@
 import * as ReactDOMServer from 'react-dom/server';
+import * as React from "react";
 import { Control } from 'UICore/Base';
 import { IControlOptions } from 'UICommon/Base';
 import { IControlConfig } from '../interfaces';
 import {
    CommonUtils as Common,
-   IAttributes,
-   VoidTags as voidElements,
-   TAttributes,
-   IGenerator
+   IGenerator, IGeneratorComponent
 } from 'UICommon/Executor';
 import { IWasabyEvent } from 'UICommon/_events/IEvents';
 import { Generator } from '../Generator';
-import React from "react";
-import {TemplateOrigin} from '../interfaces';
-import { createTagDefault, joinElements } from '../Utils';
+import { TemplateOrigin } from '../interfaces';
+import { joinElements } from '../Utils';
+
+import { CreateTag } from '../Component';
 
 /**
  * @author Тэн В.А.
  */
 export class GeneratorText extends Generator implements IGenerator {
+   private createTagComponent: IGeneratorComponent;
+   constructor() {
+      super();
+      this.createTagComponent = new CreateTag();
+   }
+
    /**
     * подготавливает опции для контрола. вызывается в функции шаблона в случае выполнения инлайн шаблона
     * @param tplOrigin тип шаблона
@@ -60,8 +65,8 @@ export class GeneratorText extends Generator implements IGenerator {
       return joinElements(elements);
    }
 
-   createTag(tag, attrs, children, attrToDecorate?, defCollection?): string {
-     return createTagDefault(tag, attrs, children, attrToDecorate, defCollection);
+   createTag(tagName, attrs, children, attrToDecorate?, __?): string {
+      return this.createTagComponent.create(tagName, attrs, children, attrToDecorate, __);
    }
 
    createDirective(text: string): string {
