@@ -5,6 +5,8 @@
 
 import * as Ast from 'Compiler/core/Ast';
 
+const EMPTY_STRING = '';
+
 /**
  * Get dynamic component option names.
  * @param component {BaseWasabyElement} Component node.
@@ -33,6 +35,7 @@ export function getBlockOptionNames(component: Ast.BaseWasabyElement): string[] 
  * @param key {string} Node key
  * @param mergeType {string} Context and attributes merge type
  * @param blockOptionNames {string[]} Array of dynamic component option names.
+ * @param aotMode {boolean} AOT compilation.
  */
 export function createConfigNew(
    compositeAttributes: string,
@@ -42,25 +45,27 @@ export function createConfigNew(
    isRootTag: boolean,
    key: string,
    mergeType: string,
-   blockOptionNames: string[]
+   blockOptionNames: string[],
+   aotMode: boolean
 ): string {
+   const depsLocalValue = aotMode ? "depsLocal" : "typeof depsLocal !== 'undefined' ? depsLocal : {}";
    return `{`
       + `attr: attr,`
       + `data: data,`
       + `ctx: this,`
       + `isVdom: isVdom,`
       + `defCollection: defCollection,`
-      + `depsLocal: typeof depsLocal !== 'undefined' ? depsLocal : {},`
+      + `depsLocal: ${depsLocalValue},`
       + `includedTemplates: includedTemplates,`
-      + `pName: typeof currentPropertyName !== 'undefined' ? currentPropertyName : undefined,`
       + `viewController: viewController,`
       + `context: ${context},`
-      + `compositeAttributes: ${compositeAttributes},`
-      + `scope: ${scope},`
       + `key: key + "${key}",`
-      + `isRootTag: ${isRootTag},`
-      + (internal ? `internal: isVdom ? ${internal} : {},` : '')
-      + `mergeType: "${mergeType}",`
-      + `blockOptionNames: ${JSON.stringify(blockOptionNames)}`
+      + ('/*#CONFIG__CURRENT_PROPERTY_NAME#*/' /* pName: value */)
+      + (compositeAttributes ? `compositeAttributes: ${compositeAttributes},` : EMPTY_STRING)
+      + (scope ? `scope: ${scope},` : EMPTY_STRING)
+      + (isRootTag ? `isRootTag: ${isRootTag},` : EMPTY_STRING)
+      + (internal ? `internal: isVdom ? ${internal} : {},` : EMPTY_STRING)
+      + (mergeType !== 'context' ? `mergeType: "${mergeType}",` : EMPTY_STRING)
+      + (blockOptionNames.length > 0 ? `blockOptionNames: ${JSON.stringify(blockOptionNames)},` : EMPTY_STRING)
       + `}`;
 }

@@ -109,7 +109,6 @@ define('Compiler/codegen/function', [
        */
       _controlsData: { },
       handlers: { },
-      includedFunctions: { },
       getFuncNameByFile: getFuncNameByFile,
       childrenStorage: [ ],
       getFuncNameByTemplate: function(wsTemplateName) {
@@ -203,16 +202,14 @@ define('Compiler/codegen/function', [
 
       /**
        * Получение результирущего объекта
-       * @param  {Array} ast  AST array of entities
-       * @param  {Object} data Data
-       * @param handlers
-       * @param attributes
-       * @param internal
-       * @return {Object}      Generated html-string
+       * @param ast {Array} Список AST узлов.
+       * @param data {Object} Данные компиляции.
+       * @param handlers {object} Конфигурация компиляции.
+       * @param attributes {object} Атрибуты узла.
+       * @param appendHeader Флаг, означающий, что необходимо включить заголовок с переменными.
        */
-      getString: function getString(ast, data, handlers, attributes, internal) {
+      getString: function getString(ast, data, handlers, attributes, appendHeader) {
          var decor = this.decorate(attributes);
-         var res = '';
 
          /**
           * Нам нужно пометить эту функцию, что она генерирует атрибуты для КОРНЕВОГО тега
@@ -241,13 +238,9 @@ define('Compiler/codegen/function', [
          if (str) {
             str = '' + str.replace(/\n/g, ' ');
          }
-         if (!internal) {
-            res += templates.generateTemplateHead();
-         }
-         res += templates.generateTemplateBody(handlers.fileName, str, handlers.generateTranslations);
-         return res;
+         return templates.generateTemplate(handlers.fileName, str, handlers.generateTranslations, appendHeader);
       },
-      getFunction: function getFunction(ast, data, handlers, attributes, internal) {
+      getFunction: function getFunction(ast, data, handlers, attributes, appendHeader) {
          // eslint-disable-next-line no-empty-function
          var func = function() { };
          var str = 'no function';
@@ -257,12 +250,11 @@ define('Compiler/codegen/function', [
             // до модуля Event
             this.childrenStorage = ast.childrenStorage;
 
-            str = this.getString(ast, data, handlers, attributes, internal);
+            str = this.getString(ast, data, handlers, attributes, appendHeader);
             // eslint-disable-next-line no-new-func
             func = new Function('data, attr, context, isVdom, sets, forceCompatible, generatorConfig', str);
-            func.includedFunctions = this.includedFunctions;
-            func.privateFn = this.privateFn;
-            func.includedFn = this.includedFn;
+            func.contentOptionFunctions = this.contentOptionFunctions;
+            func.inlineTemplateBodies = this.inlineTemplateBodies;
             func.functionNames = this.functionNames;
             func.internalFunctions = this.internalFunctions;
          } catch (error) {
