@@ -24,8 +24,7 @@ import {
    TIncludedTemplate,
    TObject,
    IControlUserData,
-   IControlConfig,
-   getter
+   IControlConfig
 } from 'UICommon/Executor';
 import {IControlOptions} from 'UICommon/Base';
 
@@ -525,7 +524,7 @@ export class Generator {
       Object.keys(events).forEach((eventName) => {
          const eventArr = events[eventName];
          eventArr.forEach((event) => {
-            if (event.bindValue) {
+            if (EventUtils.checkBindValue(event, event.bindValue)) {
                event.fn = function (eventObj, value) {
                   if (!event.handler(this.viewController, value)) {
                      event.handler(this.data, value);

@@ -1,8 +1,9 @@
 define([
       'UICore/Events',
       'UI/Base',
-      'UI/Utils'],
-   function(Events, UIBase, UIUtils) {
+      'UI/Utils',
+      'UICommon/_events/EventUtils'],
+   function(Events, UIBase, UIUtils, UIEventUtils) {
       'use strict';
 
       var WasabyEvents = Events.WasabyEvents;
@@ -231,6 +232,73 @@ define([
             //       };
             //    });
             // });
+         });
+         describe('Event Utils', function() {
+            var Logger = UIUtils.Logger;
+            var EventUtils = UIEventUtils;
+            var warnMessage, warnStub;
+            var loggerWarnMock = (msg) => {
+               warnMessage = msg ;
+            };
+            const fakeEvent = {
+               bindValue: '',
+               data: null,
+               handler: () => { return; },
+               isControl: true,
+               viewController: null
+            };
+            let res = null;
+            beforeEach(function() {
+               warnMessage = '';
+               warnStub = sinon.stub(Logger, 'warn').callsFake(loggerWarnMock);
+               fakeEvent.data = null;
+               fakeEvent.bindValue = '';
+               res = null;
+               warnMessage = '';
+            });
+            afterEach(function() {
+               warnMessage = '';
+               warnStub.restore();
+               fakeEvent.data = null;
+               fakeEvent.bindValue = '';
+               res = null;
+            });
+            it('bind simple', () => {
+               fakeEvent.data = {data: 0, anyProp: 0};
+               fakeEvent.bindValue = 'data';
+               res = EventUtils.checkBindValue(fakeEvent, fakeEvent.bindValue);
+               assert.equal(warnMessage, '');
+            });
+            it('bind object', () => {
+               fakeEvent.data = {data: {value: 0}, anyProp: 0};
+               fakeEvent.bindValue = 'data.value';
+               res = EventUtils.checkBindValue(fakeEvent, fakeEvent.bindValue);
+               assert.equal(warnMessage, '');
+            });
+            it('bind array of object', () => {
+               fakeEvent.data = {data: [{value: 0}, {value: 0}, {value: 0}], anyProp: 0};
+               fakeEvent.bindValue = 'data.value';
+               res = EventUtils.checkBindValue(fakeEvent, fakeEvent.bindValue);
+               assert.equal(warnMessage, '');
+            });
+            it('bind array of object with sub props', () => {
+               fakeEvent.data = {data: [{sub: {value: 0}, value: 0}], anyProp: 0};
+               fakeEvent.bindValue = 'data.value';
+               res = EventUtils.checkBindValue(fakeEvent, fakeEvent.bindValue);
+               assert.equal(warnMessage, '');
+            });
+            it('bind array of object with sub props wrong', () => {
+               fakeEvent.data = {data: [{sub: {value: 0}, value: 0}, {type: {value: 0}, value: 0}, {type: 0}], anyProp: 0};
+               fakeEvent.bindValue = 'data.sub.value';
+               res = EventUtils.checkBindValue(fakeEvent, fakeEvent.bindValue);
+               assert.include(warnMessage, 'Bind на несуществующее поле');
+            });
+            it('bind array of object wrong', () => {
+               fakeEvent.data = {data: [{type: 0}], anyProp: 0};
+               fakeEvent.bindValue = 'data.value';
+               res = EventUtils.checkBindValue(fakeEvent, fakeEvent.bindValue);
+               assert.include(warnMessage, 'Bind на несуществующее поле');
+            });
          });
       });
    });

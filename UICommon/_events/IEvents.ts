@@ -75,6 +75,7 @@ export interface IWasabyEvent {
     viewController: IControl;
     bindValue?: string;
     toPartial?: boolean;
+    data?: unknown;
 }
 
 export interface IWasabyEventSystem {
