@@ -293,7 +293,9 @@ export function getChangedOptions(
       delete next[opt];
    });
    blockOptionNames.forEach((optionName) => {
-      Object.defineProperty(next[optionName], '_$blockOption', {value: true, enumerable: false});
+      if (typeof next[optionName] === 'object') {
+         Object.defineProperty(next[optionName], '_$blockOption', {value: true, enumerable: false});
+      }
    });
 
    // TODO: ignoreDirtyChecking, checkPrevValue, isCompound вынести в битовый флаг
