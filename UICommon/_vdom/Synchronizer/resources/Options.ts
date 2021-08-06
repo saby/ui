@@ -365,7 +365,12 @@ export function getChangedOptions(
             if (shouldIgnoreChanging(next[property] as IManualObject)) {
                continue;
             }
-            if (Array.isArray(next[property]) && next[property]) {
+            if (property === 'validators') {
+               // костыль - у валидаторов почему-то функции равны по ссылке,
+               // вероятно они при бинде пишутся в старые опции
+               hasChanges = true;
+               changes[property] = next[property];
+            } else if (Array.isArray(next[property]) && next[property]) {
                if (!isTemplateArray(next[property] as ITemplateArray)) {
                   if (next[property]?._$blockOption === true) {
                      if (isArrayChanged(
