@@ -1,7 +1,6 @@
 /// <amd-module name="UICore/_executor/_Markup/Utils" />
 /* tslint:disable */
 
-import * as Decorate from '../_Expressions/Decorate';
 import { IControl } from 'UICommon/interfaces';
 import type { Control } from 'UICore/Base';
 import {
@@ -12,13 +11,11 @@ import {
    IGeneratorConfig,
    IGeneratorDefCollection,
    TAttributes,
-   INodeAttribute,
-   TObject
+   INodeAttribute
 } from 'UICommon/Executor';
 
 import { NumberUtils } from 'UICommon/Utils';
 import { TemplateFunction } from 'UICommon/Base';
-import { CreateTag } from './Component';
 
 /**
  * @author Тэн В.А.
@@ -40,29 +37,6 @@ export { invisibleNodeHTML };
  */
 export function isInstOfPromise(entity: Promise<any>): unknown {
    return entity && entity.then;
-}
-
-/**
- * Создаем строку с тегом для повторного выполнения
- * _beforeMount на клиенте и обработки ошибок
- * @param inst
- * @param createTag
- * @returns {string}
- */
-export function asyncRenderErrorTag(inst: TObject, createTag?: Function): string {
-   let decoratorObject = {};
-   let options;
-   if (inst && inst._options) {
-      options = inst._options;
-      decoratorObject = Decorate.createRootDecoratorObject(
-         options.__$config,
-         true,
-         options['data-component'],
-         {}
-      );
-   }
-   const createTagFn = createTag ? createTag : new CreateTag().create;
-   return createTagFn('div', { attributes: decoratorObject }, []);
 }
 
 /**
