@@ -43,7 +43,7 @@ export class CreateTag implements IGeneratorComponent {
             // ! не вырезаем фокусные атрибуты, для совместимости. чтобы старые компоненты могли работать в новом окружении
             // textMarkupGenerator.cutFocusAttributes(mergedAttrs);
         } else {
-            this.cutFocusAttributes(mergedAttrs);
+            cutFocusAttributes(mergedAttrs);
         }
 
         Object.keys(mergedAttrs).forEach((attrName) => {
