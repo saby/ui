@@ -10,19 +10,8 @@ import {
     IAttributes,
     IGeneratorComponent
 } from 'UICommon/Executor';
-import { joinElements, invisibleNodeHTML } from '../Utils';
+import { cutFocusAttributes, joinElements, invisibleNodeHTML } from '../Utils';
 import { _FocusAttrs } from 'UICore/Focus';
-
-const focusAttrs = [
-    'ws-creates-context',
-    'ws-delegates-tabfocus',
-    'ws-tab-cycling',
-    'ws-no-focus',
-    'attr:ws-creates-context',
-    'attr:ws-delegates-tabfocus',
-    'attr:ws-tab-cycling',
-    'attr:ws-no-focus'
-];
 
 export class CreateTag implements IGeneratorComponent {
     create(
@@ -73,26 +62,6 @@ export class CreateTag implements IGeneratorComponent {
         }
         return '<' + tag + mergedAttrsStr + '>' + joinElements(children, undefined, defCollection) + '</' + tag + '>';
     }
-
-    /**
-     * Скрывает атрибуты необходимые для работы системы фокусов
-     * @param attributes
-     * @param fn
-     * @param node
-     * @return {object}
-     */
-    private cutFocusAttributes(attributes: TAttributes, fn?: Function, node?: HTMLElement): void {
-        focusAttrs.forEach((focusAttr: string): void => {
-            if (attributes.hasOwnProperty(focusAttr)) {
-                fn && fn(focusAttr, attributes[focusAttr]);
-                delete attributes[focusAttr];
-                if (node) {
-                    node.removeAttribute(focusAttr);
-                }
-            }
-        });
-    }
-
 
     /**
      *

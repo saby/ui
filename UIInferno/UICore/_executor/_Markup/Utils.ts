@@ -30,6 +30,18 @@ const invisibleNodeHTML = '<' + invisibleNodeTagName + '></' + invisibleNodeTagN
 export { invisibleNodeHTML };
 // joinAttrs = Attr.joinAttrs;
 
+const focusAttrs = [
+   'ws-creates-context',
+   'ws-delegates-tabfocus',
+   'ws-tab-cycling',
+   'ws-no-focus',
+   'attr:ws-creates-context',
+   'attr:ws-delegates-tabfocus',
+   'attr:ws-tab-cycling',
+   'attr:ws-no-focus'
+];
+
+
 /**
  * Понимаем асинхронная ветка или нет
  * @param entity
@@ -117,4 +129,23 @@ export function stringTemplateResolver<T = IControl, K = TemplateFunction>(tpl: 
    } else {
       return Common.depsTemplateResolver<T, K>(tpl, includedTemplates, _deps);
    }
+}
+
+/**
+ * Скрывает атрибуты необходимые для работы системы фокусов
+ * @param attributes
+ * @param fn
+ * @param node
+ * @return {object}
+ */
+export function cutFocusAttributes(attributes: TAttributes, fn?: Function, node?: HTMLElement): void {
+   focusAttrs.forEach((focusAttr: string): void => {
+      if (attributes.hasOwnProperty(focusAttr)) {
+         fn && fn(focusAttr, attributes[focusAttr]);
+         delete attributes[focusAttr];
+         if (node) {
+            node.removeAttribute(focusAttr);
+         }
+      }
+   });
 }
