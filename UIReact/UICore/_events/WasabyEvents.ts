@@ -300,7 +300,7 @@ export default class WasabyEventsReact extends WasabyEvents implements IWasabyEv
         Object.keys(events).forEach((eventName) => {
             const eventArr = events[eventName];
             eventArr.forEach((event: IWasabyEvent) => {
-                if (event.bindValue) {
+                if (EventUtils.checkBindValue(event, event.bindValue)) {
                     event.fn = function (eventObj: SyntheticEvent, value: unknown): void {
                         if (!event.handler(this.viewController, value)) {
                             event.handler(this.data, value);
