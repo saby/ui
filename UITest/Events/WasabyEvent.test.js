@@ -3,7 +3,7 @@ define([
       'UI/Base',
       'UI/Utils',
       'UICommon/Events'],
-   function(Events, UIBase, UIUtils, EventUtils) {
+   function(Events, UIBase, UIUtils, UIEventUtils) {
       'use strict';
 
       var WasabyEvents = Events.WasabyEvents;
@@ -235,6 +235,7 @@ define([
          });
          describe('Event Utils', function() {
             var Logger = UIUtils.Logger;
+            var EventUtils = UIEventUtils;
             var warnMessage, warnStub;
             var loggerWarnMock = (msg) => {
                warnMessage = msg ;
@@ -262,7 +263,7 @@ define([
                fakeEvent.bindValue = '';
                res = null;
             });
-            it('bind simple', () => {
+            it('bind simple', () => { 
                fakeEvent.data = {data: 0, anyProp: 0};
                fakeEvent.bindValue = 'data';
                res = EventUtils.checkBindValue(fakeEvent, fakeEvent.bindValue);
