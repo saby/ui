@@ -3,10 +3,10 @@ import { Logger, ArrayUtils } from 'UICommon/Utils';
 import {
     CommonUtils as Common,
     IGenerator,
-    Attr,
-    Scope
+    Scope,
+    IGeneratorComponent
 } from 'UICommon/Executor';
-import { convertAttributes, WasabyAttributes } from '../Attributes';
+import { WasabyAttributes } from '../Attributes';
 import { IWasabyEvent } from 'UICommon/Events';
 
 import { Control } from 'UICore/Base';
@@ -15,10 +15,18 @@ import { TemplateOrigin, IControlConfig, AttrToDecorate } from '../interfaces';
 import { Generator } from '../Generator';
 
 import { ChainOfRef, CreateOriginRef, IResponsibilityHandler } from 'UICore/Ref';
-import { CreateEventRef } from './Refs/CreateEventRef';
-import { CreateChildrenRef } from './Refs/CreateChildrenRef';
+import { CreateChildrenRef } from '../Refs/CreateChildrenRef';
+
+import { CreateTagVdom } from '../Component';
 
 export class GeneratorVdom extends Generator implements IGenerator {
+    private createTagComponent: IGeneratorComponent;
+
+    constructor() {
+        super();
+        this.createTagComponent = new CreateTagVdom();
+    }
+
     /**
      * подготавливает опции для контрола. вызывается в функции шаблона в случае выполнения инлайн шаблона
      * @param tplOrigin тип шаблона
@@ -138,52 +146,7 @@ export class GeneratorVdom extends Generator implements IGenerator {
         __: unknown,
         control?: Control
     ): React.DetailedReactHTMLElement<P, T> {
-        if (!attrToDecorate) {
-            attrToDecorate = {attributes: {}, events: {}};
-        }
-        /* если события объявляется на контроле, и корневом элементе шаблона, то мы должны смержить события,
-         * без этого события объявленные на контроле будут потеряны
-         */
-        const eventsObject = {
-            events: Attr.mergeEvents(attrToDecorate.events, attrs.events) || {}
-        };
-        /**
-         * Объединяет атрибуты, указанные на элементе, с атрибутами, которые пришли сверху
-         */
-        const mergedAttrs = Attr.mergeAttrs(attrToDecorate.attributes, attrs.attributes);
-        Object.keys(mergedAttrs).forEach((attrName) => {
-            if (!mergedAttrs[attrName]) {
-                delete mergedAttrs[attrName];
-            }
-        });
-        const name = mergedAttrs.name;
-        const originRef = attrs.attributes.ref;
-        const chainOfRef = new ChainOfRef();
-        const createChildrenRef = new CreateChildrenRef(control, name);
-        const createEventRef = new CreateEventRef(tagName, eventsObject);
-        chainOfRef.add(createChildrenRef);
-        chainOfRef.add(createEventRef);
-        if (originRef){
-            chainOfRef.add(new CreateOriginRef(originRef));
-        }
-
-        const convertedAttributes = convertAttributes(mergedAttrs);
-
-        /* не добавляем extractedEvents в новые пропсы на теге, т.к. реакт будет выводить ошибку о неизвестном свойстве
-            https://online.sbis.ru/opendoc.html?guid=d90ec578-f610-4d93-acdd-656095591bc1
-        */
-        const newProps = {
-            ...convertedAttributes,
-            ref: chainOfRef.execute()
-        };
-
-        // Разворачиваем массив с детьми, так как в противном случае react считает, что мы отрисовываем список
-        const flatChildren = ArrayUtils.flatten(children, true);
-        if (flatChildren.for) {
-            // если дети получены циклом - нужно вставлять их массивом, чтобы учитывались ключи
-            return React.createElement<P, T>(tagName, newProps, flatChildren);
-        }
-        return React.createElement<P, T>(tagName, newProps, ...flatChildren);
+        return this.createTagComponent.create(tagName, attrs, children, attrToDecorate, __, control);
     }
 
     // FIXME: бесполезный метод, но он зовётся из шаблонов

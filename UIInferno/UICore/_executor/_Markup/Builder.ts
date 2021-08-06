@@ -1,15 +1,18 @@
 /// <amd-module name="UICore/_executor/_Markup/Builder" />
 /* tslint:disable */
 
+import * as Decorate from '../_Expressions/Decorate';
 import { Subscriber } from 'UICommon/Events';
 import { ContextResolver } from 'UICommon/Contexts';
-import { OptionsResolver } from 'UICommon/Executor';
+import { OptionsResolver, TObject } from 'UICommon/Executor';
 import * as AppEnv from 'Application/Env';
 import * as AppInit from 'Application/Initializer';
 import { isNewEnvironment, Logger } from 'UICommon/Utils';
 import { IBuilder } from './IBuilder';
 
-import { invisibleNodeCompat, isInstOfPromise, asyncRenderErrorTag } from './Utils';
+import { invisibleNodeCompat, isInstOfPromise } from './Utils';
+
+import { CreateTag } from './Component';
 
 /**
  * @author Тэн В.А.
@@ -143,4 +146,29 @@ export class Builder implements IBuilder {
       result = inst._template ? invisibleNodeCompat(inst.render(undefined, decOptions)) : '';
       return result;
    };
+}
+
+
+
+/**
+ * Создаем строку с тегом для повторного выполнения
+ * _beforeMount на клиенте и обработки ошибок
+ * @param inst
+ * @param createTag
+ * @returns {string}
+ */
+function asyncRenderErrorTag(inst: TObject, createTag?: Function): string {
+   let decoratorObject = {};
+   let options;
+   if (inst && inst._options) {
+      options = inst._options;
+      decoratorObject = Decorate.createRootDecoratorObject(
+          options.__$config,
+          true,
+          options['data-component'],
+          {}
+      );
+   }
+   const createTagFn = createTag ? createTag : new CreateTag().create;
+   return createTagFn('div', { attributes: decoratorObject }, []);
 }
