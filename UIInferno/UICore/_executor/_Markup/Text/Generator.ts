@@ -24,9 +24,11 @@ import {
    IPrepareDataForCreate,
    TDeps,
    TIncludedTemplate,
-   TObject
+   TObject,
+   IGeneratorComponent
 } from 'UICommon/Executor';
 import { createTagDefault, joinElements, stringTemplateResolver } from '../Utils'
+import { CreateTag } from '../Component';
 
 const markupBuilder = new Builder();
 
@@ -38,11 +40,13 @@ export class GeneratorText implements IGenerator {
    generatorBase: Generator;
 
    private generatorConfig: IGeneratorConfig;
+   private createTagComponent: IGeneratorComponent;
 
    constructor(config: IGeneratorConfig) {
       if (config) {
          this.generatorConfig = config;
       }
+      this.createTagComponent = new CreateTag();
       this.cacheModules = {};
       this.generatorBase = new Generator(config);
       this.generatorBase.bindGeneratorFunction(this.createEmptyText, this.createWsControl, this.createTemplate,
@@ -345,7 +349,7 @@ export class GeneratorText implements IGenerator {
    };
 
    createTag(tag, attrs, children, attrToDecorate?, defCollection?): string {
-      return createTagDefault(tag, attrs, children, attrToDecorate, defCollection);
+      return this.createTagComponent.create(tag, attrs, children, attrToDecorate, defCollection);
    }
 
    createEmptyText(){
