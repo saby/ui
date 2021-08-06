@@ -181,6 +181,31 @@ function isTemplateArrayChanged(
    }
    return false;
 }
+function isArrayChanged(
+    next: unknown[],
+    prev: unknown[],
+    versionsStorage: object = EMPTY_OBJECT,
+    checkPrevValue: boolean = false,
+    prefix: string = EMPTY_STRING,
+    isCompound: boolean = false
+): boolean {
+   for (let i = 0; i < next.length; i++) {
+      const localPrefix = prefix + ';' + i + ';';
+      const ch = getChangedOptions(
+          next[i],
+          prev[i],
+          false,
+          versionsStorage,
+          checkPrevValue,
+          localPrefix,
+          isCompound
+      );
+      if (ch) {
+         return true;
+      }
+   }
+   return false;
+}
 
 function isTemplateObjectChanged(
    next: ITemplateObject,
@@ -341,7 +366,17 @@ export function getChangedOptions(
             if (Array.isArray(next[property]) && next[property]) {
                if (!isTemplateArray(next[property] as ITemplateArray)) {
                   if (next[property]?._$blockOption === true) {
-                     continue;
+                     if (isArrayChanged(
+                         next[property],
+                         prev[property],
+                         versionsStorage,
+                         checkPrevValue,
+                         prefix + property,
+                         isCompound
+                     )) {
+                        hasChanges = true;
+                        changes[property] = next[property];
+                     }
                   } else {
                      hasChanges = true;
                      changes[property] = next[property];
@@ -364,7 +399,7 @@ export function getChangedOptions(
                      changes[property] = next[property];
                   }
                }
-            } else if (isTemplateObject(next[property] as ITemplateObject)) {
+            } else if (isTemplate(next[property] as ITemplateObject)) {
                // Inner template with internal options. We only need to check internal options
                // cause function is bound and it can lead to useless redraws.
                if (isTemplateObjectChanged(
@@ -422,7 +457,19 @@ export function getChangedOptions(
                   changes[property] = next[property];
                }
             } else if (next[property]?._$blockOption === true) {
-               continue;
+               const innerCh = getChangedOptions(
+                   next[property],
+                   prev[property],
+                   true,
+                   EMPTY_OBJECT,
+                   true,
+                   EMPTY_STRING,
+                   isCompound
+               );
+               if (innerCh) {
+                  hasChanges = true;
+                  changes[property] = next[property];
+               }
             } else {
                hasChanges = true;
                changes[property] = next[property];
