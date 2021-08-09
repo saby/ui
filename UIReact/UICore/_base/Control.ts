@@ -27,7 +27,7 @@ import { WasabyEvents, callNotify } from 'UICore/Events';
 import { IWasabyEventSystem } from 'UICommon/Events';
 import { TIState, TControlConfig, IControl } from 'UICommon/interfaces';
 import { IControlOptions, TemplateFunction } from 'UICommon/Base';
-import { ChainOfRef, CreateOriginRef } from 'UICore/Ref';
+import { ChainOfRef } from 'UICore/Ref';
 import { CreateControlNodeRef } from './Refs/CreateControlNodeRef';
 import { goUpByControlTree } from 'UICore/NodeCollector';
 import { constants } from 'Env/Env';
@@ -632,13 +632,24 @@ export default class Control<TOptions extends IControlOptions = {},
         this._destroyed = true;
         releaseProperties<TOptions, TState>(this);
 
-        this._beforeUnmount.apply(this);
-
         this._forceUpdate = EMPTY_FUNC;
         this.componentWillUnmount = EMPTY_FUNC;
         // Не нужно очищать реактивные свойства
-        if (!this.reactiveValues) {
-            return;
+        if (this.reactiveValues) {
+            /**
+             * Реактивные свойства обязательно нужно очищать до вызова _beforeUnmount.
+             * Иначе в _beforeUnmount кто-то может изменить состояние, это приведёт к
+             * асинхронному вызову _forceUpdate, ну и реакт вывалит ошибку.
+             */
+            releaseProperties<TOptions, TState>(this);
+        }
+        if (this._$controlMounted) {
+            /**
+             * У контрола может быть вызван _beforeMount, он там запустит какую-то асинхронщину,
+             * а потом будет уничтожен. В таком случае нельзя вызывать этот хук, потому что в
+             * васаби он не вызывался, и контролы к этому могут быть неготовы.
+             */
+            this._beforeUnmount.apply(this);
         }
     }
 
@@ -697,27 +708,67 @@ export default class Control<TOptions extends IControlOptions = {},
             });
         }
 
-        let realFiberNode;
         let result: React.ReactElement;
         try {
             this._oldOptions = this._options;
             // можем обновить здесь опции, старые опции для хуков будем брать из _oldOptions
             this._options = wasabyOptions;
-            realFiberNode = this._template(this, this._options._$attributes, undefined, true);
-            while (realFiberNode instanceof Array) {
-                realFiberNode = realFiberNode[0];
-            }
+            /**
+             * Вот эта штука должна попадать на корневой элемент.
+             * createElement не создаёт элемент, здесь навесить не получится.
+             *
+             * Шаблоны обязательно должны форвардить рефы, т.е. вешать реф тут - тоже не получится
+             * Почему шаблоны обязательно должны форвардить рефы?
+             * Потому что нужно добавить наши рефы, сохранив исходный.
+             * Других вариантов получить доступ к рефу у нас нет
+             */
             const chainOfRef = new ChainOfRef();
             chainOfRef
                .add(new CreateHocRef(this))
                .add(new CreateControlNodeRef(this))
-               .add(new CreateControlRef(this))
-               .add(new CreateOriginRef(realFiberNode.ref));
-            result = {
-                ...realFiberNode, ref: (node) => {
+               .add(new CreateControlRef(this));
+            /**
+             * Такой случай:
+             * В шаблоне какого-то контрола:
+             * <Control name="testName" />
+             * В шаблоне Control (неважно что конкретно, главное что в корне DOM-элемент):
+             * <div>
+             *     <AnotherControl name="testName" />
+             * </div>
+             *
+             * Control ожидает, что у него в детях будет AnotherControl, но на самом деле попадёт div.
+             * Получается так из-за прокидывания атрибутов с контрола в шаблон, в том числе и name.
+             */
+            let newAttributes;
+            if (this.props._$attributes) {
+                newAttributes = {
+                    ...this.props._$attributes
+                };
+                delete newAttributes.attributes.name;
+            }
+            result = createElement(this._template, {
+                ...this,
+                /**
+                 * Допустим, такой кейс:
+                 * <ws:partial attr:class="myClass" template="Control" />
+                 * Control это просто какой-то другой контрол, не инлайн шаблон.
+                 * Атрибуты улетят в опции контрола, в поле _$attributes.
+                 * Когда мы вызываем шаблон здесь, в качестве опций выступает сам контрол.
+                 * Т.е. если мы обратимся к props._$attributes, то там будет пустота или левые данные.
+                 */
+                _$attributes: this.props._$attributes,
+                /**
+                 * Реакт оставляет в props только собственные свойства объекта.
+                 * Проблема в том, что у большинства контролов методы на прототипе, и они отбрасываются.
+                 * Приходится пробрасывать инстанс вниз и каждый геттер выполняться два раза:
+                 * 1) Как обычно, смотрит в data.
+                 * 2) Если в data ничего не нашли, то вместо data возьмётся _$wasabyInstance.
+                 */
+                _$wasabyInstance: this,
+                ref: (node) => {
                     return chainOfRef.execute()(node);
                 }
-            };
+            });
         } catch (e) {
             logError(e);
             result = null;

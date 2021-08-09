@@ -7,8 +7,20 @@ define('Compiler/modules/data/object', [
    'Compiler/modules/utils/parse',
    'Compiler/codegen/templates',
    'Compiler/codegen/TClosure',
-   'Compiler/codegen/Internal'
-], function objectLoader(ErrorHandlerLib, tagUtils, DTC, common, FSC, parseUtils, templates, TClosure, Internal) {
+   'Compiler/codegen/Internal',
+   'Compiler/codegen/feature/Function'
+], function objectLoader(
+   ErrorHandlerLib,
+   tagUtils,
+   DTC,
+   common,
+   FSC,
+   parseUtils,
+   templates,
+   TClosure,
+   Internal,
+   codegenFeatureFunction
+) {
    'use strict';
 
    /**
@@ -280,8 +292,8 @@ define('Compiler/modules/data/object', [
          var generatedTemplate = this.getString(html, {}, this.handlers, {}, false);
          var funcText = templates.generateContentTemplate(htmlPropertyName, generatedTemplate, this.handlers.fileName, false);
 
-         // eslint-disable-next-line no-new-func
-         var func = new Function('data, attr, context, isVdom, sets, forceCompatible, generatorConfig', funcText);
+         var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(this.useReact);
+         var func = tmplFuncGenerator.createTemplateFunction(funcText);
          var funcName = this.setFunctionName(func, undefined, undefined, htmlPropertyName);
          if (this.contentOptionFunctions) {
             this.contentOptionFunctions.push(func);
@@ -311,6 +323,11 @@ define('Compiler/modules/data/object', [
             }
          }
          if (this.inlineTemplateBodies) {
+            if (this.useReact) {
+               fAsString = tmplFuncGenerator.createTemplateFunctionCall(fAsString, [
+                  'scope', 'props', 'ref'
+               ]);
+            }
             templateObject.html = FSC.wrapAroundObject(
                templates.generateContentOption(
                   fAsString,
@@ -323,7 +340,7 @@ define('Compiler/modules/data/object', [
          } else {
             templateObject.html = FSC.wrapAroundObject(
                templates.generateContentOptionTmpl(
-                  fAsString, 'this.func.internal = ' + dirtyCh, undefined, this.isWasabyTemplate, this.useReact
+                  fAsString, 'func.internal = ' + dirtyCh, undefined, this.isWasabyTemplate, this.useReact
                )
             );
          }

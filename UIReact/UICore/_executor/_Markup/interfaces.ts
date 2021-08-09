@@ -26,6 +26,7 @@ export interface IControlConfig {
     mergeType: 'attribute' | 'context';
     attr: IGeneratorAttrs;
     blockOptionNames?: string[];
+    key: string;
 }
 
 export type TemplateResult = React.FunctionComponentElement<

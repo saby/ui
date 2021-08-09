@@ -187,8 +187,9 @@ abstract class BaseCompiler implements ICompiler {
     * @param reactive Array of names of reactive variables.
     * @param path Template module path.
     * @param hasTranslations Translation unit contains translation constructions.
+    * @param useReact Use react features in code generation.
     */
-   abstract generateModule(func: any, deps: string[], reactive: string[], path: ModulePath, hasTranslations: boolean): string;
+   abstract generateModule(func: any, deps: string[], reactive: string[], path: ModulePath, hasTranslations: boolean, useReact: boolean): string;
 
    /**
     * Generate code for template.
@@ -209,7 +210,7 @@ abstract class BaseCompiler implements ICompiler {
          throw new Error('Шаблон не может быть построен. Не загружены зависимости.');
       }
       const text = this.generateModule(
-          tmplFunc, traversed.dependencies, traversed.ast.reactiveProps, options.modulePath, traversed.hasTranslations
+          tmplFunc, traversed.dependencies, traversed.ast.reactiveProps, options.modulePath, traversed.hasTranslations, options.useReact
       );
       validateCompiledText(text);
       return text;
@@ -318,10 +319,11 @@ class CompilerTmpl extends BaseCompiler {
     * @param reactive Array of names of reactive variables.
     * @param path Template module path.
     * @param hasTranslations Translation unit contains translation constructions.
+    * @param useReact Use react features in code generation.
     */
-   generateModule(func: any, deps: string[], reactive: string[], path: ModulePath, hasTranslations: boolean): string {
+   generateModule(func: any, deps: string[], reactive: string[], path: ModulePath, hasTranslations: boolean, useReact: boolean): string {
       return templates.generateDefineTmpl(
-         path.module, path.extension, func, deps, reactive, hasTranslations
+         path.module, path.extension, func, deps, reactive, hasTranslations, useReact
       );
    }
 }
@@ -364,10 +366,11 @@ class CompilerWml extends BaseCompiler {
     * @param reactive Array of names of reactive variables.
     * @param path Template module path.
     * @param hasTranslations Translation unit contains translation constructions.
+    * @param useReact Use react features in code generation.
     */
-   generateModule(func: any, deps: string[], reactive: string[], path: ModulePath, hasTranslations: boolean): string {
+   generateModule(func: any, deps: string[], reactive: string[], path: ModulePath, hasTranslations: boolean, useReact: boolean): string {
       const module = templates.generateDefine(
-         path.module, path.extension, func, deps, reactive, hasTranslations
+         path.module, path.extension, func, deps, reactive, hasTranslations, useReact
       );
       return templates.clearSourceFromDeprecated(module);
    }

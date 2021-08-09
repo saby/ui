@@ -1,8 +1,9 @@
 define('Compiler/modules/template', [
    'Compiler/utils/ErrorHandler',
    'Compiler/Config',
-   'Compiler/codegen/templates'
-], function templateLoader(ErrorHandlerLib, BuilderConfig, templates) {
+   'Compiler/codegen/templates',
+   'Compiler/codegen/feature/Function'
+], function templateLoader(ErrorHandlerLib, BuilderConfig, templates, codegenFeatureFunction) {
    'use strict';
 
    /**
@@ -37,15 +38,16 @@ define('Compiler/modules/template', [
          // ws:template name already reserved
          var name = validateTemplateName.call(this, tag);
          function templateReady() {
-            var result, functionString;
+            var functionString;
             functionString = this.getString(tag.children, {}, this.handlers, {}, false);
             if (this.inlineTemplateBodies) {
                functionString = templates.generateInlineTemplate(functionString);
                this.inlineTemplateBodies[name] = functionString;
                return '';
             }
-            result = templates.generateInlineTemplateTmpl(name, functionString);
-            return result;
+            var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(this.useReact);
+            var templateFunctionString = tmplFuncGenerator.createTemplateFunctionString(functionString);
+            return templates.generateInlineTemplateTmpl(name, templateFunctionString);
          }
          return templateReady;
       }

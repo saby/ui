@@ -137,7 +137,9 @@ export class GeneratorVdom extends Generator implements IGenerator {
         tagName: keyof React.ReactHTML,
         attrs: {
             attributes: P & WasabyAttributes;
-            events: Record<string, IWasabyEvent[]>
+            events: Record<string, IWasabyEvent[]>;
+            key: string;
+            ref?: Function;
         },
         children: React.ReactNode[] & {
             for: boolean

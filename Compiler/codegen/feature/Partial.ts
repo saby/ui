@@ -36,6 +36,7 @@ export function getBlockOptionNames(component: Ast.BaseWasabyElement): string[] 
  * @param mergeType {string} Context and attributes merge type
  * @param blockOptionNames {string[]} Array of dynamic component option names.
  * @param aotMode {boolean} AOT compilation.
+ * @param useRef {boolean} Use ref property for react.
  */
 export function createConfigNew(
    compositeAttributes: string,
@@ -46,10 +47,11 @@ export function createConfigNew(
    key: string,
    mergeType: string,
    blockOptionNames: string[],
-   aotMode: boolean
+   aotMode: boolean,
+   useRef: boolean
 ): string {
    const depsLocalValue = aotMode ? "depsLocal" : "typeof depsLocal !== 'undefined' ? depsLocal : {}";
-   return `{`
+   return '{'
       + `attr: attr,`
       + `data: data,`
       + `ctx: this,`
@@ -61,11 +63,12 @@ export function createConfigNew(
       + `context: ${context},`
       + `key: key + "${key}",`
       + ('/*#CONFIG__CURRENT_PROPERTY_NAME#*/' /* pName: value */)
+      + (useRef ? 'ref: ref,' : EMPTY_STRING)
       + (compositeAttributes ? `compositeAttributes: ${compositeAttributes},` : EMPTY_STRING)
       + (scope ? `scope: ${scope},` : EMPTY_STRING)
       + (isRootTag ? `isRootTag: ${isRootTag},` : EMPTY_STRING)
       + (internal ? `internal: isVdom ? ${internal} : {},` : EMPTY_STRING)
       + (mergeType !== 'context' ? `mergeType: "${mergeType}",` : EMPTY_STRING)
       + (blockOptionNames.length > 0 ? `blockOptionNames: ${JSON.stringify(blockOptionNames)},` : EMPTY_STRING)
-      + `}`;
+      + '}';
 }

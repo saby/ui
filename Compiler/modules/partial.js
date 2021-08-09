@@ -8,10 +8,11 @@ define('Compiler/modules/partial', [
    'Compiler/codegen/templates',
    'Compiler/codegen/TClosure',
    'Compiler/codegen/feature/Partial',
-   'Compiler/codegen/Internal'
+   'Compiler/codegen/Internal',
+   'Compiler/codegen/feature/Function'
 ], function partialLoader(
    injectedDataForce, names, Process, parse, FSC,
-   Generator, templates, TClosure, FeaturePartial, Internal
+   Generator, templates, TClosure, FeaturePartial, Internal, codegenFeatureFunction
 ) {
    'use strict';
 
@@ -160,7 +161,7 @@ define('Compiler/modules/partial', [
       var blockOptionNames = FeaturePartial.getBlockOptionNames(tag);
       var config = FeaturePartial.createConfigNew(
          compositeAttributes, scope, context, internal, tag.isRootTag,
-         tag.key, mergeType, blockOptionNames, this.handlers.fromBuilderTmpl
+         tag.key, mergeType, blockOptionNames, this.handlers.fromBuilderTmpl, (tag.__$ws_hasReactRef && this.useReact)
       );
 
       var result = {
@@ -265,8 +266,11 @@ define('Compiler/modules/partial', [
       }
 
       // TMPL compiler
+      var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(this.useReact);
       var inlineTemplateBody = this.getString(tag.children, {}, this.handlers, {}, false);
-      var inlineTemplateFunction = templates.generatePartialTemplate(inlineTemplateBody);
+      var inlineTemplateFunction = '(' + tmplFuncGenerator.createTemplateFunctionString(
+         templates.generatePartialTemplateHeader() + templates.replaceContentOptionName(inlineTemplateBody), 'f2'
+      ) + ')';
       return Generator.genCreateControlNew(
          'inline',
          templateValue,
@@ -308,7 +312,7 @@ define('Compiler/modules/partial', [
             // <ws:partial template="inline_template_name" />
 
             var callDataArg = TClosure.genPlainMerge(
-               'Object.create(data || {})',
+               this.useReact ? 'Object.assign({}, data || {})' : 'Object.create(data || {})',
                Generator.genPrepareDataForCreate(
                   '"_$inline_template"',
                   strPreparedScope,
@@ -319,18 +323,32 @@ define('Compiler/modules/partial', [
             );
 
             var tpl;
+            var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(this.useReact);
             if (this.inlineTemplateBodies) {
                tpl = tag.attribs._wstemplatename.data.value;
             } else {
                var body = this.getString(tag.children, {}, this.handlers, {}, false);
-               tpl = templates.generatePartialTemplate(body);
+               tpl = '(' + tmplFuncGenerator.createTemplateFunctionString(
+                  templates.generatePartialTemplateHeader() + templates.replaceContentOptionName(body), 'f2'
+               ) + ')';
             }
 
-            return '(function(){' +
-               'attrsForTemplate = ' + createAttribs + '; scopeForTemplate = ' + callDataArg + ';' +
-               '}).apply(this),' + tpl +
-               '.call(this, scopeForTemplate, attrsForTemplate, context, isVdom),' +
-               '(function(){attrsForTemplate = null;scopeForTemplate = null;}).apply(),';
+            var beforeFunctionCall = '(function(){' +
+               'attrsForTemplate = ' + createAttribs + '; scopeForTemplate = ' + callDataArg + '; ' +
+               'scopeForTemplate._$attributes = attrsForTemplate;' +
+               '}).apply(this),';
+            var functionCallArguments = (
+               this.useReact
+                  ? ['this', 'scopeForTemplate']
+                  : ['this', 'scopeForTemplate', 'attrsForTemplate', 'context', 'isVdom']
+            );
+            if (tag.__$ws_hasReactRef && this.useReact) {
+               // Пробросим ref для react, поскольку находимся в корне шаблона (файла)
+               functionCallArguments.push('ref');
+            }
+            var functionCall = tmplFuncGenerator.createTemplateFunctionCall(tpl, functionCallArguments) + ',';
+            var afterFunctionCall = '(function(){attrsForTemplate = null;scopeForTemplate = null;}).apply(),';
+            return beforeFunctionCall + functionCall + afterFunctionCall;
          }
          return resolveStatement;
       }
