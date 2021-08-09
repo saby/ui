@@ -14,11 +14,6 @@ export function createGenerator(isVdom, forceCompatible = false, config): IGener
    return Text(config);
 }
 
-export function createForwardRef(callback: Function): any {
-   // TODO: forwardRef для inferno
-   return callback;
-}
-
 export {
    isolateScope,
    createScope,

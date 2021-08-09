@@ -159,7 +159,7 @@ define('Compiler/modules/partial', [
       var mergeType = getMergeType(tag, decor);
       var context = (tagIsModule || tagIsDynamicPartial) ? 'isVdom ? context + "part_" + (templateCount++) : context' : 'context';
       var config = FeaturePartial.createConfigNew(
-         compositeAttributes, scope, context, internal, tag.isRootTag, tag.key, mergeType
+         compositeAttributes, scope, context, internal, tag.isRootTag, tag.key, mergeType, (tag.__$ws_hasReactRef && this.useReact)
       );
 
       var result = {
@@ -362,7 +362,7 @@ define('Compiler/modules/partial', [
             // <ws:partial template="inline_template_name" />
 
             var callDataArg = TClosure.genPlainMerge(
-               'Object.create(data || {})',
+               this.useReact ? 'Object.assign({}, data || {})' : 'Object.create(data || {})',
                Generator.genPrepareDataForCreate(
                   '"_$inline_template"',
                   strPreparedScope,
@@ -385,13 +385,17 @@ define('Compiler/modules/partial', [
 
             var beforeFunctionCall = '(function(){' +
                'attrsForTemplate = ' + createAttribs + '; scopeForTemplate = ' + callDataArg + '; ' +
-               'scopeForTemplate.__$$attributes = attrsForTemplate;' +
+               'scopeForTemplate._$attributes = attrsForTemplate;' +
                '}).apply(this),';
             var functionCallArguments = (
                this.useReact
                   ? ['this', 'scopeForTemplate']
                   : ['this', 'scopeForTemplate', 'attrsForTemplate', 'context', 'isVdom']
             );
+            if (tag.__$ws_hasReactRef && this.useReact) {
+               // Пробросим ref для react, поскольку находимся в корне шаблона (файла)
+               functionCallArguments.push('ref');
+            }
             var functionCall = tmplFuncGenerator.createTemplateFunctionCall(tpl, functionCallArguments) + ',';
             var afterFunctionCall = '(function(){attrsForTemplate = null;scopeForTemplate = null;}).apply(),';
 

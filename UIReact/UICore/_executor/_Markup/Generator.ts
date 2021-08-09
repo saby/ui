@@ -56,7 +56,6 @@ export class Generator implements IGenerator {
             attributes: decorAttribs,
             events: fullEvents
         };
-        const parent = config.viewController;
 
         // вместо опций может прилететь функция, выполнение которой отдаст опции, calculateScope вычисляет такие опции
         const resolvedOptions = Scope.calculateScope(options, plainMerge);
@@ -71,9 +70,26 @@ export class Generator implements IGenerator {
          */
         const name = attributes.name as string ?? resolvedOptionsExtended.name;
 
-        const originRef = resolvedOptions.ref;
+        const originRef = config.ref;
 
         const newOptions = this.calculateOptions(resolvedOptionsExtended, config, fullEvents, name, originRef);
+
+        /**
+         * Даже если сюда попали _$attributes, они нам не нужны.
+         * Попасть могут из-за scope="{{ _options }}" или при передаче из контрола (коммент в render() контрола)
+         * Используются они только в самом начале шаблонной функции, дальше от них один вред.
+         */
+        newOptions._$attributes = templateAttributes;
+
+        const parent = config.viewController;
+        if (parent) {
+            newOptions._$wasabyParent = parent;
+        }
+
+        // в цикле for для элементов нужны ключи, обычно они автогенерируются шаблонизатором. Прокидываем их в опции
+        if (typeof newOptions.key === 'undefined') {
+            newOptions.key = config.key;
+        }
 
         // @ts-ignore FIXME: Нужно положить ключ в опцию rskey для Received state. Сделать это хорошо
         newOptions.rskey = templateAttributes.attributes.key || config.key;
@@ -84,7 +100,8 @@ export class Generator implements IGenerator {
             Common.IDefaultExport<typeof Control> |
             Function |
             ITplFunction<TemplateFunction> |
-            Common.ITemplateArray =
+            Common.ITemplateArray |
+            React.ForwardRefExoticComponent<unknown> =
             resolveTpl(origin, config.includedTemplates, config.depsLocal);
         let tpl: typeof Control |
             TemplateFunction |
@@ -125,6 +142,12 @@ export class Generator implements IGenerator {
         // Здесь может быть незарезолвленный контрол optional!. Поэтому результат должен быть пустым
         if (Common.isOptionalString<TemplateOrigin>(origin)) {
             return null;
+        }
+        /*
+        Вставка чистого реакта внутри васаби
+         */
+        if (tpl && typeof tpl === 'object' && '$$typeof' in tpl) {
+            return React.createElement(tpl, newOptions);
         }
         // игнорируем выводимое значение null для совместимости с реализацией wasaby
         if (origin === null) {
@@ -278,12 +301,12 @@ function resolveTemplate(template: TemplateFunction | ITplFunction<TemplateFunct
 function resolveTemplateFunction(parent: Control<IControlOptions>,
                                  template: TemplateFunction | Function,
                                  resolvedScope: IControlOptions,
-                                 decorAttribs: IGeneratorAttrs): TemplateResult {
+                                 decorAttribs: IGeneratorAttrs): React.ElementType {
     if (Common.isAnonymousFn(template)) {
         anonymousFnError(template, parent);
         return null;
     }
-    return template.call(parent, resolvedScope, decorAttribs, undefined, true, undefined, undefined) as TemplateResult;
+    return React.createElement(template, resolvedScope);
 }
 function resolveControlName(controlData: IControlOptions, attributes: Attr.IAttributes):
     Attr.IAttributes {
@@ -315,7 +338,6 @@ function createWsControl(
     Control<IControlOptions, TIState>
 > {
     resolveControlName(scope, decorAttribs.attributes);
-    scope._$attributes = decorAttribs;
     if (decorAttribs.attributes && decorAttribs.attributes.key) {
         // переносим ключ чтобы он выставился именно для контрола,
         // а не для элемента внутри, чтобы избежать перерисовки контрола

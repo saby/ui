@@ -1,9 +1,13 @@
 import { getIfNeedGeneratorCompatible } from 'UICommon/Executor';
 import { Text, Vdom } from './Markup';
 import { Logger } from 'UICommon/Utils';
-import { Fragment, createElement } from 'react';
+import { Fragment, createElement, forwardRef, ForwardRefRenderFunction } from 'react';
 
-export function createGenerator(isVdom, forceCompatible = false, config) {
+// TODO: пока разруливаю так, но вообще генератор совместимости видимо будет ставить какие-то флаги
+export function createGenerator(
+    isVdom: boolean = typeof window !== 'undefined',
+    forceCompatible: boolean = false,
+    config?: object) {
    if (isVdom) {
       return Vdom(config);
    }
@@ -53,19 +57,44 @@ export function createDataArrayReact(array, templateName, isWasabyTemplate) {
    return result;
 }
 
-export function createForwardRef(callback: Function): any {
-   // TODO: forwardRef для react
-   return callback;
+export function createForwardRef(callback: ForwardRefRenderFunction<unknown>): any {
+   return forwardRef(callback);
+}
+
+/**
+ * Тот же самый createScope, что и раньше был для инферно, но с одним отличием:
+ * Object.create заменён на Object.assign.
+ * Сделано это из-за того, что реакт в опции кладёт только собственные свойства.
+ */
+export function createScope(scope: any): object {
+   return Object.assign({}, scope && scope._getRawData ? scope._getRawData() : (scope || null));
+}
+
+export function getContext(scope: {
+   _$wasabyInstance: unknown
+}): unknown {
+   return scope._$wasabyInstance;
+}
+
+export function calcParent(obj: any, currentPropertyName: any, data: any): any {
+   if (obj && obj.viewController !== undefined) {
+      return obj.viewController;
+   }
+   if (data && data._$wasabyInstance !== undefined) {
+      return data._$wasabyInstance;
+   }
+   if (data && data._$wasabyParent !== undefined) {
+      return data._$wasabyParent;
+   }
+   return undefined;
 }
 
 export {
    isolateScope,
-   createScope,
    presetScope,
    uniteScope,
    createDataArray,
    filterOptions,
-   calcParent,
    wrapUndef,
    getDecorators,
    Sanitize,
@@ -83,6 +112,5 @@ export {
    getTypeFunc,
    validateNodeKey,
    getRk,
-   getContext,
    _isTClosure
 } from 'UICommon/Executor';

@@ -326,7 +326,7 @@ define('Compiler/modules/data/object', [
 
             if (this.useReact) {
                fAsString = tmplFuncGenerator.createTemplateFunctionCall(fAsString, [
-                  'scope', 'props'
+                  'scope', 'props', 'ref'
                ]);
             }
 

@@ -66,6 +66,33 @@ try {
 return out || markupGenerator.createText("");
 `;
 
+export const BODY_REACT = `
+if (typeof forceCompatible === 'undefined') {
+    forceCompatible = false;
+}
+var markupGenerator = thelpers.createGenerator(isVdom, forceCompatible, generatorConfig);
+var funcContext = thelpers.getContext(data);
+var scopeForTemplate, attrsForTemplate;
+
+/*#DELETE IT START#*/
+var filename = "/*#FILE_NAME#*/";
+/*#INITIALIZE_RK_FUNCTION#*/
+funcContext = data;
+${INIT_INCLUDED_TEMPLATES}
+/*#DELETE IT END#*/
+
+try {
+   var out = markupGenerator.joinElements([ /*#MARKUP_GENERATION#*/ ], key, defCollection);
+   if (defCollection && defCollection.def) {
+      out = markupGenerator.chain(out, defCollection, this);
+      defCollection = undefined;
+   }
+} catch (e) {
+   thelpers.templateError(filename, e, data);
+}
+return out || markupGenerator.createText("");
+`;
+
 /**
  * Output template code fragment.
  * @deprecated
@@ -133,7 +160,7 @@ export const FOR = `
          out = out.concat(processed);
       }
    }).call(data);
-   typeof out === 'object' && Object.defineProperty(out, 'for', {value: true, enumerable: false});
+   typeof out === 'object' && out.length > 1 && Object.defineProperty(out, 'for', {value: true, enumerable: false});
    return out;
 })(),
 `;
@@ -160,7 +187,7 @@ export const FOREACH = `
             itCount = 0;
          iterator( /*#SCOPE_ARRAY#*/ , function forIteratorCallback(entity, key) {
             var originData = data;
-            data = Object.create(data);
+            data = Object.assign({}, data);
             thelpers.presetScope(entity, data, key, /*#ITERATOR_SCOPE#*/ );
             key = contextInput + "_for_" + itCount + "_";
             itCount++;
@@ -172,7 +199,7 @@ export const FOREACH = `
          out = markupGenerator.createText("");
       }
    }).call(data);
-   typeof out === 'object' && Object.defineProperty(out, 'for', {value: true, enumerable: false});
+   typeof out === 'object' && out.length > 1 && Object.defineProperty(out, 'for', {value: true, enumerable: false});
    return out;
 }).call(this),
 `;
@@ -193,7 +220,7 @@ if (sets && sets.isSetts) {
 /*#DELETE IT END#*/
 
 var currentPropertyName = "/*#PROPERTY_NAME#*/";
-data = thelpers.isolateScope(Object.create(this), data, currentPropertyName);
+data = thelpers.isolateScope(Object.assign({}, this), data, currentPropertyName);
 ${INIT_KEY_AND_CONTROLLER}
 
 /*#TEMPLATE_BODY#*/
@@ -250,9 +277,9 @@ export const INCLUDED_TEMPLATE = `
  */
 export const INCLUDED_TEMPLATE_REACT = `
     (function () {
-      var scope = Object.create(data);
+      var scope = Object.assign({}, data);
       scope.viewController = viewController || null;
-      var bindFn = function(props) {
+      var bindFn = function(props, ref) {
         return /*#TEMPLATE#*/;
       };
 
@@ -293,7 +320,7 @@ export const OBJECT_TEMPLATE = `
  */
 export const OBJECT_TEMPLATE_REACT = `
 (new(function () {
-   var scope = Object.create(data);
+   var scope = Object.assign({}, data);
    scope.viewController = viewController || null;
    var func = ( /*#TEMPLATE#*/ );
    func = thelpers.makeFunctionSerializable(func, scope);

@@ -48,6 +48,7 @@ define('Compiler/codegen/templates', [
    var foreachTemplate = preprocessRawTemplate(jstpl.FOREACH);
    var headTemplate = preprocessRawTemplate(jstpl.HEAD);
    var bodyTemplate = preprocessRawTemplate(jstpl.BODY);
+   var bodyReactTemplate = preprocessRawTemplate(jstpl.BODY_REACT);
    var stringTemplate = preprocessRawTemplate(jstpl.STRING_TEMPLATE);
    var functionTemplate = preprocessRawTemplate(jstpl.FUNCTION_TEMPLATE);
 
@@ -272,10 +273,16 @@ define('Compiler/codegen/templates', [
     * @param hasTranslations Флаг наличия в единице трансляции конструкции локализации.
     * @returns {string} Сгенерированный блок кода.
     */
-   function generateTemplateBody(fileName, markupGeneration, hasTranslations) {
+   function generateTemplateBody(fileName, markupGeneration, hasTranslations, useReact) {
       var initRkFunction = EMPTY_STRING;
       if (hasTranslations) {
          initRkFunction = 'var rk = thelpers.getRk(filename);';
+      }
+      if (useReact) {
+         return bodyReactTemplate
+            .replace(/\/\*#INITIALIZE_RK_FUNCTION#\*\//g, generateReturnValueFunction(initRkFunction))
+            .replace(/\/\*#FILE_NAME#\*\//g, fileName)
+            .replace(/\/\*#MARKUP_GENERATION#\*\//g, generateReturnValueFunction(markupGeneration));
       }
       return bodyTemplate
          .replace(/\/\*#INITIALIZE_RK_FUNCTION#\*\//g, generateReturnValueFunction(initRkFunction))

@@ -131,7 +131,9 @@ export class GeneratorVdom extends Generator implements IGenerator {
         tagName: keyof React.ReactHTML,
         attrs: {
             attributes: P & WasabyAttributes;
-            events: Record<string, IWasabyEvent[]>
+            events: Record<string, IWasabyEvent[]>;
+            key: string;
+            ref?: Function;
         },
         children: React.ReactNode[] & {
             for: boolean
@@ -173,7 +175,7 @@ export class GeneratorVdom extends Generator implements IGenerator {
             }
         });
         const name = mergedAttrs.name;
-        const originRef = attrs.attributes.ref;
+        const originRef = attrs.ref;
         const chainOfRef = new ChainOfRef();
         const createChildrenRef = new CreateChildrenRef(control, name);
         const createEventRef = new CreateEventRef(tagName, eventsObject);
@@ -190,6 +192,7 @@ export class GeneratorVdom extends Generator implements IGenerator {
         */
         const newProps = {
             ...convertedAttributes,
+            key: attrs.key,
             ref: chainOfRef.execute()
         };
 

@@ -107,7 +107,19 @@ var lastGetterPath;
 var
    getter = function getter(obj, path) {
       lastGetterPath = path;
-      return object.extractValue(obj, path);
+      let result = object.extractValue(obj, path);
+      if (typeof result === 'undefined') {
+         /**
+          * TODO: очень-очень страшная штука, нельзя это оставлять для васаби
+          * Реакт оставляет в props только собственные свойства объекта.
+          * Проблема в том, что у большинства контролов методы на прототипе, и они отбрасываются.
+          * Приходится пробрасывать инстанс вниз и каждый геттер выполняться два раза:
+          * 1) Как обычно, смотрит в data.
+          * 2) Если в data ничего не нашли, то вместо data возьмётся _$wasabyInstance.
+          */
+         result = object.extractValue(obj._$wasabyInstance, path);
+      }
+      return result;
    },
 
    /**

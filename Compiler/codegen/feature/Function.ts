@@ -43,21 +43,22 @@ class TemplateFunctionGenerator extends BaseTemplateFunctionGenerator {
 }
 
 const REACT_TEMPLATE_PARAMETERS = [
-   'props'
+   'props',
+   'ref'
 ];
 
 /**
- * TODO: инициализировать переменные Wasaby через аргументы шаблонной функции react
+ * Инициализация переменных Wasaby через аргументы шаблонной функции react.
+ * Если что-то не инициализировано - в реакте оно не используется.
  */
 export const REACT_PARAMETERS_INIT = `
 var data = props;
-var attr = props.__$$attributes;
-var context = props.__$$context;
-var isVdom = props.__$$isVdom;
-var sets = props.__$$sets;
-var forceCompatible = props.__$$forceCompatible;
-var generatorConfig = props.__$$generatorConfig;
-
+var attr = props._$attributes;
+var isVdom = undefined;
+var context = undefined;
+var sets = undefined;
+var forceCompatible = undefined;
+var generatorConfig = undefined;
 `;
 
 class ReactTemplateFunctionGenerator extends BaseTemplateFunctionGenerator {
