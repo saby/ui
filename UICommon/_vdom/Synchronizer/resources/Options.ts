@@ -2,7 +2,7 @@
 
 import { Set } from 'Types/shim';
 import { IVersionable } from 'Types/entity';
-import { IControlOptions } from 'UICommon/Base';
+import {IControlOptions, skipChangedOptions} from 'UICommon/Base';
 
 export interface IVersionableArray {
    getArrayVersion?(): number;
@@ -181,6 +181,31 @@ function isTemplateArrayChanged(
    }
    return false;
 }
+function isArrayChanged(
+    next: unknown[],
+    prev: unknown[],
+    versionsStorage: object = EMPTY_OBJECT,
+    checkPrevValue: boolean = false,
+    prefix: string = EMPTY_STRING,
+    isCompound: boolean = false
+): boolean {
+   for (let i = 0; i < next.length; i++) {
+      const localPrefix = prefix + ';' + i + ';';
+      const ch = getChangedOptions(
+          next[i],
+          prev[i],
+          false,
+          versionsStorage,
+          checkPrevValue,
+          localPrefix,
+          isCompound
+      );
+      if (ch) {
+         return true;
+      }
+   }
+   return false;
+}
 
 function isTemplateObjectChanged(
    next: ITemplateObject,
@@ -251,8 +276,8 @@ export function isContentOption(value: unknown): boolean {
 }
 
 export function getChangedOptions(
-   next: TOptions = EMPTY_OBJECT,
-   prev: TOptions = EMPTY_OBJECT,
+   _next: TOptions = EMPTY_OBJECT,
+   _prev: TOptions = EMPTY_OBJECT,
    ignoreDirtyChecking: boolean = false,
    versionsStorage: object = EMPTY_OBJECT,
    checkPrevValue: boolean = false,
@@ -260,6 +285,19 @@ export function getChangedOptions(
    isCompound: boolean = false,
    blockOptionNames: string[] = []
 ): TOptions | null {
+   // убираем лишние служебные поля, которые не нужно сравнивать
+   const prev = {..._prev};
+   const next = {..._next};
+   skipChangedOptions.forEach((opt) => {
+      delete prev[opt];
+      delete next[opt];
+   });
+   blockOptionNames.forEach((optionName) => {
+      if (typeof next[optionName] === 'object') {
+         Object.defineProperty(next[optionName], '_$blockOption', {value: true, enumerable: false});
+      }
+   });
+
    // TODO: ignoreDirtyChecking, checkPrevValue, isCompound вынести в битовый флаг
    // TODO: отказаться от префиксов в пользу древовидной структуры хранилища версий (сейчас словарь по сути)
    const properties = getKeys(next, prev);
@@ -327,10 +365,25 @@ export function getChangedOptions(
             if (shouldIgnoreChanging(next[property] as IManualObject)) {
                continue;
             }
-            if (Array.isArray(next[property]) && next[property]) {
+            if (property === 'validators') {
+               // костыль - у валидаторов почему-то функции равны по ссылке,
+               // вероятно они при бинде пишутся в старые опции
+               hasChanges = true;
+               changes[property] = next[property];
+            } else if (Array.isArray(next[property]) && next[property]) {
                if (!isTemplateArray(next[property] as ITemplateArray)) {
-                  if (blockOptionNames.indexOf(property) !== -1) {
-                     continue;
+                  if (next[property]?._$blockOption === true) {
+                     if (isArrayChanged(
+                         next[property],
+                         prev[property],
+                         versionsStorage,
+                         checkPrevValue,
+                         prefix + property,
+                         isCompound
+                     )) {
+                        hasChanges = true;
+                        changes[property] = next[property];
+                     }
                   } else {
                      hasChanges = true;
                      changes[property] = next[property];
@@ -353,7 +406,7 @@ export function getChangedOptions(
                      changes[property] = next[property];
                   }
                }
-            } else if (isTemplateObject(next[property] as ITemplateObject)) {
+            } else if (isTemplate(next[property] as ITemplateObject)) {
                // Inner template with internal options. We only need to check internal options
                // cause function is bound and it can lead to useless redraws.
                if (isTemplateObjectChanged(
@@ -410,8 +463,20 @@ export function getChangedOptions(
                   hasChanges = true;
                   changes[property] = next[property];
                }
-            } else if (blockOptionNames.indexOf(property) !== -1) {
-               continue;
+            } else if (next[property]?._$blockOption === true) {
+               const innerCh = getChangedOptions(
+                   next[property],
+                   prev[property],
+                   true,
+                   EMPTY_OBJECT,
+                   true,
+                   EMPTY_STRING,
+                   isCompound
+               );
+               if (innerCh) {
+                  hasChanges = true;
+                  changes[property] = next[property];
+               }
             } else {
                hasChanges = true;
                changes[property] = next[property];

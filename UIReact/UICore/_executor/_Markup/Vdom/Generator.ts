@@ -52,7 +52,7 @@ export class GeneratorVdom extends Generator implements IGenerator {
     }
 
     protected calculateOptions(
-        resolvedOptionsExtended: IControlOptions & { ref: React.RefCallback<Control> },
+        options: IControlOptions & { ref: React.RefCallback<Control> },
         config: IControlConfig,
         events: Record<string, IWasabyEvent[]>,
         name: string,
@@ -65,8 +65,7 @@ export class GeneratorVdom extends Generator implements IGenerator {
             chainOfRef.add(new CreateOriginRef(originRef));
         }
 
-        const clonedOptions = resolvedOptionsExtended;
-        return Object.assign(clonedOptions, {
+        return Object.assign(options, {
             events,
             ref: chainOfRef.execute(),
             _$parentsChildrenPromises: config.viewController?._$childrenPromises,
