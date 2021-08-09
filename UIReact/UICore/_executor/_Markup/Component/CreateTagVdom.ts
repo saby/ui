@@ -15,7 +15,9 @@ export class CreateTagVdom implements IGeneratorComponent {
         tagName: keyof React.ReactHTML,
         attrs: {
             attributes: P & WasabyAttributes;
-            events: Record<string, IWasabyEvent[]>
+            events: Record<string, IWasabyEvent[]>;
+            key: string;
+            ref?: Function;
         },
         children: React.ReactNode[] & {
             for: boolean
@@ -43,7 +45,7 @@ export class CreateTagVdom implements IGeneratorComponent {
             }
         });
         const name = mergedAttrs.name;
-        const originRef = attrs.attributes.ref;
+        const originRef = attrs.ref;
         const chainOfRef = new ChainOfRef();
         const createChildrenRef = new CreateChildrenRef(control, name);
         const createEventRef = new CreateEventRef(tagName, eventsObject);
@@ -60,6 +62,7 @@ export class CreateTagVdom implements IGeneratorComponent {
         */
         const newProps = {
             ...convertedAttributes,
+            key: attrs.key,
             ref: chainOfRef.execute()
         };
 

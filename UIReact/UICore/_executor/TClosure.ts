@@ -1,6 +1,6 @@
 import { Text, Vdom } from './Markup';
 import { Logger } from 'UICommon/Utils';
-import { Fragment, createElement } from 'react';
+import { Fragment, createElement, forwardRef, ForwardRefRenderFunction } from 'react';
 
 import { CommonUtils as Common } from 'UICommon/Executor';
 import * as ModulesLoader from 'WasabyLoader/ModulesLoader';
@@ -24,7 +24,10 @@ function getIfNeedGeneratorCompatible(forceCompatible: boolean, config) {
    }
 }
 
-export function createGenerator(isVdom, forceCompatible = false, config) {
+export function createGenerator(
+   isVdom: boolean = typeof window !== 'undefined',
+   forceCompatible: boolean = false,
+   config?: object) {
    const Compatible = getIfNeedGeneratorCompatible(forceCompatible, config);
    // если передали флаг isVdom=true надо использовать именно vdom генератор
    if (Compatible && !isVdom) {
@@ -101,14 +104,44 @@ export function callIFun(fn: Function, ctx: object, args: unknown[]): unknown {
    return fn.apply(ctx, args);
 }
 
+export function createForwardRef(callback: ForwardRefRenderFunction<unknown>): any {
+   return forwardRef(callback);
+}
+
+/**
+ * Тот же самый createScope, что и раньше был для инферно, но с одним отличием:
+ * Object.create заменён на Object.assign.
+ * Сделано это из-за того, что реакт в опции кладёт только собственные свойства.
+ */
+export function createScope(scope: any): object {
+   return Object.assign({}, scope && scope._getRawData ? scope._getRawData() : (scope || null));
+}
+
+export function getContext(scope: {
+   _$wasabyInstance: unknown
+}): unknown {
+   return scope._$wasabyInstance;
+}
+
+export function calcParent(obj: any, currentPropertyName: any, data: any): any {
+   if (obj && obj.viewController !== undefined) {
+      return obj.viewController;
+   }
+   if (data && data._$wasabyInstance !== undefined) {
+      return data._$wasabyInstance;
+   }
+   if (data && data._$wasabyParent !== undefined) {
+      return data._$wasabyParent;
+   }
+   return undefined;
+}
+
 export {
    isolateScope,
-   createScope,
    presetScope,
    uniteScope,
    createDataArray,
    filterOptions,
-   calcParent,
    wrapUndef,
    getDecorators,
    Sanitize,
@@ -126,6 +159,5 @@ export {
    getTypeFunc,
    validateNodeKey,
    getRk,
-   getContext,
    _isTClosure
 } from 'UICommon/Executor';

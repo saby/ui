@@ -3,6 +3,16 @@
  * @author Крылов М.А.
  */
 
+import { genCreateForwardRef } from './TClosure';
+
+const INIT_KEY_AND_DEF_COLLECTION = `
+var key = thelpers.validateNodeKey(attr && attr.key);
+var defCollection = {
+   id: [],
+   def: undefined
+};
+`;
+
 /**
  * Output template code fragment.
  * @deprecated
@@ -34,11 +44,38 @@ try {
 return out || markupGenerator.createText("");
 `;
 
+export const BODY_REACT = `if (typeof forceCompatible === 'undefined') {
+    forceCompatible = false;
+}
+var markupGenerator = thelpers.createGenerator(isVdom, forceCompatible, generatorConfig);
+var funcContext = thelpers.getContext(data);
+var scopeForTemplate, attrsForTemplate;
+/*#DELETE IT START#*/
+var filename = "/*#FILE_NAME#*/";
+/*#INITIALIZE_RK_FUNCTION#*/
+funcContext = data;
+if (typeof includedTemplates === "undefined") {
+   eval("var includedTemplates = undefined;");
+   includedTemplates = (this && this.includedTemplates) ? this.includedTemplates : {};
+}
+/*#DELETE IT END#*/
+try {
+   var out = markupGenerator.joinElements([ /*#MARKUP_GENERATION#*/ ], key, defCollection);
+   if (defCollection && defCollection.def) {
+      out = markupGenerator.chain(out, defCollection, this);
+      defCollection = undefined;
+   }
+} catch (e) {
+   thelpers.templateError(filename, e, data);
+}
+return out || markupGenerator.createText("");
+`;
+
 /**
  * Output template code fragment.
  * @deprecated
  */
-export const DEFINE = `define('/*#MODULE_EXTENSION#*/!/*#MODULE_NAME#*/', /*#DEPENDENCIES#*/, function(Executor, rk) {
+export const DEFINE = `define('/*#MODULE_EXTENSION#*/!/*#MODULE_NAME#*/', /*#DEPENDENCIES#*/, function(/*#MODULE_PARAMS#*/) {
    function debug() {
       debugger;
    }
@@ -73,7 +110,11 @@ export const DEFINE = `define('/*#MODULE_EXTENSION#*/!/*#MODULE_NAME#*/', /*#DEP
    };
    /*#DELETE IT END#*/
 
-   return templateFunction;
+   var forwardRef = ${genCreateForwardRef("templateFunction")};
+   forwardRef.stable = templateFunction.stable;
+   forwardRef.reactiveProps = templateFunction.reactiveProps;
+   forwardRef.isWasabyTemplate = templateFunction.isWasabyTemplate;
+   return forwardRef;
 });
 `;
 
@@ -95,7 +136,7 @@ export const FOR = `(function customForTemplate() {
          out = out.concat(processed);
       }
    }).call(data);
-   typeof out === 'object' && Object.defineProperty(out, 'for', {value: true, enumerable: false});
+   typeof out === 'object' && out.length > 1 && Object.defineProperty(out, 'for', {value: true, enumerable: false});
    return out;
 })(),
 `;
@@ -121,7 +162,7 @@ export const FOREACH = `(function forTemplate() {
             itCount = 0;
          iterator( /*#SCOPE_ARRAY#*/ , function forIteratorCallback(entity, key) {
             var originData = data;
-            data = Object.create(data);
+            data = Object.assign({}, data);
             thelpers.presetScope(entity, data, key, /*#ITERATOR_SCOPE#*/ );
             key = contextInput + "_for_" + itCount + "_";
             itCount++;
@@ -133,7 +174,7 @@ export const FOREACH = `(function forTemplate() {
          out = markupGenerator.createText("");
       }
    }).call(data);
-   typeof out === 'object' && Object.defineProperty(out, 'for', {value: true, enumerable: false});
+   typeof out === 'object' && out.length > 1 && Object.defineProperty(out, 'for', {value: true, enumerable: false});
    return out;
 }).call(this),
 `;
@@ -159,12 +200,8 @@ if (sets && sets.isSetts) {
 
 var templateCount = 0;
 var currentPropertyName = "/*#PROPERTY_NAME#*/";
-data = thelpers.isolateScope(Object.create(this), data, currentPropertyName);
-var key = thelpers.validateNodeKey(attr && attr.key);
-var defCollection = {
-   id: [],
-   def: undefined
-};
+data = thelpers.isolateScope(Object.assign({}, this), data, currentPropertyName);
+${INIT_KEY_AND_DEF_COLLECTION}
 var viewController = thelpers.calcParent(this, currentPropertyName, data);
 
 /*#TEMPLATE_BODY#*/
@@ -193,11 +230,7 @@ if (typeof includedTemplates === "undefined") {
 }
 /*#DELETE IT END#*/
 var templateCount = 0;
-var key = thelpers.validateNodeKey(attr && attr.key);
-var defCollection = {
-   id: [],
-   def: undefined
-};
+${INIT_KEY_AND_DEF_COLLECTION}
 var viewController = thelpers.calcParent(this, undefined, data);
 `;
 
@@ -218,7 +251,9 @@ export const CONTENT_OPTION = `{
       /*#DELETE IT END#*/
       bindFn.isWasabyTemplate = /*#IS_WASABY_TEMPLATE#*/;
 
-      return bindFn;
+      var forwardRef = ${genCreateForwardRef("bindFn")};
+      forwardRef.isWasabyTemplate = bindFn.isWasabyTemplate;
+      return forwardRef;
    })(),
    internal: /*#INTERNAL#*/,
    isWasabyTemplate: /*#IS_WASABY_TEMPLATE#*/
@@ -230,10 +265,10 @@ export const CONTENT_OPTION = `{
  */
 export const CONTENT_OPTION_REACT = `
     (function () {
-      var scope = Object.create(data);
+      var scope = Object.assign({}, data);
       scope.viewController = viewController || null;
-      var bindFn = function(props) {
-        return /*#TEMPLATE#*/.call(scope, props, attr, context, isVdom, sets, forceCompatible, generatorConfig);
+      var bindFn = function(props, ref) {
+        return /*#TEMPLATE#*/;
       };
 
       /*#DELETE IT START#*/
@@ -243,7 +278,9 @@ export const CONTENT_OPTION_REACT = `
       /*#DELETE IT END#*/
       bindFn.isWasabyTemplate = /*#IS_WASABY_TEMPLATE#*/;
 
-      return bindFn;
+      var forwardRef = ${genCreateForwardRef("bindFn")};
+      forwardRef.isWasabyTemplate = bindFn.isWasabyTemplate;
+      return forwardRef;
    })()
 `;
 
@@ -255,9 +292,13 @@ export const CONTENT_OPTION_TMPL = `(new(function () {
    var scope = Object.create(data);
    scope.viewController = viewController || null;
    var func = ( /*#TEMPLATE#*/ );
-   this.func = thelpers.makeFunctionSerializable(func, scope);
+   func = thelpers.makeFunctionSerializable(func, scope);
    /*#INTERNAL#*/;
-   this.func.isWasabyTemplate = /*#IS_WASABY_TEMPLATE#*/;
+   func.isWasabyTemplate = /*#IS_WASABY_TEMPLATE#*/;
+
+   var forwardRef = ${genCreateForwardRef("func")};
+   forwardRef.isWasabyTemplate = func.isWasabyTemplate;
+   this.func = forwardRef;
 })).func
 `;
 
@@ -268,9 +309,13 @@ export const CONTENT_OPTION_TMPL_REACT = `(new(function () {
    var scope = Object.create(data);
    scope.viewController = viewController || null;
    var func = ( /*#TEMPLATE#*/ );
-   this.func = thelpers.makeFunctionSerializable(func, scope);
+   func = thelpers.makeFunctionSerializable(func, scope);
    /*#INTERNAL#*/;
-   this.func.isWasabyTemplate = /*#IS_WASABY_TEMPLATE#*/;
+   func.isWasabyTemplate = /*#IS_WASABY_TEMPLATE#*/;
+
+   var forwardRef = ${genCreateForwardRef("func")};
+   forwardRef.isWasabyTemplate = func.isWasabyTemplate;
+   this.func = forwardRef;
 })).func
 `;
 
@@ -278,27 +323,15 @@ export const CONTENT_OPTION_TMPL_REACT = `(new(function () {
  * Output template code fragment.
  * @deprecated
  */
-export const PARTIAL_TEMPLATE = `(function f2(data, attr) {
-  var key = thelpers.validateNodeKey(attr && attr.key);
-  var defCollection = {
-    id: [],
-    def: undefined
-  };
-  /*#BODY#*/
-})
-`;
+export const PARTIAL_TEMPLATE_HEADER = INIT_KEY_AND_DEF_COLLECTION;
 
 /**
  * Output template code fragment.
  * @deprecated
  */
 export const INLINE_TEMPLATE = `{
-  var key = thelpers.validateNodeKey(attr && attr.key);
   var templateCount = 0;
-  var defCollection = {
-    id: [],
-    def: undefined
-  };
+  ${INIT_KEY_AND_DEF_COLLECTION}
   var viewController = thelpers.calcParent(this, undefined, data);
   /*#BODY#*/
 }
@@ -309,11 +342,13 @@ export const INLINE_TEMPLATE = `{
  * @deprecated
  */
 export const INLINE_TEMPLATE_TMPL = `(function () {
-  includedTemplates["/*#NAME#*/"] = (function (data, attr, context, isVdom) {
-    /*#BODY#*/
-  }.bind({
-    includedTemplates: includedTemplates
-  }));
+  includedTemplates["/*#NAME#*/"] = (function() {
+    var func = (/*#TEMPLATE_FUNCTION#*/).bind({
+       includedTemplates: includedTemplates
+    });
+    var forwardRef = ${genCreateForwardRef("func")};
+    return forwardRef;
+  })();
 })(),
 `;
 

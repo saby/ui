@@ -5,8 +5,9 @@ define('Compiler/modules/data/array', [
    'Compiler/modules/data/utils/dataTypesCreator',
    'Compiler/modules/data/utils/functionStringCreator',
    'Compiler/codegen/templates',
-   'Compiler/codegen/Internal'
-], function arrayLoader(ErrorHandlerLib, parseUtils, tagUtils, DTC, FSC, templates, Internal) {
+   'Compiler/codegen/Internal',
+   'Compiler/codegen/feature/Function'
+], function arrayLoader(ErrorHandlerLib, parseUtils, tagUtils, DTC, FSC, templates, Internal, codegenFeatureFunction) {
    'use strict';
 
    /**
@@ -27,7 +28,7 @@ define('Compiler/modules/data/array', [
       var dirtyCh = '';
       if (!string) {
          if (!inlineTemplateBodies) {
-            dirtyCh = 'this.func.internal = ';
+            dirtyCh = 'func.internal = ';
          }
          if (injected && injected.internal) {
             dirtyCh += FSC.getStr(injected.internal);
@@ -55,8 +56,8 @@ define('Compiler/modules/data/array', [
       var postfixCall = string ? '(Object.create(data), null, context)' : '';
       var dirtyCh = generateInternal(string, injected, this.inlineTemplateBodies, this.internalFunctions, fileName);
 
-      // eslint-disable-next-line no-new-func
-      var func = new Function('data, attr, context, isVdom, sets, forceCompatible, generatorConfig', funcText);
+      var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(this.useReact);
+      var func = tmplFuncGenerator.createTemplateFunction(funcText);
       var funcName = this.setFunctionName(func, wsTemplateName, undefined, cleanPropertyName);
       if (this.contentOptionFunctions) {
          this.contentOptionFunctions.push(func);
@@ -66,6 +67,11 @@ define('Compiler/modules/data/array', [
             .toString()
             .replace('function anonymous', 'function ' + funcName)
             .replace(/\n/g, ' ');
+      }
+      if (this.useReact) {
+         functionToWrap = tmplFuncGenerator.createTemplateFunctionCall(functionToWrap, [
+            'scope', 'props', 'ref'
+         ]);
       }
       if (this.inlineTemplateBodies) {
          // Режим wml

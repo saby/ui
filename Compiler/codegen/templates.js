@@ -1,7 +1,8 @@
 define('Compiler/codegen/templates', [
    'Compiler/codegen/jstpl',
-   'Compiler/Config'
-], function(jstpl, builderConfig) {
+   'Compiler/Config',
+   'Compiler/codegen/feature/Function'
+], function(jstpl, builderConfig, codegenFeatureFunction) {
    'use strict';
 
    /**
@@ -47,6 +48,7 @@ define('Compiler/codegen/templates', [
    var foreachTemplate = preprocessRawTemplate(jstpl.FOREACH);
    var headTemplate = preprocessRawTemplate(jstpl.HEAD);
    var bodyTemplate = preprocessRawTemplate(jstpl.BODY);
+   var bodyTemplateReact = preprocessRawTemplate(jstpl.BODY_REACT);
    var contentTemplateString = preprocessRawTemplate(jstpl.CONTENT_TEMPLATE_STRING);
    var contentTemplateFunction = preprocessRawTemplate(jstpl.CONTENT_TEMPLATE_FUNCTION);
 
@@ -57,7 +59,7 @@ define('Compiler/codegen/templates', [
 
    var inlineTemplate = preprocessRawTemplate(jstpl.INLINE_TEMPLATE);
    var inlineTemplateTmpl = preprocessRawTemplate(jstpl.INLINE_TEMPLATE_TMPL);
-   var partialTemplate = preprocessRawTemplate(jstpl.PARTIAL_TEMPLATE);
+   var partialTemplateHeader = preprocessRawTemplate(jstpl.PARTIAL_TEMPLATE_HEADER);
 
    /**
     * Очистить сгенерированный текст шаблона от deprecated-блоков.
@@ -108,9 +110,10 @@ define('Compiler/codegen/templates', [
     * @param dependencies Массив зависимостей.
     * @param reactiveProperties Массив имен реактивных свойств.
     * @param hasTranslations Флаг наличия в единице трансляции конструкции локализации.
+    * @param useReact Флаг react сборки.
     * @returns {string} Сгенерированный текст шаблона.
     */
-   function generateDefine(moduleName, moduleExtension, templateFunction, dependencies, reactiveProperties, hasTranslations) {
+   function generateDefine(moduleName, moduleExtension, templateFunction, dependencies, reactiveProperties, hasTranslations, useReact) {
       var index, functionName, functionBody;
       var includedTemplates = '';
       var localDependenciesList = '';
@@ -137,10 +140,13 @@ define('Compiler/codegen/templates', [
          }
       }
 
+      var tmplFuncGenerator = codegenFeatureFunction.createTemplateFunctionGenerator(useReact);
       if (templateFunction.inlineTemplateBodies) {
          for (functionName in templateFunction.inlineTemplateBodies) {
             if (templateFunction.inlineTemplateBodies.hasOwnProperty(functionName)) {
-               includedTemplates += 'function ' + functionName + '(data, attr, context, isVdom, sets, forceCompatible, generatorConfig)' + templateFunction.inlineTemplateBodies[functionName];
+               includedTemplates += tmplFuncGenerator.createTemplateFunctionString(
+                  templateFunction.inlineTemplateBodies[functionName], functionName
+               );
                localDependenciesList += 'depsLocal["' + functionName + '"] = ' + functionName + ';';
             }
          }
@@ -150,8 +156,15 @@ define('Compiler/codegen/templates', [
       var headDependencies = [
          'UI/Executor'
       ];
+      var moduleParams = ['Executor'];
+
       if (hasTranslations) {
          headDependencies.push('i18n!' + moduleName.split('/')[0]);
+         moduleParams.push('rk');
+      }
+      if (useReact) {
+         headDependencies.push('react');
+         moduleParams.push('React');
       }
       if (dependencies) {
          for (index = 0; index < dependencies.length; ++index) {
@@ -161,11 +174,13 @@ define('Compiler/codegen/templates', [
 
       var finalDependencies = headDependencies.concat(dependencies);
       var globalFileNameCode = 'var filename = "' + moduleName + '";';
+      var moduleParamsString = moduleParams.join(', ');
 
       return defineTemplate
          .replace(/\/\*#GLOBAL_FILE_NAME#\*\//g, generateReturnValueFunction(globalFileNameCode))
          .replace(/\/\*#TEMPLATE#\*\//g, generateReturnValueFunction(template))
          .replace(/\/\*#MODULE_EXTENSION#\*\//g, generateReturnValueFunction(moduleExtension))
+         .replace(/\/\*#MODULE_PARAMS#\*\//g, generateReturnValueFunction(moduleParamsString))
          .replace(/\/\*#PRIVATE_TEMPLATES#\*\//g, generateReturnValueFunction(privateTemplates))
          .replace(/\/\*#INCLUDED_TEMPLATES#\*\//g, generateReturnValueFunction(includedTemplates))
          .replace(/\/\*#IS_WASABY_TEMPLATE#\*\//g, 'true')
@@ -183,9 +198,10 @@ define('Compiler/codegen/templates', [
     * @param dependencies Массив зависимостей.
     * @param reactiveProperties Массив имен реактивных свойств.
     * @param hasTranslations Флаг наличия в единице трансляции конструкции локализации.
+    * @param useReact Флаг react сборки.
     * @returns {string} Сгенерированный текст шаблона.
     */
-   function generateDefineTmpl(moduleName, moduleExtension, templateFunction, dependencies, reactiveProperties, hasTranslations) {
+   function generateDefineTmpl(moduleName, moduleExtension, templateFunction, dependencies, reactiveProperties, hasTranslations, useReact) {
       var index;
       var mainTemplateFunctionName = templateFunction.name;
       if (mainTemplateFunctionName === 'anonymous' || mainTemplateFunctionName === undefined) {
@@ -197,8 +213,15 @@ define('Compiler/codegen/templates', [
       var headDependencies = [
          'UI/Executor'
       ];
+      var moduleParams = ['Executor'];
+
       if (hasTranslations) {
          headDependencies.push('i18n!' + moduleName.split('/')[0]);
+         moduleParams.push('rk');
+      }
+      if (useReact) {
+         headDependencies.push('react');
+         moduleParams.push('React');
       }
       if (dependencies) {
          for (index = 0; index < dependencies.length; ++index) {
@@ -207,10 +230,13 @@ define('Compiler/codegen/templates', [
       }
 
       var finalDependencies = headDependencies.concat(dependencies);
+      var moduleParamsString = moduleParams.join(', ');
+
       return defineTemplate
          .replace(/\/\*#GLOBAL_FILE_NAME#\*\//g, EMPTY_STRING)
          .replace(/\/\*#TEMPLATE#\*\//g, generateReturnValueFunction(template))
          .replace(/\/\*#MODULE_EXTENSION#\*\//g, generateReturnValueFunction(moduleExtension))
+         .replace(/\/\*#MODULE_PARAMS#\*\//g, generateReturnValueFunction(moduleParamsString))
          .replace(/\/\*#PRIVATE_TEMPLATES#\*\//g, EMPTY_STRING)
          .replace(/\/\*#INCLUDED_TEMPLATES#\*\//g, EMPTY_STRING)
          .replace(/\/\*#IS_WASABY_TEMPLATE#\*\//g, 'false')
@@ -264,13 +290,20 @@ define('Compiler/codegen/templates', [
     * @param markupGeneration Блок генерации верстки.
     * @param hasTranslations Флаг наличия в единице трансляции конструкции локализации.
     * @param appendHeader Флаг, означающий, что необходимо включить заголовок с переменными.
+    * @param useReact Флаг react сборки.
     * @returns {string} Сгенерированный блок кода.
     */
-   function generateTemplate(fileName, markupGeneration, hasTranslations, appendHeader) {
+   function generateTemplate(fileName, markupGeneration, hasTranslations, appendHeader, useReact) {
       var initRkFunction = EMPTY_STRING;
       var header = appendHeader ? headTemplate : EMPTY_STRING;
       if (hasTranslations) {
          initRkFunction = 'var rk = thelpers.getRk(filename);';
+      }
+      if (useReact) {
+         return header + bodyTemplateReact
+            .replace(/\/\*#INITIALIZE_RK_FUNCTION#\*\//g, generateReturnValueFunction(initRkFunction))
+            .replace(/\/\*#FILE_NAME#\*\//g, fileName)
+            .replace(/\/\*#MARKUP_GENERATION#\*\//g, generateReturnValueFunction(markupGeneration));
       }
       var source = header + bodyTemplate
          .replace(/\/\*#INITIALIZE_RK_FUNCTION#\*\//g, generateReturnValueFunction(initRkFunction))
@@ -376,16 +409,14 @@ define('Compiler/codegen/templates', [
 
    /**
     * Сгенерировать inline-шаблон для tmpl.
-    * @param body {string} Тело шаблона.
     * @returns {string} Сгенерированный блок кода.
     */
-   function generatePartialTemplate(body) {
-      var source = partialTemplate
-         .replace('/*#BODY#*/', generateReturnValueFunction(body));
-      return replaceContentOptionName(source);
+   function generatePartialTemplateHeader() {
+      return partialTemplateHeader;
    }
 
    return {
+      replaceContentOptionName: replaceContentOptionName,
       clearSourceFromDeprecated: clearSourceFromDeprecated,
 
       generateFor: generateFor,
@@ -400,6 +431,6 @@ define('Compiler/codegen/templates', [
       generateDefineTmpl: generateDefineTmpl,
       generateInlineTemplateTmpl: generateInlineTemplateTmpl,
       generateContentOptionTmpl: generateContentOptionTmpl,
-      generatePartialTemplate: generatePartialTemplate
+      generatePartialTemplateHeader: generatePartialTemplateHeader
    };
 });
