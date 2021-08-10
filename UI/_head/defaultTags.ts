@@ -11,7 +11,10 @@ export function createTitle(title: string): void {
    AppHead.getInstance().createTag('title', {}, title);
 }
 export function createViewPort(): void {
-   AppHead.getInstance().createTag('meta', {content: 'width=1024', name: 'viewport'});
+   AppHead.getInstance().createTag('meta', {
+      content: 'width=1024, initial-scale=1, maximum-scale=1',
+      name: 'viewport'
+   });
 }
 
 export function createDefaultTags(cfg: IHeadOptions): void {
