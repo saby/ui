@@ -20,10 +20,6 @@ const whiteList = {
    "Controls/Container/Data/ContextOptions": true,
    "Controls/_context/ContextOptions": true,
    "Controls/_lookupPopup/__ControllerContext": true,
-   "Controls/Container/Filter/FilterContextField": true,
-   "Controls/_context/FilterContextField": true,
-   "Controls/Container/Search/SearchContextField": true,
-   "Controls/_context/SearchContextField": true,
    "Controls/Filter/Button/Panel/Wrapper/_FilterPanelOptions": true,
    'Controls/_filterPopup/Panel/Wrapper/_FilterPanelOptions': true,
    "Controls/_suggestPopup/_OptionsField": true,
@@ -36,6 +32,7 @@ const whiteList = {
    "Controls/scroll:_stickyHeaderContext": true,
    "UI/State:AppData": true,
    "Layout/Selector/__SelectorContext": true, // Временное поле для раскладки окна выбора по новому дизайну
+   "Page/_base/Context/PrefetchOptions": true, // Поле для распространения результатов предзагрузки страницы
    "Controls/stickyEnvironment:PinController": true
 };
 
