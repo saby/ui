@@ -1,4 +1,5 @@
 import { IDOMEnvironment } from 'UICore/interfaces';
+import { Control } from 'UICore/Base';
 import { IControl } from 'UICommon/interfaces';
 import { Logger } from 'UICommon/Utils';
 import { TControlNode } from './TControlNode';
@@ -53,6 +54,10 @@ function removeControlNode(controlNodes: IControlNode[], controlToRemove: IContr
 }
 
 export function prepareControlNodes(node: TControlNode, control: IControl): void {
+    if (node instanceof Control && !node._container) {
+        // если контрол без контейнера - это хок и ничего делать не надо
+        return;
+    }
     const container = node?._container || node;
     if (!container) {
         return;

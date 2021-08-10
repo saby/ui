@@ -208,9 +208,7 @@ export default class Control<TOptions extends IControlOptions = {},
      * @param options Опции контрола.
      * @private
      */
-    private _beforeFirstRender(options: TOptions): boolean {
-        const promisesToWait = [];
-
+    private _beforeFirstRender(options: TOptions): void {
         const res = this._beforeMount(options, {}, this.ejectReceivedState(options));
         this.saveReceivedState(res, options);
 
@@ -218,67 +216,7 @@ export default class Control<TOptions extends IControlOptions = {},
         this._beforeFirstRender = undefined;
 
         if (res && res.then) {
-            promisesToWait.push(res);
-        }
-
-        const cssLoading = Promise.all([
-            this.loadThemes(options.theme),
-            this.loadStyles()
-        ]);
-        if (constants.isBrowserPlatform && !this.isDeprecatedCSS() && !this.isCSSLoaded(options.theme)) {
-            promisesToWait.push(cssLoading.then(nop));
-        }
-        if (!options.notLoadThemes) {
-            //Если ждать загрузки стилей новой темизации. то му получаем просадку производительности
-            //https://online.sbis.ru/doc/059aaa9a-e123-49ce-b3c3-e828fdd15e56
-            this.loadThemeVariables(options.theme)
-        }
-
-        if (promisesToWait.length) {
-            const afterMountPromise: Promise<void> = new Promise((resolve) => {
-                this._$afterMountResolver = resolve;
-            });
-            options._$parentsChildrenPromises?.push(afterMountPromise);
-            Promise.all(promisesToWait).finally(() => {
-                this._$asyncInProgress = false;
-                this.setState(
-                    {
-                        loading: false
-                    },
-                    () => {
-                        if (this._$childrenPromises.length) {
-                            Promise.all(this._$childrenPromises).then(() => {
-                                this._$controlMounted = true;
-                                this._$afterMountResolver();
-                                this._$afterMountResolver = undefined;
-                                this._$childrenPromises = [];
-                                this._options = options;
-                                makeWasabyObservable<TOptions, TState>(this);
-                                this._componentDidMount(options);
-                                setTimeout(() => {
-                                    this._afterMount(options);
-                                }, 0);
-                            });
-                        } else {
-                            this._$controlMounted = true;
-                            this._$afterMountResolver();
-                            this._$afterMountResolver = undefined;
-                            this._options = options;
-                            makeWasabyObservable<TOptions, TState>(this);
-                            this._componentDidMount(options);
-                            setTimeout(() => {
-                                this._afterMount(options);
-                            }, 0);
-                        }
-                    }
-                );
-            });
-            this._$asyncInProgress = true;
-            return true;
-        } else {
-            this._options = options;
-            this._$controlMounted = true;
-            return false;
+            this._$beforeMountPromise = res;
         }
     }
 
@@ -483,30 +421,54 @@ export default class Control<TOptions extends IControlOptions = {},
     }
 
     componentDidMount(): void {
-        if (!this._$controlMounted) {
-            return;
-        }
+        let promisesToWait = [];
         const newOptions = createWasabyOptions(this.props, this.context);
-        if (this._$childrenPromises.length) {
+
+        const cssLoading = Promise.all([
+            this.loadThemes(newOptions.theme),
+            this.loadStyles()
+        ]);
+        if (constants.isBrowserPlatform && !this.isDeprecatedCSS() && !this.isCSSLoaded(newOptions.theme)) {
+            promisesToWait.push(cssLoading.then(nop));
+        }
+        if (!newOptions.notLoadThemes) {
+            //Если ждать загрузки стилей новой темизации. то му получаем просадку производительности
+            //https://online.sbis.ru/doc/059aaa9a-e123-49ce-b3c3-e828fdd15e56
+            this.loadThemeVariables(newOptions.theme);
+        }
+        promisesToWait = promisesToWait.concat(this._$childrenPromises);
+
+        if (promisesToWait.length) {
             const afterMountPromise: Promise<void> = new Promise((resolve) => {
                 this._$afterMountResolver = resolve;
             });
             newOptions._$parentsChildrenPromises?.push(afterMountPromise);
-            Promise.all(this._$childrenPromises).then(() => {
-                this._$afterMountResolver();
-                this._$afterMountResolver = undefined;
-                this._$childrenPromises = [];
-                this._options = newOptions;
-                this._optionsVersions = Options.collectObjectVersions(this._options);
-                makeWasabyObservable<TOptions, TState>(this);
-                this._componentDidMount(newOptions);
-                setTimeout(() => {
-                    this._afterMount(newOptions);
-                }, 0);
+            Promise.all(promisesToWait).finally(() => {
+                this._$asyncInProgress = false;
+                this.setState(
+                    {
+                        loading: false
+                    },
+                    () => {
+                        this._$controlMounted = true;
+                        this._$afterMountResolver();
+                        this._$afterMountResolver = undefined;
+                        this._$childrenPromises = [];
+                        this._options = newOptions;
+                        this._optionsVersions = Options.collectObjectVersions(this._options);
+                        makeWasabyObservable<TOptions, TState>(this);
+                        this._componentDidMount(newOptions);
+                        setTimeout(() => {
+                            this._afterMount(newOptions);
+                        }, 0);
+                    }
+                );
             });
+            this._$asyncInProgress = true;
         } else {
             this._options = newOptions;
             this._optionsVersions = Options.collectObjectVersions(this._options);
+            this._$controlMounted = true;
             makeWasabyObservable<TOptions, TState>(this);
             this._componentDidMount(newOptions);
             setTimeout(() => {
