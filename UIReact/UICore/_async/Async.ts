@@ -43,10 +43,12 @@ export default abstract class Async extends Control<IAsyncOptions, TAsyncStateRe
    protected _template: TemplateFunction = template;
    protected currentTemplateName: string;
    protected optionsForComponent: Record<string, unknown> = {};
+
    /**
     * Флаг для того, чтобы избежать повторной загрузки шаблона, при изменении опций до окончания асинхронной загрузки
     */
    protected asyncLoading: boolean = false;
+
    /**
     * Флаг, о том, что произошла ошибка при загрузке модуля - чтобы не было циклической попытки загрузки
     */
