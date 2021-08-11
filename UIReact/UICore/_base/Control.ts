@@ -217,6 +217,7 @@ export default class Control<TOptions extends IControlOptions = {},
 
         if (res && res.then) {
             this._$beforeMountPromise = res;
+            this._$asyncInProgress = true;
         }
     }
 
@@ -423,6 +424,11 @@ export default class Control<TOptions extends IControlOptions = {},
     componentDidMount(): void {
         let promisesToWait = [];
         const newOptions = createWasabyOptions(this.props, this.context);
+
+        if (this._$beforeMountPromise) {
+            promisesToWait.push(this._$beforeMountPromise);
+            this._$beforeMountPromise = null;
+        }
 
         const cssLoading = Promise.all([
             this.loadThemes(newOptions.theme),

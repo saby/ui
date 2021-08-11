@@ -54,8 +54,8 @@ function removeControlNode(controlNodes: IControlNode[], controlToRemove: IContr
 }
 
 export function prepareControlNodes(node: TControlNode, control: IControl): void {
-    if (Common.isNewControl(node.constructor) && !node._container) {
-        // если контрол без контейнера - это хок и ничего делать не надо
+    if (node && Common.isNewControl(node.constructor) && !node._container) {
+        // если контрол еще без контейнера (асинхронный он или его дети) - ничего делать не надо
         return;
     }
     const container = node?._container || node;

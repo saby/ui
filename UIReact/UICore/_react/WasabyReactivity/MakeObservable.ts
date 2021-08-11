@@ -182,6 +182,9 @@ function setObservableArray<P, S extends object | void>(value: unknown[], instan
  * @param instance
  */
 export function releaseProperties<P, S extends object | void>(instance: Control<P, S>): void {
+    if (!instance.reactiveValues) {
+        return;
+    }
     const reactiveProps = Object.keys(instance.reactiveValues);
     if (!reactiveProps) {
         return;
