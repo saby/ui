@@ -15,6 +15,7 @@ import { IWasabyEvent } from 'UICommon/Events';
 export interface IGeneratorAttrs {
     attributes: Attr.IAttributes;
     events: Record<string, IWasabyEvent[]>;
+    _$parent: Control;
 }
 
 export interface IControlConfig {

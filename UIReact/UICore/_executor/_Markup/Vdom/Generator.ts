@@ -68,7 +68,7 @@ export class GeneratorVdom extends Generator implements IGenerator {
         return Object.assign(options, {
             events,
             ref: chainOfRef.execute(),
-            _$parentsChildrenPromises: config.viewController?._$childrenPromises,
+            _$parentsChildrenPromises: config.attr?._$parent?._$childrenPromises,
             _$blockOptionNames: config.blockOptionNames
         });
     }

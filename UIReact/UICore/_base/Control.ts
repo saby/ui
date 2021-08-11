@@ -451,6 +451,10 @@ export default class Control<TOptions extends IControlOptions = {},
             newOptions._$parentsChildrenPromises?.push(afterMountPromise);
             Promise.all(promisesToWait).finally(() => {
                 this._$asyncInProgress = false;
+                if (this._destroyed) {
+                    this._$afterMountResolver();
+                    return;
+                }
                 this.setState(
                     {
                         loading: false

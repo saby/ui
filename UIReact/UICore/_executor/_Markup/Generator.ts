@@ -290,6 +290,7 @@ export function resolveTemplateFunction(parent: Control<IControlOptions>,
         anonymousFnError(template, parent);
         return null;
     }
+    decorAttribs._$parent = parent;
     return template.call(parent, resolvedScope, decorAttribs, undefined, true, undefined, undefined) as TemplateResult;
 }
 
