@@ -1,4 +1,4 @@
-import { IGeneratorConfig } from 'UICommon/Executor';
+import {IControl, IGeneratorConfig} from 'UICommon/Executor';
 import * as React from 'react';
 
 /**
@@ -16,7 +16,9 @@ export interface IControlOptions {
     rskey?: string;
     errorContainer?: React.ComponentClass;
     errorViewer?: IErrorViewer;
-    _$attributes?: object;
+    _$attributes?: object & {
+        _$parent: unknown
+    };
     _$parentsChildrenPromises?: Promise<void>[];
     _$blockOptionNames?: string[];
 }

@@ -65,10 +65,11 @@ export class GeneratorVdom extends Generator implements IGenerator {
             chainOfRef.add(new CreateOriginRef(originRef));
         }
 
+        const parent = config.attr?._$parent || config.viewController;
         return Object.assign(options, {
             events,
             ref: chainOfRef.execute(),
-            _$parentsChildrenPromises: config.attr?._$parent?._$childrenPromises,
+            _$parentsChildrenPromises: parent._$childrenPromises,
             _$blockOptionNames: config.blockOptionNames
         });
     }

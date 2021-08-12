@@ -68,7 +68,7 @@ export default class Control<TOptions extends IControlOptions = {},
      * Промис формируется до первого рендеринга из _beforeMount промиса и ожидания загрузки стилей
      * Этот Промис нужно также дождаться, прежде чем вызывать _afterMount
      */
-    private _$beforeMountPromise: Promise<unknown>[] = [];
+    private _$beforeMountPromise: Promise<unknown> = null;
     /**
      * Набор детей контрола, для которых задан атрибут name.
      */
@@ -224,7 +224,6 @@ export default class Control<TOptions extends IControlOptions = {},
 
         if (res && res.then) {
             promisesToWait.push(res);
-            this._$asyncInProgress = true;
         }
 
         const cssLoading = Promise.all([
@@ -242,6 +241,7 @@ export default class Control<TOptions extends IControlOptions = {},
 
         if (promisesToWait.length) {
             this._$beforeMountPromise = Promise.all(promisesToWait);
+            this._$asyncInProgress = true;
         }
     }
 
@@ -454,8 +454,6 @@ export default class Control<TOptions extends IControlOptions = {},
             this._$beforeMountPromise = null;
         }
 
-        promisesToWait = promisesToWait.concat(this._$childrenPromises);
-
         if (promisesToWait.length) {
             const afterMountPromise: Promise<void> = new Promise((resolve) => {
                 this._$afterMountResolver = resolve;
@@ -472,17 +470,24 @@ export default class Control<TOptions extends IControlOptions = {},
                         loading: false
                     },
                     () => {
-                        this._$controlMounted = true;
-                        this._$afterMountResolver();
-                        this._$afterMountResolver = undefined;
-                        this._$childrenPromises = [];
-                        this._options = newOptions;
-                        this._optionsVersions = Options.collectObjectVersions(this._options);
-                        makeWasabyObservable<TOptions, TState>(this);
-                        this._componentDidMount(newOptions);
-                        setTimeout(() => {
-                            this._afterMount(newOptions);
-                        }, 0);
+                        const callback = () => {
+                            this._$controlMounted = true;
+                            this._$afterMountResolver();
+                            this._$afterMountResolver = undefined;
+                            this._$childrenPromises = [];
+                            this._options = newOptions;
+                            this._optionsVersions = Options.collectObjectVersions(this._options);
+                            makeWasabyObservable<TOptions, TState>(this);
+                            this._componentDidMount(newOptions);
+                            setTimeout(() => {
+                                this._afterMount(newOptions);
+                            }, 0);
+                        };
+                        if (this._$childrenPromises.length) {
+                            Promise.all(this._$childrenPromises).finally(callback);
+                        } else {
+                            callback();
+                        }
                     }
                 );
             });
@@ -609,7 +614,9 @@ export default class Control<TOptions extends IControlOptions = {},
         this._destroyed = true;
         releaseProperties<TOptions, TState>(this);
 
-        this._beforeUnmount.apply(this);
+        if (this._$controlMounted) {
+            this._beforeUnmount.apply(this);
+        }
 
         this._forceUpdate = EMPTY_FUNC;
         this.componentWillUnmount = EMPTY_FUNC;
