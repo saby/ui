@@ -7,7 +7,7 @@ import { detection } from 'Env/Env';
 
 import { Logger } from 'UICommon/Utils';
 
-import { collectScrollPositions } from './_ResetScrolling';
+import { collectScrollPositions, restoreScrollPositionAfterFocus } from './_ResetScrolling';
 import * as ElementFinder from './ElementFinder';
 
 import { IFocusElement, IMatchesElement, IControlElement, ICompoundControl } from './IFocus';
@@ -190,6 +190,7 @@ const ignoreResetScroll = () => {
 };
 
 function makeResetScrollFunction(element: Element, enableScrollToElement: boolean): () => void {
+   collectScrollPositions(element);
    if (
       detection.isMobileIOS &&
       (detection.safari || detection.chrome) &&
@@ -204,7 +205,7 @@ function makeResetScrollFunction(element: Element, enableScrollToElement: boolea
       // если настроена специальная опция, которая разрешает скроллить к фокусируемому элементу, разрешаем скролл
       return ignoreResetScroll;
    }
-   return collectScrollPositions(element);
+   return restoreScrollPositionAfterFocus;
 }
 
 function matches(el: IMatchesElement, selector: string): boolean {

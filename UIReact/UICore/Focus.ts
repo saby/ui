@@ -89,3 +89,8 @@ export const DefaultOpenerFinder = {
       Logger.warn('Метод DefaultOpenerFinder.find ещё не реализован в системе фокусов для Реакта');
    }
 };
+
+// TODO: удалить после решения https://online.sbis.ru/opendoc.html?guid=be6d844a-6fdb-4de3-8cb9-8df24c0dfb59
+export function restoreScrollPositionAfterFocus(): void {
+   Logger.warn('Метод restoreScrollPositionAfterFocus ещё не реализован в системе фокусов для Реакта');
+}
