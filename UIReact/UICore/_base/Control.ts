@@ -65,6 +65,11 @@ export default class Control<TOptions extends IControlOptions = {},
      */
     private _$blockOptionNames: string[] = [];
     /**
+     * Промис формируется до первого рендеринга из _beforeMount промиса и ожидания загрузки стилей
+     * Этот Промис нужно также дождаться, прежде чем вызывать _afterMount
+     */
+    private _$beforeMountPromise: Promise<unknown>[] = [];
+    /**
      * Набор детей контрола, для которых задан атрибут name.
      */
     protected _children: IControlChildren = {};
@@ -209,15 +214,34 @@ export default class Control<TOptions extends IControlOptions = {},
      * @private
      */
     private _beforeFirstRender(options: TOptions): void {
-        const res = this._beforeMount(options, {}, this.ejectReceivedState(options));
-        this.saveReceivedState(res, options);
-
         // Данный метод должен вызываться только при первом построении, поэтому очистим его на инстансе при вызове
         this._beforeFirstRender = undefined;
 
+        const promisesToWait = [];
+
+        const res = this._beforeMount(options, {}, this.ejectReceivedState(options));
+        this.saveReceivedState(res, options);
+
         if (res && res.then) {
-            this._$beforeMountPromise = res;
+            promisesToWait.push(res);
             this._$asyncInProgress = true;
+        }
+
+        const cssLoading = Promise.all([
+            this.loadThemes(options.theme),
+            this.loadStyles()
+        ]);
+        if (constants.isBrowserPlatform && !this.isDeprecatedCSS() && !this.isCSSLoaded(options.theme)) {
+            promisesToWait.push(cssLoading.then(nop));
+        }
+        if (!options.notLoadThemes) {
+            //Если ждать загрузки стилей новой темизации. то мы получаем просадку производительности
+            //https://online.sbis.ru/doc/059aaa9a-e123-49ce-b3c3-e828fdd15e56
+            this.loadThemeVariables(options.theme);
+        }
+
+        if (promisesToWait.length) {
+            this._$beforeMountPromise = Promise.all(promisesToWait);
         }
     }
 
@@ -430,18 +454,6 @@ export default class Control<TOptions extends IControlOptions = {},
             this._$beforeMountPromise = null;
         }
 
-        const cssLoading = Promise.all([
-            this.loadThemes(newOptions.theme),
-            this.loadStyles()
-        ]);
-        if (constants.isBrowserPlatform && !this.isDeprecatedCSS() && !this.isCSSLoaded(newOptions.theme)) {
-            promisesToWait.push(cssLoading.then(nop));
-        }
-        if (!newOptions.notLoadThemes) {
-            //Если ждать загрузки стилей новой темизации. то му получаем просадку производительности
-            //https://online.sbis.ru/doc/059aaa9a-e123-49ce-b3c3-e828fdd15e56
-            this.loadThemeVariables(newOptions.theme);
-        }
         promisesToWait = promisesToWait.concat(this._$childrenPromises);
 
         if (promisesToWait.length) {
