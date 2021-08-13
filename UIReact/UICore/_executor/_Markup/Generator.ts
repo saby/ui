@@ -55,12 +55,6 @@ export class Generator implements IGenerator {
             fullEvents = Attr.mergeEvents(config.attr.events, events);
         }
 
-        const templateAttributes: IGeneratorAttrs = {
-            attributes: decorAttribs,
-            events: fullEvents
-        };
-        const parent = config.viewController;
-
         // вместо опций может прилететь функция, выполнение которой отдаст опции, calculateScope вычисляет такие опции
         const resolvedOptions = Scope.calculateScope(options, plainMerge);
         // если контрол создается внутри контентной опции, нужно пробросить в опции еще те, что доступны в контентной
@@ -77,7 +71,11 @@ export class Generator implements IGenerator {
         const originRef = resolvedOptions.ref;
 
         const newOptions = this.calculateOptions(resolvedOptionsExtended, config, fullEvents, name, originRef);
-
+        const templateAttributes: IGeneratorAttrs = {
+            attributes: decorAttribs,
+            events: fullEvents
+        };
+        const parent = newOptions._$logicParent;
         // @ts-ignore FIXME: Нужно положить ключ в опцию rskey для Received state. Сделать это хорошо
         newOptions.rskey = templateAttributes.attributes.key || config.key;
 
@@ -290,8 +288,9 @@ export function resolveTemplateFunction(parent: Control<IControlOptions>,
         anonymousFnError(template, parent);
         return null;
     }
-    decorAttribs._$parent = parent;
-    return template.call(parent, resolvedScope, decorAttribs, undefined, true, undefined, undefined) as TemplateResult;
+    const attrsCloned = {...decorAttribs};
+    attrsCloned._$logicParent = parent;
+    return template.call(parent, resolvedScope, attrsCloned, undefined, true, undefined, undefined) as TemplateResult;
 }
 
 const basicPrototype: object = Object.getPrototypeOf({});

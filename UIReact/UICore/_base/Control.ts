@@ -454,6 +454,8 @@ export default class Control<TOptions extends IControlOptions = {},
             this._$beforeMountPromise = null;
         }
 
+        promisesToWait = promisesToWait.concat(this._$childrenPromises);
+
         if (promisesToWait.length) {
             const afterMountPromise: Promise<void> = new Promise((resolve) => {
                 this._$afterMountResolver = resolve;
@@ -471,7 +473,6 @@ export default class Control<TOptions extends IControlOptions = {},
                     },
                     () => {
                         const callback = () => {
-                            this._$controlMounted = true;
                             this._$afterMountResolver();
                             this._$afterMountResolver = undefined;
                             this._$childrenPromises = [];
@@ -481,6 +482,7 @@ export default class Control<TOptions extends IControlOptions = {},
                             this._componentDidMount(newOptions);
                             setTimeout(() => {
                                 this._afterMount(newOptions);
+                                this._$controlMounted = true;
                             }, 0);
                         };
                         if (this._$childrenPromises.length) {
