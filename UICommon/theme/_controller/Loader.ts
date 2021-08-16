@@ -48,15 +48,6 @@ export default class Loader implements ICssLoader {
       }
       if (theme === EMPTY_THEME) {
          /**
-          * Для стилей без темы лучше всего полагаться на свежий механизм Мальцева.
-          * Он и минификацию и бандлы учтет
-          * На серверной стороне есть проблемы. Оставлю пока как есть.
-          * https://online.sbis.ru/opendoc.html?guid=62cf64e8-ecfa-47e4-b7b7-5e2a95bab01b
-          */
-         if (constants.isServerSide) {
-            return this.lr.resolveLink(name, { ext: 'css' });
-         }
-         /**
           * Если нет слешей и заканчивается на .package, то можно добавить превикс из wsConfig
           * Например: online-page-superbuindle.package
           * надо превратить в /resources/online-page-superbuindle.package
