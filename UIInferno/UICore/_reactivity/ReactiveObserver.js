@@ -345,9 +345,14 @@ define('UICore/_reactivity/ReactiveObserver', ['UICore/DevtoolsHook', 'Types/shi
    function checkForbiddenReactive(instance, property) {
       if (forbidReactiveMap.has(instance)) {
          var error = new Error();
+         var stack = '';
+         if (error.stack) {
+            // в ie нет error.stack
+            stack = error.stack.split('\n').slice(3, MAX_STACK_LENGTH).join('\n');
+         }
          var text = 'Произведена попытка изменения состояния контрола "' + instance._moduleName +
             '" при вычислении верстки. Изменяется свойство "' + property + '"' +
-            '\n' + error.stack.split('\n').slice(3, MAX_STACK_LENGTH).join('\n');
+            '\n' + stack;
          Env.IoC.resolve('ILogger').warn(text);
       }
    }
