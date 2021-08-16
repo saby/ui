@@ -32,7 +32,7 @@ const whiteList = {
    "Controls/scroll:_stickyHeaderContext": true,
    "UI/State:AppData": true,
    "Layout/Selector/__SelectorContext": true, // Временное поле для раскладки окна выбора по новому дизайну
-   "Page/_base/Context/PrefetchOptions": true // Поле для распространения результатов предзагрузки страницы
+   "SabyPage/_base/Context/PrefetchOptions": true // Поле для распространения результатов предзагрузки страницы
 };
 
 function compositeGetVersion() {
