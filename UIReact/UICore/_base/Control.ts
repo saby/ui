@@ -65,6 +65,11 @@ export default class Control<TOptions extends IControlOptions = {},
      */
     private _$blockOptionNames: string[] = [];
     /**
+     * Промис формируется до первого рендеринга из _beforeMount промиса и ожидания загрузки стилей
+     * Этот Промис нужно также дождаться, прежде чем вызывать _afterMount
+     */
+    private _$beforeMountPromise: Promise<unknown> = null;
+    /**
      * Набор детей контрола, для которых задан атрибут name.
      */
     protected _children: IControlChildren = {};
@@ -208,14 +213,14 @@ export default class Control<TOptions extends IControlOptions = {},
      * @param options Опции контрола.
      * @private
      */
-    private _beforeFirstRender(options: TOptions): boolean {
+    private _beforeFirstRender(options: TOptions): void {
+        // Данный метод должен вызываться только при первом построении, поэтому очистим его на инстансе при вызове
+        this._beforeFirstRender = undefined;
+
         const promisesToWait = [];
 
         const res = this._beforeMount(options, {}, this.ejectReceivedState(options));
         this.saveReceivedState(res, options);
-
-        // Данный метод должен вызываться только при первом построении, поэтому очистим его на инстансе при вызове
-        this._beforeFirstRender = undefined;
 
         if (res && res.then) {
             promisesToWait.push(res);
@@ -229,56 +234,14 @@ export default class Control<TOptions extends IControlOptions = {},
             promisesToWait.push(cssLoading.then(nop));
         }
         if (!options.notLoadThemes) {
-            //Если ждать загрузки стилей новой темизации. то му получаем просадку производительности
+            //Если ждать загрузки стилей новой темизации. то мы получаем просадку производительности
             //https://online.sbis.ru/doc/059aaa9a-e123-49ce-b3c3-e828fdd15e56
-            this.loadThemeVariables(options.theme)
+            this.loadThemeVariables(options.theme);
         }
 
         if (promisesToWait.length) {
-            const afterMountPromise: Promise<void> = new Promise((resolve) => {
-                this._$afterMountResolver = resolve;
-            });
-            options._$parentsChildrenPromises?.push(afterMountPromise);
-            Promise.all(promisesToWait).finally(() => {
-                this._$asyncInProgress = false;
-                this.setState(
-                    {
-                        loading: false
-                    },
-                    () => {
-                        if (this._$childrenPromises.length) {
-                            Promise.all(this._$childrenPromises).then(() => {
-                                this._$controlMounted = true;
-                                this._$afterMountResolver();
-                                this._$afterMountResolver = undefined;
-                                this._$childrenPromises = [];
-                                this._options = options;
-                                makeWasabyObservable<TOptions, TState>(this);
-                                this._componentDidMount(options);
-                                setTimeout(() => {
-                                    this._afterMount(options);
-                                }, 0);
-                            });
-                        } else {
-                            this._$controlMounted = true;
-                            this._$afterMountResolver();
-                            this._$afterMountResolver = undefined;
-                            this._options = options;
-                            makeWasabyObservable<TOptions, TState>(this);
-                            this._componentDidMount(options);
-                            setTimeout(() => {
-                                this._afterMount(options);
-                            }, 0);
-                        }
-                    }
-                );
-            });
+            this._$beforeMountPromise = Promise.all(promisesToWait);
             this._$asyncInProgress = true;
-            return true;
-        } else {
-            this._options = options;
-            this._$controlMounted = true;
-            return false;
         }
     }
 
@@ -483,30 +446,58 @@ export default class Control<TOptions extends IControlOptions = {},
     }
 
     componentDidMount(): void {
-        if (!this._$controlMounted) {
-            return;
-        }
+        let promisesToWait = [];
         const newOptions = createWasabyOptions(this.props, this.context);
-        if (this._$childrenPromises.length) {
+
+        if (this._$beforeMountPromise) {
+            promisesToWait.push(this._$beforeMountPromise);
+            this._$beforeMountPromise = null;
+        }
+
+        promisesToWait = promisesToWait.concat(this._$childrenPromises);
+
+        if (promisesToWait.length) {
             const afterMountPromise: Promise<void> = new Promise((resolve) => {
                 this._$afterMountResolver = resolve;
             });
             newOptions._$parentsChildrenPromises?.push(afterMountPromise);
-            Promise.all(this._$childrenPromises).then(() => {
-                this._$afterMountResolver();
-                this._$afterMountResolver = undefined;
-                this._$childrenPromises = [];
-                this._options = newOptions;
-                this._optionsVersions = Options.collectObjectVersions(this._options);
-                makeWasabyObservable<TOptions, TState>(this);
-                this._componentDidMount(newOptions);
-                setTimeout(() => {
-                    this._afterMount(newOptions);
-                }, 0);
+            Promise.all(promisesToWait).finally(() => {
+                this._$asyncInProgress = false;
+                if (this._destroyed) {
+                    this._$afterMountResolver();
+                    return;
+                }
+                this.setState(
+                    {
+                        loading: false
+                    },
+                    () => {
+                        const callback = () => {
+                            this._$afterMountResolver();
+                            this._$afterMountResolver = undefined;
+                            this._$childrenPromises = [];
+                            this._options = newOptions;
+                            this._optionsVersions = Options.collectObjectVersions(this._options);
+                            makeWasabyObservable<TOptions, TState>(this);
+                            this._componentDidMount(newOptions);
+                            setTimeout(() => {
+                                this._afterMount(newOptions);
+                                this._$controlMounted = true;
+                            }, 0);
+                        };
+                        if (this._$childrenPromises.length) {
+                            Promise.all(this._$childrenPromises).finally(callback);
+                        } else {
+                            callback();
+                        }
+                    }
+                );
             });
+            this._$asyncInProgress = true;
         } else {
             this._options = newOptions;
             this._optionsVersions = Options.collectObjectVersions(this._options);
+            this._$controlMounted = true;
             makeWasabyObservable<TOptions, TState>(this);
             this._componentDidMount(newOptions);
             setTimeout(() => {
@@ -625,7 +616,9 @@ export default class Control<TOptions extends IControlOptions = {},
         this._destroyed = true;
         releaseProperties<TOptions, TState>(this);
 
-        this._beforeUnmount.apply(this);
+        if (this._$controlMounted) {
+            this._beforeUnmount.apply(this);
+        }
 
         this._forceUpdate = EMPTY_FUNC;
         this.componentWillUnmount = EMPTY_FUNC;
