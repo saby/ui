@@ -294,7 +294,7 @@ export function getChangedOptions(
    });
    blockOptionNames.forEach((optionName) => {
       if (typeof next[optionName] === 'object') {
-         Object.defineProperty(next[optionName], '_$blockOption', {value: true, enumerable: false});
+         // Object.defineProperty(next[optionName], '_$blockOption', {value: true, enumerable: false});
       }
    });
 
@@ -406,7 +406,7 @@ export function getChangedOptions(
                      changes[property] = next[property];
                   }
                }
-            } else if (isTemplate(next[property] as ITemplateObject)) {
+            } else if (isTemplateObject(next[property] as ITemplateObject)) {
                // Inner template with internal options. We only need to check internal options
                // cause function is bound and it can lead to useless redraws.
                if (isTemplateObjectChanged(
