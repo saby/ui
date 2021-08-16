@@ -167,7 +167,7 @@ export function checkBindValue(event, value): boolean {
       }
    }
    if (!checkNested(data, valueArray, 0)) {
-      Logger.warn(`Bind на несуществующее поле "${value}". Bind может работать не правильно`, event.viewController);
+      // Logger.warn(`Bind на несуществующее поле "${value}". Bind может работать не правильно`, event.viewController);
    }
    return true;
 }
