@@ -2,6 +2,7 @@ import { IDOMEnvironment } from 'UICore/interfaces';
 import { IControl } from 'UICommon/interfaces';
 import { Logger } from 'UICommon/Utils';
 import { TControlNode } from './TControlNode';
+import { CommonUtils as Common } from 'UICommon/Executor';
 
 export interface IControlNode {
     control: IControl;
@@ -53,6 +54,10 @@ function removeControlNode(controlNodes: IControlNode[], controlToRemove: IContr
 }
 
 export function prepareControlNodes(node: TControlNode, control: IControl): void {
+    if (node?._beforeMount && !node._container) {
+        // если контрол еще без контейнера (асинхронный он или его дети) - ничего делать не надо
+        return;
+    }
     const container = node?._container || node;
     if (!container) {
         return;
