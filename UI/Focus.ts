@@ -11,7 +11,6 @@ export {
    focus,
    _FocusAttrs,
    nativeFocus,
-   restoreScrollPositionAfterFocus,
    activate,
    goUpByControlTree,
    DefaultOpenerFinder
