@@ -15,10 +15,6 @@ import { activate } from './_focus/Activate';
 import { preventFocus, hasNoFocus } from './_focus/PreventFocus';
 import { prepareRestoreFocusBeforeRedraw, restoreFocusAfterRedraw } from './_focus/RestoreFocus';
 
-// Костыль дя GridView, которому мешает нативный подскролл браузера по табу
-// TODO: удалить после решения https://online.sbis.ru/opendoc.html?guid=be6d844a-6fdb-4de3-8cb9-8df24c0dfb59
-import { restoreScrollPositionAfterFocus } from './_focus/_ResetScrolling';
-
 import { goUpByControlTree } from 'UICore/NodeCollector';
 import * as DefaultOpenerFinder from './_focus/DefaultOpenerFinder';
 import * as FocusAttrs from './_focus/FocusAttrs';
@@ -32,7 +28,6 @@ export {
    focus,
    prepareRestoreFocusBeforeRedraw,
    restoreFocusAfterRedraw,
-   restoreScrollPositionAfterFocus,
    _initFocus,
    IControl as _IControl,
    FocusAttrs as _FocusAttrs,

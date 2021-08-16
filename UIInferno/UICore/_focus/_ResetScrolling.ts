@@ -89,9 +89,6 @@ function getParents({ context }: {context: Element}) {
    return list;
 }
 
-export let restoreScrollPositionAfterFocus: () => void;
-const emptyFunction = () => undefined;
-
 export function collectScrollPositions(element) {
    const parents = getParents({context: element});
    const list = parents.slice(1).map((element) => {
@@ -102,11 +99,10 @@ export function collectScrollPositions(element) {
       };
    });
 
-   restoreScrollPositionAfterFocus = function resetScrollPositions() {
+   return function resetScrollPositions() {
       list.forEach((entry) => {
          entry.element.scrollTop = entry.scrollTop;
          entry.element.scrollLeft = entry.scrollLeft;
       });
-      restoreScrollPositionAfterFocus = emptyFunction;
    };
 }
