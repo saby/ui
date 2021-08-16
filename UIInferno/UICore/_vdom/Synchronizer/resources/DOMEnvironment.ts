@@ -158,7 +158,7 @@ export default class DOMEnvironment extends Environment implements IDOMEnvironme
             if (next.wsControl && next.wsControl.setActive) {
                next.wsControl.setActive(true);
             } else {
-               focus(next, {enableScreenKeyboard: false, enableScrollToElement: true});
+               focus(next);
             }
             event.preventDefault();
             event.stopImmediatePropagation();
