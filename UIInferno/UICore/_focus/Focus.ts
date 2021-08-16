@@ -185,7 +185,7 @@ function isIosScrollableInput(element: Element): boolean {
 }
 
 // Empty function, does nothing
-export const ignoreResetScroll = () => {
+const ignoreResetScroll = () => {
    // empty
 };
 

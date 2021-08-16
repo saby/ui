@@ -5,7 +5,6 @@ define([
    'UICommon/Utils',
    'Env/Env',
    'UICore/_focus/ElementFinder',
-   'UICore/_focus/Focus',
    'UICore/_focus/_ResetScrolling',
    'ReactUnitTest/Focus'
 ], function(
@@ -14,7 +13,6 @@ define([
    Utils,
    Env,
    ElementFinder,
-   FocusFocus,
    _ResetScrolling,
    FocusTestControls
 ) {
@@ -287,10 +285,10 @@ define([
                checkFn: function() {
                   var container = div;
                   document.body.scrollTop = 13;
-                  _ResetScrolling.collectScrollPositions(container);
+                  var undoScrollingFunction = _ResetScrolling.collectScrollPositions(container);
                   document.body.scrollTop = 0;
                   assert.strictEqual(0, document.body.scrollTop);
-                  _ResetScrolling.restoreScrollPositionAfterFocus();
+                  undoScrollingFunction();
                   assert.strictEqual(13, document.body.scrollTop);
                }
             },
@@ -300,10 +298,10 @@ define([
                checkFn: function() {
                   var container = [div];
                   document.body.scrollTop = 13;
-                  _ResetScrolling.collectScrollPositions(container);
+                  var undoScrollingFunction = _ResetScrolling.collectScrollPositions(container);
                   document.body.scrollTop = 0;
                   assert.strictEqual(0, document.body.scrollTop);
-                  _ResetScrolling.restoreScrollPositionAfterFocus();
+                  undoScrollingFunction();
                   assert.strictEqual(13, document.body.scrollTop);
                }
             },
@@ -313,10 +311,10 @@ define([
                checkFn: function() {
                   var container = { 0: div, length: 1 };
                   document.body.scrollTop = 13;
-                  _ResetScrolling.collectScrollPositions(container);
+                  var undoScrollingFunction = _ResetScrolling.collectScrollPositions(container);
                   document.body.scrollTop = 0;
                   assert.strictEqual(0, document.body.scrollTop);
-                  _ResetScrolling.restoreScrollPositionAfterFocus();
+                  undoScrollingFunction();
                   assert.strictEqual(13, document.body.scrollTop);
                }
             },
@@ -326,10 +324,10 @@ define([
                checkFn: function() {
                   var container = '#simple';
                   document.body.scrollTop = 13;
-                  _ResetScrolling.collectScrollPositions(container);
+                  var undoScrollingFunction = _ResetScrolling.collectScrollPositions(container);
                   document.body.scrollTop = 0;
                   assert.strictEqual(0, document.body.scrollTop);
-                  _ResetScrolling.restoreScrollPositionAfterFocus();
+                  undoScrollingFunction();
                   assert.strictEqual(13, document.body.scrollTop);
                }
             }
@@ -444,7 +442,7 @@ define([
                checkFn: function() {
                   div.innerHTML = '<div id="input" contenteditable="true"></div>';
                   var input = document.getElementById('input');
-                  var didResetScroll = true;
+                  var scrolled = false;
 
                   var detection = Env.detection;
                   Env.detection = {
@@ -452,9 +450,12 @@ define([
                      isMobileIOS: true,
                      isMobilePlatform: true
                   };
-                  var ignoreResetScrollStub = sinon.stub(FocusFocus, 'ignoreResetScroll').callsFake(function() {
-                     didResetScroll = false;
-                  });
+
+                  var collectScrollPositions = _ResetScrolling.collectScrollPositions;
+                  _ResetScrolling.collectScrollPositions = function() {
+                     scrolled = true;
+                     return function() { };
+                  };
 
                   try {
                      Focus.focus(input, {
@@ -462,9 +463,9 @@ define([
                      });
                   } finally {
                      Env.detection = detection;
-                     ignoreResetScrollStub.restore();
+                     _ResetScrolling.collectScrollPositions = collectScrollPositions;
                   }
-                  assert.notOk(didResetScroll);
+                  assert.notOk(scrolled);
 
                   // assert.strictEqual(document.activeElement, input);
                }
