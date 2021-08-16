@@ -41,7 +41,7 @@ export default class Loader implements ICssLoader {
    getHref(initialName: string, theme: string): string {
       let name: string = initialName;
       if (!name && theme !== EMPTY_THEME) {
-         return ModulesLoader.getModuleUrl(`${THEMED_CSS_MODULE_PREFIX}/${theme}`, cookie.get('s3debug'), undefined, detection.isIE);
+         return ModulesLoader.getModuleUrl(`${THEMED_CSS_MODULE_PREFIX}/${theme}`, cookie.get('s3debug'), detection.isIE);
       }
       if (name.indexOf('.css') !== -1) {
          return name;
@@ -57,7 +57,7 @@ export default class Loader implements ICssLoader {
             const wsConfig: IConfig = window?.['wsConfig'] || {};
             name = `${wsConfig.resourceRoot}${name}`;
          }
-         return ModulesLoader.getModuleUrl(CSS_MODULE_PREFIX + name, cookie.get('s3debug'), undefined, detection.isIE);
+         return ModulesLoader.getModuleUrl(CSS_MODULE_PREFIX + name, cookie.get('s3debug'), detection.isIE);
       }
       return this.lr.resolveCssWithTheme(name, theme);
    }
