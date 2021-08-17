@@ -58,12 +58,6 @@ export default class Control<TOptions extends IControlOptions = {},
      */
     private _$asyncInProgress: boolean = false;
     /**
-     * Блочные опции, заданные в шаблонизаторе для контрола. Нужны, чтобы не сравнивать из при принятии решения
-     * о перерисовке, так как эти опции создаются в шаблоне каждый раз заново и по сути всегда одинаковые, они не должны
-     * влиять на перерисовку. А internal внутри них должны влиять, это сравнивается отдельно
-     */
-    private _$blockOptionNames: string[] = [];
-    /**
      * Набор детей контрола, для которых задан атрибут name.
      */
     protected _children: IControlChildren = {};
