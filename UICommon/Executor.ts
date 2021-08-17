@@ -73,6 +73,8 @@ export {
 } from './_executor/_Markup/IGeneratorType';
 
 export {
+    callIFun,
+    createChangedInternal,
     isolateScope,
     createScope,
     presetScope,
