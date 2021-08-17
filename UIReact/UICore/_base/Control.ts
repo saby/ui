@@ -25,7 +25,7 @@ import { OptionsResolver } from 'UICommon/Executor';
 
 import { WasabyEvents, callNotify } from 'UICore/Events';
 import { IWasabyEventSystem } from 'UICommon/Events';
-import { TIState, TControlConfig, IControl } from 'UICommon/interfaces';
+import { TIState, TControlConfig } from 'UICommon/interfaces';
 import { IControlOptions, TemplateFunction } from 'UICommon/Base';
 import { ChainOfRef, CreateOriginRef } from 'UICore/Ref';
 import { CreateControlNodeRef } from './Refs/CreateControlNodeRef';
@@ -34,7 +34,6 @@ import { constants } from 'Env/Env';
 import { ErrorViewer } from './ErrorViewer';
 import { CreateControlRef } from './Refs/CreateControlRef';
 import { CreateHocRef } from './Refs/CreateHocRef';
-import {skipChangedOptions} from 'UICommon/Base';
 
 export type IControlConstructor<P = IControlOptions> = React.ComponentType<P>;
 
@@ -49,7 +48,7 @@ const EMPTY_FUNC = () => { return; };
  * @author Шипин А.А.
  */
 export default class Control<TOptions extends IControlOptions = {},
-    TState extends TIState = void> extends Component<TOptions, IControlState> implements IControl {
+    TState extends TIState = void> extends Component<TOptions, IControlState> {
     /**
      * Используется для того, чтобы не вызывать хуки ЖЦ до реального построения контрола.
      */
@@ -70,12 +69,14 @@ export default class Control<TOptions extends IControlOptions = {},
     protected _children: IControlChildren = {};
     /**
      * Шаблон контрола.
+     * @protected
      */
     protected _template: TemplateFunction;
     /**
      * Реальные опции контрола. Туда собираются значения из props и context.
      * ВАЖНО: значения могут не совпадать с props в некоторые моменты времени,
      * чтобы в хуках были правильные значения.
+     * @protected
      */
     protected _options: TOptions = {} as TOptions;
     /**
@@ -217,7 +218,7 @@ export default class Control<TOptions extends IControlOptions = {},
         // Данный метод должен вызываться только при первом построении, поэтому очистим его на инстансе при вызове
         this._beforeFirstRender = undefined;
 
-        if (res && res.then) {
+        if (res && 'then' in res) {
             promisesToWait.push(res);
         }
 

@@ -21,6 +21,12 @@ export interface IControlContext {
 }
 
 interface IInfernoControl {
+    _template?: Function;
+    _options?: IControlOptions;
+    _notify: Function;
+    _container: HTMLElement;
+    _children: TObject;
+    _instId: string;
     mounted?: boolean;
     _unmounted?: boolean;
     _destroyed?: boolean;
@@ -39,17 +45,11 @@ interface IInfernoControl {
 // Базовый контрол
 export interface IControl extends Partial<IInfernoControl> {
     // Поля которые только в Inferno
-    _template: Function;
-    _options: IControlOptions;
     context: IControlContext;
     _getChildContext?: Function;
     _getEnvironment: Function;
-    _notify: Function;
-    _container: HTMLElement;
     render: Function;
-    _children: TObject;
     _forceUpdate: Function;
-    _instId: string;
     reactiveValues?: TObject;
     __lastGetterPath?: [];
 
@@ -59,10 +59,10 @@ export interface IControl extends Partial<IInfernoControl> {
        _dotTplFn?: Function;
     };
 
-    props?: {
+    props?: Readonly<Partial<{
        readOnly: boolean;
        theme: string;
-    };
+    }>>;
  }
 
 interface IState {
