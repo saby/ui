@@ -9,6 +9,7 @@ import { setConfig } from 'Application/Env';
 import { TemplateFunction, IControlOptions } from 'UICommon/Base';
 import { default as Control } from './Control';
 import template = require('wml!UICore/_base/RouteCompatible');
+import { headDataStore } from 'UI/Deps';
 
 interface IRouteOptions extends IControlOptions {
     application?: string;
@@ -22,6 +23,12 @@ interface IRouteOptions extends IControlOptions {
 export default class RouteWrapper extends Control<IRouteOptions, IRouteOptions> {
     _template: TemplateFunction = template;
     protected data: IRouteOptions;
+
+    constructor(...args: [object]) {
+        super(...args);
+        // Если запуск страницы начинается с UICore/_base/RouteCompatible, значит мы находимся в новом окружении
+        headDataStore.write('isNewEnvironment', true);
+    }
 
     _beforeMount(options: IRouteOptions, _: unknown, receivedState: IRouteOptions): IRouteOptions | void {
         if (constants.isServerSide) {
