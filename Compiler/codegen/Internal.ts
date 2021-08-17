@@ -74,22 +74,22 @@ export function generate(node: InternalNode, internalFunctions: string[]): strin
     } catch (error) {
         throw new Error(`Тело функции "${functionName}" невалидно: ${error.message}`);
     }
- }
+}
 
- function isEmpty(node: InternalNode): boolean {
+function isEmpty(node: InternalNode): boolean {
     // TODO: Optimize!!!
     return node.flatten().length === 0;
- }
+}
 
- function appendFunction(func: string, internalFunctions: string[]): void {
+function appendFunction(func: string, internalFunctions: string[]): void {
     const index = internalFunctions.findIndex((item: string) => func === item);
     if (index > -1) {
         return;
     }
     internalFunctions.unshift(func);
- }
+}
 
- function build(node: InternalNode, options: IOptions): string {
+function build(node: InternalNode, options: IOptions): string {
     const body = buildPrograms(node.storage.getMeta(), options) + buildAll(node.children, options);
     if (node.type === InternalNodeType.IF || node.type === InternalNodeType.ELSE_IF) {
         const test = buildMeta(node.test, options);
@@ -152,9 +152,9 @@ function buildWithConditions(node: InternalNode, options: IOptions): string {
         return `if(${testExpression}){${prefix + body}}`;
     }
     throw new Error(`Получен неизвестный internal-узел с номером ${node.index}`);
- }
+}
 
- function buildAll(nodes: InternalNode[], options: IOptions): string {
+function buildAll(nodes: InternalNode[], options: IOptions): string {
     let body = '';
     for (let index = 0; index < nodes.length; ++index) {
         if (ALLOW_CONDITIONS) {
@@ -164,9 +164,9 @@ function buildWithConditions(node: InternalNode, options: IOptions): string {
         body += build(nodes[index], options);
     }
     return body;
- }
+}
 
- function buildPrograms(programs: IProgramMeta[], options: IOptions): string {
+function buildPrograms(programs: IProgramMeta[], options: IOptions): string {
     let body = '';
     let code;
     for (let index = 0; index < programs.length; ++index) {
@@ -174,28 +174,28 @@ function buildWithConditions(node: InternalNode, options: IOptions): string {
         body += wrapProgram(programs[index], code);
     }
     return body;
- }
+}
 
- function wrapProgram(meta: IProgramMeta, code: string): string {
+function wrapProgram(meta: IProgramMeta, code: string): string {
     return `${COLLECTION_NAME}.${INTERNAL_PROGRAM_PREFIX}${meta.index}=${code};`;
- }
+}
 
- function buildMeta(meta: IProgramMeta, options: IOptions): string {
+function buildMeta(meta: IProgramMeta, options: IOptions): string {
     const context = {
-       fileName: '[[internal]]',
-       attributeName: meta.name,
-       isControl: false,
-       isExprConcat: false,
-       configObject: {},
-       escape: false,
-       sanitize: true,
-       getterContext: CONTEXT_VARIABLE_NAME,
-       forbidComputedMembers: false,
-       childrenStorage: [],
-       checkChildren: false,
+        fileName: '[[internal]]',
+        attributeName: meta.name,
+        isControl: false,
+        isExprConcat: false,
+        configObject: {},
+        escape: false,
+        sanitize: true,
+        getterContext: CONTEXT_VARIABLE_NAME,
+        forbidComputedMembers: false,
+        childrenStorage: [],
+        checkChildren: false,
 
-       // Если выражение вычисляется в своем настоящем контексте, то префикс перед вызовом функции не нужен
-       isDirtyChecking: meta.processingIndex === options.rootIndex || ALWAYS_FOREIGN_CONTAINER
+        // Если выражение вычисляется в своем настоящем контексте, то префикс перед вызовом функции не нужен
+        isDirtyChecking: meta.processingIndex === options.rootIndex || ALWAYS_FOREIGN_CONTAINER
     };
     return meta.node.accept(new ExpressionVisitor(), context) as string;
 }

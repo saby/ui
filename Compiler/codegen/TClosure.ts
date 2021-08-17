@@ -155,3 +155,11 @@ export function genPlainMerge(inner: string, outer: string, cloneFirst?: string)
 export function genCallInternalFunction(fn: string, ctx: string, args: string[]): string {
    return `${VAR_MODULE_NAME}.callIFun(${fn}, ${ctx}, [${args.join(',')}])`;
 }
+
+/**
+ * Create changed internal object with special flag.
+ * This flag means that some expressions cannot be evaluated and synchronizer need to go on updating.
+ */
+export function genCreateChangedInternal(): string {
+   return `${VAR_MODULE_NAME}.createChangedInternal()`;
+}

@@ -301,6 +301,48 @@ var
       return obj;
    };
 
+/**
+ * Безопасный вызов функций для internal выражений.
+ * Выполняется проверка, что вызываемая функция является функцией, а аргументы функции не undefined.
+ * @param fn Вызываемая internal функция.
+ * @param ctx Контекст функции.
+ * @param args Аргументы функции.
+ */
+export function callIFun(fn: Function, ctx: object, args: unknown[]): unknown {
+   // Эта проверка используется для проброса переменных из замыкания(dirtyCheckingVars)
+   // Значения переменных из замыкания вычисляются в момент создания контентной опции
+   // и пробрасываются через все контролы, оборачивающие контент.
+   // Если в замыкании используется функция, в какой-то момент этой функции может не оказаться,
+   // мы попытаемся ее вызвать и упадем с TypeError
+   // Поэтому нужно проверить ее наличие. Кроме того, нужно проверить, что аргументы этой функции,
+   // если такие есть, тоже не равны undefined, иначе может случиться TypeError внутри функции
+   // Изначально здесь была проверка без !== undefined. Но такая проверка некорректно работала
+   // в случае, если одно из проверяемых значения было рано 0, например.
+   // Вообще этой проверки быть не должно. От нее можно избавиться,
+   // если не пробрасывать dirtyCheckingVars там, где это не нужно.
+   if (typeof fn !== 'function') {
+      return undefined;
+   }
+   if (args.some(arg => typeof arg === 'undefined')) {
+      return undefined;
+   }
+   return fn.apply(ctx, args);
+}
+
+/**
+ * Создать специальный internal-объект с флагом, чтобы в getChangedOptions можно было обнаружить internal-выражения,
+ * вычисления которых невозможны.
+ */
+export function createChangedInternal(): object {
+   const obj = { };
+   Object.defineProperty(obj, '__INTERNAL_EVALUATION_FAILED__', {
+      configurable: false,
+      enumerable: false,
+      value: true
+   });
+   return obj;
+}
+
 const isolateScope = Scope.isolateScope;
 const createScope = Scope.createScope;
 const presetScope = Scope.presetScope;

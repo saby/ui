@@ -40,6 +40,12 @@ const DEEP_CHECKING_FLAG = '_isDeepChecking';
 // FIXME: Контролы. Костыль. Исправить.
 const PREFER_VERSIONS_API_FLAG = '_preferVersionAPI';
 
+/**
+ * В случае, когда некоторое internal-выражение вычисляется не в своем контексте, некоторые данные могут отсутствовать.
+ * Тогда выставляется данный флаг, означающий, что необходимо выполнить перерисовку вглубь.
+ */
+const INTERNAL_EVALUATION_FAILED = '__INTERNAL_EVALUATION_FAILED__';
+
 export declare type TOptionValue =
    IVersionable | IVersionableArray | ITemplateArray | ITemplateObject | Date |
    object | symbol | number | string | boolean | null | undefined;
@@ -48,6 +54,7 @@ export interface IManualObject extends Object {
    [property: string]: IManualObject | TOptionValue;
    [IGNORE_CHANGING_FLAG]?: boolean;
    [DEEP_CHECKING_FLAG]?: boolean;
+   [INTERNAL_EVALUATION_FAILED]?: boolean;
 }
 
 export interface IOptions extends Object {
@@ -70,6 +77,10 @@ function shouldIgnoreChanging(obj: IManualObject): boolean {
 
 function shouldCheckDeep(obj: IManualObject): boolean {
    return !!(obj && obj[DEEP_CHECKING_FLAG]);
+}
+
+function isInternalEvaluationFailed(obj: IManualObject): boolean {
+   return !!obj[INTERNAL_EVALUATION_FAILED];
 }
 
 function isVersionable(obj: IVersionable): boolean {
@@ -306,6 +317,10 @@ export function getChangedOptions(
    let hasPrev;
    let hasNext;
    let isDirtyCheckingProperty;
+
+   if (isInternalEvaluationFailed(next)) {
+      return next;
+   }
 
    for (let i = 0; i < properties.length; ++i) {
       const property = properties[i];
