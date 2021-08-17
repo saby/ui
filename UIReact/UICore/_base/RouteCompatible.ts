@@ -9,7 +9,7 @@ import { setConfig } from 'Application/Env';
 import { TemplateFunction, IControlOptions } from 'UICommon/Base';
 import { default as Control } from './Control';
 import template = require('wml!UICore/_base/RouteCompatible');
-import { headDataStore } from 'UI/Deps';
+import { headDataStore } from 'UICommon/Deps';
 
 interface IRouteOptions extends IControlOptions {
     application?: string;
