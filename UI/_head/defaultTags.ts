@@ -48,6 +48,30 @@ const prepareMetaScriptsAndLinks = (tag: string, attrs: object): object => {
 /**
  * Применим опции meta, scripts и links к странице
  * @param cfg
+ * @example
+ * <pre class="brush: js">
+ * import { createMetaScriptsAndLinks } from 'UI/Head';
+ * const data = {
+ *     meta: [{
+ *         name: "format-detection",
+ *         content: "telephone=no"
+ *     }, {
+ *         name: "viewport",
+ *         content: "width=1024"
+ *     }],
+ *     scripts: [{
+ *         type: "text-javascript",
+ *         src: "//cdn.sbis.ru/cdn/Boomerang/v.0.0.3.js"
+ *     }],
+ *     links: [{
+ *       rel: "preload",
+ *       as: "font",
+ *       href: "//cdn.sbis.ru/cdn/TensorFont/1.0.3/TensorFont/TensorFont.woff2",
+ *       type: "font/woff2",
+ *       crossorigin: "anonymous"
+ *     }]
+ * };
+ * </pre>
  */
 export function createMetaScriptsAndLinks(cfg: IHeadOptions): void {
    const API = AppHead.getInstance();
