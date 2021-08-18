@@ -71,6 +71,7 @@ const prepareMetaScriptsAndLinks = (tag: string, attrs: object): object => {
  *       crossorigin: "anonymous"
  *     }]
  * };
+ * createMetaScriptsAndLinks(data);
  * </pre>
  */
 export function createMetaScriptsAndLinks(cfg: IHeadOptions): void {
