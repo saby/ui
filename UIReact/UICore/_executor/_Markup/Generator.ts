@@ -75,7 +75,8 @@ export class Generator implements IGenerator {
             attributes: decorAttribs,
             events: fullEvents
         };
-        const parent = newOptions._$logicParent;
+        const parent = config.viewController;
+        const logicParent = newOptions._$logicParent;
         // @ts-ignore FIXME: Нужно положить ключ в опцию rskey для Received state. Сделать это хорошо
         newOptions.rskey = templateAttributes.attributes.key || config.key;
 
@@ -105,23 +106,23 @@ export class Generator implements IGenerator {
         }
         // TemplateFunction - wml шаблон
         if (Common.isTemplateClass(tpl)) {
-            return createTemplate(tpl, newOptions, templateAttributes, config.depsLocal, parent);
+            return createTemplate(tpl, newOptions, templateAttributes, config.depsLocal, parent, logicParent);
         }
         // inline template, xhtml, tmpl шаблон (closured), content option
         if (typeof tpl === 'function') {
-            return resolveTemplateFunction(parent, tpl, newOptions, templateAttributes);
+            return resolveTemplateFunction(parent, logicParent, tpl, newOptions, templateAttributes);
         }
         // content option - в определенном способе использования контентная опция может представлять собой объект
         // со свойством func, в котором и лежит функция контентной опции.
         // Демка ReactUnitTest/MarkupSpecification/resolver/Top
         if (Common.isTplFunction(tpl)) {
-            return resolveTemplateFunction(parent, tpl.func, newOptions, templateAttributes);
+            return resolveTemplateFunction(parent, logicParent, tpl.func, newOptions, templateAttributes);
         }
 
         // Common.ITemplateArray - массив шаблонов, может например прилететь,
         // если в контентной опции несколько корневых нод
         if (Common.isTemplateArray(tpl)) {
-            return resolveTemplateArray(parent, tpl, newOptions, templateAttributes);
+            return resolveTemplateArray(parent, logicParent, tpl, newOptions, templateAttributes);
         }
         // Здесь может быть незарезолвленный контрол optional!. Поэтому результат должен быть пустым
         if (Common.isOptionalString<TemplateOrigin>(origin)) {
@@ -240,12 +241,13 @@ export function resolveTpl(tpl: TemplateOrigin,
 
 export function resolveTemplateArray(
     parent: Control<IControlOptions>,
+    logicParent: Control<IControlOptions>,
     templateArray: Common.ITemplateArray<TemplateFunction | ITplFunction<TemplateFunction>>,
     resolvedScope: IControlOptions,
     decorAttribs: IGeneratorAttrs): TemplateResult[] {
     let result = [];
     templateArray.forEach((template: TemplateFunction | ITplFunction<TemplateFunction>) => {
-        const resolvedTemplate = resolveTemplate(template, parent, resolvedScope, decorAttribs);
+        const resolvedTemplate = resolveTemplate(template, parent, logicParent, resolvedScope, decorAttribs);
         if (Array.isArray(resolvedTemplate)) {
             result = result.concat(resolvedTemplate);
         } else if (resolvedTemplate) {
@@ -257,13 +259,14 @@ export function resolveTemplateArray(
 
 function resolveTemplate(template: TemplateFunction | ITplFunction<TemplateFunction>,
                          parent: Control<IControlOptions>,
+                         logicParent: Control<IControlOptions>,
                          resolvedScope: IControlOptions,
                          decorAttribs: IGeneratorAttrs): TemplateResult {
     let resolvedTemplate;
     if (typeof template === 'function') {
-        resolvedTemplate = resolveTemplateFunction(parent, template, resolvedScope, decorAttribs);
+        resolvedTemplate = resolveTemplateFunction(parent, logicParent, template, resolvedScope, decorAttribs);
     } else if (Common.isTplFunction(template)) {
-        resolvedTemplate = resolveTemplateFunction(parent, template.func, resolvedScope, decorAttribs);
+        resolvedTemplate = resolveTemplateFunction(parent, logicParent, template.func, resolvedScope, decorAttribs);
     } else {
         resolvedTemplate = template;
     }
@@ -281,6 +284,7 @@ function resolveTemplate(template: TemplateFunction | ITplFunction<TemplateFunct
 }
 
 export function resolveTemplateFunction(parent: Control<IControlOptions>,
+                                 logicParent: Control<IControlOptions>,
                                  template: TemplateFunction | Function,
                                  resolvedScope: IControlOptions,
                                  decorAttribs: IGeneratorAttrs): TemplateResult {
@@ -289,7 +293,7 @@ export function resolveTemplateFunction(parent: Control<IControlOptions>,
         return null;
     }
     const attrsCloned = {...decorAttribs};
-    attrsCloned._$logicParent = parent;
+    attrsCloned._$logicParent = logicParent;
     return template.call(parent, resolvedScope, attrsCloned, undefined, true, undefined, undefined) as TemplateResult;
 }
 
@@ -357,13 +361,15 @@ function createWsControl(
  * @param attributes
  * @param deps Объект с зависимостями шаблона, в нём должно быть поле, соответствующее name.
  * @param parent Контрол, внутри которого создается данный шаблон
+ * @param logicParent Контрол, который является непосредственным родителем по дом-дереву
  */
 function createTemplate(
     origin: TemplateFunction,
     scope: IControlOptions,
     attributes: IGeneratorAttrs,
     deps: Common.Deps<typeof Control>,
-    parent: Control<IControlOptions>
+    parent: Control<IControlOptions>,
+    logicParent: Control<IControlOptions>
 ): TemplateResult {
     /*
     Контролы берут наследуемые опции из контекста.
@@ -377,7 +383,7 @@ function createTemplate(
         scope.theme = parent?.props?.theme ?? parent?.context?.theme;
     }
 
-    return resolveTemplateFunction(parent, origin, scope, attributes);
+    return resolveTemplateFunction(parent, logicParent, origin, scope, attributes);
     // Получилась ситуация, что WasabyContextManager был сам в себе, и пошли ошибки с ref
     // выписана задача - https://online.sbis.ru/opendoc.html?guid=ed465ef5-7e32-4456-94b8-14b7892150e1
     // return React.createElement(
