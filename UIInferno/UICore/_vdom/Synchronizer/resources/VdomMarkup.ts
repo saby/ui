@@ -98,6 +98,14 @@ export function mapVNode(
    setHookToVNode?: any,
    modify?: boolean
 ): any {
+   /* Очень редкий случай. Повторяется, если в корень контрола положить <ws:partial template="wml!My/Template" />
+    * а в My/Template.wml напишем что-то вроде <ws:if data="{{ '' }}"><div>My content</div></ws:if>
+    * иначе говоря, пустоту
+    * */
+   if (!vnode) {
+      Logger.error('Нельзя помещать пустой шаблон в корень шаблона контрола', controlNode);
+      vnode = htmlNode('div', {}, [], controlNode.key);
+   }
    /* mapVNode must be refactor
     * recursive dom with many root kills browser
     * */
