@@ -101,31 +101,110 @@ export function callIFun(fn: Function, ctx: object, args: unknown[]): unknown {
    return fn.apply(ctx, args);
 }
 
+type TRefFuncArgs = [props: Record<string, unknown>, ref: unknown];
+type TUnpuckWMLArgs = [data: Record<string, unknown>, attr: unknown, context: unknown,
+    isVdom: boolean | undefined, sets: unknown, forceCompatible: unknown, generatorConfig: unknown];
+
+const packedAttrs = '__$$packedAttrs';
+const prefixAttrs = '__$$attrs_';
+const prefixContext = '__$$context_';
+const prefixIsVdom = '__$$isvdom';
+const prefixSets = '__$$sets_';
+const prefixforceCompatible = '__$$forcecompatible';
+const prefixGeneratorConfig = '__$$generatorconfig_';
+
+type TPackedArgs = Record<string, unknown> & { [packedAttrs]: Record<string, string[]> } & { [prefixIsVdom]: boolean | undefined };
+
+function packObject(target: TPackedArgs, source: Record<string, unknown>, prefix: string, key: string): void {
+    const packedKey = prefix + key;
+    target[prefix + key] = source[key];
+    target[packedAttrs][prefix] = (target[packedAttrs][prefix] || []);
+    target[packedAttrs][prefix].push(packedKey);
+}
+
+function unpackObject(source: TPackedArgs, prefix: string) {
+    var result: Record<string, unknown> = {};
+    source[packedAttrs][prefix].forEach((fullKey: string) => {
+        result[fullKey] = source[fullKey];
+    })
+    return result;
+}
+
+export function packTemplateAttrs(...args: TUnpuckWMLArgs): TRefFuncArgs {
+    const NullRef = null;
+    const NonReactAttrCount = 5;
+    let isPacked = true;
+    for (let i = 2; i <= NonReactAttrCount && !isPacked; i++) {
+        isPacked = args[i] === undefined;
+    }
+
+    if (isPacked) {
+        return [
+            args[0], args[1]
+        ];
+    }
+
+    const [data, attr, context, isVdom, sets, forceCompatible, generatorConfig] = args;
+    data[packedAttrs] = packedAttrs[packedAttrs] || {};
+
+    Object.keys(attr).forEach(packObject.bind(data, attr, prefixAttrs));
+    Object.keys(context).forEach(packObject.bind(data, context, prefixContext));
+    data[prefixIsVdom] = isVdom;
+    Object.keys(sets).forEach(packObject.bind(data, sets, prefixSets));
+    data[prefixforceCompatible] = forceCompatible;
+    Object.keys(generatorConfig).forEach(packObject.bind(data, generatorConfig, prefixGeneratorConfig));
+    return [data, NullRef];
+}
+
+export function unpackTemplateAttrs(props: TPackedArgs, ref: unknown): TUnpuckWMLArgs {
+    if (!(packedAttrs in props)) {
+        return [props, ref, undefined, undefined, undefined, undefined, undefined];
+    }
+
+    if (typeof props[packedAttrs] !== 'object') {
+        return [props, {}, undefined, undefined, undefined, undefined, undefined];
+    }
+
+    if (ref) {
+        props.ref = ref;
+    }
+
+    const attr = unpackObject(props, prefixAttrs);
+    const context = unpackObject(props, prefixContext);
+    const isVdom: boolean = props[prefixIsVdom];
+    const sets = unpackObject(props, prefixIsVdom);
+    const forceCompatible = props[prefixforceCompatible];
+    const generatorConfig = unpackObject(props, prefixGeneratorConfig);
+
+    return [props, attr, context, isVdom, sets, forceCompatible, generatorConfig];
+}
+
+
 export {
-   isolateScope,
-   createScope,
-   presetScope,
-   uniteScope,
-   createDataArray,
-   filterOptions,
-   calcParent,
-   wrapUndef,
-   getDecorators,
-   Sanitize,
-   iterators,
-   templateError,
-   partialError,
-   makeFunctionSerializable,
-   getter,
-   setter,
-   config,
-   processMergeAttributes,
-   plainMerge,
-   plainMergeAttr,
-   plainMergeContext,
-   getTypeFunc,
-   validateNodeKey,
-   getRk,
-   getContext,
-   _isTClosure
+    isolateScope,
+    createScope,
+    presetScope,
+    uniteScope,
+    createDataArray,
+    filterOptions,
+    calcParent,
+    wrapUndef,
+    getDecorators,
+    Sanitize,
+    iterators,
+    templateError,
+    partialError,
+    makeFunctionSerializable,
+    getter,
+    setter,
+    config,
+    processMergeAttributes,
+    plainMerge,
+    plainMergeAttr,
+    plainMergeContext,
+    getTypeFunc,
+    validateNodeKey,
+    getRk,
+    getContext,
+    _isTClosure
 } from 'UICommon/Executor';
