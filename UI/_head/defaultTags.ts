@@ -12,7 +12,7 @@ export function createTitle(title: string): void {
 }
 export function createViewPort(): void {
    AppHead.getInstance().createTag('meta', {
-      content: 'width=1024, initial-scale=1, maximum-scale=1',
+      content: 'width=1024',
       name: 'viewport'
    });
 }
