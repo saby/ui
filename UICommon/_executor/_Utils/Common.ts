@@ -241,7 +241,9 @@ export function plainMergeAttr(inner, object) {
       domNodeProps: {},
       key: controlKey,
       attributes: Attr.processMergeAttributes(inner.attributes, object.attributes),
-      events: Attr.mergeEvents(inner.events, object.events)
+      events: Attr.mergeEvents(inner.events, object.events),
+      // прокинем родителя, в случае инлайн шаблонов родитель прокидываем сверху
+      _$logicParent: inner._$logicParent
    };
 }
 
@@ -264,7 +266,9 @@ export function plainMergeContext(inner, object) {
       inheritOptions: inner.inheritOptions,
       internal: inner.internal,
       context: inner.context,
-      key: controlKey
+      key: controlKey,
+      // прокинем родителя, в случае инлайн шаблонов родитель прокидываем сверху
+      _$logicParent: inner._$logicParent
    };
 }
 

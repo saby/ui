@@ -163,8 +163,8 @@ const prepareStack = (stackNode: {[key: string]: any}): string => {
          // сформируем читаемую строку: Controls/Container/Async:template - "MyControl/Base"
          if (moduleName === 'Controls/Container/Async') {
             const opts = control._options;
-            const asyncTemplate = opts && 'templateName' in opts || 'not detected';
-            moduleName += `:template - "${asyncTemplate}"`;
+            const asyncTemplateName = opts && 'templateName' in opts && opts.templateName || 'not detected';
+            moduleName += `:template - "${asyncTemplateName}"`;
          }
 
          // если стек очень глубокий, экономим экранное место и уже строим в строчку
