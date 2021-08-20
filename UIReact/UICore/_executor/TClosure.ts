@@ -101,9 +101,9 @@ export function callIFun(fn: Function, ctx: object, args: unknown[]): unknown {
    return fn.apply(ctx, args);
 }
 
-type TRefFuncArgs = [props: Record<string, unknown>, ref: unknown];
-type TUnpuckWMLArgs = [data: Record<string, unknown>, attr: unknown, context: unknown,
-    isVdom: boolean | undefined, sets: unknown, forceCompatible: unknown, generatorConfig: unknown];
+type TRefFuncArgs = [props: Record<string, unknown> | object, ref: object | null];
+type TUnpuckWMLArgs = [data: Record<string, unknown> | object, attr: object, context: unknown,
+    isVdom: boolean | undefined, sets?: unknown, forceCompatible?: unknown, generatorConfig?: unknown];
 
 const packedAttrs = '__$$packedAttrs';
 const prefixAttrs = '__$$attrs_';
@@ -116,17 +116,21 @@ const prefixGeneratorConfig = '__$$generatorconfig_';
 type TPackedArgs = Record<string, unknown> & { [packedAttrs]: Record<string, string[]> } & { [prefixIsVdom]: boolean | undefined };
 
 function packObject(target: TPackedArgs, source: Record<string, unknown>, prefix: string, key: string): void {
-    const packedKey = prefix + key;
     target[prefix + key] = source[key];
     target[packedAttrs][prefix] = (target[packedAttrs][prefix] || []);
-    target[packedAttrs][prefix].push(packedKey);
+    target[packedAttrs][prefix].push(key);
 }
 
 function unpackObject(source: TPackedArgs, prefix: string) {
-    var result: Record<string, unknown> = {};
-    source[packedAttrs][prefix].forEach((fullKey: string) => {
-        result[fullKey] = source[fullKey];
-    })
+    const founded = source[packedAttrs][prefix];
+    if (!founded) {
+        return undefined;
+    }
+
+    const result: Record<string, unknown> = {};
+    founded.forEach?.((key: string) => {
+        result[key] = source[prefix + key];
+    });
     return result;
 }
 
@@ -134,7 +138,7 @@ export function packTemplateAttrs(...args: TUnpuckWMLArgs): TRefFuncArgs {
     const NullRef = null;
     const NonReactAttrCount = 5;
     let isPacked = true;
-    for (let i = 2; i <= NonReactAttrCount && !isPacked; i++) {
+    for (let i = 2; i <= NonReactAttrCount && isPacked; i++) {
         isPacked = args[i] === undefined;
     }
 
@@ -147,29 +151,41 @@ export function packTemplateAttrs(...args: TUnpuckWMLArgs): TRefFuncArgs {
     const [data, attr, context, isVdom, sets, forceCompatible, generatorConfig] = args;
     data[packedAttrs] = packedAttrs[packedAttrs] || {};
 
-    Object.keys(attr).forEach(packObject.bind(data, attr, prefixAttrs));
-    Object.keys(context).forEach(packObject.bind(data, context, prefixContext));
+    Object.keys(attr).forEach(packObject.bind(null, data, attr, prefixAttrs));
+    if (context) {
+        Object.keys(context).forEach(packObject.bind(null, data, context, prefixContext));
+    }
     data[prefixIsVdom] = isVdom;
-    Object.keys(sets).forEach(packObject.bind(data, sets, prefixSets));
+    if (sets) {
+        Object.keys(sets).forEach(packObject.bind(null, data, sets, prefixSets));
+    }
     data[prefixforceCompatible] = forceCompatible;
-    Object.keys(generatorConfig).forEach(packObject.bind(data, generatorConfig, prefixGeneratorConfig));
-    return [data, NullRef];
+    if (generatorConfig) {
+        Object.keys(generatorConfig).forEach(packObject.bind(null, data, generatorConfig, prefixGeneratorConfig));
+    }
+
+    let ref = NullRef;
+    if ('ref' in data) {
+        ref = data['ref'];
+        delete data['ref'];
+    }
+    return [data, ref];
 }
 
-export function unpackTemplateAttrs(props: TPackedArgs, ref: unknown): TUnpuckWMLArgs {
+export function unpackTemplateAttrs(props: TPackedArgs, ref: object | null): TUnpuckWMLArgs {
     if (!(packedAttrs in props)) {
         return [props, ref, undefined, undefined, undefined, undefined, undefined];
     }
+
+   if (ref) {
+      props.ref = ref;
+   }
 
     if (typeof props[packedAttrs] !== 'object') {
         return [props, {}, undefined, undefined, undefined, undefined, undefined];
     }
 
-    if (ref) {
-        props.ref = ref;
-    }
-
-    const attr = unpackObject(props, prefixAttrs);
+    const attr = unpackObject(props, prefixAttrs) || {};
     const context = unpackObject(props, prefixContext);
     const isVdom: boolean = props[prefixIsVdom];
     const sets = unpackObject(props, prefixIsVdom);

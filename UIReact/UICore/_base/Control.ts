@@ -22,6 +22,7 @@ import {
 } from 'UICore/Contexts';
 
 import { OptionsResolver } from 'UICommon/Executor';
+import { TClosure } from 'UICore/Executor';
 
 import { WasabyEvents, callNotify } from 'UICore/Events';
 import { IWasabyEventSystem } from 'UICommon/Events';
@@ -212,7 +213,7 @@ export default class Control<TOptions extends IControlOptions = {},
         // Данный метод должен вызываться только при первом построении, поэтому очистим его на инстансе при вызове
         this._beforeFirstRender = undefined;
 
-        if (res && 'then' in res) {
+        if (res && typeof res['then'] === 'function') {
             promisesToWait.push(res);
         }
 
@@ -691,7 +692,8 @@ export default class Control<TOptions extends IControlOptions = {},
             this._oldOptions = this._options;
             // можем обновить здесь опции, старые опции для хуков будем брать из _oldOptions
             this._options = wasabyOptions;
-            realFiberNode = this._template(this, this._options._$attributes, undefined, true);
+            const [scope, attrs] = TClosure.packTemplateAttrs(this, this._options._$attributes, undefined, true);
+            realFiberNode = this._template(scope, attrs);
             while (realFiberNode instanceof Array) {
                 realFiberNode = realFiberNode[0];
             }

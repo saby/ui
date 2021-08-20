@@ -18,6 +18,7 @@ import { TemplateFunction, IControlOptions } from 'UICommon/Base';
 import type { TIState } from 'UICommon/interfaces';
 import type { IGeneratorAttrs, TemplateOrigin, IControlConfig, TemplateResult, AttrToDecorate } from './interfaces';
 import { Control } from 'UICore/Base';
+import { packTemplateAttrs } from '../TClosure';
 
 export class Generator implements IGenerator {
     constructor(config = {}) {
@@ -290,7 +291,9 @@ export function resolveTemplateFunction(parent: Control<IControlOptions>,
         anonymousFnError(template, parent);
         return null;
     }
-    return template.call(parent, resolvedScope, decorAttribs, undefined, true, undefined, undefined) as TemplateResult;
+
+    const [data, attrs] = packTemplateAttrs(parent, resolvedScope, decorAttribs, undefined, true, undefined, undefined)
+    return template.call(data, attrs) as TemplateResult;
 }
 
 const basicPrototype: object = Object.getPrototypeOf({});

@@ -192,6 +192,15 @@ if (typeof includedTemplates === "undefined") {
    includedTemplates = (this && this.includedTemplates) ? this.includedTemplates : {};
 }
 /*#DELETE IT END#*/
+var unpackArgs = thelpers.unpackTemplateAttrs(data, attr, context, isVdom, sets, forceCompatible, generatorConfig);
+data = unpackArgs[0];
+attr = unpackArgs[1];
+context = unpackArgs[2];
+isVdom = unpackArgs[3];
+sets = unpackArgs[4];
+forceCompatible = unpackArgs[5];
+generatorConfig = unpackArgs[6];
+
 var templateCount = 0;
 var key = thelpers.validateNodeKey(attr && attr.key);
 var defCollection = {
