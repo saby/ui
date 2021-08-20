@@ -481,6 +481,9 @@ export default class Control<TOptions extends IControlOptions = {},
                             makeWasabyObservable<TOptions, TState>(this);
                             this._componentDidMount(newOptions);
                             setTimeout(() => {
+                                if (this._destroyed) {
+                                    return;
+                                }
                                 this._afterMount(newOptions);
                                 this._$controlMounted = true;
                             }, 0);
@@ -500,6 +503,9 @@ export default class Control<TOptions extends IControlOptions = {},
             makeWasabyObservable<TOptions, TState>(this);
             this._componentDidMount(newOptions);
             setTimeout(() => {
+                if (this._destroyed) {
+                    return;
+                }
                 this._afterMount(newOptions);
                 this._$controlMounted = true;
             }, 0);
@@ -603,8 +609,15 @@ export default class Control<TOptions extends IControlOptions = {},
             this._oldOptions = undefined;
             this._options = createWasabyOptions(this.props, this.context);
             this._optionsVersions = Options.collectObjectVersions(this._options);
+
+            if (this._destroyed) {
+                return;
+            }
             this._afterRender(oldOptions);
             setTimeout(() => {
+                if (this._destroyed) {
+                    return;
+                }
                 this._afterUpdate(oldOptions);
             }, 0);
         }
