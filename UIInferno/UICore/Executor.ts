@@ -23,7 +23,9 @@ export function resolveTemplateFunction(
     logicParent: any,
     template: any,
     resolvedScope: any,
-    decorAttribs: any
+    decorAttribs: any,
+    context: any,
+    config: any
 ): void {
     // not use
 }
@@ -32,7 +34,9 @@ export function resolveTemplateArray(
     logicParent: any,
     templateArray: any,
     resolvedScope: any,
-    decorAttribs: any
+    decorAttribs: any,
+    context: any,
+    config: any
 ): void {
     // not use
 }
