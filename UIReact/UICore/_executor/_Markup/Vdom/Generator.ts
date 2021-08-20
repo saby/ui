@@ -75,7 +75,7 @@ export class GeneratorVdom extends Generator implements IGenerator {
             // инициализируем _$parentsChildrenPromises из непосредственного логического родителя, из контрола
             // отправим промис ожидания завершения загрузки контрола, если понадобится. В ожидание входит промис
             // beforeMount, загрузка стилей, ожидание загрузки дочерних контролов
-            _$parentsChildrenPromises: parent._$childrenPromises,
+            _$parentsChildrenPromises: parent?._$childrenPromises,
             _$blockOptionNames: config.blockOptionNames
         });
     }

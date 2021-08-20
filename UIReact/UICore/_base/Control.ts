@@ -497,11 +497,11 @@ export default class Control<TOptions extends IControlOptions = {},
         } else {
             this._options = newOptions;
             this._optionsVersions = Options.collectObjectVersions(this._options);
-            this._$controlMounted = true;
             makeWasabyObservable<TOptions, TState>(this);
             this._componentDidMount(newOptions);
             setTimeout(() => {
                 this._afterMount(newOptions);
+                this._$controlMounted = true;
             }, 0);
         }
     }

@@ -20,6 +20,7 @@ export { CreateTagVdom, CreateTag } from './_executor/_Markup/Component';
 
 export function resolveTemplateFunction(
     parent: any,
+    logicParent: any,
     template: any,
     resolvedScope: any,
     decorAttribs: any
@@ -28,6 +29,7 @@ export function resolveTemplateFunction(
 }
 export function resolveTemplateArray(
     parent: any,
+    logicParent: any,
     templateArray: any,
     resolvedScope: any,
     decorAttribs: any

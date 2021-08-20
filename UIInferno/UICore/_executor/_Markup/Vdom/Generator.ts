@@ -339,7 +339,7 @@ export class GeneratorVdom implements IGenerator {
              fn.func(resolvedScope, decorAttribs, context, true);
       }
       if (Common.isArray(fn)) {
-         return this.resolveTemplateArray(parent, fn, resolvedScope, decorAttribs, context);
+         return this.resolveTemplateArray(parent, undefined, fn, resolvedScope, decorAttribs, context);
       }
       if (typeof tpl === 'undefined') {
          const typeTpl = typeof tpl;
@@ -496,7 +496,7 @@ export class GeneratorVdom implements IGenerator {
       }
    }
 
-   resolveTemplateFunction(parent: any, template: any, resolvedScope: any, decorAttribs: any, context: any): any {
+   resolveTemplateFunction(parent: any, logicParent: any, template: any, resolvedScope: any, decorAttribs: any, context: any): any {
       if (parent) {
          if (Common.isAnonymousFn(template)) {
             this.anonymousFnError(template, parent);
@@ -514,9 +514,9 @@ export class GeneratorVdom implements IGenerator {
    resolveTemplate(template: any, parent: any, resolvedScope: any, decorAttribs: any, context: any): any {
       let resolvedTemplate = null;
       if (typeof template === 'function') {
-         resolvedTemplate = this.resolveTemplateFunction(parent, template, resolvedScope, decorAttribs, context);
+         resolvedTemplate = this.resolveTemplateFunction(parent, undefined, template, resolvedScope, decorAttribs, context);
       } else if (typeof template.func === 'function') {
-         resolvedTemplate = this.resolveTemplateFunction(parent, template.func, resolvedScope, decorAttribs, context);
+         resolvedTemplate = this.resolveTemplateFunction(parent, undefined, template.func, resolvedScope, decorAttribs, context);
       } else {
          resolvedTemplate = template;
       }
@@ -542,7 +542,7 @@ export class GeneratorVdom implements IGenerator {
       });
    }
 
-   resolveTemplateArray(parent: any, templateArray: any, resolvedScope: any, decorAttribs: any, context: any): any {
+   resolveTemplateArray(parent: any, logicParent: undefined, templateArray: any, resolvedScope: any, decorAttribs: any, context: any): any {
       let result = [];
       templateArray.forEach((template: any): any => {
          const resolvedTemplate = this.resolveTemplate(template, parent, resolvedScope, decorAttribs, context);
