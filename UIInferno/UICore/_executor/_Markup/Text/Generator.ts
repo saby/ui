@@ -92,13 +92,13 @@ export class GeneratorText implements IGenerator {
                  attrs: IGeneratorAttrs,
                  templateCfg: ICreateControlTemplateCfg,
                  context: string,
-                 deps: TDeps,
+                 config: TDeps,
                  includedTemplates: TIncludedTemplate,
-                 config: IGeneratorConfig,
+                 helperConfig: IGeneratorConfig,
                  contextObj?: GeneratorEmptyObject,
                  defCollection?: IGeneratorDefCollection | void): GeneratorObject | Promise<unknown> | Error {
-      return this.generatorBase.createControl.call(this, type, name, data, attrs, templateCfg, context, deps, includedTemplates,
-         config, contextObj, defCollection);
+      return this.generatorBase.createControl.call(this, type, name, data, attrs, templateCfg, context, config, includedTemplates,
+         helperConfig, contextObj, defCollection);
    }
 
    prepareWsControl(name: GeneratorTemplateOrigin,
@@ -199,12 +199,13 @@ export class GeneratorText implements IGenerator {
       }, cnstr, decOptions);
    };
 
-   createTemplate(name, scope, attributes, context, _deps?, config?) {
+   createTemplate(name, scope, attributes, context, config?, helperConfig?) {
+      const _deps = config?.depsLocal;
       var resultingFn,
-         resolver = Common.hasResolver(name, config && config.resolvers);
+         resolver = Common.hasResolver(name, helperConfig && helperConfig.resolvers);
       if (Common.isString(name)) {
          if (resolver) {
-            resultingFn = config.resolvers[resolver](name);
+            resultingFn = helperConfig.resolvers[resolver](name);
          } else {
             // @ts-ignore
             resultingFn = _deps && (_deps[name] && _deps[name].default || _deps[name]) || RequireHelper.require(name);
@@ -247,7 +248,8 @@ export class GeneratorText implements IGenerator {
       return this.createEmptyText();
    };
 
-   resolver(tpl, preparedScope, decorAttribs, context, _deps?, includedTemplates?, config?, defCollection?) {
+   resolver(tpl, preparedScope, decorAttribs, context, config?, includedTemplates?, helperConfig?, defCollection?) {
+      const _deps = config?.depsLocal;
       if (typeof tpl === 'undefined') {
          const typeTemplate = typeof tpl;
          Logger.error(`${typeTemplate} component error - Попытка использовать компонент/шаблон, ` +
@@ -264,7 +266,7 @@ export class GeneratorText implements IGenerator {
       let fn;
 
       if (isTplString) {
-         fn = stringTemplateResolver(tpl, includedTemplates, _deps, config, data.parent);
+         fn = stringTemplateResolver(tpl, includedTemplates, _deps, helperConfig, data.parent);
       } else {
          fn = data.controlClass;
       }

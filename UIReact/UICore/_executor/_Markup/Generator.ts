@@ -110,19 +110,19 @@ export class Generator implements IGenerator {
         }
         // inline template, xhtml, tmpl шаблон (closured), content option
         if (typeof tpl === 'function') {
-            return resolveTemplateFunction(parent, logicParent, tpl, newOptions, templateAttributes, config);
+            return resolveTemplateFunction(parent, logicParent, tpl, newOptions, templateAttributes, undefined, config);
         }
         // content option - в определенном способе использования контентная опция может представлять собой объект
         // со свойством func, в котором и лежит функция контентной опции.
         // Демка ReactUnitTest/MarkupSpecification/resolver/Top
         if (Common.isTplFunction(tpl)) {
-            return resolveTemplateFunction(parent, logicParent, tpl.func, newOptions, templateAttributes, config);
+            return resolveTemplateFunction(parent, logicParent, tpl.func, newOptions, templateAttributes, undefined, config);
         }
 
         // Common.ITemplateArray - массив шаблонов, может например прилететь,
         // если в контентной опции несколько корневых нод
         if (Common.isTemplateArray(tpl)) {
-            return resolveTemplateArray(parent, logicParent, tpl, newOptions, templateAttributes, config);
+            return resolveTemplateArray(parent, logicParent, tpl, newOptions, templateAttributes, undefined, config);
         }
         // Здесь может быть незарезолвленный контрол optional!. Поэтому результат должен быть пустым
         if (Common.isOptionalString<TemplateOrigin>(origin)) {
@@ -245,10 +245,11 @@ export function resolveTemplateArray(
     templateArray: Common.ITemplateArray<TemplateFunction | ITplFunction<TemplateFunction>>,
     resolvedScope: IControlOptions,
     decorAttribs: IGeneratorAttrs,
+    _: unknown,
     config: IControlConfig): TemplateResult[] {
     let result = [];
     templateArray.forEach((template: TemplateFunction | ITplFunction<TemplateFunction>) => {
-        const resolvedTemplate = resolveTemplate(template, parent, logicParent, resolvedScope, decorAttribs, config);
+        const resolvedTemplate = resolveTemplate(template, parent, logicParent, resolvedScope, decorAttribs, _, config);
         if (Array.isArray(resolvedTemplate)) {
             result = result.concat(resolvedTemplate);
         } else if (resolvedTemplate) {
@@ -263,14 +264,15 @@ function resolveTemplate(template: TemplateFunction | ITplFunction<TemplateFunct
                          logicParent: Control<IControlOptions>,
                          resolvedScope: IControlOptions,
                          decorAttribs: IGeneratorAttrs,
+                         _: unknown,
                          config: IControlConfig): TemplateResult {
     let resolvedTemplate;
     if (typeof template === 'function') {
         resolvedTemplate = resolveTemplateFunction(
-            parent, logicParent, template, resolvedScope, decorAttribs, config);
+            parent, logicParent, template, resolvedScope, decorAttribs, _, config);
     } else if (Common.isTplFunction(template)) {
         resolvedTemplate = resolveTemplateFunction(
-            parent, logicParent, template.func, resolvedScope, decorAttribs, config);
+            parent, logicParent, template.func, resolvedScope, decorAttribs, _, config);
     } else {
         resolvedTemplate = template;
     }
@@ -292,6 +294,7 @@ export function resolveTemplateFunction(parent: Control<IControlOptions>,
                                  template: TemplateFunction | Function,
                                  resolvedScope: IControlOptions,
                                  decorAttribs: IGeneratorAttrs,
+                                 _: unknown,
                                  config: IControlConfig): TemplateResult {
     if (Common.isAnonymousFn(template)) {
         anonymousFnError(template, parent);
@@ -389,7 +392,7 @@ function createTemplate(
         scope.theme = parent?.props?.theme ?? parent?.context?.theme;
     }
 
-    return resolveTemplateFunction(parent, logicParent, origin, scope, attributes, config);
+    return resolveTemplateFunction(parent, logicParent, origin, scope, attributes, undefined, config);
     // Получилась ситуация, что WasabyContextManager был сам в себе, и пошли ошибки с ref
     // выписана задача - https://online.sbis.ru/opendoc.html?guid=ed465ef5-7e32-4456-94b8-14b7892150e1
     // return React.createElement(
