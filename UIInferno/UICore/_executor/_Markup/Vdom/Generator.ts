@@ -91,13 +91,13 @@ export class GeneratorVdom implements IGenerator {
                  attrs: IGeneratorAttrs,
                  templateCfg: ICreateControlTemplateCfg,
                  context: string,
-                 deps: TDeps,
+                 config: IControlConfig,
                  includedTemplates: TIncludedTemplate,
-                 config: IGeneratorConfig,
+                 helperConfig: IGeneratorConfig,
                  contextObj?: GeneratorEmptyObject,
                  defCollection?: IGeneratorDefCollection | void): GeneratorObject | Promise<unknown> | Error {
       return this.generatorBase.createControl.call(this, type, name, data, attrs, templateCfg, context,
-          deps, includedTemplates, config, contextObj, defCollection);
+          config, includedTemplates, helperConfig, contextObj, defCollection);
    }
 
    private prepareDataForCreate(tplOrigin: GeneratorTemplateOrigin,
@@ -205,7 +205,8 @@ export class GeneratorVdom implements IGenerator {
        scope: IControlProperties,
        attributes: IGeneratorAttrs,
        context: string,
-       _deps?: TDeps): string | ITemplateNode | TGeneratorNode {
+       config?: IControlConfig): string | ITemplateNode | TGeneratorNode {
+      const _deps = config.depsLocal;
       let resultingFn;
       if (Common.isString(name)) {
          // @ts-ignore
@@ -229,7 +230,7 @@ export class GeneratorVdom implements IGenerator {
       // а не для DirtyChecking тогда мы хотим увеличивать один и тот же итератор
       // в разных шаблонах, а значит они не должны разрываться DirtyChecking'ом
       if (data.controlProperties.__noDirtyChecking) {
-         return this.resolver(resultingFn, data.controlProperties, attributes, context, _deps);
+         return this.resolver(resultingFn, data.controlProperties, attributes, context, config);
       }
 
       const obj = {
@@ -279,11 +280,12 @@ export class GeneratorVdom implements IGenerator {
        preparedScope: IControlProperties,
        decorAttribs: IGeneratorAttrs,
        context: string,
-       _deps?: TDeps,
+       config?: IControlConfig,
        includedTemplates?: TIncludedTemplate,
-       config?: IGeneratorConfig,
+       helperConfig?: IGeneratorConfig,
        defCollection?: IGeneratorDefCollection
    ): GeneratorStringArray | GeneratorFn {
+      const _deps = config.depsLocal;
       const data = this.prepareDataForCreate(tpl, preparedScope, decorAttribs, _deps, includedTemplates);
       const resolvedScope = data.controlProperties;
       const isTplString = typeof tpl === 'string';
@@ -311,7 +313,7 @@ export class GeneratorVdom implements IGenerator {
       }
 
       if (Common.isTemplateClass(fn)) {
-         return this.createTemplate(fn, resolvedScope, decorAttribs, context, _deps);
+         return this.createTemplate(fn, resolvedScope, decorAttribs, context, config);
       }
 
       const nameFunc = isTplString ? tpl : 'InlineFunction';
@@ -339,7 +341,7 @@ export class GeneratorVdom implements IGenerator {
              fn.func(resolvedScope, decorAttribs, context, true);
       }
       if (Common.isArray(fn)) {
-         return this.resolveTemplateArray(parent, undefined, fn, resolvedScope, decorAttribs, context);
+         return this.resolveTemplateArray(parent, undefined, fn, resolvedScope, decorAttribs, context, config);
       }
       if (typeof tpl === 'undefined') {
          const typeTpl = typeof tpl;
@@ -496,27 +498,28 @@ export class GeneratorVdom implements IGenerator {
       }
    }
 
-   resolveTemplateFunction(parent: any, logicParent: any, template: any, resolvedScope: any, decorAttribs: any, context: any): any {
-      if (parent) {
-         if (Common.isAnonymousFn(template)) {
-            this.anonymousFnError(template, parent);
-            return this.createText('', decorAttribs.key);
-         }
-         return template.call(parent, resolvedScope, decorAttribs, context, true, undefined, undefined, this.generatorConfig);
-      }
+   resolveTemplateFunction(
+       parent: any,
+       logicParent: any,
+       template: any,
+       resolvedScope: any,
+       decorAttribs: any,
+       context: any,
+       config: any): any {
       if (Common.isAnonymousFn(template)) {
          this.anonymousFnError(template, parent);
          return this.createText('', decorAttribs.key);
       }
-      return template(resolvedScope, decorAttribs, context, true, undefined, undefined, this.generatorConfig);
+      return template.call(
+          parent, resolvedScope, decorAttribs, context, config.isVdom, undefined, undefined, this.generatorConfig);
    }
 
-   resolveTemplate(template: any, parent: any, resolvedScope: any, decorAttribs: any, context: any): any {
+   resolveTemplate(template: any, parent: any, resolvedScope: any, decorAttribs: any, context: any, config: any): any {
       let resolvedTemplate = null;
       if (typeof template === 'function') {
-         resolvedTemplate = this.resolveTemplateFunction(parent, undefined, template, resolvedScope, decorAttribs, context);
+         resolvedTemplate = this.resolveTemplateFunction(parent, undefined, template, resolvedScope, decorAttribs, context, config);
       } else if (typeof template.func === 'function') {
-         resolvedTemplate = this.resolveTemplateFunction(parent, undefined, template.func, resolvedScope, decorAttribs, context);
+         resolvedTemplate = this.resolveTemplateFunction(parent, undefined, template.func, resolvedScope, decorAttribs, context, config);
       } else {
          resolvedTemplate = template;
       }
@@ -542,10 +545,10 @@ export class GeneratorVdom implements IGenerator {
       });
    }
 
-   resolveTemplateArray(parent: any, logicParent: undefined, templateArray: any, resolvedScope: any, decorAttribs: any, context: any): any {
+   resolveTemplateArray(parent: any, logicParent: undefined, templateArray: any, resolvedScope: any, decorAttribs: any, context: any, config: any): any {
       let result = [];
       templateArray.forEach((template: any): any => {
-         const resolvedTemplate = this.resolveTemplate(template, parent, resolvedScope, decorAttribs, context);
+         const resolvedTemplate = this.resolveTemplate(template, parent, resolvedScope, decorAttribs, context, config);
          if (Array.isArray(resolvedTemplate)) {
             result = result.concat(resolvedTemplate);
          } else if (resolvedTemplate) {

@@ -378,10 +378,10 @@ export class Generator {
       // типа контрола - шаблон
       if (type === 'template') {
          if (Common.isCompat()) {
-            res = timing.methodExecutionTime(this.createTemplate, this, [name, userData, attrs, context, deps, templateConfig]);
+            res = timing.methodExecutionTime(this.createTemplate, this, [name, userData, attrs, context, config, templateConfig]);
             return checkResult.call(this, res, type, name);
          }
-         res = this.createTemplate(name, userData, attrs, context, deps, templateConfig);
+         res = this.createTemplate(name, userData, attrs, context, config, templateConfig);
          return checkResult.call(this, res, type, name);
 
       }
@@ -410,10 +410,10 @@ export class Generator {
             }
          }
          if (Common.isCompat()) {
-            res = timing.methodExecutionTime(this.resolver, this, [name, userData, attrs, context, deps, includedTemplates, templateConfig, defCollection]);
+            res = timing.methodExecutionTime(this.resolver, this, [name, userData, attrs, context, config, includedTemplates, templateConfig, defCollection]);
             return checkResult.call(this, res, type, name);
          }
-         res = this.resolver(name, userData, attrs, context, deps, includedTemplates, templateConfig, defCollection);
+         res = this.resolver(name, userData, attrs, context, config, includedTemplates, templateConfig, defCollection);
          return checkResult.call(this, res, type, name);
       }
    }
@@ -444,12 +444,13 @@ export class Generator {
                  attrs: IGeneratorAttrs,
                  templateCfg: ICreateControlTemplateCfg,
                  context: string,
-                 deps: TDeps,
+                 config: IControlConfig,
                  includedTemplates: TIncludedTemplate,
-                 config: IGeneratorConfig,
+                 helperConfig: IGeneratorConfig,
                  contextObj?: GeneratorEmptyObject,
                  defCollection?: IGeneratorDefCollection | void): GeneratorObject | Promise<unknown> | Error {
       let res;
+      const deps = config.depsLocal;
       // TODO вынести конфиг ресолвер. пока это кранйе затруднительно, т.к. цепляет кучу всего.
       data = ConfigResolver.resolveControlCfg(data, templateCfg, attrs);
       data.internal.logicParent = data.internal.logicParent || templateCfg.viewController;
@@ -480,20 +481,20 @@ export class Generator {
       // типа контрола - шаблон
       if (type === 'template') {
          if (Common.isCompat()) {
-            res = timing.methodExecutionTime(this.createTemplate, this, [name, userData, attrs, context, deps, config]);
+            res = timing.methodExecutionTime(this.createTemplate, this, [name, userData, attrs, context, config, helperConfig]);
             return checkResult.call(this, res, type, name);
          }
-         res = this.createTemplate(name, userData, attrs, context, deps, config);
+         res = this.createTemplate(name, userData, attrs, context, config, helperConfig);
          return checkResult.call(this, res, type, name);
 
       }
       // тип контрола - компонент без шаблона
       if (type === 'controller') {
          if (Common.isCompat()) {
-            res = timing.methodExecutionTime(this.createController, this, [name, userData, attrs, context, deps]);
+            res = timing.methodExecutionTime(this.createController, this, [name, userData, attrs, context, config]);
             return checkResult.call(this, res, type, name);
          }
-         res = this.createController(name, userData, attrs, context, deps);
+         res = this.createController(name, userData, attrs, context, config);
          return checkResult.call(this, res, type, name);
 
       }
@@ -512,10 +513,10 @@ export class Generator {
             }
          }
          if (Common.isCompat()) {
-            res = timing.methodExecutionTime(this.resolver, this, [name, userData, attrs, context, deps, includedTemplates, config, defCollection]);
+            res = timing.methodExecutionTime(this.resolver, this, [name, userData, attrs, context, config, includedTemplates, helperConfig, defCollection]);
             return checkResult.call(this, res, type, name);
          }
-         res = this.resolver(name, userData, attrs, context, deps, includedTemplates, config, defCollection);
+         res = this.resolver(name, userData, attrs, context, config, includedTemplates, helperConfig, defCollection);
          return checkResult.call(this, res, type, name);
       }
    };
