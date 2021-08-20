@@ -138,7 +138,7 @@ export function packTemplateAttrs(...args: TUnpuckWMLArgs): TRefFuncArgs {
     const NullRef = null;
     const NonReactAttrCount = 5;
     let isPacked = true;
-    for (let i = 2; i <= NonReactAttrCount && isPacked; i++) {
+    for (let i = 1; i <= NonReactAttrCount && isPacked; i++) {
         isPacked = args[i] === undefined;
     }
 
@@ -151,7 +151,9 @@ export function packTemplateAttrs(...args: TUnpuckWMLArgs): TRefFuncArgs {
     const [data, attr, context, isVdom, sets, forceCompatible, generatorConfig] = args;
     data[packedAttrs] = packedAttrs[packedAttrs] || {};
 
-    Object.keys(attr).forEach(packObject.bind(null, data, attr, prefixAttrs));
+    if (attr) {
+        Object.keys(attr).forEach(packObject.bind(null, data, attr, prefixAttrs));
+    }
     if (context) {
         Object.keys(context).forEach(packObject.bind(null, data, context, prefixContext));
     }
