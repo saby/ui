@@ -24,6 +24,7 @@ export interface IControlConfig {
     includedTemplates: Common.IncludedTemplates<TemplateFunction>;
     compositeAttributes?: Attr.IAttributes;
     data: any;
+    isVdom: boolean;
     mergeType: 'attribute' | 'context';
     attr: IGeneratorAttrs;
     blockOptionNames?: string[];
