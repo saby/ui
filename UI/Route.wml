@@ -7,4 +7,5 @@
    jsLinks="{{ jsLinks }}"
    staticDomains="{{staticDomains}}"
    cssBundles="{{ cssBundles }}"
-   servicesPath="{{ servicesPath }}"/>
+   servicesPath="{{ servicesPath }}"
+   resourceRoot="{{ resourceRoot }}"/>
