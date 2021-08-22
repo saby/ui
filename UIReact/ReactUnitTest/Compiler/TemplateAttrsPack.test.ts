@@ -75,6 +75,60 @@ describe('Проверка передачи аргументов в шаблон
         });
     });
 
+    describe('Проброс не запакованных', () => {
+        const PROPS = {
+            foo: 1,
+            ref: {
+                current: null
+            }
+        };
+
+        const ATTR = {
+            tabIndex: 0,
+            className: 'class'
+        };
+
+        const CONTEXT = {
+            bar: { baz: 'baz' }
+        };
+
+        const GENERAGOR_CFG = {
+            ctx: { bar: 'bar' }
+        };
+
+        const [
+            props,
+            attr,
+            context,
+            isVdom,
+            sets,
+            forceCompatible,
+            generatorConfig
+        ] = TClosure.unpackTemplateAttrs(PROPS, ATTR, CONTEXT, true, undefined, undefined, GENERAGOR_CFG);
+
+        it('props', () => {
+            expect(props).toStrictEqual(PROPS);
+        });
+        it('attr', () => {
+            expect(attr).toStrictEqual(ATTR);
+        });
+        it('context', () => {
+            expect(context).toStrictEqual(CONTEXT);
+        });
+        it('isVdom', () => {
+            expect(isVdom).toStrictEqual(true);
+        });
+        it('sets', () => {
+            expect(sets).toStrictEqual(undefined);
+        });
+        it('forceCompatible', () => {
+            expect(forceCompatible).toStrictEqual(undefined);
+        });
+        it('generatorConfig', () => {
+            expect(generatorConfig).toStrictEqual(GENERAGOR_CFG);
+        });
+    });
+
     describe('Упаковка', () => {
         const CONTEXT_BAR = { baz: 'baz' };
         const GENERATORCONFIG_CTX = { bar: 'bar' };

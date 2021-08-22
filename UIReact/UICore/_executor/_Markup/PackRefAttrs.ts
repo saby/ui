@@ -72,9 +72,9 @@ export function packTemplateAttrs(...args: TUnpuckWMLArgs): TRefFuncArgs {
     return [scope, ref];
 }
 
-export function unpackTemplateAttrs(props: TPackedArgs, ref: object | null): TUnpuckWMLArgs {
+export function unpackTemplateAttrs(props: TPackedArgs, ref: object | null, context?: unknown, isVdom?: boolean, sets?: unknown, forceCompatible?: unknown, generatorConfig?: unknown): TUnpuckWMLArgs {
     if (!(packedAttrs in props)) {
-        return [props, ref, undefined, undefined, undefined, undefined, undefined];
+        return [props, ref, context, isVdom, sets, forceCompatible, generatorConfig];
     }
 
     if (ref) {
@@ -85,12 +85,12 @@ export function unpackTemplateAttrs(props: TPackedArgs, ref: object | null): TUn
         return [props, {}, undefined, undefined, undefined, undefined, undefined];
     }
 
-    const attr = unpackObject(props, prefixAttrs) || {};
-    const context = unpackObject(props, prefixContext);
-    const isVdom: boolean = props[prefixIsVdom];
-    const sets = unpackObject(props, prefixIsVdom);
-    const forceCompatible = props[prefixforceCompatible];
-    const generatorConfig = unpackObject(props, prefixGeneratorConfig);
+    const attrUnpack = unpackObject(props, prefixAttrs) || {};
+    const contextUnpack = unpackObject(props, prefixContext);
+    const isVdomUnpack: boolean = props[prefixIsVdom];
+    const setsUnpack = unpackObject(props, prefixIsVdom);
+    const forceCompatibleUnpack = props[prefixforceCompatible];
+    const generatorConfigUnpack = unpackObject(props, prefixGeneratorConfig);
 
-    return [props, attr, context, isVdom, sets, forceCompatible, generatorConfig];
+    return [props, attrUnpack, contextUnpack, isVdomUnpack, setsUnpack, forceCompatibleUnpack, generatorConfigUnpack];
 }
