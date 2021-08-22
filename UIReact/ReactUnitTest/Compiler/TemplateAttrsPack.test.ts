@@ -2,6 +2,7 @@
 // import { render, unmountComponentAtNode } from 'react-dom';
 // import { renderToString } from 'react-dom/server';
 import { TClosure } from 'UICore/Executor';
+import { packTemplateAttrs } from 'UICore/_executor/_Markup/PackRefAttrs';
 
 describe('Проверка передачи аргументов в шаблоны', () => {
     // beforeEach(() => {
@@ -95,7 +96,7 @@ describe('Проверка передачи аргументов в шаблон
             }
         };
 
-        const [data, ref] = TClosure.packTemplateAttrs(
+        const [data, ref] = packTemplateAttrs(
             {
                 foo: 1,
                 ref: REF
