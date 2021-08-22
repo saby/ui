@@ -44,6 +44,65 @@ let countInst = 1;
 
 const EMPTY_FUNC = () => { return; };
 
+// region тест
+const packedAttrs = '__$$packedAttrs';
+const prefixAttrs = '__$$attrs_';
+const prefixContext = '__$$context_';
+const prefixIsVdom = '__$$isvdom';
+const prefixSets = '__$$sets_';
+const prefixforceCompatible = '__$$forcecompatible';
+const prefixGeneratorConfig = '__$$generatorconfig_';
+type TRefFuncArgs = [props: Record<string, unknown> | object, ref: object | null];
+type TUnpuckWMLArgs = [data: Record<string, unknown> | object, attr: object, context: unknown,
+    isVdom: boolean | undefined, sets?: unknown, forceCompatible?: unknown, generatorConfig?: unknown];
+type TPackedArgs = Record<string, unknown> & { [packedAttrs]: Record<string, string[]> } & { [prefixIsVdom]: boolean | undefined };
+
+function packObject(target: TPackedArgs, source: Record<string, unknown>, prefix: string, key: string): void {
+    target[prefix + key] = source[key];
+    target[packedAttrs][prefix] = (target[packedAttrs][prefix] || []);
+    target[packedAttrs][prefix].push(key);
+}
+function packTemplateAttrs(...args: TUnpuckWMLArgs): TRefFuncArgs {
+    const NullRef = null;
+    const NonReactAttrCount = 5;
+    let isPacked = true;
+    for (let i = 1; i <= NonReactAttrCount && isPacked; i++) {
+        isPacked = args[i] === undefined;
+    }
+
+    if (isPacked) {
+        return [
+            args[0], args[1]
+        ];
+    }
+
+    const [data, attr, context, isVdom, sets, forceCompatible, generatorConfig] = args;
+    data[packedAttrs] = data[packedAttrs] || {};
+
+    if (attr) {
+        Object.keys(attr).forEach(packObject.bind(null, data, attr, prefixAttrs));
+    }
+    if (context) {
+        Object.keys(context).forEach(packObject.bind(null, data, context, prefixContext));
+    }
+    data[prefixIsVdom] = isVdom;
+    if (sets) {
+        Object.keys(sets).forEach(packObject.bind(null, data, sets, prefixSets));
+    }
+    data[prefixforceCompatible] = forceCompatible;
+    if (generatorConfig) {
+        Object.keys(generatorConfig).forEach(packObject.bind(null, data, generatorConfig, prefixGeneratorConfig));
+    }
+
+    let ref = NullRef;
+    if ('ref' in data) {
+        ref = data['ref'];
+        delete data['ref'];
+    }
+    return [data, ref];
+}
+// endregion
+
 /**
  * Базовый контрол, наследник React.Component с поддержкой совместимости с Wasaby
  * @author Шипин А.А.
@@ -691,7 +750,7 @@ export default class Control<TOptions extends IControlOptions = {},
             this._oldOptions = this._options;
             // можем обновить здесь опции, старые опции для хуков будем брать из _oldOptions
             this._options = wasabyOptions;
-            const [scope, attrs] = TClosure.packTemplateAttrs(this, this._options._$attributes, undefined, true);
+            const [scope, attrs] = packTemplateAttrs(this, this._options._$attributes, undefined, true);
             realFiberNode = this._template(scope, attrs);
             while (realFiberNode instanceof Array) {
                 realFiberNode = realFiberNode[0];

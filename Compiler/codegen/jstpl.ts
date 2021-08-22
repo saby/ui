@@ -156,6 +156,14 @@ if (sets && sets.isSetts) {
    var contextObj = sets.fullContext || {};
 }
 /*#DELETE IT END#*/
+var unpackArgs = thelpers.unpackTemplateAttrs(data, attr, context, isVdom, sets, forceCompatible, generatorConfig);
+data = unpackArgs[0];
+attr = unpackArgs[1];
+context = unpackArgs[2];
+isVdom = unpackArgs[3];
+sets = unpackArgs[4];
+forceCompatible = unpackArgs[5];
+generatorConfig = unpackArgs[6];
 
 var templateCount = 0;
 var currentPropertyName = "/*#PROPERTY_NAME#*/";
@@ -341,6 +349,14 @@ if (typeof thelpers === "undefined") {
    })().requirejs("UI/Executor").TClosure;
 }
 /*#DELETE IT END#*/
+var unpackArgs = thelpers.unpackTemplateAttrs(data, attr, context, isVdom, sets, forceCompatible, generatorConfig);
+data = unpackArgs[0];
+attr = unpackArgs[1];
+context = unpackArgs[2];
+isVdom = unpackArgs[3];
+sets = unpackArgs[4];
+forceCompatible = unpackArgs[5];
+generatorConfig = unpackArgs[6];
 
 var templateCount = 0;
 var currentPropertyName = "/*#PROPERTY_NAME#*/";

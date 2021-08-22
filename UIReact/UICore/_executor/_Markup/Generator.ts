@@ -18,7 +18,7 @@ import { TemplateFunction, IControlOptions } from 'UICommon/Base';
 import type { TIState } from 'UICommon/interfaces';
 import type { IGeneratorAttrs, TemplateOrigin, IControlConfig, TemplateResult, AttrToDecorate } from './interfaces';
 import { Control } from 'UICore/Base';
-import { packTemplateAttrs } from '../TClosure';
+import { packTemplateAttrs, unpackTemplateAttrs } from './PackRefAttrs';
 
 export class Generator implements IGenerator {
     constructor(config = {}) {
@@ -291,8 +291,8 @@ export function resolveTemplateFunction(parent: Control<IControlOptions>,
     }
     const attrsCloned = {...decorAttribs};
     attrsCloned._$logicParent = parent;
-    const [data, attrs] = packTemplateAttrs(parent, resolvedScope, attrsCloned, undefined, true, undefined, undefined);
-    return template.call(data, attrs) as TemplateResult;
+    const [data, attrs] = packTemplateAttrs(resolvedScope, attrsCloned, undefined, true);
+    return template.call(parent, data, attrs) as TemplateResult;
 }
 
 const basicPrototype: object = Object.getPrototypeOf({});
