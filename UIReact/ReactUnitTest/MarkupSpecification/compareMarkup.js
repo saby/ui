@@ -26,7 +26,7 @@ define('ReactUnitTest/MarkupSpecification/compareMarkup', ['react-dom/server'], 
       let cleanActual = ReactDOMServer.renderToString(actual);
       cleanStandard = cleanMarkup(cleanStandard);
       cleanActual = cleanMarkup(cleanActual);
-      assert.deepEqual(cleanStandard, cleanActual);
+      assert.deepEqual(cleanActual, cleanStandard);
    }
    return compareMarkup;
 });
