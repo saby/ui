@@ -1034,7 +1034,8 @@ function getLoadingComponent(): React.ReactElement {
     return createElement('img', {
         src: getResourceUrl(
             '/cdn/LoaderIndicator/1.0.0/ajax-loader-indicator.gif'
-        )
+        ),
+        style: {maxWidth: '32px', maxHeight: '32px'}
     });
 }
 

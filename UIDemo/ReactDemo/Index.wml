@@ -3,4 +3,5 @@
   <UIDemo.ReactDemo.InheritedOptions.Controller  on:click="clickMe()"/>
   <button on:click="clickMe()" > Click me</button>
   <UIDemo.ReactDemo.ErrorBoundary.ErrorBoundaryApp/>
+  <UIDemo.ReactDemo.Loading.LoadingApp/>
 </div>
