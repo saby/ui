@@ -88,8 +88,12 @@ export function prepareControlNodes(node: TControlNode, control: IControl): void
             }
         });
         addControlNode(container.controlNodes, controlNode);
-        // @ts-ignore _container сейчас _protected
-        curControl._container = container;
+        // в _container надо записывать только DOM-элеменеты
+        // в container может быть контрол, его сохранять не надо
+        if (container instanceof HTMLElement) {
+            // @ts-ignore _container сейчас _protected
+            curControl._container = container;
+        }
         // @ts-ignore _container сейчас _protected
         curControl = curControl._parentHoc;
     }
