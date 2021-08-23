@@ -1,11 +1,12 @@
 import { ISyntheticEvent, IEventConfig } from './IEvents';
+import {detection} from 'Env/Env';
 
 /**
  * Перехватываем события дома на этапе всплытия и поэтому далее сами
  * должны правильно распространить их
  * Некоторые события не всплывают (флаги взяты из документации)
- * */
-var domEventsBubbling = {
+ */
+const domEventsBubbling = {
     animationend: true,
     blur: false,
     error: false,
@@ -80,16 +81,24 @@ export default class SyntheticEvent<TNativeEvent extends Event = Event> implemen
     private _bubbling: boolean;
 
     constructor(nativeEvent: TNativeEvent, eventConfig?: IEventConfig) {
-        var config = nativeEvent ? nativeEvent : eventConfig;
+        const config = nativeEvent ? nativeEvent : eventConfig;
 
         this.nativeEvent = nativeEvent ? nativeEvent : null;
         this.type = config.type;
-        this.target = config.target;
+        this.target = this.isSvgTarget(config.target);
         this.currentTarget = config.target;
         this._bubbling = nativeEvent ? domEventsBubbling[config.type] : eventConfig && eventConfig._bubbling;
         this.stopped = false;
     }
-
+    private isSvgTarget(element: EventTarget & {correspondingUseElement?: SVGUseElement}): EventTarget {
+        if (detection.isIE) {
+            while (element.correspondingUseElement) {
+                element = element.correspondingUseElement.parentNode;
+            }
+            return element;
+        }
+        return element;
+    }
     /**
      * Останавливает распространение события далее
      * @return void

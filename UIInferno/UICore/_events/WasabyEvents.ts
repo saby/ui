@@ -423,11 +423,16 @@ function isMyDOMEnvironment(env: IDOMEnvironment, event: Event): boolean {
         if (element.controlNodes && element.controlNodes[0]) {
             return checkSameEnvironment(env, element, isCompatibleTemplate);
         }
+        // ie не сможет вычислить родителя для svg элемента, поэтому надо использовать use
+        if (detection.isIE && element.correspondingUseElement) {
+            element = element.correspondingUseElement.parentNode;
+        }
         if (element === document.body) {
             element = document.documentElement;
         } else if (element === document.documentElement) {
             element = document;
-        } else {
+        }
+        else {
             element = element.parentNode;
         }
     }
