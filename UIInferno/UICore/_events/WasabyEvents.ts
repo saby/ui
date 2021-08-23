@@ -431,8 +431,7 @@ function isMyDOMEnvironment(env: IDOMEnvironment, event: Event): boolean {
             element = document.documentElement;
         } else if (element === document.documentElement) {
             element = document;
-        }
-        else {
+        } else {
             element = element.parentNode;
         }
     }
