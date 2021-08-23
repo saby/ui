@@ -1,5 +1,5 @@
 import { ISyntheticEvent, IEventConfig } from './IEvents';
-import {detection} from 'Env/Env';
+import { isSvgTarget } from 'UICommon/Utils';
 
 /**
  * Перехватываем события дома на этапе всплытия и поэтому далее сами
@@ -85,19 +85,10 @@ export default class SyntheticEvent<TNativeEvent extends Event = Event> implemen
 
         this.nativeEvent = nativeEvent ? nativeEvent : null;
         this.type = config.type;
-        this.target = this.isSvgTarget(config.target);
+        this.target = isSvgTarget(config.target);
         this.currentTarget = config.target;
         this._bubbling = nativeEvent ? domEventsBubbling[config.type] : eventConfig && eventConfig._bubbling;
         this.stopped = false;
-    }
-    private isSvgTarget(element: EventTarget & {correspondingUseElement?: SVGUseElement}): EventTarget {
-        if (detection.isIE) {
-            while (element.correspondingUseElement) {
-                element = element.correspondingUseElement.parentNode;
-            }
-            return element;
-        }
-        return element;
     }
     /**
      * Останавливает распространение события далее

@@ -14,6 +14,7 @@ import isNewEnvironment from './_utils/IsNewEnvironment';
 import needToBeCompatible from './_utils/NeedToBeCompatible';
 import getResourceUrl from './_utils/GetResourceUrl';
 import isElementVisible from './_utils/IsElementVisible';
+import isSvgTarget from './_utils/IsSvgTarget';
 
 import merge from './_utils/Function/Merge';
 import shallowClone from './_utils/Function/ShallowClone';
@@ -50,6 +51,7 @@ export {
    needToBeCompatible,
    getResourceUrl,
    isElementVisible,
+   isSvgTarget,
    FunctionUtils,
    ObjectUtils,
    NumberUtils,

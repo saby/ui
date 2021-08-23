@@ -1,5 +1,5 @@
 import {detection} from 'Env/Env';
-import {Logger} from 'UICommon/Utils';
+import {isSvgTarget, Logger} from 'UICommon/Utils';
 
 import {
     WasabyEvents,
@@ -409,7 +409,7 @@ export default class WasabyEventsInferno extends WasabyEvents implements IWasaby
   * @param event
   */
 function isMyDOMEnvironment(env: IDOMEnvironment, event: Event): boolean {
-    let element = event.target as any;
+    let element = isSvgTarget(event.target) as any;
     if (element === window || element === document) {
         return true;
     }
@@ -422,10 +422,6 @@ function isMyDOMEnvironment(env: IDOMEnvironment, event: Event): boolean {
         // встретили controlNode - нужно принять решение
         if (element.controlNodes && element.controlNodes[0]) {
             return checkSameEnvironment(env, element, isCompatibleTemplate);
-        }
-        // ie не сможет вычислить родителя для svg элемента, поэтому надо использовать use
-        if (detection.isIE && element.correspondingUseElement) {
-            element = element.correspondingUseElement.parentNode;
         }
         if (element === document.body) {
             element = document.documentElement;

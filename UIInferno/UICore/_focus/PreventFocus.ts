@@ -1,4 +1,5 @@
 import {detection} from 'Env/Env';
+import { isSvgTarget } from 'UICommon/Utils';
 
 /**
  * @author Кондаков Р.Н.
@@ -7,17 +8,13 @@ import {detection} from 'Env/Env';
 
 export function hasNoFocus(element: Element & {correspondingUseElement?: SVGUseElement}): boolean {
    const html = document.documentElement;
-   let currentElement = element;
+   let currentElement = isSvgTarget(element);
    while (currentElement !== html) {
-      // Используем parentNode, вместо parentElement, потому что в ie у svg-элементов, нет свойства parentElement
-      if (detection.isIE && currentElement.correspondingUseElement) {
-         currentElement = currentElement.correspondingUseElement.parentNode as Element;
-         continue;
-      }
       // todo совместимость! когда уберем совместимость, надо убрать element.getAttribute('ws-no-focus')
       if (currentElement['ws-no-focus'] || currentElement.getAttribute('ws-no-focus')) {
          return true;
       }
+      // Используем parentNode, вместо parentElement, потому что в ie у svg-элементов, нет свойства parentElement
       currentElement = currentElement.parentNode as Element;
    }
    return false;
