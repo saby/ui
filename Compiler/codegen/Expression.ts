@@ -29,6 +29,7 @@ export interface IExpressionVisitorContext extends N.IContext {
     checkChildren: boolean;
     isDirtyChecking?: boolean;
     safeCheckVariable: string | null;
+    useStrictGetter?: boolean;
 }
 
 // tslint:disable:object-literal-key-quotes
@@ -68,7 +69,8 @@ function resolveIdentifierBase(
     node: N.IdentifierNode,
     data: IExpressionVisitorContext['data'],
     forMemberExpression: boolean,
-    context: string
+    context: string,
+    useStrictGetter: boolean
 ): string | null {
     if (IDENTIFIER_EXPRESSIONS[node.name]) {
         return IDENTIFIER_EXPRESSIONS[node.name];
@@ -80,7 +82,7 @@ function resolveIdentifierBase(
         // context может перекрываться в scope'е, поэтому вставляем проверку, так ли это
         // Если он перекрыт, возвращаем перекрытое поле, иначе сам контекст
         // может быть заменить getter на data.context? значительное сокращение
-        return `(!${genGetter(context, ['"context"'])} ? context : ${genGetter('data', ['"context"'])})`;
+        return `(!${genGetter(context, ['"context"'], useStrictGetter)} ? context : ${genGetter('data', ['"context"'], useStrictGetter)})`;
     }
     if (forMemberExpression) {
         return context;
@@ -92,9 +94,10 @@ function resolveIdentifier(
     node: N.IdentifierNode,
     data: IExpressionVisitorContext['data'],
     forMemberExpression: boolean,
-    context: string
+    context: string,
+    useStrictGetter: boolean
 ): string {
-    const result = resolveIdentifierBase(node, data, forMemberExpression, context);
+    const result = resolveIdentifierBase(node, data, forMemberExpression, context, useStrictGetter);
     if (result !== null) {
         return result;
     }
@@ -107,7 +110,7 @@ function resolveIdentifierSetter(
     forMemberExpression: boolean,
     context: string
 ): string {
-    const result = resolveIdentifierBase(node, data, forMemberExpression, context);
+    const result = resolveIdentifierBase(node, data, forMemberExpression, context, false);
     if (result !== null) {
         return result;
     }
@@ -171,7 +174,7 @@ export class ExpressionVisitor implements N.IExpressionVisitor<IExpressionVisito
         }
         if (obj.type === 'Identifier') {
             const identifierNode = ((obj as unknown) as N.IdentifierNode);
-            dataSource = resolveIdentifier(identifierNode, context.data, true, context.getterContext);
+            dataSource = resolveIdentifier(identifierNode, context.data, true, context.getterContext, context.useStrictGetter);
             if (dataSource === context.getterContext) {
                 const identifierName = identifierNode.name;
                 dataSource = calculateContext(identifierName, context, dataSource);
@@ -318,7 +321,7 @@ export class ExpressionVisitor implements N.IExpressionVisitor<IExpressionVisito
     }
 
     visitIdentifierNode(node: N.IdentifierNode, context: IExpressionVisitorContext): string {
-        return resolveIdentifier(node, context.data, false, context.getterContext);
+        return resolveIdentifier(node, context.data, false, context.getterContext, context.useStrictGetter);
     }
 
     visitLiteralNode(node: N.LiteralNode, context: IExpressionVisitorContext): string {

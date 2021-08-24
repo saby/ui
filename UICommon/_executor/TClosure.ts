@@ -18,6 +18,7 @@ import { object } from 'Types/util';
 import { constants } from 'Env/Env';
 import * as Scope from './_Expressions/Scope';
 import { Common, ConfigResolver } from './Utils';
+import {IObject} from "Types/entity";
 
 let decorators;
 function getDecorators() {
@@ -103,10 +104,31 @@ const ITERATORS = [
    }
 ];
 
-let lastGetterPath;
-function getter(obj, path) {
+let lastGetterPath: string[];
+function getter(obj: unknown, path: string[], isStrict?: boolean): unknown {
    lastGetterPath = path;
-   return object.extractValue(obj, path);
+   if (!isStrict) {
+      return object.extractValue(obj, path);
+   }
+
+   let lastDepth = -1;
+   const result = object.extractValue(obj, path, (_, __, depth) => {
+      lastDepth = depth;
+   });
+
+   if ((lastDepth !== path.length - 1) && result === undefined) {
+      throw new Error(`Unreachable path ${path.join(',')}`);
+   }
+
+   return result;
+}
+
+function setUnreachablePathFlag(obj: object): object {
+   Object.defineProperty(obj, '__UNREACHABLE_GETTER_PATH__', {
+      value: true
+   });
+
+   return obj;
 }
 
 /**
@@ -324,6 +346,7 @@ const plainMergeContext = Common.plainMergeContext;
 const _isTClosure = true;
 
 export {
+   setUnreachablePathFlag,
    isolateScope,
    createScope,
    presetScope,

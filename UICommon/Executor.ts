@@ -73,6 +73,7 @@ export {
 } from './_executor/_Markup/IGeneratorType';
 
 export {
+    setUnreachablePathFlag,
     isolateScope,
     createScope,
     presetScope,

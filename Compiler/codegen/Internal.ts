@@ -155,7 +155,8 @@ function buildMeta(meta: IProgramMeta): string {
         forbidComputedMembers: false,
         childrenStorage: [],
         checkChildren: false,
-        isDirtyChecking: true
+        isDirtyChecking: true,
+        useStrictGetter: false // TODO: enable
     };
     return meta.node.accept(new ExpressionVisitor(), context) as string;
 }

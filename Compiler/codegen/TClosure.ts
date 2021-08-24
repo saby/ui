@@ -78,8 +78,12 @@ export function getConfig(): string {
  * Generate getter.
  * @param data {string} Data object.
  * @param path {string[]} Expression path.
+ * @param isStrict {boolean} Strict flag. This method throws an exception in case of unreachable path.
  */
-export function genGetter(data: string, path: string[]): string {
+export function genGetter(data: string, path: string[], isStrict?: boolean): string {
+   if (isStrict) {
+      return `${VAR_MODULE_NAME}.getter(${data}, [${path.join()}], true)`;
+   }
    return `${VAR_MODULE_NAME}.getter(${data}, [${path.join()}])`;
 }
 
@@ -154,4 +158,12 @@ export function genPlainMerge(inner: string, outer: string, cloneFirst?: string)
  */
 export function genCallInternalFunction(fn: string, ctx: string, args: string[]): string {
    return `${VAR_MODULE_NAME}.callIFun(${fn}, ${ctx}, [${args.join(',')}])`;
+}
+
+/**
+ * Generate setting unreachable getter path flag on.
+ * @param data {string} Internal object identifier.
+ */
+export function genSetUnreachablePathFlag(data: string): string {
+   return `${VAR_MODULE_NAME}.setUnreachablePathFlag(${data})`;
 }
