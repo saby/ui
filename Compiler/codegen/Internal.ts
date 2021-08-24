@@ -4,23 +4,6 @@ import { ExpressionVisitor } from './Expression';
 
 //#region Constants
 
-/**
- * Флаг включения/выключения генерации internal-функций.
- */
-const USE_INTERNAL_FUNCTIONS = true;
-
-/**
- * Флаг генерации условных конструкций
- */
-const ALLOW_CONDITIONS = true;
-
-/**
- * Если false, то перед вызовом функции только (!) в не оригинальном контексте будет сначала вычисляться возможность вызова функции:
- * (функция !== undef) && (все аргументы !== undef).
- * Если true, то перед вызовом функции в любом (!) контексте сначала будет вычисляться возможность вызова функции.
- */
-const ALWAYS_FOREIGN_CONTAINER: boolean = true;
-
 const FUNCTION_PREFIX = '__$calculateDirtyCheckingVars_';
 const INTERNAL_PROGRAM_PREFIX = '__dirtyCheckingVars_';
 const COLLECTION_NAME = 'collection';
@@ -41,10 +24,6 @@ interface IOptions {
 
     // Имя переменной для self-check проверок при генерации internal
     safeCheckVariable: string | null;
-}
-
-export function canUseNewInternalFunctions(): boolean {
-    return USE_INTERNAL_FUNCTIONS;
 }
 
 export function generate(node: InternalNode, internalFunctions: string[]): string {
@@ -74,29 +53,19 @@ export function generate(node: InternalNode, internalFunctions: string[]): strin
     } catch (error) {
         throw new Error(`Тело функции "${functionName}" невалидно: ${error.message}`);
     }
- }
+}
 
- function isEmpty(node: InternalNode): boolean {
+function isEmpty(node: InternalNode): boolean {
     // TODO: Optimize!!!
     return node.flatten().length === 0;
- }
+}
 
- function appendFunction(func: string, internalFunctions: string[]): void {
+function appendFunction(func: string, internalFunctions: string[]): void {
     const index = internalFunctions.findIndex((item: string) => func === item);
     if (index > -1) {
         return;
     }
     internalFunctions.unshift(func);
- }
-
- function build(node: InternalNode, options: IOptions): string {
-    const body = buildPrograms(node.storage.getMeta(), options) + buildAll(node.children, options);
-    if (node.type === InternalNodeType.IF || node.type === InternalNodeType.ELSE_IF) {
-        const test = buildMeta(node.test, options);
-        const prefix = wrapProgram(node.test, test);
-        return prefix + body;
-    }
-    return body;
 }
 
 function getCurrentConditionalIndex(node: InternalNode): number {
@@ -121,7 +90,7 @@ function generateSafeCheckVariableName(node: InternalNode): string {
 }
 
 function buildWithConditions(node: InternalNode, options: IOptions): string {
-    const body = buildPrograms(node.storage.getMeta(), options) + buildAll(node.children, options);
+    const body = buildPrograms(node.storage.getMeta()) + buildAll(node.children, options);
     if (node.type === InternalNodeType.BLOCK) {
         return body;
     }
@@ -133,10 +102,7 @@ function buildWithConditions(node: InternalNode, options: IOptions): string {
         }
         return `if((!${safeCheckVariable})||(!${conditionalVariable})){${body}}`;
     }
-    const test = buildMeta(node.test, {
-        ...options,
-        safeCheckVariable
-    });
+    const test = buildMeta(node.test);
     const prefix = wrapProgram(node.test, conditionalVariable);
     const declareVariables = `var ${conditionalVariable};var ${safeCheckVariable} = true;`;
     const safeCheck = `(!${safeCheckVariable})`;
@@ -152,50 +118,44 @@ function buildWithConditions(node: InternalNode, options: IOptions): string {
         return `if(${testExpression}){${prefix + body}}`;
     }
     throw new Error(`Получен неизвестный internal-узел с номером ${node.index}`);
- }
+}
 
- function buildAll(nodes: InternalNode[], options: IOptions): string {
+function buildAll(nodes: InternalNode[], options: IOptions): string {
     let body = '';
     for (let index = 0; index < nodes.length; ++index) {
-        if (ALLOW_CONDITIONS) {
-            body += buildWithConditions(nodes[index], options);
-            continue;
-        }
-        body += build(nodes[index], options);
+        body += buildWithConditions(nodes[index], options);
     }
     return body;
- }
+}
 
- function buildPrograms(programs: IProgramMeta[], options: IOptions): string {
+function buildPrograms(programs: IProgramMeta[]): string {
     let body = '';
     let code;
     for (let index = 0; index < programs.length; ++index) {
-        code = buildMeta(programs[index], options);
+        code = buildMeta(programs[index]);
         body += wrapProgram(programs[index], code);
     }
     return body;
- }
+}
 
- function wrapProgram(meta: IProgramMeta, code: string): string {
+function wrapProgram(meta: IProgramMeta, code: string): string {
     return `${COLLECTION_NAME}.${INTERNAL_PROGRAM_PREFIX}${meta.index}=${code};`;
- }
+}
 
- function buildMeta(meta: IProgramMeta, options: IOptions): string {
+function buildMeta(meta: IProgramMeta): string {
     const context = {
-       fileName: '[[internal]]',
-       attributeName: meta.name,
-       isControl: false,
-       isExprConcat: false,
-       configObject: {},
-       escape: false,
-       sanitize: true,
-       getterContext: CONTEXT_VARIABLE_NAME,
-       forbidComputedMembers: false,
-       childrenStorage: [],
-       checkChildren: false,
-
-       // Если выражение вычисляется в своем настоящем контексте, то префикс перед вызовом функции не нужен
-       isDirtyChecking: meta.processingIndex === options.rootIndex || ALWAYS_FOREIGN_CONTAINER
+        fileName: '[[internal]]',
+        attributeName: meta.name,
+        isControl: false,
+        isExprConcat: false,
+        configObject: {},
+        escape: false,
+        sanitize: true,
+        getterContext: CONTEXT_VARIABLE_NAME,
+        forbidComputedMembers: false,
+        childrenStorage: [],
+        checkChildren: false,
+        isDirtyChecking: true
     };
     return meta.node.accept(new ExpressionVisitor(), context) as string;
 }

@@ -9,7 +9,6 @@ import * as FSC from 'Compiler/modules/data/utils/functionStringCreator';
 import * as common from 'Compiler/modules/utils/common';
 import * as decorators from 'Compiler/expressions/Decorators';
 import * as N from 'Compiler/expressions/Nodes';
-import * as Walkers from 'Compiler/expressions/Walkers';
 
 const errorHandler = createErrorHandler(true);
 

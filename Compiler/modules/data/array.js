@@ -20,7 +20,7 @@ define('Compiler/modules/data/array', [
    }
 
    function generateInternal(string, injected, inlineTemplateBodies, internalFunctions) {
-      if (Internal.canUseNewInternalFunctions() && internalFunctions) {
+      if (internalFunctions) {
          return FSC.getStr(Internal.generate(injected.__$ws_internalTree, internalFunctions));
       }
 

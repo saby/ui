@@ -150,7 +150,7 @@ define('Compiler/modules/partial', [
          ? FSC.getStr(tag.internal)
          : '{}';
 
-      if (Internal.canUseNewInternalFunctions() && this.internalFunctions) {
+      if (this.internalFunctions) {
          // TODO: Test and remove code above
          internal = Internal.generate(tag.__$ws_internalTree, this.internalFunctions);
       }
