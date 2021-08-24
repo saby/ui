@@ -7,6 +7,7 @@ export default class LoadingComponent extends Control {
         super(props, ctx);
         // @ts-ignore
         this.state = { loading: true };
+        // @ts-ignore
         this._$asyncInProgress = true;
     }
 }
