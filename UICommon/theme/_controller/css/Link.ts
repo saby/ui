@@ -88,12 +88,15 @@ export default class Link extends Base implements ICssEntity {
                 this.themeName + ' theme.')
             );
          };
+         const timeout: number = setTimeout(onerror, TIMEOUT);
          const attrs = generateAttrs(this);
          this.headTagId = HeadAPI.getInstance().createTag('link', attrs, null, {
-            load: resolve.bind(null),
+            load: () => {
+               clearTimeout(timeout);
+               resolve(attrs);
+            },
             error: onerror
          });
-         setTimeout(onerror, TIMEOUT);
       });
    }
 }
