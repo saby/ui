@@ -1,5 +1,5 @@
 import {detection} from 'Env/Env';
-import {Logger} from 'UICommon/Utils';
+import {getSvgParentNode, Logger} from 'UICommon/Utils';
 
 import {
     WasabyEvents,
@@ -409,7 +409,7 @@ export default class WasabyEventsInferno extends WasabyEvents implements IWasaby
   * @param event
   */
 function isMyDOMEnvironment(env: IDOMEnvironment, event: Event): boolean {
-    let element = event.target as any;
+    let element = getSvgParentNode(event.target) as any;
     if (element === window || element === document) {
         return true;
     }
