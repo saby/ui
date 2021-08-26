@@ -72,10 +72,10 @@ export class GeneratorVdom extends Generator implements IGenerator {
             ref: chainOfRef.execute(),
             // для goUpByControlTree
             _$logicParent: parent,
-            // инициализируем _$parentsChildrenPromises из непосредственного логического родителя, из контрола
-            // отправим промис ожидания завершения загрузки контрола, если понадобится. В ожидание входит промис
-            // beforeMount, загрузка стилей, ожидание загрузки дочерних контролов
-            _$parentsChildrenPromises: parent?._$childrenPromises,
+            // инициализируем _registerAsyncChild из непосредственного логического родителя, из контрола
+            // отправим промис ожидания завершения загрузки контрола, если понадобится. В ожидание входит:
+            // промис beforeMount, загрузка стилей, ожидание загрузки дочерних контролов
+            _registerAsyncChild: parent?._registerAsyncChild,
             _$blockOptionNames: config.blockOptionNames
         });
     }

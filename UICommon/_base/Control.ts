@@ -20,7 +20,7 @@ export interface IControlOptions {
     _$attributes?: object & {
         _$logicParent: any
     };
-    _$parentsChildrenPromises?: Promise<void>[];
+    _registerAsyncChild?: Function;
     _$blockOptionNames?: string[];
 }
 // в опциях хранятся служебные поля, которые не должны влиять на перерисовку контрола в shouldComponentUpdate

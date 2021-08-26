@@ -146,6 +146,7 @@ export default class Control<TOptions extends IControlOptions = {},
     // TODO: TControlConfig добавлен для совместимости, в 3000 нужно сделать TOptions и здесь, и в UIInferno.
     constructor(props: TOptions | TControlConfig = {}, context?: IWasabyContextValue) {
         super(props as TOptions);
+        this._registerAsyncChild = this._registerAsyncChild.bind(this);
         /*
         Если люди сами задают конструктор, то обычно они вызывают его неправильно (передают только один аргумент).
         Из-за этого контекст может потеряться и не получится в конструкторе вытащить значение из него.
@@ -172,6 +173,25 @@ export default class Control<TOptions extends IControlOptions = {},
             Control.mixCompatible<TOptions, TState>(this, {});
         }
     }
+
+    _registerAsyncChild(childPromise: Promise<unknown>): void {
+        this._$childrenPromises.push(childPromise);
+    }
+
+    _getAsyncChildren(): Promise<unknown>[] {
+        return this._$childrenPromises;
+    }
+
+    _unregisterAsyncChildren(): void {
+        this._$childrenPromises = [];
+        this._$beforeMountPromise = null;
+
+        if (this._$afterMountResolver) {
+            this._$afterMountResolver();
+            delete this._$afterMountResolver;
+        }
+    }
+
 
     /**
      * Запускает обновление. Нужен из-за того, что всех переводить на новое название метода не хочется.
@@ -449,22 +469,19 @@ export default class Control<TOptions extends IControlOptions = {},
         let promisesToWait = [];
         const newOptions = createWasabyOptions(this.props, this.context);
 
-        if (this._$beforeMountPromise) {
-            promisesToWait.push(this._$beforeMountPromise);
-            this._$beforeMountPromise = null;
-        }
-
-        promisesToWait = promisesToWait.concat(this._$childrenPromises);
+        promisesToWait = []
+            .concat(this._$beforeMountPromise ? [this._$beforeMountPromise] : [])
+            .concat(this._getAsyncChildren());
 
         if (promisesToWait.length) {
             const afterMountPromise: Promise<void> = new Promise((resolve) => {
                 this._$afterMountResolver = resolve;
             });
-            newOptions._$parentsChildrenPromises?.push(afterMountPromise);
+            newOptions._registerAsyncChild?.(afterMountPromise);
             Promise.all(promisesToWait).finally(() => {
                 this._$asyncInProgress = false;
                 if (this._destroyed) {
-                    this._$afterMountResolver();
+                    this._unregisterAsyncChildren();
                     return;
                 }
                 this.setState(
@@ -473,9 +490,6 @@ export default class Control<TOptions extends IControlOptions = {},
                     },
                     () => {
                         const callback = () => {
-                            this._$afterMountResolver();
-                            this._$afterMountResolver = undefined;
-                            this._$childrenPromises = [];
                             this._options = newOptions;
                             this._optionsVersions = Options.collectObjectVersions(this._options);
                             makeWasabyObservable<TOptions, TState>(this);
@@ -485,11 +499,12 @@ export default class Control<TOptions extends IControlOptions = {},
                                     return;
                                 }
                                 this._afterMount(newOptions);
+                                this._unregisterAsyncChildren();
                                 this._$controlMounted = true;
                             }, 0);
                         };
-                        if (this._$childrenPromises.length) {
-                            Promise.all(this._$childrenPromises).finally(callback);
+                        if (this._getAsyncChildren().length) { //FIXME: childrenPromises
+                            Promise.all(this._getAsyncChildren()).finally(callback); //FIXME: childrenPromises
                         } else {
                             callback();
                         }

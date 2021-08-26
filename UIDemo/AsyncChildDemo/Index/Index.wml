@@ -1,0 +1,3 @@
+<div>
+  <UIDemo.AsyncChildDemo.Index.Child prop="{{ prop }}"/>
+</div>
