@@ -43,6 +43,10 @@ export default class RouteCompatible extends Control<IRouteOptions, IRouteOption
 
         this.data = receivedState;
     }
+
+    static defaultProps: object = {
+        notLoadThemes: true
+    };
 }
 
 /**

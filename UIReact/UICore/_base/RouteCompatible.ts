@@ -43,6 +43,10 @@ export default class RouteWrapper extends Control<IRouteOptions, IRouteOptions> 
 
         this.data = receivedState;
     }
+
+    static defaultProps: object = {
+        notLoadThemes: true
+    };
 }
 
 /**
