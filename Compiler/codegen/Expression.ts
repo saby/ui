@@ -101,7 +101,7 @@ function resolveIdentifier(
     if (result !== null) {
         return result;
     }
-    return genGetter(context, ['"' + node.name + '"']);
+    return genGetter(context, ['"' + node.name + '"'], useStrictGetter);
 }
 
 function resolveIdentifierSetter(
@@ -351,7 +351,7 @@ export class ExpressionVisitor implements N.IExpressionVisitor<IExpressionVisito
     visitMemberExpressionNode(node: N.MemberExpressionNode, context: IExpressionVisitorContext): string {
         if (node.property) {
             const { arr, dataSource } = this.processMemberProperty(node, context);
-            return genGetter(dataSource, arr);
+            return genGetter(dataSource, arr, context.useStrictGetter);
         }
         return node.object.accept(this, context) as string;
     }

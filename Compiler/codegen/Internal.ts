@@ -1,8 +1,11 @@
 import { InternalNode, InternalNodeType } from 'Compiler/core/internal/Container';
 import { IProgramMeta } from 'Compiler/core/internal/Storage';
 import { ExpressionVisitor } from './Expression';
+import { genSetUnreachablePathFlag } from 'Compiler/codegen/TClosure';
 
 //#region Constants
+
+const USE_UNREACHABLE_FLAG_FEATURE = true;
 
 const FUNCTION_PREFIX = '__$calculateDirtyCheckingVars_';
 const INTERNAL_PROGRAM_PREFIX = '__dirtyCheckingVars_';
@@ -24,6 +27,16 @@ interface IOptions {
 
     // Имя переменной для self-check проверок при генерации internal
     safeCheckVariable: string | null;
+
+    // Флаг использования getter-функций, которые выбрасывают исключения
+    useStrictGetter?: boolean;
+}
+
+function generateFunctionBody(content: string): string {
+    if (USE_UNREACHABLE_FLAG_FEATURE) {
+        return FUNCTION_HEAD + `try{${content}}catch(error){${genSetUnreachablePathFlag(COLLECTION_NAME)};}` + FUNCTION_TAIL;
+    }
+    return FUNCTION_HEAD + content + FUNCTION_TAIL;
 }
 
 export function generate(node: InternalNode, internalFunctions: string[]): string {
@@ -38,7 +51,7 @@ export function generate(node: InternalNode, internalFunctions: string[]): strin
         safeCheckVariable: null
     };
     const functionName = FUNCTION_PREFIX + node.index;
-    const body = FUNCTION_HEAD + buildAll([node], options) + FUNCTION_TAIL;
+    const body = generateFunctionBody(buildAll([node], options));
     const index = node.ref.getCommittedIndex(body);
     if (index !== null) {
         return FUNCTION_PREFIX + index + `(${CONTEXT_VARIABLE_NAME})`;
@@ -90,7 +103,9 @@ function generateSafeCheckVariableName(node: InternalNode): string {
 }
 
 function buildWithConditions(node: InternalNode, options: IOptions): string {
-    const body = buildPrograms(node.storage.getMeta()) + buildAll(node.children, options);
+    options.useStrictGetter = false;
+
+    const body = buildPrograms(node.storage.getMeta(), options) + buildAll(node.children, options);
     if (node.type === InternalNodeType.BLOCK) {
         return body;
     }
@@ -102,7 +117,7 @@ function buildWithConditions(node: InternalNode, options: IOptions): string {
         }
         return `if((!${safeCheckVariable})||(!${conditionalVariable})){${body}}`;
     }
-    const test = buildMeta(node.test);
+    const test = buildMeta(node.test, options);
     const prefix = wrapProgram(node.test, conditionalVariable);
     const declareVariables = `var ${conditionalVariable};var ${safeCheckVariable} = true;`;
     const safeCheck = `(!${safeCheckVariable})`;
@@ -120,19 +135,46 @@ function buildWithConditions(node: InternalNode, options: IOptions): string {
     throw new Error(`Получен неизвестный internal-узел с номером ${node.index}`);
 }
 
+function buildWithConditionsNew(node: InternalNode, options: IOptions): string {
+    options.useStrictGetter = options.useStrictGetter || node.type !== InternalNodeType.BLOCK;
+
+    const body = buildPrograms(node.storage.getMeta(), options) + buildAll(node.children, options);
+    if (node.type === InternalNodeType.BLOCK) {
+        return body;
+    }
+    if (node.type === InternalNodeType.ELSE) {
+        if (body.length === 0) {
+            return body;
+        }
+        return `else{${body}}`;
+    }
+    const test = buildMeta(node.test, options);
+    if (node.type === InternalNodeType.IF) {
+        return `if(${test}){${body}}`;
+    }
+    if (node.type === InternalNodeType.ELSE_IF) {
+        return `else if(${test}){${body}}`;
+    }
+    throw new Error(`Получен неизвестный internal-узел с номером ${node.index}`);
+}
+
 function buildAll(nodes: InternalNode[], options: IOptions): string {
     let body = '';
     for (let index = 0; index < nodes.length; ++index) {
+        if (USE_UNREACHABLE_FLAG_FEATURE) {
+            body += buildWithConditionsNew(nodes[index], options);
+            continue;
+        }
         body += buildWithConditions(nodes[index], options);
     }
     return body;
 }
 
-function buildPrograms(programs: IProgramMeta[]): string {
+function buildPrograms(programs: IProgramMeta[], options: IOptions): string {
     let body = '';
     let code;
     for (let index = 0; index < programs.length; ++index) {
-        code = buildMeta(programs[index]);
+        code = buildMeta(programs[index], options);
         body += wrapProgram(programs[index], code);
     }
     return body;
@@ -142,7 +184,7 @@ function wrapProgram(meta: IProgramMeta, code: string): string {
     return `${COLLECTION_NAME}.${INTERNAL_PROGRAM_PREFIX}${meta.index}=${code};`;
 }
 
-function buildMeta(meta: IProgramMeta): string {
+function buildMeta(meta: IProgramMeta, options: IOptions): string {
     const context = {
         fileName: '[[internal]]',
         attributeName: meta.name,
@@ -156,7 +198,7 @@ function buildMeta(meta: IProgramMeta): string {
         childrenStorage: [],
         checkChildren: false,
         isDirtyChecking: true,
-        useStrictGetter: false // TODO: enable
+        useStrictGetter: options.useStrictGetter && USE_UNREACHABLE_FLAG_FEATURE
     };
     return meta.node.accept(new ExpressionVisitor(), context) as string;
 }
