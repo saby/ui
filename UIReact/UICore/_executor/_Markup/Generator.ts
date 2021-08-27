@@ -352,7 +352,6 @@ function createWsControl(
     IControlOptions,
     Control<IControlOptions, TIState>
 > {
-    resolveControlName(scope, decorAttribs.attributes);
     scope._$attributes = decorAttribs;
     if (decorAttribs.attributes && decorAttribs.attributes.key) {
         // переносим ключ чтобы он выставился именно для контрола,
