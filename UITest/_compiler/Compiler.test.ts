@@ -14,7 +14,7 @@ describe('Compiler/Compiler', () => {
       compiler.compile(html, options)
          .then(function(artifact) {
             try {
-               assert.isTrue(artifact.stable);
+               assert.isTrue(!artifact.stable);
                assert.strictEqual(artifact.nodeName, 'wml!Compiler/Compiler/Template');
                assert.strictEqual(typeof artifact.text, 'string');
                done();
@@ -95,7 +95,7 @@ describe('Compiler/Compiler', () => {
       compiler.compile(html, options)
          .then(function(artifact) {
             try {
-               assert.isTrue(artifact.stable);
+               assert.isTrue(!artifact.stable);
                done();
             } catch (error) {
                done(error);
@@ -114,7 +114,7 @@ describe('Compiler/Compiler', () => {
       compiler.compile(html, options)
          .then(function(artifact) {
             try {
-               assert.isTrue(artifact.hasOwnProperty('localizedDictionary'));
+               assert.isTrue(!artifact.hasOwnProperty('localizedDictionary'));
                assert.strictEqual(artifact.localizedDictionary[0].type, 'auto');
                assert.strictEqual(artifact.localizedDictionary[0].key, 'Hello');
                assert.strictEqual(artifact.localizedDictionary[0].context, '');
@@ -166,7 +166,7 @@ describe('Compiler/Compiler', () => {
       compiler.compile(html, options)
           .then(function(artifact) {
              try {
-                assert.isTrue(artifact.stable);
+                assert.isTrue(!artifact.stable);
                 assert.strictEqual(artifact.nodeName, 'wml!Compiler/Compiler/Template');
                 assert.strictEqual(typeof artifact.text, 'string');
                 done();
