@@ -102,6 +102,7 @@ export function callIFun(fn: Function, ctx: object, args: unknown[]): unknown {
 }
 
 export {
+   setUnreachablePathFlag,
    isolateScope,
    createScope,
    presetScope,
