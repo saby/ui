@@ -42,6 +42,8 @@ export class CreateTagVdom implements IGeneratorComponent {
                 delete mergedAttrs[attrName];
             }
         });
+        //mergedAttrs.key = mergedAttrs.key || attrs.key;
+
         const name = mergedAttrs.name;
         const originRef = attrs.attributes.ref;
         const chainOfRef = new ChainOfRef();
@@ -64,7 +66,7 @@ export class CreateTagVdom implements IGeneratorComponent {
         };
 
         // Разворачиваем массив с детьми, так как в противном случае react считает, что мы отрисовываем список
-        const flatChildren = ArrayUtils.flatten(children, true);
+        const flatChildren = ArrayUtils.flatten(children, true, true);
         if (flatChildren.for) {
             // если дети получены циклом - нужно вставлять их массивом, чтобы учитывались ключи
             return React.createElement<P, T>(tagName, newProps, flatChildren);

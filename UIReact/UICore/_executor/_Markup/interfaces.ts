@@ -16,6 +16,7 @@ export interface IGeneratorAttrs {
     attributes: Attr.IAttributes;
     events: Record<string, IWasabyEvent[]>;
     _$logicParent?: Control;
+    key: string;
 }
 
 export interface IControlConfig {

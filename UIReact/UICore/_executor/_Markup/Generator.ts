@@ -73,7 +73,8 @@ export class Generator implements IGenerator {
         const newOptions = this.calculateOptions(resolvedOptionsExtended, config, fullEvents, name, originRef);
         const templateAttributes: IGeneratorAttrs = {
             attributes: decorAttribs,
-            events: fullEvents
+            events: fullEvents,
+            key: Helper.calculateKey(decorAttribs, config.attr)
         };
         const parent = config.viewController;
         const logicParent = newOptions._$logicParent;
