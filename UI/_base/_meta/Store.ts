@@ -1,0 +1,52 @@
+/**
+ * @kaizen_zone 7d860f70-e142-4269-a5a7-7e940b8be4da
+ */
+import { getStore, setStore } from 'Application/Env';
+import { isInit } from 'Application/Initializer';
+import { IStore } from 'Application/Interface';
+import { IMetaStateInternal } from 'UI/_base/_meta/interface';
+
+export type IStates = Record<string, IMetaStateInternal>;
+type KeyIState = keyof IStates & string;
+
+class StateStore implements IStore<IStates> {
+    constructor(private data: IStates = Object.create(null)) {}
+    get<K extends keyof IStates>(id: K): IStates[K] {
+        return this.data[id];
+    }
+    set<K extends keyof IStates>(id: K, state: IStates[K]): boolean {
+        this.data[id] = state;
+        return true;
+    }
+    remove(id: keyof IStates): void {
+        delete this.data[id];
+    }
+    getKeys(): KeyIState[] {
+        return Object.keys(this.data) as KeyIState[];
+    }
+    toObject(): { [key in keyof IStates]: IStates[key] } {
+        return this.data;
+    }
+
+    static label: string = 'UI/_base/_meta/Stack#MetaStore';
+}
+
+export function createStatesStore(states?: IStates): () => IStore<IStates> {
+    if (!isInit()) {
+        /**
+         * Для случаев, когда приложение не инициализированно (unit-тесты)
+         * используется локальный Store
+         */
+        const store: IStore<IStates> = new StateStore(states);
+        return () => {
+            return store;
+        };
+    }
+    const createDefaultStore = (s?: IStates): StateStore => {
+        return new StateStore(s);
+    };
+    setStore<IStates>(StateStore.label, createDefaultStore(states));
+    return () => {
+        return getStore<IStates>(StateStore.label, createDefaultStore);
+    };
+}

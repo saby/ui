@@ -1,0 +1,17 @@
+<div style="background-color: rgb(74 222 128)">
+    <div style='border: 1px solid'>
+        <span>new style: </span>
+        <ws:if data="{{_options.adaptiveMode.width.up(DEFAULT_BREAKPOINTS.lg)}}">
+            <span>lg </span>
+        </ws:if>
+        <ws:else data="{{_options.adaptiveMode.width.up(DEFAULT_BREAKPOINTS.md)}}">
+            <span>md </span>
+        </ws:else>
+        <ws:else data="{{_options.adaptiveMode.width.up(DEFAULT_BREAKPOINTS.sm)}}">
+            <span>sm </span>
+        </ws:else>
+        <ws:else>
+            <span>unknown </span>
+        </ws:else>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+{
+    "include": [
+      "UICommon/Base",
+      "UICommon/Events",
+      "UICommon/Executor",
+      "UICommon/Focus",
+      "UICommon/interfaces",
+      "UICommon/State",
+      "UICommon/theme/controller",
+      "UICommon/Utils",
+      "UICommon/Vdom",
+      "UICommon/Deps"
+    ],
+    "output": "online-superbundle.package.js"
+  }

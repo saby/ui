@@ -1,0 +1,4 @@
+<div>
+    <div>value: {{value}} </div>
+    <ReactUnitTest._reactivity.resources.ControlWithReactiveModel bind:value="value" />
+</div>
