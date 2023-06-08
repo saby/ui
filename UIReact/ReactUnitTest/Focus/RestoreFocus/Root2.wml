@@ -1,0 +1,11 @@
+<div id="restoreFocus">
+   <div>
+      <ws:if data="{{ showFirstInput }}">
+         <Core.CompoundContainer attr:id="wsControl" component="ReactUnitTest/Focus/RestoreFocus/WsControl"/>
+      </ws:if>
+      <ReactUnitTest.Focus.Input
+            attr:id="secondInput"
+            inputId="secondInputElement"
+      />
+   </div>
+</div>

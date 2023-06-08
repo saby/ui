@@ -1,0 +1,6 @@
+<ReactUnitTest.Focus.Callbacks.RootReact
+   onRootActivated="{{ onRootActivated }}"
+   onRootDeactivated="{{ onRootDeactivated }}"
+   onWasabyActivated="{{ onWasabyActivated }}"
+   onReactDeactivated="{{ onReactDeactivated }}"
+/>

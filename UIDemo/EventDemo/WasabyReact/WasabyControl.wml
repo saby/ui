@@ -1,0 +1,8 @@
+<div>
+    <div>Wasaby User Control</div>
+    <div id='clear' on:click="clear()">{{result}}</div>
+    <h3>Вставляем wasaby platform control</h3>
+    <UIDemo.EventDemo.WasabyReact.PlatformControl id="click0" on:mysuperevent="myHandler()" />
+    <h3>Вставляем react platform control</h3>
+    <UIDemo.EventDemo.WasabyReact.PlatformControlReact id="click1" on:mySuperEvent="myHandler()" />
+</div>

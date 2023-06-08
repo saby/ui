@@ -1,0 +1,16 @@
+{
+    "ui-modules":
+    [
+        "Markup",
+        "TextMarkup",
+        "VirtualDom",
+        "VirtualTreeMarkup",
+        "WmlBuilder",
+        "Compiler",
+        "UICommon",
+        "UIReact/UICore",
+        "UIReact",
+        "UI",
+        "ThemesModule"
+    ]
+}
