@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Children в tsx преобразовывается в content wml контрол не патчит content 1`] = `
+<div>
+  <div
+    class="rootReactComponent"
+  >
+    <div
+      class="wasabySimpleContent"
+      tabindex="0"
+    >
+      <div
+        class="content"
+        tabindex="0"
+      >
+        Hello content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml контрол патчит content 1`] = `
+<div>
+  <div
+    class="rootReactComponent"
+  >
+    <div
+      class="wasabySimpleContent"
+      tabindex="0"
+    >
+      <div
+        class="patchedClass content"
+        tabindex="0"
+      >
+        Hello content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml не происходит лишних перерисовок 1 (перерисовка по клику происходит и счетчик выводится) 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <button>
+      +1
+    </button>
+    <div>
+      0
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml не происходит лишних перерисовок 1 (перерисовка по клику происходит и счетчик выводится) 2`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <button>
+      +1
+    </button>
+    <div>
+      1
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml не происходит лишних перерисовок 2 (перерисовка по клику не происходит) 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <button>
+      +1
+    </button>
+    <div>
+      0
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml не происходит лишних перерисовок 2 (перерисовка по клику не происходит) 2`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <button>
+      +1
+    </button>
+    <div>
+      0
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml шаблон не патчит content 1`] = `
+<div>
+  <div
+    class="rootReactComponent"
+  >
+    <div
+      class="wasabySimpleContent"
+      tabindex="0"
+    >
+      <div
+        class="content"
+        tabindex="0"
+      >
+        Hello content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml шаблон патчит content 1`] = `
+<div>
+  <div
+    class="rootReactComponent"
+  >
+    <div
+      class="wasabySimpleContent"
+      tabindex="0"
+    >
+      <div
+        class="patchedClass content"
+        tabindex="0"
+      >
+        Hello content
+      </div>
+    </div>
+  </div>
+</div>
+`;

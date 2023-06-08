@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Compiler/codegen/Module AMD Should compile empty module 1`] = `"define(function(){});"`;
+
+exports[`Compiler/codegen/Module AMD Should compile full module 1`] = `"define('Module/Component',[\\"first\\",\\"second\\"],function(f){\\"use strict\\";var a = 1;function debug() { debugger; }return debug;});"`;
+
+exports[`Compiler/codegen/Module AMD Should compile module in strict mode 1`] = `"define(function(){\\"use strict\\";});"`;
+
+exports[`Compiler/codegen/Module AMD Should compile module with code 1`] = `"define(function(){var a = 1;var b = true;/* comment */});"`;
+
+exports[`Compiler/codegen/Module AMD Should compile module with dependencies 1`] = `"define([\\"first\\",\\"second\\"],function(f){});"`;
+
+exports[`Compiler/codegen/Module AMD Should compile module with exports 1`] = `"define(function(){function debug() { debugger; }return debug;});"`;
+
+exports[`Compiler/codegen/Module AMD Should compile named mode 1`] = `"define('Module/Component',function(){});"`;
+
+exports[`Compiler/codegen/Module UMD Should compile empty module 1`] = `"(function(factory) {if (typeof define === \\"function\\" && define.amd) {define(factory);} else if (typeof module === \\"object\\" && typeof module.exports === \\"object\\") {var v = factory();if (v !== undefined)module.exports = v;}})(function(){});"`;
+
+exports[`Compiler/codegen/Module UMD Should compile full module 1`] = `"(function(factory) {if (typeof define === \\"function\\" && define.amd) {define(\\"Module/Component\\",[\\"first\\",\\"second\\"],factory);} else if (typeof module === \\"object\\" && typeof module.exports === \\"object\\") {var reqModule_0,reqModule_1;try {reqModule_0 = global.requirejs(\\"first\\");reqModule_1 = global.requirejs(\\"second\\");} catch (error) {throw new Error(\\"Ошибка загрузки модулей в шаблоне 'Module/Component': \\" + error);}var v = factory(reqModule_0,reqModule_1);if (v !== undefined)module.exports = v;}})(function(f){\\"use strict\\";var a = 1;function debug() { debugger; }var b = true;/* comment */return debug;});"`;
+
+exports[`Compiler/codegen/Module UMD Should compile module in strict mode 1`] = `"(function(factory) {if (typeof define === \\"function\\" && define.amd) {define(factory);} else if (typeof module === \\"object\\" && typeof module.exports === \\"object\\") {var v = factory();if (v !== undefined)module.exports = v;}})(function(){\\"use strict\\";});"`;
+
+exports[`Compiler/codegen/Module UMD Should compile module with code 1`] = `"(function(factory) {if (typeof define === \\"function\\" && define.amd) {define(factory);} else if (typeof module === \\"object\\" && typeof module.exports === \\"object\\") {var v = factory();if (v !== undefined)module.exports = v;}})(function(){var a = 1;var b = true;/* comment */});"`;
+
+exports[`Compiler/codegen/Module UMD Should compile module with dependencies 1`] = `"(function(factory) {if (typeof define === \\"function\\" && define.amd) {define([\\"first\\",\\"second\\"],factory);} else if (typeof module === \\"object\\" && typeof module.exports === \\"object\\") {var reqModule_0,reqModule_1;try {reqModule_0 = global.requirejs(\\"first\\");reqModule_1 = global.requirejs(\\"second\\");} catch (error) {throw new Error(\\"Ошибка загрузки модулей в шаблоне '': \\" + error);}var v = factory(reqModule_0,reqModule_1);if (v !== undefined)module.exports = v;}})(function(f){});"`;
+
+exports[`Compiler/codegen/Module UMD Should compile module with exports 1`] = `"(function(factory) {if (typeof define === \\"function\\" && define.amd) {define(factory);} else if (typeof module === \\"object\\" && typeof module.exports === \\"object\\") {var v = factory();if (v !== undefined)module.exports = v;}})(function(){function debug() { debugger; }return debug;});"`;
+
+exports[`Compiler/codegen/Module UMD Should compile named mode 1`] = `"(function(factory) {if (typeof define === \\"function\\" && define.amd) {define(\\"Module/Component\\",factory);} else if (typeof module === \\"object\\" && typeof module.exports === \\"object\\") {var v = factory();if (v !== undefined)module.exports = v;}})(function(){});"`;
+
+exports[`Compiler/codegen/Module UMD Should transform module with plugins 1`] = `"(function(factory) {if (typeof define === \\"function\\" && define.amd) {define(\\"Module/Component\\",[\\"i18n!UIModule\\",\\"css!UIModule\\",\\"wml!UIModule/template\\",\\"js!UIModule/module\\"],factory);} else if (typeof module === \\"object\\" && typeof module.exports === \\"object\\") {var rk = function(key) { return key; };var reqModule_2,reqModule_3;try {reqModule_2 = global.requirejs(\\"UIModule/template.wml\\");reqModule_3 = global.requirejs(\\"UIModule/module\\");} catch (error) {throw new Error(\\"Ошибка загрузки модулей в шаблоне 'Module/Component': \\" + error);}var v = factory(rk,\\"\\",reqModule_2,reqModule_3);if (v !== undefined)module.exports = v;}})(function(){});"`;

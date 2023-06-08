@@ -1,0 +1,9 @@
+<div>
+    <div>
+        {{_forBind}}
+    </div>
+    <ReactUnitTest._jsx.resources.WasabyReact.ReactHOC bind:value="_forBind" />
+    <ReactUnitTest._jsx.resources.WasabyReact.ReactFunc bind:value="_forBind" />
+    <ReactUnitTest._jsx.resources.WasabyReact.ReactControl bind:value="_forBind" />
+    <ReactUnitTest._jsx.resources.WasabyReact.Wasaby bind:value="_forBind" additionName="wasaby" id="wasabyBind"/>
+</div>

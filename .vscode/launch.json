@@ -1,0 +1,43 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "name": "Run All Tests (NodeJS)",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "disableOptimisticBPs": true,
+
+            "program": "${workspaceRoot}/node_modules/wasaby-cli/cli.js",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "runUnitTests",
+                "--umd",
+                "--react",
+                "--node",
+                "--report=console",
+                "--runInBand"
+            ]
+        },
+        {
+            "type": "node",
+            "name": "Run All Tests (JSDOM)",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "disableOptimisticBPs": true,
+
+            "program": "${workspaceRoot}/node_modules/wasaby-cli/cli.js",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "runUnitTests",
+                "--umd",
+                "--react",
+                "--browser",
+                "--report=console",
+                "--runInBand"
+            ]
+        }
+    ]
+}

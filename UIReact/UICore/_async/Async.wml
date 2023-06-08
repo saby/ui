@@ -1,0 +1,9 @@
+<ws:if data="{{ error }}">
+    <div>{{ userErrorMessage }}</div>
+</ws:if>
+<ws:else data="{{ !!optionsForComponent.rskey }}">
+    <ws:partial template="{{ _options.content || optionsForComponent.resolvedTemplate }}" scope="{{ optionsForComponent }}" attr:key="{{ optionsForComponent.rskey }}" />
+</ws:else>
+<ws:else>
+    <ws:partial template="{{ _options.content || optionsForComponent.resolvedTemplate }}" scope="{{ optionsForComponent }}" />
+</ws:else>

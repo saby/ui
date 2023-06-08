@@ -1,0 +1,211 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentAsChildren Реакт компонент мутирует полученный children Контент - div элемент 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="patch"
+      tabindex="0"
+    >
+      <div
+        class="div-content patched"
+        tabindex="0"
+      >
+        Div content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент мутирует полученный children Контент - inline шаблон 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="patch"
+      tabindex="0"
+    >
+      <div
+        class="template-content patched"
+        tabindex="0"
+      >
+        Template content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент мутирует полученный children Контент - wasaby контрол 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="patch"
+      tabindex="0"
+    >
+      <div
+        class="control-content patched"
+        tabindex="0"
+      >
+        Control content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент мутирует полученный children Контент - wml шаблон 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="patch"
+      tabindex="0"
+    >
+      <div
+        class="wml-content patched"
+        tabindex="0"
+      >
+        Wml content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент мутирует полученный children Контент - объект из скоупа, не нужно превращать в Children 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="paintContentPatchOptions"
+      tabindex="0"
+    >
+      <div
+        class="objectContentInScope"
+        tabindex="0"
+      >
+        <div
+          class="patch classNameFromScope"
+          tabindex="0"
+        >
+          No children
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент рисует полученный children неизменным Контент - div элемент 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="simple"
+      tabindex="0"
+    >
+      <div
+        class="div-content"
+        tabindex="0"
+      >
+        Div content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент рисует полученный children неизменным Контент - inline шаблон 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="simple"
+      tabindex="0"
+    >
+      <div
+        class="template-content"
+        tabindex="0"
+      >
+        Template content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент рисует полученный children неизменным Контент - wasaby контрол 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="simple"
+      tabindex="0"
+    >
+      <div
+        class="control-content"
+        tabindex="0"
+      >
+        Control content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент рисует полученный children неизменным Контент - wml шаблон 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="simple"
+      tabindex="0"
+    >
+      <div
+        class="wml-content"
+        tabindex="0"
+      >
+        Wml content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент рисует полученный children неизменным Контент - объект из скоупа, не нужно превращать в Children 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="paintContentPatchOptions"
+      tabindex="0"
+    >
+      <div
+        class="objectContentInScope"
+        tabindex="0"
+      >
+        <div
+          class="simple classNameFromScope"
+          tabindex="0"
+        >
+          No children
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

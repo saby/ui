@@ -1,0 +1,8 @@
+<div>
+    <ws:if data="{{_options.dataQaFn}}">
+        <ReactUnitTest._executor.resources.WmlAttrs.ReactFunction attr:data-qa="data-qa-react-function" />
+    </ws:if>
+    <ws:if data="{{_options.dataQaCls}}">
+        <ReactUnitTest._executor.resources.WmlAttrs.ReactComponent attr:data-qa="data-qa-react-component" />
+    </ws:if>
+</div>

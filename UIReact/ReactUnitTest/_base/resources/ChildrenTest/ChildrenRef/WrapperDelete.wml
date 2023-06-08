@@ -1,0 +1,6 @@
+<ws:if data="{{ _showChild }}">
+    <ReactUnitTest._base.resources.ChildrenTest.ChildrenRef.Child2 name="MyChild"/>
+</ws:if>
+<ws:else>
+    <div></div>
+</ws:else>

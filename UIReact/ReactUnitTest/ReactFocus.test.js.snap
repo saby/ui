@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReactFocus Восстановление фокуса при восстановлении фокуса корректно обрабатывается чистый реакт компонент опенер 1`] = `
+Array [
+  "ReactUnitTest/Focus/Input",
+  "ReactUnitTest/Focus/HOC",
+  "ReactUnitTest/Focus/RestoreFocus/Root",
+  "ReactOpener",
+  "ReactUnitTest/Focus/HOC",
+  "ReactUnitTest/Focus/RestoreFocus/RootWithReactOpener",
+]
+`;

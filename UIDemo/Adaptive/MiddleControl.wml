@@ -1,0 +1,15 @@
+<div>
+        <UIDemo.Adaptive.SomeControl/>
+        forced sm:
+        <UI.Adaptive:ForcedAdaptiveModeHoc mode="sm">
+                <UIDemo.Adaptive.SomeControl/>
+        </UI.Adaptive:ForcedAdaptiveModeHoc>
+        forced md:
+        <UI.Adaptive:ForcedAdaptiveModeHoc mode="md">
+                <UIDemo.Adaptive.SomeControl/>
+        </UI.Adaptive:ForcedAdaptiveModeHoc>
+        forced lg:
+        <UI.Adaptive:ForcedAdaptiveModeHoc mode="lg">
+                <UIDemo.Adaptive.SomeControl/>
+        </UI.Adaptive:ForcedAdaptiveModeHoc>
+</div>
