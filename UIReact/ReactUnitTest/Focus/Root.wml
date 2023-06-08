@@ -1,0 +1,6 @@
+<div>
+    <ws:partial template="{{ _options.content }}"
+                testName="{{ _options.testName }}"
+                afterMountCallback="{{ _options.afterMountCallback }}"
+                afterUpdateCallback="{{ _options.afterUpdateCallback }}" />
+</div>

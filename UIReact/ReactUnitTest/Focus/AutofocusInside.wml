@@ -1,0 +1,7 @@
+<div>
+   <div tabindex="{{ -1 }}" ws-autofocus="true">
+      Ignore it on autofocus
+   </div>
+   <span>Can focus it</span>
+   <ReactUnitTest.Focus.Simple name="autofocusChild" attr:ws-autofocus="true" />
+</div>

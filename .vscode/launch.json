@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "name": "Run All Tests",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "disableOptimisticBPs": true,
+
+            "program": "${workspaceRoot}/node_modules/wasaby-cli/cli.js",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "runUnitTests",
+                "--umd",
+                "--NodeJS",
+                "--report=console",
+                "--runInBand"
+            ]
+        }
+    ]
+}

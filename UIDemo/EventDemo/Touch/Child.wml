@@ -1,0 +1,8 @@
+<div>
+    <div on:click="clickHandler()">
+        clickMe
+    </div>
+    <ws:if data="{{trigger}}">
+        ok
+    </ws:if>
+</div>

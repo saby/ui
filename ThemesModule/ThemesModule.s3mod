@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui_module id="f515eba2-dad5-4cc3-bef8-2ff45bd2a880" name="ThemesModule" package="Wasaby" responsible="Колбешин Ф.А." version="1.00">
+
+  <description/>
+
+  <depends />
+
+  <load_after>
+    <module id="ae5ccda6-0620-417f-b8d1-95919fe66170" name="ACS-default-theme"/>
+    <module id="20d29c75-9bc8-4a43-a30b-c1eacd1c51b7" name="ACS-retail-theme"/>
+    <module id="bfbe830a-1fee-4672-a9e5-133234ad69b8" name="Calculator-default-theme"/>
+    <module id="19326de3-81ed-4c3e-9d94-b927b4ae8b3b" name="Cashless-default-theme"/>
+    <module id="324a7cd6-74cc-4c31-bfe6-a0bf9088af41" name="Cashless-retail-theme"/>
+    <module id="a3a72580-f25c-41d9-bfa6-50798a295f84" name="Classifiers-retail-theme"/>
+    <module id="5d7cb158-2fc1-467d-ac35-8b154b42a448" name="Consultant-consultant-theme"/>
+    <module id="6e2712cd-667b-4bcd-8d5f-b74a76c9d153" name="Consultant-retail-theme"/>
+    <module id="c12acc41-7edb-47bd-936c-eca068500455" name="Controls-consultant-theme"/>
+    <module id="af50caf5-f84b-4b81-a19c-6f6618372dbd" name="Controls-default-theme"/>
+    <module id="7e157993-841c-402f-8500-2bf922702b39" name="Controls-onlinenavigation-theme"/>
+    <module id="aeb10688-7007-442e-ab6b-128326c631f9" name="Controls-plugin-theme"/>
+    <module id="0364926b-8a51-4beb-9431-645396ef91f2" name="Controls-retail-theme"/>
+    <module id="5a580eb1-0498-4e6a-95f7-f813ce9fdee9" name="Controls-videoPlayer-theme"/>
+    <module id="98ecbf7c-83c0-4c73-915b-d419502292eb" name="Controls-sbisru-theme"/>
+    <module id="7f9a056f-fa92-4b55-8038-14af15ebc116" name="Controls-tensorru-theme"/>
+    <module id="0ac2816e-0a82-4c63-ae68-64f1ca4f7a46" name="Controls-wasabydev-theme"/>
+    <module id="8b27603c-9b60-4976-9519-d976f726f630" name="DangerousOperations-retail-theme"/>
+    <module id="3630e495-2a15-4638-8126-031a2dd452df" name="ExpandableCollection-default-theme"/>
+    <module id="38bd326e-2e0d-4dc8-ad7b-129c29e388a6" name="ExtControls-default-theme"/>
+    <module id="e624e037-4077-4331-ab4e-46aabc549639" name="ExtControls-plugin-theme"/>
+    <module id="6fd87d74-4783-446b-abb3-95d74c5f579e" name="Graphs-default-theme"/>
+    <module id="a3d66d60-278b-4127-a9fb-6c8f1474b761" name="Graphs-retail-theme"/>
+    <module id="cf23aff5-9fc0-4fd3-aa5e-3c829ff0344f" name="Headers-default-theme"/>
+    <module id="3bc1c022-1b8c-44d8-858a-be589dab133e" name="Hint-default-theme"/>
+    <module id="8c51f3e5-da26-42bb-a5ed-dcd9fdd344c3" name="Hint-onlinenavigation-theme"/>
+    <module id="f4156a21-e9ab-4f89-ab52-20656f134309" name="Hint-plugin-theme"/>
+    <module id="b86eac57-7cc7-4e9f-bd5c-bd45b0b3594d" name="Hint-retail-theme"/>
+    <module id="036eae79-2838-44ba-aa21-e6b7496b41a5" name="KanbanBase-default-theme"/>
+    <module id="bb3a9789-e6d9-44d9-a5eb-43391106c8d6" name="Keyboard-default-theme"/>
+    <module id="9e8de1dd-e755-408a-aaaf-ac731ab81abb" name="Keyboard-retail-theme"/>
+    <module id="fac14181-2e5e-4df3-aa47-2bf47e90a78c" name="Layout-default-theme"/>
+    <module id="4f1f2510-ca65-491b-a4e6-1646d9cb65ce" name="Layout-retail-theme"/>
+    <module id="5c883af1-9c1b-4a6e-a45c-618335a53941" name="Location-default-theme"/>
+    <module id="027d055f-b841-4f5b-a55c-c4a81ad08767" name="Location-fed2-theme"/>
+    <module id="c468d4ed-0a8a-422f-8514-35de8d9ba18f" name="Location-retail-theme"/>
+    <module id="68c9d133-7dc9-4720-866b-03656ec8e823" name="LongOperations-default-theme"/>
+    <module id="c51ce281-80b8-4451-8749-0ba15994e799" name="LongOperations-retail-theme"/>
+    <module id="36919d55-52ef-49c9-b0d5-f614242c209b" name="Name-default-theme"/>
+    <module id="c2cc229a-591f-4789-ad02-7a3d852240b1" name="Name-retail-theme"/>
+    <module id="2e639b9e-d177-4ae6-8bec-165b94d0ae7c" name="NavigationPanels-default-theme"/>
+    <module id="9a8243b7-f69e-4dc9-92cb-a29b08ac6b68" name="NavigationPanels-plugin-theme"/>
+    <module id="c601bf0c-0ffa-4ba7-a21b-74850f065e1e" name="NavigationPanels-retail-theme"/>
+    <module id="7b733ec3-c0f4-4062-95bd-0dd376dc5e0a" name="NavigationPanels-onlinenavigation-theme"/>
+    <module id="bdbeabf1-1a49-476e-8ba7-ee42e8ccee64" name="Person-plugin-theme"/>
+    <module id="54c0c5dc-86dd-4941-ac3d-8f1a6afc8578" name="POS-retail-theme"/>
+    <module id="e50df31a-f349-4218-b42c-13f9372a5386" name="PrestoBooking-default-theme"/>
+    <module id="4f1381c1-1dda-4caf-82cb-f71e1718fa0c" name="PrestoBooking-retail-theme"/>
+    <module id="4e34fbf4-b850-4a5f-b436-3b8cac6674e6" name="PrestoOrder-retail-theme"/>
+    <module id="f00c958f-4120-423b-bf86-a12ab9397249" name="PrestoPlanControls-default-theme"/>
+    <module id="75728269-d50b-4c6b-b4cd-6a70f0bc6380" name="PrestoPlan-retail-theme"/>
+    <module id="a40d0ded-62b0-45d4-82bf-0df2eb6daa6b" name="Presto-retail-theme"/>
+    <module id="c9e659dd-18bc-4c1b-abb2-ea96301b2940" name="PrestoScreenCfg-retail-theme"/>
+    <module id="e583a49d-0f6d-4088-b766-fc37b144f120" name="PrestoScreen-retail-theme"/>
+    <module id="bd5fbae2-935f-472e-b742-30472cb60aea" name="RetailAuth-retail-theme"/>
+    <module id="7b7ed88a-72dd-412f-8b00-891045b550c4" name="RetailBase-retail-theme"/>
+    <module id="b091cee9-2814-4aae-bfa6-0fae88812a5e" name="RetailCore-retail-theme"/>
+    <module id="dc2d9a86-59b9-4291-9c3b-1f8c0f572caf" name="RetailOnline-default-theme"/>
+    <module id="35959e68-5d20-48a7-b2d3-7e290957739b" name="Retail-retail-theme"/>
+    <module id="0f6bd776-f5f9-4b05-bdbe-3e3713167a34" name="RetailWorkplaceDevice-retail-theme"/>
+    <module id="e9359519-1a1b-4d37-8576-7c89a3b06bf8" name="RichEditor-default-theme"/>
+    <module id="04f84785-6176-40fe-915b-fd3a71873a16" name="RichEditor-plugin-theme"/>
+    <module id="4184ee62-2c02-4c43-9459-d6a172bff2d1" name="RichEditor-retail-theme"/>
+    <module id="648fa32b-aca5-4891-8342-56ea1d956477" name="SBIS3.NAVIGATION-default-theme"/>
+    <module id="fbde7834-bd62-4c17-b6a3-479d1fb89a51" name="Summation-retail-theme"/>
+    <module id="889c6850-6c2a-4fac-bd14-f8221406da03" name="TabsLayout-default-theme"/>
+    <module id="90282479-9c60-4c53-b16b-6e364d0be894" name="WarehouseOffline-booking-widget-theme"/>
+    <module id="9d3bcad0-90ab-4694-9a27-67a6b2dfdc1e" name="WarehouseOffline-default-theme"/>
+    <module id="f0c8e96d-4dfd-423a-b42e-5493d8044b4a" name="WarehouseOffline-retail-theme"/>
+    <module id="48a24cb5-6f98-4eee-8308-38410928d79f" name="Wizard-default-theme"/>
+    <module id="3de8a77d-d5ed-49a5-a8d1-e13b8516664c" name="Wizard-retail-theme"/>
+    <module id="22feaa6e-60b9-4a02-b193-af6f847ce606" name="WNC_Offline-retail-theme"/>
+    <module id="2cfb39ff-3307-4e4e-b8fc-6974d23ceb74" name="WNCCore-default-theme"/>
+    <module id="fe5b2e86-89ac-43e6-8fe8-a5e455f6ea42" name="WNCCore-retail-theme"/>
+    <module id="9991da68-2608-4205-ab0e-66b60040c6db" name="WTMControls-default-theme"/>
+    <module id="0add47f0-ac1e-47e4-b8ff-43252a434132" name="WTMControls-retail-theme"/>
+    <module id="245afca8-ecce-42ae-9a39-4d3d3534312c" name="WPCPricing-retail-theme"/>
+    <module id="5bdbdc72-dc00-41cb-8929-ad0a93327588" name="WPCPricing-default-theme"/>
+    <module id="3fb34097-7f49-4dc2-9710-7409b1e1dd86" name="EO-icons-default-theme"/>
+    <module id="301e6ebe-e4dd-4fe5-8b5d-0243ce5409e8" name="EO-icons-onlinenavigation-theme"/>
+  </load_after>
+
+  <parameters/>
+
+  <resources/>
+
+  <preload/>
+
+</ui_module>
