@@ -1,0 +1,10 @@
+<ws:template name="inputElement">
+    <input id="inputField"/>
+</ws:template>
+
+<div>
+    <div>{{value}}</div>
+    <div>{{displayValue}}</div>
+    <ws:partial template="inputElement" on:blur="_blurHandler()" on:input="_inputHandler()"/>
+    <input id="focusOut"/>
+</div>

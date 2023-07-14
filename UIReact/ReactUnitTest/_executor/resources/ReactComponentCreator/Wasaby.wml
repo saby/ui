@@ -1,0 +1,5 @@
+<div>
+    <ReactUnitTest._executor.resources.ReactComponentCreator.ReactFnChildren>
+        {{ _rk('текст') }}
+    </ReactUnitTest._executor.resources.ReactComponentCreator.ReactFnChildren>
+</div>

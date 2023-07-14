@@ -1,0 +1,12 @@
+<div>
+   <div tabindex="{{ -1 }}" ws-autofocus="true">
+      <span>Пропускаем при активации</span>
+      <ReactUnitTest.Focus.Input inputId="insideTabIndexMinusOne" />
+   </div>
+   <div ws-autofocus="false">
+      <span>Пропускаем при активации</span>
+      <ReactUnitTest.Focus.Input inputId="insideWsAutoFocusFalse" />
+   </div>
+   <span>Can't focus it</span>
+   <ReactUnitTest.Focus.Simple name="autofocusChild" attr:ws-autofocus="true" />
+</div>
