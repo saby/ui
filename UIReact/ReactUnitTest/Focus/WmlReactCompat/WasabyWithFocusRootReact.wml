@@ -1,0 +1,3 @@
+<div attr:class="nowStanAsksAttributeOnRootTag">
+   <ReactUnitTest.Focus.WmlReactCompat.FocusRootReact attr:tabindex="1" attr:ws-autofocus="true" />
+</div>
