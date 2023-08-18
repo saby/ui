@@ -1,0 +1,14 @@
+<ws:template name="test">
+    <ReactUnitTest._base.resources.ControlTest.ClearAfterUnmount.ParentLinkInvisible isVisible="{{ true }}">
+        <ReactUnitTest._base.resources.ControlTest.ClearAfterUnmount.ParentLinkChild if="{{false}}" />
+    </ReactUnitTest._base.resources.ControlTest.ClearAfterUnmount.ParentLinkInvisible>
+</ws:template>
+
+<div>
+    <ws:if data="{{ showInvisible }}">
+        <ws:partial template="test" />
+    </ws:if>
+    <button id="showButton" on:click="showHandler()">
+        show
+    </button>
+</div>

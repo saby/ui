@@ -1,0 +1,40 @@
+<div>
+    <div>
+        <a
+                href="UIDemo/app/WasabyReact%2FChild"
+                target="_blank"
+                class="ws-flexbox ws-flex-column"
+        >
+            <UIDemo.EventDemo.Touch.Child />
+        </a>
+    </div>
+    <div>
+        <a
+                href="UIDemo/app/WasabyReact%2FChild"
+                target="_blank"
+                class="ws-flexbox ws-flex-column"
+                on:click="_blockEvent()"
+        >
+            <UIDemo.EventDemo.Touch.Child />
+        </a>
+    </div>
+    <div>
+        <a
+                href="UIDemo/app/WasabyReact%2FChild"
+                target="_blank"
+                class="ws-flexbox ws-flex-column"
+        >
+            only a
+        </a>
+    </div>
+    <div>
+        <a
+                href="UIDemo/app/WasabyReact%2FChild"
+                target="_blank"
+                class="ws-flexbox ws-flex-column"
+                on:click="_blockEvent()"
+        >
+            only a with prevent
+        </a>
+    </div>
+</div>

@@ -1,0 +1,244 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Подписки на контролы bind работает при вызове callback-функции из react 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      bind handler react control
+    </div>
+    <div
+      id="reactHOC"
+      tabindex="0"
+    >
+      bind call
+    </div>
+    <div
+      id="reactFunc"
+      tabindex="0"
+    >
+      bind call
+    </div>
+    <div>
+      <div
+        id="reactControl"
+      >
+        bind call
+      </div>
+    </div>
+    <div
+      id="wasabyBind"
+      tabindex="0"
+    >
+      bind call
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Подписки на контролы bind работает через react HOC 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      bind handler reactHOC
+    </div>
+    <div
+      id="reactHOC"
+      tabindex="0"
+    >
+      bind call
+    </div>
+    <div
+      id="reactFunc"
+      tabindex="0"
+    >
+      bind call
+    </div>
+    <div>
+      <div
+        id="reactControl"
+      >
+        bind call
+      </div>
+    </div>
+    <div
+      id="wasabyBind"
+      tabindex="0"
+    >
+      bind call
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Подписки на контролы bind работает через функциональный react компонент 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      bind handler reactFunc
+    </div>
+    <div
+      id="reactHOC"
+      tabindex="0"
+    >
+      bind call
+    </div>
+    <div
+      id="reactFunc"
+      tabindex="0"
+    >
+      bind call
+    </div>
+    <div>
+      <div
+        id="reactControl"
+      >
+        bind call
+      </div>
+    </div>
+    <div
+      id="wasabyBind"
+      tabindex="0"
+    >
+      bind call
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Подписки на контролы Передача customEvents в wasaby из react 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      <div>
+        newValue
+      </div>
+      <div
+        tabindex="0"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Подписки на контролы Передача null в event createElement 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      <div
+        tabindex="0"
+      >
+        wasaby
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Подписки на контролы вызов wasaby-обработчика из реакта с без передачи аргументов 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      myVal myVal1
+    </div>
+    <div>
+      <div
+        id="reactControlEvent"
+      >
+        React
+      </div>
+    </div>
+    <div>
+      <div
+        id="reactControlNoEvent"
+      >
+        React
+      </div>
+    </div>
+    <div>
+      <div
+        id="reactControlEmpty"
+      >
+        React
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Подписки на контролы вызов wasaby-обработчика из реакта с передачей события и аргументов 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      click reactVal reactVal1
+    </div>
+    <div>
+      <div
+        id="reactControlEvent"
+      >
+        React
+      </div>
+    </div>
+    <div>
+      <div
+        id="reactControlNoEvent"
+      >
+        React
+      </div>
+    </div>
+    <div>
+      <div
+        id="reactControlEmpty"
+      >
+        React
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Подписки на контролы вызов wasaby-обработчика из реакта с передачей только аргументов 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      reactVal reactVal1
+    </div>
+    <div>
+      <div
+        id="reactControlEvent"
+      >
+        React
+      </div>
+    </div>
+    <div>
+      <div
+        id="reactControlNoEvent"
+      >
+        React
+      </div>
+    </div>
+    <div>
+      <div
+        id="reactControlEmpty"
+      >
+        React
+      </div>
+    </div>
+  </div>
+</div>
+`;

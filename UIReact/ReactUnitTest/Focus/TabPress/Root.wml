@@ -1,0 +1,22 @@
+<ws:template name="inline">
+   <div id="inlineRoot">
+      <input id="thirdInputElement" type="text" />
+   </div>
+</ws:template>
+
+<div id="focusTabPress">
+   <div>
+      <ReactUnitTest.Focus.Input
+         inputId="firstInputElement"
+         attr:tabindex="1"
+      />
+      <div style="display: none;"></div>
+      <div>
+         <ReactUnitTest.Focus.Input
+            inputId="secondInputElement"
+            attr:tabindex="2"
+         />
+      </div>
+   </div>
+   <ws:partial attr:tabindex="3" template="inline" />
+</div>

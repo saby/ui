@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Вызов _beforeUpdate даже если не вызвался shouldComponentUpdate изменили реактивное свойство родителя, ребенок перестроился: 1. Построили с исходными данными 1`] = `
+<div>
+  <div
+    tabindex="0"
+  />
+</div>
+`;
+
+exports[`Вызов _beforeUpdate даже если не вызвался shouldComponentUpdate изменили реактивное свойство родителя, ребенок перестроился: 2. Всё перестроилось с новым состоянием 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    value
+  </div>
+</div>
+`;
