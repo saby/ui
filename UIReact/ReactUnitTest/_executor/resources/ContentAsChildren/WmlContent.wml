@@ -1,0 +1,12 @@
+<div>
+   <ws:if data="{{ _options.allowPatchContent }}">
+      <ReactUnitTest._executor.resources.ContentAsChildren.PatchChildrenInsert>
+         <ws:partial template="wml!ReactUnitTest/_executor/resources/ContentAsChildren/Wml" />
+      </ReactUnitTest._executor.resources.ContentAsChildren.PatchChildrenInsert>
+   </ws:if>
+   <ws:else>
+      <ReactUnitTest._executor.resources.ContentAsChildren.SimpleChildrenInsert>
+         <ws:partial template="wml!ReactUnitTest/_executor/resources/ContentAsChildren/Wml" />
+      </ReactUnitTest._executor.resources.ContentAsChildren.SimpleChildrenInsert>
+   </ws:else>
+</div>

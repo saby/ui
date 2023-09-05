@@ -1,0 +1,656 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WasabyReact Reactivity Использование внутреннего API реактивности Использование getArrayVersion() 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      init value 1,init value 2
+    </div>
+    <div>
+      1
+    </div>
+    <button
+      id="startPush"
+    >
+      push to array
+    </button>
+    <button
+      id="startUnshift"
+    >
+      unshift to array
+    </button>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity Использование внутреннего API реактивности Использование getArrayVersion() 2`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      init value 0,init value 1,init value 2
+    </div>
+    <div>
+      2
+    </div>
+    <button
+      id="startPush"
+    >
+      push to array
+    </button>
+    <button
+      id="startUnshift"
+    >
+      unshift to array
+    </button>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity Обновление invisible-node 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <invisible-node
+      class="ws-hidden"
+      tabindex="-1"
+    />
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity Обновление invisible-node 2`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      tabindex="0"
+    >
+      show
+    </div>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity Обновление запускается один раз для контрола, если изменили несколько свойств сразу 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      value: change value 
+    </div>
+    <div>
+      value1: change value 1 
+    </div>
+    <div>
+      value2: change value 2 
+    </div>
+    <button
+      id="startReactive"
+    >
+      start
+    </button>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity Сложная реактивность Бинд на значение должен срабатывать до изменения версии модели 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      value: model changed 
+    </div>
+    <div
+      tabindex="0"
+    >
+      <div
+        tabindex="0"
+      >
+        <div>
+          model changed
+        </div>
+        <div>
+          init
+        </div>
+        <button
+          id="startReactive"
+        >
+          start
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity Сложная реактивность Вызов _afterMount у синхронного и асинхронного соседа: 1. Синхронный ребёнок отрисовался. 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      <div
+        name="$$wasaby$async$loading"
+      />
+    </div>
+    <div>
+      <div
+        tabindex="0"
+      >
+        I'm just a child
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity Сложная реактивность Вызов _afterMount у синхронного и асинхронного соседа: 2. Асинхронный ребёнок отрисовался, и только сейчас позвались все хуки 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      <div
+        tabindex="0"
+      >
+        I'm async child
+      </div>
+    </div>
+    <div>
+      <div
+        tabindex="0"
+      >
+        I'm just a child
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity Сложная реактивность Изменение значения поля ввода авто дополняется 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      1
+    </div>
+    <div>
+      10000
+    </div>
+    <input
+      id="inputField"
+      tabindex="0"
+    />
+    <input
+      id="focusOut"
+    />
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity Сложная реактивность Изменение значения реактивной модели 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      tabindex="0"
+    >
+      <div
+        tabindex="0"
+      >
+        <div>
+          model changed
+        </div>
+        <div>
+          init
+        </div>
+        <button
+          id="startReactive"
+        >
+          start
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity Сложная реактивность Изменение реактивного значения в контентной опции с биндом на текущий scope 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div
+    tabindex="0"
+  >
+    text
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity Сложная реактивность Изменение стейта живого родителя по время оживления асинхронного ребёнка: 1. Несмотря на то, что стейт обновился, родитель не перерисовался. 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      My state is "one"
+    </div>
+    <div>
+      <div
+        name="$$wasaby$async$loading"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity Сложная реактивность Изменение стейта живого родителя по время оживления асинхронного ребёнка: 2. Асинхронный ребёнок отрисовался. Изменённый стейт пока ещё нет. 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      My state is "one"
+    </div>
+    <div>
+      <div
+        tabindex="0"
+      >
+        I'm just a child
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity Сложная реактивность Изменение стейта живого родителя по время оживления асинхронного ребёнка: 3. Перерисовался стейт родителя. 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      My state is "two"
+    </div>
+    <div>
+      <div
+        tabindex="0"
+      >
+        I'm just a child
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity Сложная реактивность ручной вызов _forceUpdate в процессе запущенной синхронизации 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div
+    tabindex="0"
+  >
+    0
+    <button
+      id="ControlChildReactive"
+    />
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity есть изменений если меняется новые reactiveValues 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    template 2 changed
+    <button
+      id="startValueOneChange"
+    >
+      change value
+    </button>
+    <button
+      id="startValueTwoChange"
+    >
+      change value
+    </button>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity изменение версии вызывает перерисовку 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      version: 1
+    </div>
+    <div>
+      value: init value
+    </div>
+    <button
+      id="start"
+    >
+      next version
+    </button>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity изменение опции вызывает перерисовку - версионируемый объект 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      version: 1
+    </div>
+    <div>
+      value: change value
+    </div>
+    <div
+      tabindex="0"
+    >
+      <div>
+        version: 1
+      </div>
+      <div>
+        value: change value
+      </div>
+    </div>
+    <button
+      id="start"
+    >
+      next version
+    </button>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity изменение опции вызывает перерисовку - массив 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      init value 1
+    </div>
+    <div>
+      init value 2
+    </div>
+    <div
+      tabindex="0"
+    >
+      <div>
+        init value 1
+      </div>
+      <div>
+        init value 2
+      </div>
+    </div>
+    <button
+      id="startPush"
+    >
+      push to array
+    </button>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity изменение опции вызывает перерисовку 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      value: new value 
+    </div>
+    <div
+      tabindex="0"
+    >
+      _options.value: new value
+    </div>
+    <button
+      id="start"
+    >
+      change value
+    </button>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity изменение реактивного массива вызывает перерисовку 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      init value 1
+    </div>
+    <div>
+      init value 2
+    </div>
+    <button
+      id="startPush"
+    >
+      push to array
+    </button>
+    <button
+      id="startUnshift"
+    >
+      unshift to array
+    </button>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity изменение реактивного массива вызывает перерисовку 2`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      init value 0
+    </div>
+    <div>
+      init value 1
+    </div>
+    <div>
+      init value 2
+    </div>
+    <button
+      id="startPush"
+    >
+      push to array
+    </button>
+    <button
+      id="startUnshift"
+    >
+      unshift to array
+    </button>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity изменение реактивного свойства в _beforeUpdate не вызывает перерисовку 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      value: new value 0 
+    </div>
+    <button
+      id="start"
+    >
+      start
+    </button>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity изменение реактивного свойства вызывает перерисовку 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      value: new value 
+    </div>
+    <button
+      id="start"
+    >
+      start
+    </button>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity нет изменений если меняется старые reactiveValues 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    template 2
+    <button
+      id="startValueOneChange"
+    >
+      change value
+    </button>
+    <button
+      id="startValueTwoChange"
+    >
+      change value
+    </button>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity освобождение реактивных свойств переданных по ссылке 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      tabindex="0"
+    >
+      2
+    </div>
+    <button
+      id="changeBtn"
+    >
+      change value
+    </button>
+    <button
+      id="toggleBtn"
+    >
+      toggle child
+    </button>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Reactivity перерисовка с пользовательским геттером и сеттером 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      value: new value!
+    </div>
+    <button
+      id="start"
+    >
+      change value
+    </button>
+  </div>
+</div>
+`;
+
+exports[`WasabyReactivity for clear react Классовый компонент: 1. Рекорда ещё нет 1`] = `
+<div>
+  <div>
+    <div>
+      1
+    </div>
+    <div>
+      no record
+    </div>
+  </div>
+</div>
+`;
+
+exports[`WasabyReactivity for clear react Классовый компонент: 2. Компонент получил рекорд через API 1`] = `
+<div>
+  <div>
+    <div>
+      2
+    </div>
+    <div>
+      first text
+    </div>
+  </div>
+</div>
+`;
+
+exports[`WasabyReactivity for clear react Классовый компонент: 3. Компонент перерисовался после изменения содержимого рекорда 1`] = `
+<div>
+  <div>
+    <div>
+      3
+    </div>
+    <div>
+      second text
+    </div>
+  </div>
+</div>
+`;
+
+exports[`WasabyReactivity for clear react Фунцкиональный компонент: 1. Рекорда ещё нет 1`] = `
+<div>
+  <div>
+    <div>
+      1
+    </div>
+    <div>
+      no record
+    </div>
+  </div>
+</div>
+`;
+
+exports[`WasabyReactivity for clear react Фунцкиональный компонент: 2. Компонент получил рекорд через API 1`] = `
+<div>
+  <div>
+    <div>
+      2
+    </div>
+    <div>
+      first text
+    </div>
+  </div>
+</div>
+`;
+
+exports[`WasabyReactivity for clear react Фунцкиональный компонент: 3. Компонент перерисовался после изменения содержимого рекорда 1`] = `
+<div>
+  <div>
+    <div>
+      3
+    </div>
+    <div>
+      second text
+    </div>
+  </div>
+</div>
+`;
