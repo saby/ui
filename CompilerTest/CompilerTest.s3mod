@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ui_module id="67bf645b-207a-4e83-b1d8-41e8c51d3943" name="CompilerTest" package="Wasaby" version="1.00">
+
+  <description/>
+
+  <depends>
+      <module id="1456f36f-76ef-4323-a2dd-a22bc91e7209" name="Compiler" />
+  </depends>
+
+  <load_after/>
+
+  <parameters/>
+
+  <test environment="NodeJS" framework="Jest" />
+
+  <resources/>
+
+  <typescript>
+    <arg key="typecheck" value="0"/>
+  </typescript>
+</ui_module>

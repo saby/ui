@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`adaptiveAspects cookie invalid 1`] = `
+"{
+ \\"_aspects\\": {
+  \\"windowInnerWidth\\": 1024,
+  \\"windowInnerHeight\\": 768,
+  \\"containerClientWidth\\": 1024,
+  \\"containerClientHeight\\": 768
+ },
+ \\"width\\": {
+  \\"value\\": 1024,
+  \\"valueMayBeIncorrect\\": true
+ },
+ \\"height\\": {
+  \\"value\\": 768,
+  \\"valueMayBeIncorrect\\": true
+ },
+ \\"container\\": {
+  \\"clientWidth\\": {
+   \\"value\\": 1024,
+   \\"valueMayBeIncorrect\\": true
+  },
+  \\"clientHeight\\": {
+   \\"value\\": 768,
+   \\"valueMayBeIncorrect\\": true
+  }
+ },
+ \\"window\\": {
+  \\"innerWidth\\": {
+   \\"value\\": 1024,
+   \\"valueMayBeIncorrect\\": true
+  },
+  \\"innerHeight\\": {
+   \\"value\\": 768,
+   \\"valueMayBeIncorrect\\": true
+  }
+ },
+ \\"orientation\\": {},
+ \\"device\\": {
+  \\"_isPhone\\": false,
+  \\"_isTablet\\": false
+ }
+}"
+`;
+
+exports[`adaptiveAspects cookie valid 1`] = `
+"{
+ \\"_aspects\\": {
+  \\"windowInnerWidth\\": 31415,
+  \\"windowInnerHeight\\": 31415,
+  \\"containerClientWidth\\": 1024,
+  \\"containerClientHeight\\": 768
+ },
+ \\"width\\": {
+  \\"value\\": 1024,
+  \\"valueMayBeIncorrect\\": false
+ },
+ \\"height\\": {
+  \\"value\\": 768,
+  \\"valueMayBeIncorrect\\": false
+ },
+ \\"container\\": {
+  \\"clientWidth\\": {
+   \\"value\\": 1024,
+   \\"valueMayBeIncorrect\\": false
+  },
+  \\"clientHeight\\": {
+   \\"value\\": 768,
+   \\"valueMayBeIncorrect\\": false
+  }
+ },
+ \\"window\\": {
+  \\"innerWidth\\": {
+   \\"value\\": 31415,
+   \\"valueMayBeIncorrect\\": false
+  },
+  \\"innerHeight\\": {
+   \\"value\\": 31415,
+   \\"valueMayBeIncorrect\\": false
+  }
+ },
+ \\"orientation\\": {},
+ \\"device\\": {
+  \\"_isPhone\\": false,
+  \\"_isTablet\\": false,
+  \\"_isTouch\\": true
+ }
+}"
+`;

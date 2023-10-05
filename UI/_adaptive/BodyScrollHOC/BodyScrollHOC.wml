@@ -1,0 +1,7 @@
+<ws:partial
+    template="{{ _options.content }}"
+    scope="{{ _options }}"
+    name="content"
+    on:createChildrenScroll="handlerCreate()"
+    on:destroyChildrenScroll="handlerRemove()"
+/>

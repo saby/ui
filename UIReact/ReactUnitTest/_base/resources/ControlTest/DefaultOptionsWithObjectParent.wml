@@ -1,0 +1,4 @@
+<div>
+   <div>{{ value }}</div>
+   <ReactUnitTest._base.resources.ControlTest.DefaultOptionsWithObject />
+</div>

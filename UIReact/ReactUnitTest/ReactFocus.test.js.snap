@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReactFocus UI/Focus:FocusRoot FocusArea докидывает свои пропсы только до ближайшего FocusRoot, ниже они не спускаются 1`] = `
+<div>
+  <div>
+    <div
+      class="expectFocusAreaTabIndex"
+      tabindex="1"
+      ws-autofocus="true"
+    >
+      <div
+        class="expectDefaultTabIndex"
+        tabindex="0"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ReactFocus UI/Focus:FocusRoot При обновлении FocusRoot не теряются полученные из FocusArea пропсы: 1. Первая отрисовка, пропсы из FocusArea долетели до FocusRoot 1`] = `
+<div>
+  <div>
+    <div>
+      <div
+        class="a"
+        id="elementToClick"
+        tabindex="1"
+        ws-autofocus="true"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ReactFocus UI/Focus:FocusRoot При обновлении FocusRoot не теряются полученные из FocusArea пропсы: 2. FocusRoot обновился, пропсы из FocusArea не пропали 1`] = `
+<div>
+  <div>
+    <div>
+      <div
+        class="aa"
+        id="elementToClick"
+        tabindex="1"
+        ws-autofocus="true"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ReactFocus wml-react совместимость фокус-атрибуты из wml долетают до FocusRoot в реакте 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div
+    class="nowStanAsksAttributeOnRootTag"
+  >
+    <div
+      class="notFocusRoot"
+    >
+      <div
+        class="focusRootInReact"
+        tabindex="1"
+        ws-autofocus="true"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ReactFocus Восстановление фокуса при восстановлении фокуса корректно обрабатывается чистый реакт компонент опенер 1`] = `
+Array [
+  "ReactUnitTest/Focus/Input",
+  "ReactUnitTest/Focus/HOC",
+  "ReactUnitTest/Focus/RestoreFocus/Root",
+  "ReactOpener",
+  "ReactUnitTest/Focus/HOC",
+  "ReactUnitTest/Focus/RestoreFocus/RootWithReactOpener",
+]
+`;

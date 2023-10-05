@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Compiler/_ir/Serializer check content option 1`] = `"<div>first root content option</div><div>second root content option</div><div>third root content option</div>"`;

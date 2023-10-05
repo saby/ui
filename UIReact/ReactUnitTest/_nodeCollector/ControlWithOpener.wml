@@ -1,0 +1,3 @@
+<div class="someClass">
+   <ReactUnitTest._nodeCollector.LowerOpener setOpener="{{ _options.setOpener }}" />
+</div>
