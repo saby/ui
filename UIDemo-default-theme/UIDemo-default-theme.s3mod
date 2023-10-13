@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui_module for_cdn="0" id="981002dc-65bb-40bc-8489-a18683d011fc" kaizen_zone="ac7fdb9c-1706-4d4d-80e8-dc9fb94151ba" name="UIDemo-default-theme" package="Wasaby" required="0" responsible="Мустафин Л.И." version="1.00">
+
+  <description/>
+
+  <depends/>
+
+  <load_after/>
+
+  <parameters/>
+
+  <resources/>
+
+  <preload/>
+
+  <typescript>
+    <arg key="typecheck" value="0"/>
+  </typescript>
+</ui_module>
