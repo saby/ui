@@ -1,0 +1,3078 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check code generation for mutable decorators should generate mutable binding 1 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        bindings: [
+                            {
+                                fieldName: \\"propertyName\\",
+                                propName: \\"optionName\\",
+                                propPath: [],
+                                fullPropName: \\"optionName\\",
+                                propPathStr: \\"\\",
+                                oneWay: false,
+                                direction: \\"fromContext\\",
+                                bindNonExistent: true
+                            }
+                        ],
+                        optionName: generator.evalExpression(context, /* \\"propertyName\\" | mutable: object.property */ 0)
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"object\\", \\"property\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check code generation for mutable decorators should generate mutable binding 2 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        bindings: [
+                            {
+                                fieldName: \\"propertyName\\",
+                                propName: \\"optionName\\",
+                                propPath: [],
+                                fullPropName: \\"optionName\\",
+                                propPathStr: \\"\\",
+                                oneWay: false,
+                                direction: \\"fromContext\\",
+                                bindNonExistent: true
+                            }
+                        ],
+                        optionName: [\\"first\\", \\"second\\"]
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check code generation for mutable decorators should generate mutable binding 3 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        bindings: [
+                            {
+                                fieldName: \\"\\" + generator.evalExpression(context, /* (\\"String/\\" + name + \\"Value\\") */ 1),
+                                propName: \\"optionName\\",
+                                propPath: [],
+                                fullPropName: \\"optionName\\",
+                                propPathStr: \\"\\",
+                                oneWay: false,
+                                direction: \\"fromContext\\",
+                                bindNonExistent: false
+                            }
+                        ],
+                        name: generator.evalExpression(context, /* name */ 0),
+                        optionName: undefined
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"name\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"name\\"])),
+        /* 1 */ (methods, data) => ((\\"String/\\" + methods.getter(data, [\\"name\\"]) + \\"Value\\"))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check code generation for mutable decorators should generate mutable binding 4 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        bindings: [
+                            {
+                                fieldName: \\"propertyName\\",
+                                propName: \\"optionName\\",
+                                propPath: [],
+                                fullPropName: \\"optionName\\",
+                                propPathStr: \\"\\",
+                                oneWay: false,
+                                direction: \\"fromContext\\",
+                                bindNonExistent: true
+                            }
+                        ],
+                        name: \\"componentName\\",
+                        optionName: \\"initialValue\\"
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check code generation for mutable decorators should generate mutable binding 5 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        bindings: [
+                            {
+                                fieldName: \\"object.property\\",
+                                propName: \\"optionName\\",
+                                propPath: [],
+                                fullPropName: \\"optionName\\",
+                                propPathStr: \\"\\",
+                                oneWay: false,
+                                direction: \\"fromContext\\",
+                                bindNonExistent: false
+                            }
+                        ],
+                        optionName: undefined
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check code generation for mutable decorators should generate mutable binding 6 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        bindings: [
+                            {
+                                fieldName: \\"propertyName\\",
+                                propName: \\"option/0\\",
+                                propPath: [\\"0\\"],
+                                fullPropName: \\"option/0\\",
+                                propPathStr: \\"0\\",
+                                oneWay: false,
+                                direction: \\"fromContext\\",
+                                bindNonExistent: true
+                            }
+                        ],
+                        option: [
+                            \\"\\" + generator.evalExpression(context, /* \\"propertyName\\" | mutable: initialValue */ 0)
+                        ]
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"initialValue\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check code generation for mutable decorators should generate mutable binding 7 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        bindings: [
+                            {
+                                fieldName: \\"object/property\\",
+                                propName: \\"option/0/value\\",
+                                propPath: [\\"0\\", \\"value\\"],
+                                fullPropName: \\"option/0/value\\",
+                                propPathStr: \\"0/value\\",
+                                oneWay: false,
+                                direction: \\"fromContext\\",
+                                bindNonExistent: false
+                            }
+                        ],
+                        option: [
+                            {
+                                value: undefined
+                            }
+                        ]
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check code generation for mutable decorators should generate mutable binding 8 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        bindings: [
+                            {
+                                fieldName: \\"propertyName\\",
+                                propName: \\"option/0\\",
+                                propPath: [\\"0\\"],
+                                fullPropName: \\"option/0\\",
+                                propPathStr: \\"0\\",
+                                oneWay: false,
+                                direction: \\"fromContext\\",
+                                bindNonExistent: false
+                            }
+                        ],
+                        option: [
+                            false
+                        ]
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check code generation for mutable decorators should generate mutable binding 9 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        bindings: [
+                            {
+                                fieldName: \\"propertyName\\",
+                                propName: \\"option/0\\",
+                                propPath: [\\"0\\"],
+                                fullPropName: \\"option/0\\",
+                                propPathStr: \\"0\\",
+                                oneWay: false,
+                                direction: \\"fromContext\\",
+                                bindNonExistent: false
+                            }
+                        ],
+                        option: [
+                            0
+                        ]
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check code generation for mutable decorators should generate mutable binding 10 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        bindings: [
+                            {
+                                fieldName: \\"propertyName\\",
+                                propName: \\"option/0\\",
+                                propPath: [\\"0\\"],
+                                fullPropName: \\"option/0\\",
+                                propPathStr: \\"0\\",
+                                oneWay: false,
+                                direction: \\"fromContext\\",
+                                bindNonExistent: false
+                            }
+                        ],
+                        option: [
+                            \\"\\"
+                        ]
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check component merge type should be attribute for component in root 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check component merge type should be attribute for dynamic partial in root 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createPartial(
+                context,
+                generator.evalExpression(context, /* tmpl */ 0),
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"tmpl\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"tmpl\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check component merge type should be attribute for static partial in root 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"wml!A/b\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTemplate(
+                context,
+                \\"wml!A/b\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check component merge type should be context for component in element 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTag(
+                context,
+                \\"div\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* isRootElementNode */ r: true,
+                    /* isContainerNode */ c: true
+                },
+                [
+                    generator.createControl(
+                        context,
+                        \\"ws:UI/Component\\",
+                        {
+                            /* key */ K: \\"0_0_\\"
+                        }
+                    )
+                ]
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check component merge type should be context for static partial in element 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"wml!A/b\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTag(
+                context,
+                \\"div\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* isRootElementNode */ r: true,
+                    /* isContainerNode */ c: true
+                },
+                [
+                    generator.createTemplate(
+                        context,
+                        \\"wml!A/b\\",
+                        {
+                            /* key */ K: \\"0_0_\\"
+                        }
+                    )
+                ]
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check component merge type should be none for dynamic partial in element 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTag(
+                context,
+                \\"div\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* isRootElementNode */ r: true,
+                    /* isContainerNode */ c: true
+                },
+                [
+                    generator.createPartial(
+                        context,
+                        generator.evalExpression(context, /* tmpl */ 0),
+                        {
+                            /* key */ K: \\"0_0_\\",
+                            /* mergeType */ m: \\"none\\"
+                        }
+                    )
+                ]
+            )
+        ]))
+    ],
+    p: [\\"tmpl\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"tmpl\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check scope option should generate scope option as option for component 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        scope: {
+                            value: generator.evalExpression(context, /* value */ 0)
+                        }
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"scope\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"value\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"value\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check scope option should generate scope option for component 1 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: generator.evalDefaultScope(context, {
+                        option: generator.evalExpression(context, /* value */ 1)
+                    }),
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true,
+                    /* internalsMetaId */ i: 0
+                }
+            )
+        ]))
+    ],
+    p: [\\"value\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.dots(data)),
+        /* 1 */ (methods, data) => (methods.getter(data, [\\"value\\"]))
+    ],
+    i: [
+        /* 0 */ [[0]]
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check scope option should generate scope option for component 2 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: generator.evalScope(context, {
+                        option: generator.evalExpression(context, /* value */ 1)
+                    }, generator.evalExpression(context, /* customScope */ 0)),
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true,
+                    /* internalsMetaId */ i: 0
+                }
+            )
+        ]))
+    ],
+    p: [\\"customScope\\", \\"value\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"customScope\\"])),
+        /* 1 */ (methods, data) => (methods.getter(data, [\\"value\\"]))
+    ],
+    i: [
+        /* 0 */ [[0]]
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check scope option should generate scope option for component 3 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: generator.evalOptionsScope(context, {
+                        option: generator.evalExpression(context, /* value */ 1)
+                    }, generator.evalExpression(context, /* _options */ 0)),
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true,
+                    /* internalsMetaId */ i: 0
+                }
+            )
+        ]))
+    ],
+    p: [\\"value\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"_options\\"])),
+        /* 1 */ (methods, data) => (methods.getter(data, [\\"value\\"]))
+    ],
+    i: [
+        /* 0 */ [[0]]
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check scope option should generate scope option for partial 1 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createPartial(
+                context,
+                generator.evalExpression(context, /* tmpl */ 0),
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: generator.evalDefaultScope(context, {
+                        option: generator.evalExpression(context, /* value */ 2)
+                    }),
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true,
+                    /* internalsMetaId */ i: 0
+                }
+            )
+        ]))
+    ],
+    p: [\\"value\\", \\"tmpl\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"tmpl\\"])),
+        /* 1 */ (methods, data) => (methods.dots(data)),
+        /* 2 */ (methods, data) => (methods.getter(data, [\\"value\\"]))
+    ],
+    i: [
+        /* 0 */ [[1]]
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check scope option should generate scope option for partial 2 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createPartial(
+                context,
+                generator.evalExpression(context, /* tmpl */ 0),
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: generator.evalScope(context, {
+                        option: generator.evalExpression(context, /* value */ 2)
+                    }, generator.evalExpression(context, /* customScope */ 1)),
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true,
+                    /* internalsMetaId */ i: 0
+                }
+            )
+        ]))
+    ],
+    p: [\\"customScope\\", \\"value\\", \\"tmpl\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"tmpl\\"])),
+        /* 1 */ (methods, data) => (methods.getter(data, [\\"customScope\\"])),
+        /* 2 */ (methods, data) => (methods.getter(data, [\\"value\\"]))
+    ],
+    i: [
+        /* 0 */ [[1]]
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components check scope option should generate scope option for partial 3 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createPartial(
+                context,
+                generator.evalExpression(context, /* tmpl */ 0),
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: generator.evalScope(context, {
+                        option: generator.evalExpression(context, /* value */ 1)
+                    }, { a: 123, b: [1, 2, 3] }),
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true,
+                    /* internalsMetaId */ i: 0
+                }
+            )
+        ]))
+    ],
+    p: [\\"a\\", \\"b\\", \\"value\\", \\"tmpl\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"tmpl\\"])),
+        /* 1 */ (methods, data) => (methods.getter(data, [\\"value\\"])),
+        /* 2 */ () => ({ a: 123, b: [1, 2, 3] })
+    ],
+    i: [
+        /* 0 */ [[2]]
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate attributes and options 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* attributes */ A: {
+                        tabindex: \\"1\\"
+                    },
+                    /* options */ O: {
+                        option: generator.evalExpression(context, /* value */ 0)
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"value\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"value\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate bind handler 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* events */ E: {
+                        \\"on:optionchanged\\": [{
+                            value: \\"optionChanged\\",
+                            originalName: \\"bind:option\\",
+                            viewController: context.v,
+                            data: context.d,
+                            handler: generator.closeBindExpression(context, /* customOption */ 0),
+                            isControl: true,
+                            bindValue: \\"customOption\\"
+                        }],
+                        meta: {
+                            isControl: true,
+                            context: defaultContextGetterFunction,
+                            handler: generator.closeExpression(context, /* defaultEventHandlerGetter */ 1)
+                        }
+                    },
+                    /* options */ O: {
+                        option: generator.evalExpression(context, /* customOption */ 2)
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true,
+                    /* internalsMetaId */ i: 0
+                }
+            )
+        ]))
+    ],
+    p: [\\"customOption\\"],
+    e: [
+        /* 0 */ (methods, data, funcContext, context, children, value) => (methods.setter(data, [\\"customOption\\"], value)),
+        /* 1 */ function(methods, data, funcContext, context, children, handlerName) { return methods.getter(this, [handlerName]); },
+        /* 2 */ (methods, data) => (methods.getter(data, [\\"customOption\\"]))
+    ],
+    i: [
+        /* 0 */ [[2]]
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate bind handler 2 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Lib\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                {
+                    library: \\"UI/Lib\\",
+                    module: [\\"Component\\"]
+                },
+                {
+                    /* key */ K: \\"0_\\",
+                    /* events */ E: {
+                        \\"on:optionchanged\\": [{
+                            value: \\"optionChanged\\",
+                            originalName: \\"bind:option\\",
+                            viewController: context.v,
+                            data: context.d,
+                            handler: generator.closeBindExpression(context, /* object.property.value */ 0),
+                            isControl: false,
+                            bindValue: \\"object.property.value\\"
+                        }],
+                        meta: {
+                            isControl: false,
+                            context: defaultContextGetterFunction,
+                            handler: generator.closeExpression(context, /* defaultEventHandlerGetter */ 1)
+                        }
+                    },
+                    /* options */ O: {
+                        option: generator.evalExpression(context, /* object.property.value */ 2)
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true,
+                    /* internalsMetaId */ i: 0
+                }
+            )
+        ]))
+    ],
+    p: [\\"object\\"],
+    e: [
+        /* 0 */ (methods, data, funcContext, context, children, value) => (methods.setter(data, [\\"object\\", \\"property\\", \\"value\\"], value)),
+        /* 1 */ function(methods, data, funcContext, context, children, handlerName) { return methods.getter(this, [handlerName]); },
+        /* 2 */ (methods, data) => (methods.getter(data, [\\"object\\", \\"property\\", \\"value\\"])),
+        /* 3 */ (methods, data) => (methods.getter(data, [\\"object\\", \\"property\\"]))
+    ],
+    i: [
+        /* 0 */ [[2, 3]]
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate composite attributes 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* attributes */ A: {
+                        attributes: generator.escape(generator.evalExpression(context, /* componentAttributes */ 0))
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"componentAttributes\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"componentAttributes\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate composite attributes 2 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* compositeAttributes */ a: generator.evalExpression(context, /* componentAttributes */ 0),
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"componentAttributes\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"componentAttributes\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate content option 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapContentBody((generator, context) => ([
+            generator.createTag(
+                context,
+                \\"div\\",
+                {
+                    /* key */ K: \\"0_0_0_\\",
+                    /* isRootElementNode */ r: true
+                },
+                [
+                    generator.createText(
+                        \\"Hello, world!\\",
+                        \\"0_0_0_0_\\"
+                    )
+                ]
+            )
+        ]), \\"option\\"),
+        /* 1 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: generator.createContentOption(context, 0)
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate dynamic partial 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createPartial(
+                context,
+                generator.evalExpression(context, /* template */ 0),
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"template\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"template\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate event handler 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* events */ E: {
+                        \\"on:customevent\\": [{
+                            value: \\"_handler\\",
+                            originalName: \\"customEvent\\",
+                            viewController: context.v,
+                            args: [true, generator.evalExpression(context, /* arg */ 0)]
+                        }],
+                        meta: {
+                            isControl: true,
+                            context: defaultContextGetterFunction,
+                            handler: generator.closeExpression(context, /* defaultEventHandlerGetter */ 1)
+                        }
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"_handler\\", \\"arg\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"arg\\"])),
+        /* 1 */ function(methods, data, funcContext, context, children, handlerName) { return methods.getter(this, [handlerName]); }
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate event handler with child 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* events */ E: {
+                        \\"on:customevent\\": [{
+                            value: \\"handler\\",
+                            originalName: \\"customEvent\\",
+                            viewController: context.v,
+                            args: [true, generator.evalExpression(context, /* childName.value */ 0)],
+                            context: generator.closeExpression(context, 1),
+                            handler: generator.closeExpression(context, 2)
+                        }],
+                        meta: {
+                            isControl: true,
+                            context: defaultContextGetterFunction,
+                            handler: generator.closeExpression(context, /* defaultEventHandlerGetter */ 3)
+                        }
+                    },
+                    /* options */ O: {
+                        name: \\"childName\\"
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"childName\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"childName\\", \\"value\\"])),
+        /* 1 */ (methods, data, funcContext, context, children) => (methods.getter(children, [\\"childName\\"])),
+        /* 2 */ (methods, data, funcContext, context, children) => (methods.getter(children, [\\"childName\\", \\"handler\\"])),
+        /* 3 */ function(methods, data, funcContext, context, children, handlerName) { return methods.getter(this, [handlerName]); }
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate event handlers chain 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* events */ E: {
+                        \\"on:valuechanged\\": [{
+                            value: \\"valueChanged\\",
+                            originalName: \\"bind:value\\",
+                            viewController: context.v,
+                            data: context.d,
+                            handler: generator.closeBindExpression(context, /* _customValue */ 2),
+                            isControl: true,
+                            bindValue: \\"_customValue\\"
+                        }, {
+                            value: \\"_handler\\",
+                            originalName: \\"valueChanged\\",
+                            viewController: context.v,
+                            args: [generator.evalExpression(context, /* arg */ 0)]
+                        }],
+                        meta: {
+                            isControl: true,
+                            context: defaultContextGetterFunction,
+                            handler: generator.closeExpression(context, /* defaultEventHandlerGetter */ 1)
+                        }
+                    },
+                    /* options */ O: {
+                        value: generator.evalExpression(context, /* _customValue */ 3)
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true,
+                    /* internalsMetaId */ i: 0
+                }
+            )
+        ]))
+    ],
+    p: [\\"_handler\\", \\"arg\\", \\"_customValue\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"arg\\"])),
+        /* 1 */ function(methods, data, funcContext, context, children, handlerName) { return methods.getter(this, [handlerName]); },
+        /* 2 */ (methods, data, funcContext, context, children, value) => (methods.setter(data, [\\"_customValue\\"], value)),
+        /* 3 */ (methods, data) => (methods.getter(data, [\\"_customValue\\"]))
+    ],
+    i: [
+        /* 0 */ [[3]]
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate inline template 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapTemplateBody(\\"inline\\", (generator, context) => ([
+            generator.createTag(
+                context,
+                \\"span\\",
+                {
+                    /* key */ K: \\"0_0_\\",
+                    /* isRootElementNode */ r: true
+                },
+                [
+                    generator.createText(
+                        rk(\\"Hello, world!\\"),
+                        \\"0_0_0_\\"
+                    )
+                ]
+            )
+        ])),
+        /* 1 */ IR.wrapRootBody((generator, context) => ([
+            generator.createInline(
+                context,
+                /* inline */ 0,
+                {
+                    /* key */ K: \\"1_\\",
+                    /* isRootElementNode */ r: true,
+                    /* mergeType */ m: \\"attribute\\",
+                    /* refForContainer */ f: true,
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate library component 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"A/B\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                {
+                    library: \\"A/B\\",
+                    module: [\\"c\\", \\"d\\"]
+                },
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate simple component 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"A/B/C\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:A/B/C\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate static partial 1 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"A/B\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createPartial(
+                context,
+                {
+                    library: \\"A/B\\",
+                    module: [\\"c\\", \\"d\\"]
+                },
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate static partial 2 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"wml!A/b/c\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTemplate(
+                context,
+                \\"wml!A/b/c\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate static partial 3 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"tmpl!A/b/c\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTemplate(
+                context,
+                \\"tmpl!A/b/c\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate static partial 4 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"html!A/b/c\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTemplate(
+                context,
+                \\"html!A/b/c\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate static partial 5 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"js!A/b/c\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:A/b/c\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate static partial 6 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"A/b/c\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:A/b/c\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate static partial 7 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"optional!wml!A/b/c\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:optional!wml!A/b/c\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate static partial 8 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"optional!tmpl!A/b/c\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTemplate(
+                context,
+                \\"optional!tmpl!A/b/c\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate static partial 9 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"optional!html!A/b/c\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:optional!html!A/b/c\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate static partial 10 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"optional!js!A/b/c\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:optional!js!A/b/c\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for components should generate static partial 11 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"optional!A/b/c\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:optional!A/b/c\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for conditional chains should generate elif chain 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.evalExpression(context, /* ifCondition */ 0)
+                ? [
+                    generator.createTag(
+                        context,
+                        \\"div\\",
+                        {
+                            /* key */ K: \\"0_0_\\",
+                            /* isRootElementNode */ r: true,
+                            /* isContainerNode */ c: true
+                        },
+                        [
+                            generator.createText(
+                                rk(\\"if block\\"),
+                                \\"0_0_0_\\"
+                            )
+                        ]
+                    )
+                ]
+                : generator.evalExpression(context, /* elifCondition */ 1)
+                ? [
+                    generator.createTag(
+                        context,
+                        \\"div\\",
+                        {
+                            /* key */ K: \\"1_0_\\",
+                            /* isRootElementNode */ r: true,
+                            /* isContainerNode */ c: true
+                        },
+                        [
+                            generator.createText(
+                                rk(\\"elif block\\"),
+                                \\"1_0_0_\\"
+                            )
+                        ]
+                    )
+                ]
+                : generator.createText()
+        ]))
+    ],
+    p: [\\"ifCondition\\", \\"elifCondition\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"ifCondition\\"])),
+        /* 1 */ (methods, data) => (methods.getter(data, [\\"elifCondition\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for conditional chains should generate else chain 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.evalExpression(context, /* ifCondition */ 0)
+                ? [
+                    generator.createTag(
+                        context,
+                        \\"div\\",
+                        {
+                            /* key */ K: \\"0_0_\\",
+                            /* isRootElementNode */ r: true,
+                            /* isContainerNode */ c: true
+                        },
+                        [
+                            generator.createText(
+                                rk(\\"if block\\"),
+                                \\"0_0_0_\\"
+                            )
+                        ]
+                    )
+                ]
+                : generator.evalExpression(context, /* elifCondition */ 1)
+                ? [
+                    generator.createTag(
+                        context,
+                        \\"div\\",
+                        {
+                            /* key */ K: \\"1_0_\\",
+                            /* isRootElementNode */ r: true,
+                            /* isContainerNode */ c: true
+                        },
+                        [
+                            generator.createText(
+                                rk(\\"elif block\\"),
+                                \\"1_0_0_\\"
+                            )
+                        ]
+                    )
+                ]
+                : [
+                    generator.createTag(
+                        context,
+                        \\"div\\",
+                        {
+                            /* key */ K: \\"2_0_\\",
+                            /* isRootElementNode */ r: true,
+                            /* isContainerNode */ c: true
+                        },
+                        [
+                            generator.createText(
+                                rk(\\"else block\\"),
+                                \\"2_0_0_\\"
+                            )
+                        ]
+                    )
+                ]
+        ]))
+    ],
+    p: [\\"ifCondition\\", \\"elifCondition\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"ifCondition\\"])),
+        /* 1 */ (methods, data) => (methods.getter(data, [\\"elifCondition\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for conditional chains should generate if chain 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.evalExpression(context, /* ifCondition */ 0)
+                ? [
+                    generator.createTag(
+                        context,
+                        \\"div\\",
+                        {
+                            /* key */ K: \\"0_0_\\",
+                            /* isRootElementNode */ r: true,
+                            /* isContainerNode */ c: true
+                        },
+                        [
+                            generator.createText(
+                                rk(\\"if block\\"),
+                                \\"0_0_0_\\"
+                            )
+                        ]
+                    )
+                ]
+                : generator.createText()
+        ]))
+    ],
+    p: [\\"ifCondition\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"ifCondition\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for conditional chains should generate if chain with else 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.evalExpression(context, /* ifCondition */ 0)
+                ? [
+                    generator.createTag(
+                        context,
+                        \\"div\\",
+                        {
+                            /* key */ K: \\"0_0_\\",
+                            /* isRootElementNode */ r: true,
+                            /* isContainerNode */ c: true
+                        },
+                        [
+                            generator.createText(
+                                rk(\\"if block\\"),
+                                \\"0_0_0_\\"
+                            )
+                        ]
+                    )
+                ]
+                : [
+                    generator.createTag(
+                        context,
+                        \\"div\\",
+                        {
+                            /* key */ K: \\"1_0_\\",
+                            /* isRootElementNode */ r: true,
+                            /* isContainerNode */ c: true
+                        },
+                        [
+                            generator.createText(
+                                rk(\\"else block\\"),
+                                \\"1_0_0_\\"
+                            )
+                        ]
+                    )
+                ]
+        ]))
+    ],
+    p: [\\"ifCondition\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"ifCondition\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for data types should generate array 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: [
+                            Boolean(\\"true\\"),
+                            Number(\\"123\\"),
+                            { },
+                            \\"text\\",
+                            \\"value\\"
+                        ]
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for data types should generate boolean with expression 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: Boolean(generator.evalExpression(context, /* value */ 0))
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"value\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"value\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for data types should generate boolean with literal 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: Boolean(\\"true\\")
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for data types should generate boolean with literal in expression 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: true
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for data types should generate deep object 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: {
+                            firstAttributeProperty: \\"value\\",
+                            property: {
+                                secondAttributeProperty: \\"value\\",
+                                property: {
+                                    secondAttributeProperty: \\"value\\",
+                                    property: \\"string\\"
+                                }
+                            }
+                        }
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for data types should generate empty array 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: []
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for data types should generate empty object 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: { }
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for data types should generate function 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: generator.createFunction(context, \\"UI/Module:library.handler\\", {
+                            opt1: \\"value1\\",
+                            opt2: generator.evalExpression(context, /* value2 */ 0)
+                        })
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"value2\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"value2\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for data types should generate function 2 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: generator.createFunction(context, generator.evalExpression(context, /* handler */ 0), { })
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"handler\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.wrapUndefined(methods.getter(data, [\\"handler\\"])))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for data types should generate number with expression 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: Number(generator.evalExpression(context, /* value */ 0))
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"value\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"value\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for data types should generate number with literal 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: Number(\\"123.45\\")
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for data types should generate number with literal in expression 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: -123.45
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for data types should generate object 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: {
+                            attributeProperty: \\"value\\",
+                            boolean: Boolean(\\"true\\"),
+                            number: Number(\\"123\\"),
+                            string: \\"string\\"
+                        }
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for data types should generate object with expression 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: {
+                            attributeProperty: generator.evalExpression(context, /* value */ 0),
+                            boolean: Boolean(generator.evalExpression(context, /* boolean */ 1)),
+                            number: Number(generator.evalExpression(context, /* number */ 2)),
+                            string: \\"\\" + generator.evalExpression(context, /* string */ 3)
+                        }
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"value\\", \\"boolean\\", \\"number\\", \\"string\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"value\\"])),
+        /* 1 */ (methods, data) => (methods.getter(data, [\\"boolean\\"])),
+        /* 2 */ (methods, data) => (methods.getter(data, [\\"number\\"])),
+        /* 3 */ (methods, data) => (methods.getter(data, [\\"string\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for data types should generate string 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 2)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: \\"before \\" + generator.evalExpression(context, /* value */ 0) + \\" \\" + rk(\\"after\\")
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"value\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"value\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for data types should generate value 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 2)),
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: \\"123.45 \\" + generator.evalExpression(context, /* value */ 0) + \\" \\" + rk(\\"text\\")
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* blockOptionNames */ b: [\\"option\\"],
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"value\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"value\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for html elements should generate boolean attributes 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTag(
+                context,
+                \\"div\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* attributes */ A: {
+                        allowfullscreen: \\"true\\",
+                        async: \\"true\\",
+                        checked: \\"false\\"
+                    },
+                    /* isRootElementNode */ r: true,
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for html elements should generate data-bind attribute 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTag(
+                context,
+                \\"span\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* attributes */ A: {
+                        \\"data-bind\\": \\"{ html: 'linkText' }\\"
+                    },
+                    /* isRootElementNode */ r: true,
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for html elements should generate dots in scope attribute 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTag(
+                context,
+                \\"div\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* attributes */ A: {
+                        scope: generator.escape(generator.evalExpression(context, /* ... */ 0)),
+                        option: generator.escape(generator.evalExpression(context, /* value */ 1))
+                    },
+                    /* isRootElementNode */ r: true,
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"value\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.wrapUndefined(methods.dots(data))),
+        /* 1 */ (methods, data) => (methods.wrapUndefined(methods.getter(data, [\\"value\\"])))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for html elements should generate element attributes 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTag(
+                context,
+                \\"div\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* attributes */ A: {
+                        style: \\"123 \\" + generator.escape(generator.evalExpression(context, /* className */ 0)),
+                        path: \\"hello\\"
+                    },
+                    /* isRootElementNode */ r: true,
+                    /* isContainerNode */ c: true
+                },
+                [
+                    generator.createTag(
+                        context,
+                        \\"span\\",
+                        {
+                            /* key */ K: \\"0_0_\\"
+                        }
+                    )
+                ]
+            )
+        ]))
+    ],
+    p: [\\"className\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.wrapUndefined(methods.getter(data, [\\"className\\"])))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for html elements should generate element composite attributes 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTag(
+                context,
+                \\"div\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* attributes */ A: {
+                        style: generator.escape(generator.evalExpression(context, /* styles */ 0)),
+                        class: \\"class-name\\",
+                        attributes: generator.escape(generator.evalExpression(context, /* { 'customProperty': customValue, number: 123, string: \\"string value\\" } */ 1))
+                    },
+                    /* isRootElementNode */ r: true,
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"styles\\", \\"customValue\\", \\"number\\", \\"string\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.wrapUndefined(methods.getter(data, [\\"styles\\"]))),
+        /* 1 */ (methods, data) => (methods.wrapUndefined({ \\"customProperty\\": methods.getter(data, [\\"customValue\\"]), number: 123, string: \\"string value\\" }))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for html elements should generate event handler 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTag(
+                context,
+                \\"div\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* events */ E: isWindowUndefined ? { } : {
+                        \\"on:customevent\\": [{
+                            value: \\"_handler\\",
+                            originalName: \\"customEvent\\",
+                            viewController: context.v,
+                            args: [true, generator.evalExpression(context, /* arg */ 0)]
+                        }],
+                        meta: {
+                            isControl: false,
+                            context: defaultContextGetterFunction,
+                            handler: generator.closeExpression(context, /* defaultEventHandlerGetter */ 1)
+                        }
+                    },
+                    /* isRootElementNode */ r: true,
+                    /* isContainerNode */ c: true
+                },
+                [
+                    generator.createTag(
+                        context,
+                        \\"span\\",
+                        {
+                            /* key */ K: \\"0_0_\\"
+                        }
+                    )
+                ]
+            )
+        ]))
+    ],
+    p: [\\"_handler\\", \\"arg\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"arg\\"])),
+        /* 1 */ function(methods, data, funcContext, context, children, handlerName) { return methods.getter(this, [handlerName]); }
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for html elements should generate event handler with child 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTag(
+                context,
+                \\"div\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* attributes */ A: {
+                        name: \\"childName\\"
+                    },
+                    /* events */ E: isWindowUndefined ? { } : {
+                        \\"on:customevent\\": [{
+                            value: \\"_handler\\",
+                            originalName: \\"customEvent\\",
+                            viewController: context.v,
+                            args: [true, generator.evalExpression(context, /* arg */ 0)]
+                        }],
+                        meta: {
+                            isControl: false,
+                            context: defaultContextGetterFunction,
+                            handler: generator.closeExpression(context, /* defaultEventHandlerGetter */ 1)
+                        }
+                    },
+                    /* isRootElementNode */ r: true,
+                    /* isContainerNode */ c: true
+                },
+                [
+                    generator.createTag(
+                        context,
+                        \\"span\\",
+                        {
+                            /* key */ K: \\"0_0_\\"
+                        }
+                    )
+                ]
+            )
+        ]))
+    ],
+    p: [\\"_handler\\", \\"arg\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"arg\\"])),
+        /* 1 */ function(methods, data, funcContext, context, children, handlerName) { return methods.getter(this, [handlerName]); }
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for html elements should generate scope attribute 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTag(
+                context,
+                \\"div\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* attributes */ A: {
+                        scope: generator.escape(generator.evalExpression(context, /* customScope */ 0)),
+                        option: generator.escape(generator.evalExpression(context, /* value */ 1))
+                    },
+                    /* isRootElementNode */ r: true,
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"customScope\\", \\"value\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.wrapUndefined(methods.getter(data, [\\"customScope\\"]))),
+        /* 1 */ (methods, data) => (methods.wrapUndefined(methods.getter(data, [\\"value\\"])))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for html elements should generate xmlns attributes 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTag(
+                context,
+                \\"svg\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* attributes */ A: {
+                        xmlns: \\"http://www.w3.org/2000/svg\\",
+                        \\"xmlns:xlink\\": \\"http://www.w3.org/1999/xlink\\"
+                    },
+                    /* isRootElementNode */ r: true,
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for iterators should generate for 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.for(context, 0, /* init() */ 0, /* test() */ 1, /* update() */ 2, (generator, context) => ([
+                generator.createTag(
+                    context,
+                    \\"div\\",
+                    {
+                        /* key */ K: \\"0_\\"
+                    },
+                    [
+                        generator.createText(
+                            rk(\\"element\\"),
+                            \\"0_0_\\"
+                        )
+                    ]
+                )
+            ]))
+        ]))
+    ],
+    p: [\\"init\\", \\"test\\", \\"update\\"],
+    e: [
+        /* 0 */ (methods, data, funcContext) => (methods.call(funcContext, data, [\\"init\\"])),
+        /* 1 */ (methods, data, funcContext) => (methods.call(funcContext, data, [\\"test\\"])),
+        /* 2 */ (methods, data, funcContext) => (methods.call(funcContext, data, [\\"update\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for iterators should generate for 2 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.for(context, 0, undefined, /* test() */ 0, undefined, (generator, context) => ([
+                generator.createTag(
+                    context,
+                    \\"div\\",
+                    {
+                        /* key */ K: \\"0_\\"
+                    },
+                    [
+                        generator.createText(
+                            rk(\\"element\\"),
+                            \\"0_0_\\"
+                        )
+                    ]
+                )
+            ]))
+        ]))
+    ],
+    p: [\\"test\\"],
+    e: [
+        /* 0 */ (methods, data, funcContext) => (methods.call(funcContext, data, [\\"test\\"]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for iterators should generate for in content option 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapContentBody((generator, context) => ([
+            generator.for(context, 0, /* init() */ 0, /* test() */ 1, /* update() */ 2, (generator, context) => ([
+                generator.createTag(
+                    context,
+                    \\"div\\",
+                    {
+                        /* key */ K: \\"0_\\"
+                    },
+                    [
+                        generator.createText(
+                            \\"element\\",
+                            \\"0_0_\\"
+                        )
+                    ]
+                )
+            ]))
+        ]), \\"option\\"),
+        /* 1 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: generator.createContentOption(context, 0, 0)
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"init\\", \\"test\\", \\"update\\"],
+    e: [
+        /* 0 */ (methods, data, funcContext) => (methods.call(funcContext, data, [\\"init\\"])),
+        /* 1 */ (methods, data, funcContext) => (methods.call(funcContext, data, [\\"test\\"])),
+        /* 2 */ (methods, data, funcContext) => (methods.call(funcContext, data, [\\"update\\"])),
+        /* 3 */ (methods, data) => (methods.getter(data, [\\"init\\"])),
+        /* 4 */ (methods, data) => (methods.getter(data, [\\"test\\"])),
+        /* 5 */ (methods, data) => (methods.getter(data, [\\"update\\"]))
+    ],
+    i: [
+        /* 0 */ [[3, 5]]
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for iterators should generate foreach 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.foreach(context, 0, [\\"iterator\\", \\"index\\"], /* collection */ 0, (generator, context) => ([
+                generator.createTag(
+                    context,
+                    \\"div\\",
+                    {
+                        /* key */ K: \\"0_\\"
+                    },
+                    [
+                        generator.createText(
+                            \\"element N \\" + generator.escape(generator.evalExpression(context, /* index */ 1)),
+                            \\"0_0_\\"
+                        )
+                    ]
+                ),
+                generator.createTag(
+                    context,
+                    \\"div\\",
+                    {
+                        /* key */ K: \\"1_\\"
+                    },
+                    [
+                        generator.createText(
+                            generator.escape(generator.evalExpression(context, /* iterator.getValue() */ 2)),
+                            \\"1_0_\\"
+                        )
+                    ]
+                )
+            ]))
+        ]))
+    ],
+    p: [\\"collection\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"collection\\"])),
+        /* 1 */ (methods, data) => (methods.wrapUndefined(methods.getter(data, [\\"index\\"]))),
+        /* 2 */ (methods, data) => (methods.wrapUndefined(methods.call2(data, [\\"iterator\\", \\"getValue\\"])))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for iterators should generate foreach 2 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.foreach(context, 0, [\\"iterator\\"], /* collection */ 0, (generator, context) => ([
+                generator.createTag(
+                    context,
+                    \\"div\\",
+                    {
+                        /* key */ K: \\"0_\\"
+                    },
+                    [
+                        generator.createText(
+                            \\"element \\" + generator.escape(generator.evalExpression(context, /* iterator.getValue() */ 1)),
+                            \\"0_0_\\"
+                        )
+                    ]
+                )
+            ]))
+        ]))
+    ],
+    p: [\\"collection\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"collection\\"])),
+        /* 1 */ (methods, data) => (methods.wrapUndefined(methods.call2(data, [\\"iterator\\", \\"getValue\\"])))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for iterators should generate foreach in content option 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    d: IR.wrapDependencies([
+        \\"UI/Component\\"
+    ], Array.prototype.slice.call(arguments, 1)),
+    t: [
+        /* 0 */ IR.wrapContentBody((generator, context) => ([
+            generator.foreach(context, 0, [\\"iterator\\", \\"index\\"], /* collection */ 0, (generator, context) => ([
+                generator.createTag(
+                    context,
+                    \\"div\\",
+                    {
+                        /* key */ K: \\"0_\\"
+                    },
+                    [
+                        generator.createText(
+                            \\"element N \\" + generator.escape(generator.evalExpression(context, /* index + otherIndex */ 1)),
+                            \\"0_0_\\"
+                        )
+                    ]
+                ),
+                generator.createTag(
+                    context,
+                    \\"div\\",
+                    {
+                        /* key */ K: \\"1_\\"
+                    },
+                    [
+                        generator.createText(
+                            generator.escape(generator.evalExpression(context, /* iterator.getValue() */ 2)),
+                            \\"1_0_\\"
+                        )
+                    ]
+                )
+            ]))
+        ]), \\"option\\"),
+        /* 1 */ IR.wrapRootBody((generator, context) => ([
+            generator.createControl(
+                context,
+                \\"ws:UI/Component\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* options */ O: {
+                        esc: false,
+                        option: generator.createContentOption(context, 0, 0)
+                    },
+                    /* mergeType */ m: \\"attribute\\",
+                    /* isContainerNode */ c: true
+                }
+            )
+        ]))
+    ],
+    p: [\\"collection\\", \\"otherIndex\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.getter(data, [\\"collection\\"])),
+        /* 1 */ (methods, data) => (methods.wrapUndefined(methods.getter(data, [\\"index\\"]) + methods.getter(data, [\\"otherIndex\\"]))),
+        /* 2 */ (methods, data) => (methods.wrapUndefined(methods.call2(data, [\\"iterator\\", \\"getValue\\"]))),
+        /* 3 */ (methods, data) => (methods.getter(data, [\\"otherIndex\\"]))
+    ],
+    i: [
+        /* 0 */ [[0], [3]]
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for special tags should generate cdata 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createDirective(
+                \\"![CDATA[ value ]]\\"
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for special tags should generate doctype 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createDirective(
+                \\"!DOCTYPE html\\"
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for special tags should generate instruction 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createDirective(
+                \\"? instruction ?\\"
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for text nodes should generate mustache expression 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createText(
+                generator.escape(generator.evalExpression(context, /* expression */ 0)),
+                \\"0_\\"
+            )
+        ]))
+    ],
+    p: [\\"expression\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.wrapUndefined(methods.getter(data, [\\"expression\\"])))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for text nodes should generate mustache expression 2 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createText(
+                generator.escape(generator.evalExpression(context, /* \\"aaa\\\\\\"bbb\\\\\\"ccc\\" */ 0)),
+                \\"0_\\"
+            )
+        ]))
+    ],
+    e: [
+        /* 0 */ (methods, data) => (methods.wrapUndefined(\\"aaa\\\\\\\\\\\\\\"bbb\\\\\\\\\\\\\\"ccc\\"))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for text nodes should generate text 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createText(
+                rk(\\"Hello, World!\\"),
+                \\"0_\\"
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for text nodes should generate text 2 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createText(
+                \\" \\" + rk(\\"Hello, World!\\") + \\" \\",
+                \\"0_\\"
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for text nodes should generate text 3 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createText(
+                rk(\\"aaa \\\\\\"bbb\\\\\\" ccc\\"),
+                \\"0_\\"
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for text nodes should generate text with mixed content 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createText(
+                \\"before \\" + rk(\\"translation\\") + \\" text \\" + generator.escape(generator.evalExpression(context, /* expression */ 0)) + \\" after\\",
+                \\"0_\\"
+            )
+        ]))
+    ],
+    p: [\\"expression\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.wrapUndefined(methods.getter(data, [\\"expression\\"])))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for text nodes should generate text with unsafe content 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTag(
+                context,
+                \\"span\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* isRootElementNode */ r: true,
+                    /* isContainerNode */ c: true
+                },
+                [
+                    generator.createText(
+                        generator.evalExpression(context, /* __setHTMLUnsafe(value) */ 0),
+                        \\"0_0_\\"
+                    )
+                ]
+            )
+        ]))
+    ],
+    p: [\\"value\\"],
+    e: [
+        /* 0 */ (methods, data) => (methods.wrapUndefined(methods.getter(data, [\\"value\\"])))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for text nodes should generate translation 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createText(
+                rk(\\"Hello, World!\\"),
+                \\"0_\\"
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for text nodes should generate translation 2 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createText(
+                rk(\\"Hello, World!\\", \\"translation context\\"),
+                \\"0_\\"
+            )
+        ]))
+    ]
+})"
+`;
+
+exports[`Compiler/_compiler/irCodegen/Generator check code generation for text nodes should sanitize decorator 1`] = `
+"IR.generate({
+    v: 1,
+    m: \\"wml!CompilerTest/compiler/irCodegen/Markup\\",
+    t: [
+        /* 0 */ IR.wrapRootBody((generator, context) => ([
+            generator.createTag(
+                context,
+                \\"span\\",
+                {
+                    /* key */ K: \\"0_\\",
+                    /* isRootElementNode */ r: true,
+                    /* isContainerNode */ c: true
+                },
+                [
+                    generator.createText(
+                        generator.evalExpression(context, /* text | highlight */ 0),
+                        \\"0_0_\\"
+                    )
+                ]
+            )
+        ]))
+    ],
+    e: [
+        /* 0 */ (methods, data) => (methods.sanitize(methods.wrapUndefined(methods.decorate(\\"highlight\\", [methods.getter(data, [\\"text\\"])]))))
+    ]
+})"
+`;
