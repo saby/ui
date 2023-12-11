@@ -1,0 +1,8 @@
+<ws:if data="{{ true }}">
+   <div>
+      User template
+      <ws:if data="{{ true }}">
+         : <span> exported from module </span>
+      </ws:if>
+   </div>
+</ws:if>

@@ -1,0 +1,6 @@
+<ws:if data="{{_options.show}}">
+    <div>show</div>
+</ws:if>
+<ws:else>
+    <invisible-node />
+</ws:else>

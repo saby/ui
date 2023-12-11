@@ -1,0 +1,5 @@
+<div>
+    <ws:for data="element in _options.valueArray">
+        <div>{{ element }}</div>
+    </ws:for>
+</div>
