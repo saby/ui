@@ -1,0 +1,3 @@
+<div>
+    <div style="grid-template-columns: {{ gridColumns }}fr;"></div>
+</div>

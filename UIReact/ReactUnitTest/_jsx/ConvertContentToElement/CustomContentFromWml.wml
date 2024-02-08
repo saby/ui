@@ -1,0 +1,19 @@
+<div class="customContentFromWml">
+    <ReactUnitTest._jsx.ConvertContentToElement.InnerReactWithContent>
+        <ws:customContent>
+            <div class="divContent">divContent</div>
+        </ws:customContent>
+    </ReactUnitTest._jsx.ConvertContentToElement.InnerReactWithContent>
+
+    <ReactUnitTest._jsx.ConvertContentToElement.InnerReactWithContent>
+        <ws:customContent>
+            <ReactUnitTest._jsx.ConvertContentToElement.SimpleWasaby attr:class="wasabyContent" />
+        </ws:customContent>
+    </ReactUnitTest._jsx.ConvertContentToElement.InnerReactWithContent>
+
+    <ReactUnitTest._jsx.ConvertContentToElement.InnerReactWithContent>
+        <ws:customContent>
+            <ReactUnitTest._jsx.ConvertContentToElement.ClassNamed attr:class="reactContent" />
+        </ws:customContent>
+    </ReactUnitTest._jsx.ConvertContentToElement.InnerReactWithContent>
+</div>

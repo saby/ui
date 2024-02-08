@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`вызов _forceUpdate и изменение реактивного свойства _forceUpdate | _forceUpdate | _forceUpdate 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    0
+  </div>
+</div>
+`;
+
+exports[`вызов _forceUpdate и изменение реактивного свойства _forceUpdate | _forceUpdate | реактивность 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    1
+  </div>
+</div>
+`;
+
+exports[`вызов _forceUpdate и изменение реактивного свойства _forceUpdate | реактивность | _forceUpdate 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    1
+  </div>
+</div>
+`;
+
+exports[`вызов _forceUpdate и изменение реактивного свойства _forceUpdate | реактивность | реактивность 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    2
+  </div>
+</div>
+`;
+
+exports[`вызов _forceUpdate и изменение реактивного свойства _forceUpdate | реактивность 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    1
+  </div>
+</div>
+`;
+
+exports[`вызов _forceUpdate и изменение реактивного свойства _forceUpdate 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    0
+  </div>
+</div>
+`;
+
+exports[`вызов _forceUpdate и изменение реактивного свойства реактивность | _forceUpdate | _forceUpdate 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    1
+  </div>
+</div>
+`;
+
+exports[`вызов _forceUpdate и изменение реактивного свойства реактивность | _forceUpdate | реактивность 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    2
+  </div>
+</div>
+`;
+
+exports[`вызов _forceUpdate и изменение реактивного свойства реактивность | _forceUpdate 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    1
+  </div>
+</div>
+`;
+
+exports[`вызов _forceUpdate и изменение реактивного свойства реактивность | реактивность | _forceUpdate 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    2
+  </div>
+</div>
+`;
+
+exports[`вызов _forceUpdate и изменение реактивного свойства реактивность | реактивность | реактивность 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    3
+  </div>
+</div>
+`;
+
+exports[`вызов _forceUpdate и изменение реактивного свойства реактивность 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    1
+  </div>
+</div>
+`;

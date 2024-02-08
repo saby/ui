@@ -1,0 +1,18 @@
+{
+    "include": [
+      "DefaultThemeController/ThemeInitializer",
+      "UICore/Adaptive",
+      "UICore/Async",
+      "UICore/Base",
+      "UICore/Contexts",
+      "UICore/Events",
+      "UICore/Executor",
+      "UICore/Focus",
+      "UICore/Jsx",
+      "UICore/HotKeys",
+      "UICore/NodeCollector",
+      "UICore/Vdom",
+      "UICore/WasabyReactivity"
+    ],
+    "output": "online-superbundle.package.js"
+  }
