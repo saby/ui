@@ -1,0 +1,323 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Forced aspects height 1`] = `
+<body
+  style="height: 31415px;"
+>
+  <div>
+    <div>
+      <span>
+        container clientWidth: 
+        0
+      </span>
+      <span>
+        container clientHeight: 
+        31415
+      </span>
+      <span>
+        window innerWidth: 
+        1024
+      </span>
+      <span>
+        window innerHeight: 
+        768
+      </span>
+      <span>
+        window outerWidth: 
+        1024
+      </span>
+      <span>
+        window outerHeight: 
+        768
+      </span>
+      <span>
+        device isPhone: 
+        false
+      </span>
+      <span>
+        device isTablet: 
+        false
+      </span>
+      <span>
+        device isTouch: 
+        false
+      </span>
+      <span>
+        orientation isVertical: 
+        false
+      </span>
+      <span>
+        orientation isHorizontal: 
+        true
+      </span>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Forced aspects isPhone 1`] = `
+<body>
+  <div>
+    <div>
+      <span>
+        container clientWidth: 
+        0
+      </span>
+      <span>
+        container clientHeight: 
+        0
+      </span>
+      <span>
+        window innerWidth: 
+        1024
+      </span>
+      <span>
+        window innerHeight: 
+        768
+      </span>
+      <span>
+        window outerWidth: 
+        1024
+      </span>
+      <span>
+        window outerHeight: 
+        768
+      </span>
+      <span>
+        device isPhone: 
+        true
+      </span>
+      <span>
+        device isTablet: 
+        false
+      </span>
+      <span>
+        device isTouch: 
+        false
+      </span>
+      <span>
+        orientation isVertical: 
+        false
+      </span>
+      <span>
+        orientation isHorizontal: 
+        true
+      </span>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Forced aspects isTablet 1`] = `
+<body>
+  <div>
+    <div>
+      <span>
+        container clientWidth: 
+        0
+      </span>
+      <span>
+        container clientHeight: 
+        0
+      </span>
+      <span>
+        window innerWidth: 
+        1024
+      </span>
+      <span>
+        window innerHeight: 
+        768
+      </span>
+      <span>
+        window outerWidth: 
+        1024
+      </span>
+      <span>
+        window outerHeight: 
+        768
+      </span>
+      <span>
+        device isPhone: 
+        false
+      </span>
+      <span>
+        device isTablet: 
+        true
+      </span>
+      <span>
+        device isTouch: 
+        false
+      </span>
+      <span>
+        orientation isVertical: 
+        false
+      </span>
+      <span>
+        orientation isHorizontal: 
+        true
+      </span>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Forced aspects isTouch 1`] = `
+<body>
+  <div>
+    <div>
+      <span>
+        container clientWidth: 
+        0
+      </span>
+      <span>
+        container clientHeight: 
+        0
+      </span>
+      <span>
+        window innerWidth: 
+        1024
+      </span>
+      <span>
+        window innerHeight: 
+        768
+      </span>
+      <span>
+        window outerWidth: 
+        1024
+      </span>
+      <span>
+        window outerHeight: 
+        768
+      </span>
+      <span>
+        device isPhone: 
+        false
+      </span>
+      <span>
+        device isTablet: 
+        false
+      </span>
+      <span>
+        device isTouch: 
+        true
+      </span>
+      <span>
+        orientation isVertical: 
+        false
+      </span>
+      <span>
+        orientation isHorizontal: 
+        true
+      </span>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Forced aspects isVertical 1`] = `
+<body>
+  <div>
+    <div>
+      <span>
+        container clientWidth: 
+        0
+      </span>
+      <span>
+        container clientHeight: 
+        0
+      </span>
+      <span>
+        window innerWidth: 
+        1024
+      </span>
+      <span>
+        window innerHeight: 
+        768
+      </span>
+      <span>
+        window outerWidth: 
+        1024
+      </span>
+      <span>
+        window outerHeight: 
+        768
+      </span>
+      <span>
+        device isPhone: 
+        false
+      </span>
+      <span>
+        device isTablet: 
+        false
+      </span>
+      <span>
+        device isTouch: 
+        false
+      </span>
+      <span>
+        orientation isVertical: 
+        true
+      </span>
+      <span>
+        orientation isHorizontal: 
+        false
+      </span>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Forced aspects width 1`] = `
+<body
+  style="width: 31415px;"
+>
+  <div>
+    <div>
+      <span>
+        container clientWidth: 
+        31415
+      </span>
+      <span>
+        container clientHeight: 
+        0
+      </span>
+      <span>
+        window innerWidth: 
+        1024
+      </span>
+      <span>
+        window innerHeight: 
+        768
+      </span>
+      <span>
+        window outerWidth: 
+        1024
+      </span>
+      <span>
+        window outerHeight: 
+        768
+      </span>
+      <span>
+        device isPhone: 
+        false
+      </span>
+      <span>
+        device isTablet: 
+        false
+      </span>
+      <span>
+        device isTouch: 
+        false
+      </span>
+      <span>
+        orientation isVertical: 
+        false
+      </span>
+      <span>
+        orientation isHorizontal: 
+        true
+      </span>
+    </div>
+  </div>
+</body>
+`;

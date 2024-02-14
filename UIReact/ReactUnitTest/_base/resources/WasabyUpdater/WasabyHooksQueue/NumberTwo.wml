@@ -1,0 +1,4 @@
+<div>
+   <div>NumberTwo</div>
+   <ws:partial template="{{ _options.content }}" />
+</div>

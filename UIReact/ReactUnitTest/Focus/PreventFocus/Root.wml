@@ -1,0 +1,5 @@
+<div ws-no-focus="{{ true }}"> 
+   <ReactUnitTest.Focus.Input
+      inputId="inputElement"
+   />
+</div>

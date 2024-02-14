@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentAsChildren Пропсы чистого реакта, заданные через cloneElement ContentAsChildren, не летят ниже корня контента: реф, класс и data-атрибут не пролетели жальше корня 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      attr-from-ref="clonedRefAttr"
+      class="contentRoot clonedClassName"
+      data-some-attr="clonedValueAttr"
+      tabindex="0"
+    >
+      <div
+        class="ownClassName "
+      >
+        React indide a content
+      </div>
+    </div>
+    <div
+      attr-from-ref="clonedRefAttr"
+      class="ownClassName contentRoot clonedClassName"
+      data-some-attr="clonedValueAttr"
+    >
+      React indide a content
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент мутирует полученный children Контент - div элемент 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="patch"
+    >
+      <div
+        class="div-content patched"
+        tabindex="0"
+      >
+        Div content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент мутирует полученный children Контент - inline шаблон 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="patch"
+    >
+      <div
+        class="template-content patched"
+        tabindex="0"
+      >
+        Template content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент мутирует полученный children Контент - wasaby контрол 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="patch"
+    >
+      <div
+        class="control-content patched"
+        tabindex="0"
+      >
+        Control content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент мутирует полученный children Контент - wml шаблон 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="patch"
+    >
+      <div
+        class="wml-content patched"
+        tabindex="0"
+      >
+        Wml content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент мутирует полученный children Контент - объект из скоупа, не нужно превращать в Children 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="paintContentPatchOptions"
+      tabindex="0"
+    >
+      <div
+        class="objectContentInScope"
+        tabindex="0"
+      >
+        <div
+          class="patch classNameFromScope"
+        >
+          No children
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент рисует полученный children неизменным Контент - div элемент 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="simple"
+    >
+      <div
+        class="div-content"
+        tabindex="0"
+      >
+        Div content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент рисует полученный children неизменным Контент - inline шаблон 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="simple"
+    >
+      <div
+        class="template-content"
+        tabindex="0"
+      >
+        Template content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент рисует полученный children неизменным Контент - wasaby контрол 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="simple"
+    >
+      <div
+        class="control-content"
+        tabindex="0"
+      >
+        Control content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент рисует полученный children неизменным Контент - wml шаблон 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="simple"
+    >
+      <div
+        class="wml-content"
+        tabindex="0"
+      >
+        Wml content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentAsChildren Реакт компонент рисует полученный children неизменным Контент - объект из скоупа, не нужно превращать в Children 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      class="paintContentPatchOptions"
+      tabindex="0"
+    >
+      <div
+        class="objectContentInScope"
+        tabindex="0"
+      >
+        <div
+          class="simple classNameFromScope"
+        >
+          No children
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
