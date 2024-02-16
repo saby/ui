@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Определение типа компонента Functional Component 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      Is React Function
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Определение типа компонента React Component 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      Is React Component
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Определение типа компонента React Component, наследник другого React Component 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      Is Extended React Component
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Определение типа компонента React Component, обёрнутый в memo 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      class="patchedFromForwardedRef"
+    />
+  </div>
+</div>
+`;
+
+exports[`Определение типа компонента React PureComponent 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      Is React Pure Component
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Определение типа компонента Wasaby Controls 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      tabindex="0"
+    >
+      Is Wasaby Control
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Определение типа компонента Wasaby Controls with content 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      tabindex="0"
+    >
+      <div
+        tabindex="0"
+      >
+        Is content Template
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Определение типа компонента Вставка Context Consumer в wasaby 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      class="contextConsumerChildren"
+    >
+      Context value: 
+      defaultValue
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Определение типа компонента Вставка Context Provider в wasaby 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      class="contextUser"
+    >
+      Context value: 
+      valueFromWasabyRoot
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Определение типа компонента Вставка forwardRef в wasaby 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      class="patchedFromForwardedRef"
+    >
+      <button>
+        0
+      </button>
+    </div>
+  </div>
+</div>
+`;

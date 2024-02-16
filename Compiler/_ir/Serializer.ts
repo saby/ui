@@ -1,0 +1,54 @@
+/**
+ * Модуль, предоставляющий функции сериализации функций контентных опций в tmpl.
+ *
+ * @author Krylov M.A.
+ */
+
+import type { IDescription } from './builder/Interface';
+import type { IRTemplateBody } from './core/IRTemplateBody';
+import type { MustacheExpression } from './core/Interface';
+
+import { IRTemplateBodyType } from './core/IRTemplateBody';
+
+function createReplacer(contentOptionIndex: number) {
+    return function replacer(key: string, value: unknown): unknown {
+        switch (key) {
+            case 'd':
+                return undefined;
+
+            case 't':
+                return (value as IRTemplateBody[]).map((template, index): string => {
+                    switch (template.type) {
+                        case IRTemplateBodyType.TEMPLATE:
+                            return `_wrapTemplateBody("${template.name}", ${template.fn.toString()})`;
+
+                        case IRTemplateBodyType.CONTENT:
+                            if (template.name === 'content') {
+                                return `_wrapContentBody(${template.fn.toString()})`;
+                            }
+
+                            return `_wrapContentBody(${template.fn.toString()}, "${template.name}")`;
+
+                        case IRTemplateBodyType.ROOT:
+                            return `_wrapRootBody(${template.fn.toString()})`;
+                    }
+                }).filter(element => typeof element !== 'undefined');
+
+            case 'e':
+                return (value as MustacheExpression[]).map((expression): string => expression.toString());
+
+            case 'v':
+            case 'p':
+            case 'i':
+                return JSON.stringify(value);
+
+            default:
+                return value;
+        }
+    };
+}
+
+
+export function serialize(description: IDescription, contentOptionIndex: number): string {
+    return JSON.stringify(description, createReplacer(contentOptionIndex));
+}

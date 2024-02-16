@@ -1,0 +1,5 @@
+<ReactUnitTest._executor.resources.ChldrenAsContent.WasabySimpleContent attr:class="wasabyProxyContentWithNewPartial">
+   <ws:partial
+      template="{{ _options.content }}"
+   />
+</ReactUnitTest._executor.resources.ChldrenAsContent.WasabySimpleContent>

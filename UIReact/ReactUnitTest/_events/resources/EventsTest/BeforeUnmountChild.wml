@@ -1,0 +1,8 @@
+<div>
+    <div class="notCN">
+        <ws:if data="{{showInner}}">
+            <ReactUnitTest._events.resources.EventsTest.BeforeUnmountChildInner name="inner"/>
+        </ws:if>
+        <button on:click="_hideHandler()" id="removeInner">hide inner</button>
+    </div>
+</div>

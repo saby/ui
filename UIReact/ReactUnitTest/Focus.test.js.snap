@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Focus activate has autofocus control inside: Нет бесполезных ws-autofocus в вёрстке 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      tabindex="0"
+    >
+      <div
+        tabindex="-1"
+      >
+        <span>
+          Пропускаем при активации
+        </span>
+        <div
+          tabindex="0"
+        >
+          <input
+            id="insideTabIndexMinusOne"
+            type="text"
+          />
+        </div>
+      </div>
+      <div
+        tabindex="0"
+      >
+        <span>
+          Пропускаем при активации
+        </span>
+        <div
+          tabindex="0"
+        >
+          <input
+            id="insideWsAutoFocusFalse"
+            type="text"
+          />
+        </div>
+      </div>
+      <span>
+        Can't focus it
+      </span>
+      <div
+        id="simple"
+        tabindex="0"
+        ws-autofocus="true"
+      >
+        Can focus it
+      </div>
+    </div>
+  </div>
+</div>
+`;

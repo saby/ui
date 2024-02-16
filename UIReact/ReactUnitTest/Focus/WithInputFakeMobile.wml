@@ -1,0 +1,5 @@
+<div id="fakeMobileRoot">
+   <textarea id="textarea"></textarea>
+   <input type="text" id="inputText" />
+   <div contentEditable="true" id="contentEditableTrue"></div>
+</div>

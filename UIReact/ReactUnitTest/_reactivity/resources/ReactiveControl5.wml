@@ -1,0 +1,5 @@
+<div>
+    <div>version: {{ valueObject._version }}</div>
+    <div>value: {{ valueObject.value }}</div>
+    <button on:click="_nextVersion()" id="start">next version</button>
+</div>

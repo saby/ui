@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UI/Async:lazy на СП Синхронная загрузка контрола на сервере 1`] = `"<div data-reactroot=\\"\\">TestControlSync</div>"`;
+
+exports[`UI/Async:lazy на СП Синхронная загрузка контрола на сервере, с ошибкой: 1. ошибка 1`] = `"Couldn't load module \\"UITest/_async/Fail/TestControlSync\\""`;
+
+exports[`UI/Async:lazy на СП Синхронная загрузка контрола на сервере, с ошибкой: 2. верстка 1`] = `"<div data-reactroot=\\"\\">У СБИС возникла проблема</div>"`;
