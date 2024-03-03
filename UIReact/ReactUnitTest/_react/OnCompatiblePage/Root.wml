@@ -1,0 +1,29 @@
+<div>
+    <div>
+        <button on:click="toggleWs3Control()" id="toggleWs3Control"> toggle ws3 control </button>
+        <button on:click="toggleReactControl()" id="toggleReactControl"> toggle react wrappered </button>
+    </div>
+
+    <ReactUnitTest._react.OnCompatiblePage.UserModule:UserControl />
+    <ws:if data = "{{ _showWs3Control }}">
+        <Core.CompoundContainer
+            component="ReactUnitTest/_react/OnCompatiblePage/WS3"
+            name="compoundContainer"
+        />
+    </ws:if>
+
+    <ws:if data = "{{ _showReactControl }}">
+        <ReactUnitTest._react.OnCompatiblePage.ReactWrapper contentTemplate="ReactUnitTest/_react/OnCompatiblePage/UserModule:userTemplate" />
+        <ReactUnitTest._react.OnCompatiblePage.ReactWrapper>
+            <ws:contentTemplate>
+                <ws:partial template="ReactUnitTest/_react/OnCompatiblePage/UserModule:userTemplate" />
+            </ws:contentTemplate>
+        </ReactUnitTest._react.OnCompatiblePage.ReactWrapper>
+        <ReactUnitTest._react.OnCompatiblePage.ReactWrapper contentTemplate="ReactUnitTest/_react/OnCompatiblePage/UserModule:UserControl" />
+        <ReactUnitTest._react.OnCompatiblePage.ReactWrapper>
+            <ws:contentTemplate>
+                <ws:partial template="ReactUnitTest/_react/OnCompatiblePage/Child" />
+            </ws:contentTemplate>
+        </ReactUnitTest._react.OnCompatiblePage.ReactWrapper>
+    </ws:if>
+</div>

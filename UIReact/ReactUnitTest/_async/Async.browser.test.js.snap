@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UICore/Async:Async в браузере Асинхронная загрузка контрола, с ошибкой 1`] = `
+"Ошибка загрузки контрола \\"ReactUnitTest/_async/Fail/TestControlAsync\\"
+Возможны следующие причины:
+	                   • Ошибка в самом контроле
+	                   • Долго отвечал БЛ метод в _beforeUpdate
+	                   • Контрола не существует"
+`;
+
+exports[`UICore/Async:Async в браузере Синхронная загрузка контрола, с ошибкой 1`] = `
+"Ошибка загрузки контрола \\"ReactUnitTest/_async/Fail/TestControlSync\\"
+Возможны следующие причины:
+	                   • Ошибка в самом контроле
+	                   • Долго отвечал БЛ метод в _beforeUpdate
+	                   • Контрола не существует"
+`;

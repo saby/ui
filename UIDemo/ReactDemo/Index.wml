@@ -1,0 +1,9 @@
+<div class="demo-ReactWasaby">
+<!--  <h1>React-Wasaby Demo</h1>-->
+  <UIDemo.ReactDemo.InheritedOptions.Controller  on:click="clickMe()"/>
+  <button on:click="clickMe()" > Click me</button>
+  <UIDemo.ReactDemo.Compatible.Pure />
+  <UIDemo.ReactDemo.ErrorBoundary.ErrorBoundaryApp/>
+  <UIDemo.ReactDemo.Loading.LoadingApp/>
+  <UIDemo.ReactDemo.Updating.ControlParentReactive/>
+</div>

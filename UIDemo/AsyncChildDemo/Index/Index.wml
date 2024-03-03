@@ -1,0 +1,6 @@
+<div class="UIDemo-AsyncChildDemo__parent" attr:style="width: 300px;">
+  <div>
+    Parent Control: {{ status }}
+  </div>
+  <UIDemo.AsyncChildDemo.Index.Child prop="{{ prop }}"/>
+</div>

@@ -1,0 +1,6 @@
+<ws:if data="{{ showChildControl }}">
+   <ReactUnitTest.Compiler._ref-container.ResetContainerChild />
+</ws:if>
+<ws:else>
+   <div>Some text in div tag, not span</div>
+</ws:else>

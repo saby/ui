@@ -1,0 +1,5 @@
+<ReactUnitTest._base.resources.ChildrenTest.WmlReactChildren.ReactChild name="reactComponent">
+    <div>
+        <ws:partial template="ReactUnitTest/_base/resources/ChildrenTest/WmlReactChildren/ReactInner"/>
+    </div>
+</ReactUnitTest._base.resources.ChildrenTest.WmlReactChildren.ReactChild>

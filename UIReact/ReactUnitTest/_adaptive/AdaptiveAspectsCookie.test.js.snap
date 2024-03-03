@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`adaptiveAspects cookie invalid 1`] = `
+"{
+ \\"windowInnerWidth\\": 768,
+ \\"windowInnerHeight\\": 1024,
+ \\"windowOuterWidth\\": 768,
+ \\"windowOuterHeight\\": 1024,
+ \\"viewportWidth\\": 768,
+ \\"viewportHeight\\": 1024,
+ \\"containerClientWidth\\": 768,
+ \\"containerClientHeight\\": 1024
+}"
+`;
+
+exports[`adaptiveAspects cookie valid 1`] = `
+"{
+ \\"windowInnerWidth\\": 31415,
+ \\"windowInnerHeight\\": 31415,
+ \\"windowOuterWidth\\": 768,
+ \\"windowOuterHeight\\": 1024,
+ \\"viewportWidth\\": 768,
+ \\"viewportHeight\\": 1024,
+ \\"containerClientWidth\\": 768,
+ \\"containerClientHeight\\": 1024
+}"
+`;

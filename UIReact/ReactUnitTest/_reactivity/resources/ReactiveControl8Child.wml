@@ -1,0 +1,4 @@
+<div>
+    <div>version: {{ _options.valueObject._version }}</div>
+    <div>value: {{ _options.valueObject.value }}</div>
+</div>

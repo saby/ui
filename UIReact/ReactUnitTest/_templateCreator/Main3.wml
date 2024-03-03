@@ -1,0 +1,7 @@
+<ws:template name="inner">
+   <div>
+      <ws:partial template="wml!ReactUnitTest/_templateCreator/Template" value="{{value}}"/>
+   </div>
+</ws:template>
+
+<ws:partial template="inner" value="{{value}}"/>
