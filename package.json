@@ -1,0 +1,70 @@
+{
+   "name": "saby-ui",
+   "version": "24.1200.0",
+   "repository": {
+      "type": "git",
+      "url": "git@git.sbis.ru:saby/UI.git"
+   },
+   "files": [
+      "Compiler/*",
+      "Markup/*",
+      "TextMarkup/*",
+      "UI/*",
+      "UICore/*",
+      "UICommon/*",
+      "UIDemo/*",
+      "UIDemo-default-theme/*",
+      "UIReact/*",
+      "UITest/*",
+      "VirtualTreeMarkup/*",
+      "VirtualDom/*",
+      "WmlBuilder/*"
+   ],
+   "scripts": {
+      "build": "npm run build:typescript && npm run build:app",
+      "build:typescript": "wasaby-cli initTSEnv",
+      "build:app": "wasaby-cli buildProject",
+      "build:watch": "wasaby-cli buildProject --watcher",
+      "compile": "saby-typescript --compiler",
+      "start": "wasaby-cli startServer",
+      "start:units": "wasaby-cli runUnitTests --server",
+      "test": "wasaby-cli runUnitTests --NodeJS --report=console",
+      "test:pattern": "wasaby-cli runUnitTests --NodeJS --react --report=console --testPathPattern=ReactUnitTest/_async/Async --testNamePattern=",
+      "test:updateSnapshot": "wasaby-cli runUnitTests --NodeJS --react --report=console --updateSnapshot",
+      "test:coverage": "wasaby-cli runUnitTests --NodeJS --coverage",
+      "lint": "eslint .",
+      "lint:fix": "eslint . --fix",
+      "lint:css": "stylelint \"**/*.{css,less}\"",
+      "lint:css:fix": "stylelint \"**/*.{css,less}\" --fix",
+      "prettier": "prettier --write .",
+      "prepare": "npm run update-cli-store && npm run build:typescript && wasaby-cli initGitHooks",
+      "update-cli-store": "wasaby-cli loadProject"
+   },
+   "wasaby-cli": {
+      "copy": true,
+      "umd": true,
+      "inlineSourceMaps": true,
+      "port": 777,
+      "store": ".wasaby-cli-store",
+      "preCommitHooks": [
+         "Prettier",
+         "ESLint",
+         "Stylelint"
+      ]
+   },
+   "devDependencies": {
+      "@types/react": "17.0.0",
+      "@types/react-dom": "17.0.0",
+      "body-parser": "1.18.3",
+      "cookie-parser": "1.4.5",
+      "eslint": "^7.0.0",
+      "express": "4.16.3",
+      "less": "^4.1.2",
+      "react": "17.0.1",
+      "react-dom": "17.0.1",
+      "react-test-renderer": "17.0.1",
+      "requirejs": "2.1.18",
+      "serve-static": "1.11.x",
+      "wasaby-cli": "git+https://git.sbis.ru/saby/wasaby-cli.git#rc-24.1200"
+   }
+}

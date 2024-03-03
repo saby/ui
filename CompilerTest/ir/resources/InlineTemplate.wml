@@ -1,0 +1,7 @@
+<ws:template name="inline">
+    <div class="inline">Text</div>
+</ws:template>
+
+<div class="root">
+    <ws:partial template="inline" />
+</div>

@@ -1,0 +1,7 @@
+<div>
+   <ws:if data="{{ showChild }}">
+      <ReactUnitTest._base.resources.ControlTest.ServiceFields.ServiceFieldsHOC>
+         <ReactUnitTest._base.resources.ControlTest.ServiceFields.ServiceFieldsChild name="serviceFieldsChild" />
+      </ReactUnitTest._base.resources.ControlTest.ServiceFields.ServiceFieldsHOC>
+   </ws:if>
+</div>

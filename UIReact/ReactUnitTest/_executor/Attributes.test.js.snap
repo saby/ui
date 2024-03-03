@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Markup attributes data-component ставиться на корректный div 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      data-component="ReactUnitTest/_executor/resources/DataComponent/DataComponent"
+      id="hasDataComponent"
+      tabindex="0"
+    />
+  </div>
+</div>
+`;
+
+exports[`Markup attributes Валидация строки style 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      id="divWithStyle"
+    />
+  </div>
+</div>
+`;
+
+exports[`Markup attributes Валидация строки style ie 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      style="grid-template-columns: 1fr;"
+    />
+  </div>
+</div>
+`;
+
+exports[`Markup attributes Валидация строки style normal 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      style="grid-template-columns: 1fr;"
+    />
+  </div>
+</div>
+`;
+
+exports[`attr: в wml и копирование props attrs в props react component attr:class 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      class="react-component"
+    >
+      react component
+    </div>
+  </div>
+</div>
+`;
+
+exports[`attr: в wml и копирование props attrs в props react component attr:data-qa 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      data-qa="data-qa-react-component"
+    >
+      react component
+    </div>
+  </div>
+</div>
+`;
+
+exports[`attr: в wml и копирование props attrs в props react function attr:class 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      class="react-function"
+    >
+      react function
+    </div>
+  </div>
+</div>
+`;
+
+exports[`attr: в wml и копирование props attrs в props react function attr:data-qa 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      data-qa="data-qa-react-function"
+    >
+      react function
+    </div>
+  </div>
+</div>
+`;
+
+exports[`attr: в wml и копирование props attrs в props прокидывание clearProps с className 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      class="clear-props"
+      style="color: red;"
+    >
+      <div>
+        child
+      </div>
+    </div>
+  </div>
+</div>
+`;
