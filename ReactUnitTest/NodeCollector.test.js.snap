@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NodeCollector goUpByControlTree При зацикливании выдаётся ошибка, без бесконечной рекурсии: Убедимся, что дождались: класс должен поменяться 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div
+    class="setOpenerClassName"
+  >
+    <div
+      class="someClass"
+      tabindex="0"
+    >
+      <div
+        class="someClass"
+        tabindex="0"
+      >
+        <span
+          id="startNodeCollectorHere"
+        >
+          some text
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

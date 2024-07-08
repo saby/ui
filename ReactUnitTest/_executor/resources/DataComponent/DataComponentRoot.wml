@@ -1,0 +1,3 @@
+<div>
+    <ws:partial template="ReactUnitTest/_executor/resources/DataComponent/DataComponentWrapper"/>
+</div>

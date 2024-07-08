@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Темизация ThemeScope Если ThemeScope не верхний, список классов он навешивает на children 1`] = `
+<div>
+  <div
+    class="themeScopeChildren"
+  >
+    <div
+      class="bottomThemeScopeChildren bottomActiveThemeClass"
+    >
+      test
+    </div>
+  </div>
+</div>
+`;

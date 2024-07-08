@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`adaptiveAspects cookie invalid 1`] = `
+"{
+ \\"$serialized$\\": \\"inst\\",
+ \\"module\\": \\"UICore/Adaptive:_AdaptiveModeClass\\",
+ \\"id\\": 2,
+ \\"state\\": {
+  \\"windowInnerWidth\\": 1024,
+  \\"windowInnerHeight\\": 768,
+  \\"windowOuterWidth\\": 1024,
+  \\"windowOuterHeight\\": 768,
+  \\"viewportWidth\\": 0,
+  \\"viewportHeight\\": 0,
+  \\"containerClientWidth\\": 0,
+  \\"containerClientHeight\\": 0
+ }
+}"
+`;
+
+exports[`adaptiveAspects cookie set 1`] = `
+Object {
+  "isPhone": true,
+  "isTouch": true,
+  "windowInnerHeight": 31415,
+  "windowInnerWidth": 31415,
+}
+`;
+
+exports[`adaptiveAspects cookie set with dots 1`] = `
+Object {
+  "containerClientHeight": 123.123,
+  "containerClientWidth": 123.123,
+  "viewportHeight": 123.123,
+  "viewportWidth": 123.123,
+  "windowInnerHeight": 123.123,
+  "windowInnerWidth": 123.123,
+  "windowOuterHeight": 123.123,
+  "windowOuterWidth": 123.123,
+}
+`;
+
+exports[`adaptiveAspects cookie valid 1`] = `
+"{
+ \\"$serialized$\\": \\"inst\\",
+ \\"module\\": \\"UICore/Adaptive:_AdaptiveModeClass\\",
+ \\"id\\": 1,
+ \\"state\\": {
+  \\"windowInnerWidth\\": 1024,
+  \\"windowInnerHeight\\": 768,
+  \\"windowOuterWidth\\": 1024,
+  \\"windowOuterHeight\\": 768,
+  \\"viewportWidth\\": 0,
+  \\"viewportHeight\\": 0,
+  \\"containerClientWidth\\": 0,
+  \\"containerClientHeight\\": 0
+ }
+}"
+`;

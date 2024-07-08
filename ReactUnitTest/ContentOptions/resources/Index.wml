@@ -1,0 +1,10 @@
+<ReactUnitTest.ContentOptions.resources.Parent
+    name="parent"
+    child="{{ _child }}">
+    <ws:childOptions>
+        <ws:Object
+            wmlOption="value"
+            controlOptions="{{ _controlOptions }}"
+            />
+    </ws:childOptions>
+</ReactUnitTest.ContentOptions.resources.Parent>

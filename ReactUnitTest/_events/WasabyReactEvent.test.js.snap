@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WasabyReact Events Проверяем события, если именование опции совпадает с именем реакт-события, но не является обработчиком 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <button
+      id="testButton"
+      tabindex="0"
+    >
+      true
+    </button>
+    <button
+      id="testButton"
+      tabindex="0"
+    >
+      123
+    </button>
+    <button
+      id="testButton"
+      tabindex="0"
+    >
+      test
+    </button>
+  </div>
+</div>
+`;
+
+exports[`WasabyReact Events Проверяем события, порядок вызова обработчиков react-wasaby 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      id="reactElement"
+      tabindex="0"
+    >
+      react control
+    </div>
+    <button
+      id="checkButton"
+    >
+      check
+    </button>
+    <div>
+      <div>
+        mousedown in wasaby
+      </div>
+      <div>
+        click in react
+      </div>
+      <div>
+        click template in wasaby
+      </div>
+      <div>
+        click in wasaby
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,3 @@
+<div id="item-{{_options.value}}">
+    item {{ _options.value }}
+</div>
