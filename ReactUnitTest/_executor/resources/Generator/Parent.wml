@@ -1,0 +1,5 @@
+<div>
+   <ws:for data="index, item in _items">
+        <ws:partial template="{{item.itemTemplate}}" />
+   </ws:for>
+</div>

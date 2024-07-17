@@ -1,0 +1,9 @@
+<div class="contentOptionUser">
+   <ReactUnitTest._base.resources.ChildrenTest.NameUpperThenContentOption.ScopeOptionsAsCustomObject name="child">
+      <div class="contentOptionRoot">
+         <ws:if data="{{_options.contentOption}}">
+            <ws:partial template="{{ _options.contentOption }}" />
+         </ws:if>
+      </div>
+   </ReactUnitTest._base.resources.ChildrenTest.NameUpperThenContentOption.ScopeOptionsAsCustomObject>
+</div>

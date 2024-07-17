@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Темизация ThemeWrapper Если ThemeWrapper не верхний, список классов он навешивает на children 1`] = `
+<div>
+  <div
+    class="themeWrapperChildren"
+  >
+    <div
+      class="bottomThemeWrapperChildren controls_theme-default bottomActiveThemeClass controls_themes__wrapper"
+    >
+      test
+    </div>
+  </div>
+</div>
+`;

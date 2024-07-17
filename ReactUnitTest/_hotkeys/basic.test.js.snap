@@ -1,0 +1,227 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HotKeys basic 1`] = `
+<div
+  class="mainDiv"
+>
+  <div
+    class="unit-test-input"
+  />
+  <div>
+    <div
+      class="keyhook"
+    >
+      обработчик keydown сработал: 
+      1
+    </div>
+  </div>
+</div>
+`;
+
+exports[`HotKeys комплексный тест - 2 пересоздающихся соседа: complex 1`] = `
+<div
+  class="mainDiv"
+>
+  <div
+    class="unit-test-input"
+  />
+  <div>
+    <div>
+      <div
+        class="keyhook"
+      >
+        обработчик keydown сработал: 
+        1
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div
+        class="keyhook"
+      >
+        обработчик keydown сработал: 
+        0
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`HotKeys комплексный тест - первый сосед пропадает, второй должен перехватить инициативу: complex 1`] = `
+<div
+  class="mainDiv"
+>
+  <div
+    class="unit-test-input"
+  />
+  <article />
+  <div>
+    <div>
+      <div
+        class="keyhook"
+      >
+        обработчик keydown сработал: 
+        1
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`HotKeys комплексный тест - перерисовывающийся и пересоздающийся соседи: complex 1`] = `
+<div
+  class="mainDiv"
+>
+  <div
+    class="unit-test-input"
+  />
+  <div
+    class="abc2"
+  >
+    <div>
+      <div
+        class="keyhook"
+      >
+        обработчик keydown сработал: 
+        1
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div
+        class="keyhook"
+      >
+        обработчик keydown сработал: 
+        0
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`HotKeys комплексный тест 1: complex 1`] = `
+<div
+  class="mainDiv"
+>
+  <div
+    class="unit-test-input"
+  />
+  <div>
+    <div>
+      <div
+        class="keyhook"
+      >
+        обработчик keydown сработал: 
+        1
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div
+        class="keyhook"
+      >
+        обработчик keydown сработал: 
+        0
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`HotKeys комплексный тест 2: complex 1`] = `
+<div
+  class="mainDiv"
+>
+  <div
+    class="unit-test-input"
+  />
+  <div
+    class="abc2"
+  >
+    <div>
+      <div
+        class="keyhook"
+      >
+        обработчик keydown сработал: 
+        1
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div
+        class="keyhook"
+      >
+        обработчик keydown сработал: 
+        0
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`HotKeys комплексный тест 3: complex 1`] = `
+<div
+  class="mainDiv"
+>
+  <div
+    class="unit-test-input"
+  />
+  <article />
+  <div>
+    <div>
+      <div
+        class="keyhook"
+      >
+        обработчик keydown сработал: 
+        1
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`HotKeys родительский контрол перерисовывается 1`] = `
+<div
+  class="mainDiv"
+>
+  <div
+    class="unit-test-input"
+  />
+  <div
+    class="abc"
+  >
+    <div>
+      <div
+        class="keyhook"
+      >
+        обработчик keydown сработал: 
+        1
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`HotKeys родительский контрол пересоздается 1`] = `
+<div
+  class="mainDiv"
+>
+  <div
+    class="unit-test-input"
+  />
+  <article>
+    <div>
+      <div
+        class="keyhook"
+      >
+        обработчик keydown сработал: 
+        1
+      </div>
+    </div>
+  </article>
+</div>
+`;
