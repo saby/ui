@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui_module id="20900143-d257-48ef-b5db-0ccc8141fe4b" name="VirtualTreeMarkup" package="Wasaby" kaizen_zone="6e654dec-ddc3-417d-bd2e-ce775a13cd46" responsible="Тэн В.А." responsible_uuid="83a36d66-0fab-464b-a6bd-ceb53329d8d9" version="1.00">
+
+  <description>VirtualTree implementation</description>
+
+  <depends/>
+
+  <load_after/>
+
+  <parameters/>
+
+  <resources/>
+
+  <preload/>
+
+  <typescript>
+    <arg key="typecheck" value="0"/>
+  </typescript>
+</ui_module>

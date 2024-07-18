@@ -1,0 +1,3 @@
+<div on:click="handler()">
+    Wasaby children
+</div>

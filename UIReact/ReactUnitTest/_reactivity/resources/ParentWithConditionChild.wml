@@ -1,0 +1,8 @@
+<div>
+   <div>My state is "{{ ownState }}"</div>
+   <div>
+      <ws:if data="{{ shouldShowChild }}">
+         <ReactUnitTest._reactivity.resources.SimpleChild />
+      </ws:if>
+   </div>
+</div>

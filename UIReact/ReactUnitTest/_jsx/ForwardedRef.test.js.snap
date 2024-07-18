@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ForwardedRef Wasaby > ReactClass > content ReactClass 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    ok
+  </div>
+</div>
+`;
+
+exports[`ForwardedRef Wasaby > ReactClass 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    ok
+  </div>
+</div>
+`;
+
+exports[`ForwardedRef Wasaby > ReactFn > content ReactFn 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    ok
+  </div>
+</div>
+`;
+
+exports[`ForwardedRef Wasaby > ReactFn 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    ok
+  </div>
+</div>
+`;
+
+exports[`ForwardedRef Wasaby > Wasaby_React wrapper > Wasaby_React wrapper > Wasaby 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div
+    tabindex="0"
+  >
+    ok
+  </div>
+</div>
+`;
+
+exports[`ForwardedRef Wasaby > Wasaby_React wrapper > Wasaby_React wrapper > content 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div
+    tabindex="0"
+  >
+    ok
+  </div>
+</div>
+`;
