@@ -1,0 +1,6 @@
+<div>
+    Wasaby Control
+    <div>
+        <UIDemo.EventSubscriberDemo.WasabyChildren />
+    </div>
+</div>

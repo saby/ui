@@ -1,0 +1,7 @@
+<div>
+    <ws:for data="element in valueArray">
+        <div>{{ element }}</div>
+    </ws:for>
+    <button on:click="_pushToArray()" id="startPush">push to array</button>
+    <button on:click="_unshiftToArray()" id="startUnshift">unshift to array</button>
+</div>

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Подмена React createElement для совместимости с васаби Вставка wasaby-контрола с генерацией React.createElement 1`] = `
+<div>
+  <div>
+    <div
+      class="hello"
+      tabindex="0"
+    >
+      123
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Подмена React createElement для совместимости с васаби Вставка wasaby-шаблона с генерацией React.createElement 1`] = `
+<div>
+  <div>
+    <div
+      class="hello"
+      tabindex="0"
+    >
+      123
+    </div>
+  </div>
+</div>
+`;

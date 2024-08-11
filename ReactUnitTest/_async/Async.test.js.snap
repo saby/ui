@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UICore/Async:Async на СП Синхронная загрузка контрола на сервере 1`] = `"<div tabindex=\\"0\\" attr=\\"test-container\\"></div>"`;
+
+exports[`UICore/Async:Async на СП Синхронная загрузка контрола на сервере, с ошибкой: 1. ошибка 1`] = `"Couldn't load module \\"ReactUnitTest/_async/Fail/TestControlSync\\""`;
+
+exports[`UICore/Async:Async на СП Синхронная загрузка контрола на сервере, с ошибкой: 2. верстка 1`] = `"<div tabindex=\\"0\\">У СБИС возникла проблема</div>"`;

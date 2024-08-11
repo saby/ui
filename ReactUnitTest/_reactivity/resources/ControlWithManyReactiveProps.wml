@@ -1,0 +1,6 @@
+<div>
+    <div>value: {{value}} </div>
+    <div>value1: {{value1}} </div>
+    <div>value2: {{value2}} </div>
+    <button on:click="_startReactive()" id="startReactive">start</button>
+</div>
