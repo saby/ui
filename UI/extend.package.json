@@ -1,0 +1,26 @@
+{
+  "include": [
+    "UI/Adaptive",
+    "UI/Base",
+    "UI/Theme",
+    "UI/HotKeys",
+    "UI/Vdom",
+    "UI/Focus",
+    "UI/Utils",
+    "UI/NodeCollector",
+    "UI/theme/controller",
+    "UI/theme/context",
+    "UI/Contexts",
+    "UI/Executor",
+    "UI/Reactivity",
+    "UI/State",
+    "UI/Events",
+    "UI/BuilderConfig",
+    "UI/Head",
+    "UI/Bootstrap",
+    "UI/Route",
+    "wml!UI/Route",
+    "UI/Deps"
+  ],
+  "output": "online-superbundle.package.js"
+}

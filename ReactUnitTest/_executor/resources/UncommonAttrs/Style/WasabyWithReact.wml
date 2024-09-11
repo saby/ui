@@ -1,0 +1,5 @@
+<div class="wasabyWithReact">
+   <ReactUnitTest._executor.resources.UncommonAttrs.Style.StyledReact
+      attr:style="width: {{_wasabySize}}px; right: {{_wasabySize}}px;"
+   />
+</div>
