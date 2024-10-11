@@ -1,0 +1,7 @@
+<ws:template name="inlineOption">
+    <div id="inlineContainer"></div>
+</ws:template>
+
+<ReactUnitTest.Compiler._ref-container.InlineOptChildren>
+    <ws:partial template="inlineOption"/>
+</ReactUnitTest.Compiler._ref-container.InlineOptChildren>

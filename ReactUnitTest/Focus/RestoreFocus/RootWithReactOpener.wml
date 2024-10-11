@@ -1,0 +1,10 @@
+<div>
+   <ReactUnitTest.Focus.HOC>
+      <div data-info="чтобы не было общего корневого элемента у хока и опенера">
+         <ReactUnitTest.Focus.RestoreFocus.ReactOpener name="reactOpener" />
+      </div>
+   </ReactUnitTest.Focus.HOC>
+   <ws:if data="{{ showRestoreFocusRoot }}">
+      <ReactUnitTest.Focus.RestoreFocus.Root opener="{{ _children.reactOpener }}" />
+   </ws:if>
+</div>
