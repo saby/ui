@@ -1,0 +1,5 @@
+<div class="root">
+    <ws:for data="index, value in array">
+        <div class="item">array[{{ index }}] = {{ value }}</div>
+    </ws:for>
+</div>

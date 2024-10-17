@@ -1,0 +1,10 @@
+<div>
+    <label on:click="_changeChecked(1)">
+        <input type="radio" id="radioOne" checked="{{ _radioChecked === 1 ? 'checked' }}"/>
+        1
+    </label>
+    <label on:click="_changeChecked(2)">
+        <input type="radio" id="radioTwo" checked="{{ _radioChecked === 2 ? 'checked'  }}"/>
+        2
+    </label>
+</div>

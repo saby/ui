@@ -1,0 +1,7 @@
+<div>
+    <ReactUnitTest._refs.invisible-node.Middle
+    name="middle"
+    valueToUpdate="{{valueToUpdate}}"
+    on:customevent="eventHandler()"
+    />
+</div>
