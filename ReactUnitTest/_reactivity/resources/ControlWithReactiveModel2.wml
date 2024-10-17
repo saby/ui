@@ -1,0 +1,5 @@
+<div>
+    <div>{{_model.value}}</div>
+    <div>{{_value}}</div>
+    <button on:click="_startReactive('model changed')" id="startReactive">start</button>
+</div>

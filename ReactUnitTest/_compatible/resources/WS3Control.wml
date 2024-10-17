@@ -1,0 +1,5 @@
+<div>
+    <div data-qa="ws3Control">
+        <ReactUnitTest._compatible.resources.WasabyControl />
+    </div>
+</div>

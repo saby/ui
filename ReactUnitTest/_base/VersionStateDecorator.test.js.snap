@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VersionStateDecorator Обновление в родителе компонента с декоратором: 1. После простого поднятия счётчика ничего не перерисовалось 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        text from props: 
+        init
+      </div>
+      <div>
+        current counter value: 
+        0
+      </div>
+      <div>
+        <button>
+          upCounter
+        </button>
+      </div>
+      <div>
+        <button>
+          applyCounter
+        </button>
+      </div>
+      <div>
+        {}
+      </div>
+    </div>
+    <div>
+      <button>
+        changeText
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VersionStateDecorator Обновление в родителе компонента с декоратором: 2. Счётчик применился, потому что родитель поменял проп 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        text from props: 
+        changed
+      </div>
+      <div>
+        current counter value: 
+        1
+      </div>
+      <div>
+        <button>
+          upCounter
+        </button>
+      </div>
+      <div>
+        <button>
+          applyCounter
+        </button>
+      </div>
+      <div>
+        {}
+      </div>
+    </div>
+    <div>
+      <button>
+        changeText
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VersionStateDecorator Обновление в родителе компонента с декоратором: 3. Версия счётчика в стейте не апнулась, потому что счётчик уже применился в прошлый рендер 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        text from props: 
+        changed
+      </div>
+      <div>
+        current counter value: 
+        1
+      </div>
+      <div>
+        <button>
+          upCounter
+        </button>
+      </div>
+      <div>
+        <button>
+          applyCounter
+        </button>
+      </div>
+      <div>
+        {
+  "commonVersion": 1
+}
+      </div>
+    </div>
+    <div>
+      <button>
+        changeText
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VersionStateDecorator Обновление внутри компонента с декоратором: 1. Инициализация 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        text from props: 
+        init
+      </div>
+      <div>
+        current counter value: 
+        0
+      </div>
+      <div>
+        <button>
+          upCounter
+        </button>
+      </div>
+      <div>
+        <button>
+          applyCounter
+        </button>
+      </div>
+      <div>
+        {}
+      </div>
+    </div>
+    <div>
+      <button>
+        changeText
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VersionStateDecorator Обновление внутри компонента с декоратором: 2. После простого поднятия счётчика ничего не перерисовалось 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        text from props: 
+        init
+      </div>
+      <div>
+        current counter value: 
+        0
+      </div>
+      <div>
+        <button>
+          upCounter
+        </button>
+      </div>
+      <div>
+        <button>
+          applyCounter
+        </button>
+      </div>
+      <div>
+        {}
+      </div>
+    </div>
+    <div>
+      <button>
+        changeText
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VersionStateDecorator Обновление внутри компонента с декоратором: 3. Счётчик применился, версия счётчика в стейте апнулась 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        text from props: 
+        init
+      </div>
+      <div>
+        current counter value: 
+        1
+      </div>
+      <div>
+        <button>
+          upCounter
+        </button>
+      </div>
+      <div>
+        <button>
+          applyCounter
+        </button>
+      </div>
+      <div>
+        {
+  "commonVersion": 1,
+  "$this$ counter": 1
+}
+      </div>
+    </div>
+    <div>
+      <button>
+        changeText
+      </button>
+    </div>
+  </div>
+</div>
+`;

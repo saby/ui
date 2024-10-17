@@ -1,0 +1,4 @@
+<ws:partial template="wml!ReactUnitTest/_events/resources/WasabyReact/WasabyControl"
+            scope="{{_options}}"
+            on:click="_onClick()"
+/>
