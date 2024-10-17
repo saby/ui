@@ -1,0 +1,3 @@
+<div class="paintContentPatchOptions">
+   <ws:partial template="{{ _options.content }}" somePropFromScope="classNameFromScope" />
+</div>

@@ -1,0 +1,12 @@
+<UICore.Base:RouteCompatible
+   application="{{application}}"
+   scope="{{_options}}"
+   attr:key="bd_"
+   wsRoot="{{ wsRoot }}"
+   cssLinks="{{ cssLinks }}"
+   jsLinks="{{ jsLinks }}"
+   staticDomains="{{staticDomains}}"
+   cssBundles="{{ cssBundles }}"
+   servicesPath="{{ servicesPath }}"
+   resourceRoot="{{ resourceRoot }}"
+   Router="{{ Router }}"/>

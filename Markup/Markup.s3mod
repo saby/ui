@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui_module id="e76c9481-9d6f-49a4-b71f-b567061e6e38" name="Markup" package="Wasaby" kaizen_zone="b1b57bba-bc4d-4efe-9e96-403a7c5fdafc" responsible="Шипин А.А." responsible_uuid="8619c702-3e02-4c65-9cab-002183de664a" version="1.00">
+
+  <description>Markup generator</description>
+
+  <depends/>
+
+  <load_after/>
+
+  <parameters/>
+
+  <resources/>
+
+  <preload/>
+
+  <typescript>
+    <arg key="typecheck" value="0"/>
+  </typescript>
+</ui_module>
