@@ -1,0 +1,4 @@
+<ws:partial template="wml!ReactUnitTest/_base/resources/ControlTest/WasabyReact/WasabyControl"
+            scope="{{_options}}"
+            class="wasabyHocTemplateClass"
+/>

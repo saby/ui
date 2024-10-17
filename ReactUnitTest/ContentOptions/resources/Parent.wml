@@ -1,0 +1,6 @@
+<div>
+    <ws:partial template="{{ _options.child }}" scope="{{ _options.childOptions }}"/>
+    <div>
+        Опции остались те же - {{ _status }}
+    </div>
+</div>

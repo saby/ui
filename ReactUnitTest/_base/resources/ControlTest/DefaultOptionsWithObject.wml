@@ -1,0 +1,3 @@
+<div>
+   <ReactUnitTest._base.resources.ControlTest.DefaultOptionsWithObjectChild obj="{{ _options.obj }}" />
+</div>

@@ -1,0 +1,9 @@
+<ws:template name="contentWithCustomScopeOptions">
+   <ws:partial template="{{ content }}" scope="{{ customScope }}" />
+</ws:template>
+
+<ws:partial
+   template="contentWithCustomScopeOptions"
+   content="{{ _options.content }}"
+   customScope="{{ _options }}"
+/>
