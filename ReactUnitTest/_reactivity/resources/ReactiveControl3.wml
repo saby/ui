@@ -1,0 +1,4 @@
+<div>
+    {{ valueOne }}
+    <button on:click="_changeTemplate()" id="startTemplateChange">change template</button>
+</div>

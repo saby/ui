@@ -1,0 +1,1 @@
+<ws:partial attr:class="wasabyContentInRoot" template="{{ _options.content }}" />

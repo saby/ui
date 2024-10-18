@@ -1,0 +1,8 @@
+<ws:if data="{{ _options.contentOption }}">
+    <ReactUnitTest._jsx.ForwardedRef.ReactClass.ReactClassContent>
+        <ReactUnitTest._jsx.ForwardedRef.ReactClass.ReactClass hasContainer="{{ _hasContainer }}" />
+    </ReactUnitTest._jsx.ForwardedRef.ReactClass.ReactClassContent>
+</ws:if>
+<ws:else>
+    <ReactUnitTest._jsx.ForwardedRef.ReactClass.ReactClass hasContainer="{{ _hasContainer }}" />
+</ws:else>

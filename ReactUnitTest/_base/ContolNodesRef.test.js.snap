@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ControlNodes Ref Объект событий на controlNode обновляется при удалении контрола: 1. Клик на первый элемент 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      update controlNode events: true
+    </div>
+    <div
+      tabindex="0"
+    >
+      <div
+        id="item-0"
+        tabindex="0"
+      >
+        item 0
+      </div>
+      <div
+        id="item-1"
+        tabindex="0"
+      >
+        item 1
+      </div>
+      <div
+        id="item-2"
+        tabindex="0"
+      >
+        item 2
+      </div>
+      <button
+        id="remove"
+      >
+        remove 0
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ControlNodes Ref Объект событий на controlNode обновляется при удалении контрола: 2. Клик на второй элемент 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      update controlNode events: true
+    </div>
+    <div
+      tabindex="0"
+    >
+      <div
+        id="item-0"
+        tabindex="0"
+      >
+        item 0
+      </div>
+      <div
+        id="item-1"
+        tabindex="0"
+      >
+        item 1
+      </div>
+      <div
+        id="item-2"
+        tabindex="0"
+      >
+        item 2
+      </div>
+      <button
+        id="remove"
+      >
+        remove 0
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ControlNodes Ref Объект событий на controlNode обновляется при удалении контрола: 3. Удалили первый элемент 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      update controlNode events: true
+    </div>
+    <div
+      tabindex="0"
+    >
+      <div
+        id="item-1"
+        tabindex="0"
+      >
+        item 1
+      </div>
+      <div
+        id="item-2"
+        tabindex="0"
+      >
+        item 2
+      </div>
+      <button
+        id="remove"
+      >
+        remove 0
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ControlNodes Ref Объект событий на controlNode обновляется при удалении контрола: 4. Клик на новый первый элемент 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      update controlNode events: true
+    </div>
+    <div
+      tabindex="0"
+    >
+      <div
+        id="item-1"
+        tabindex="0"
+      >
+        item 1
+      </div>
+      <div
+        id="item-2"
+        tabindex="0"
+      >
+        item 2
+      </div>
+      <button
+        id="remove"
+      >
+        remove 0
+      </button>
+    </div>
+  </div>
+</div>
+`;
