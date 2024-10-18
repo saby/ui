@@ -1,0 +1,6 @@
+<div>
+    <h2>Вставка в wasaby</h2>
+    <UIDemo.EventDemo.WasabyReact.WasabyControl />
+    <h2>Вставка в react</h2>
+    <UIDemo.EventDemo.WasabyReact.ReactControl />
+</div>

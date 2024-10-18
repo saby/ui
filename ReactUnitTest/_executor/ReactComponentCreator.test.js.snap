@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReactComponentCreator react + rk children 1`] = `"<div data-reactroot=\\"\\">текст</div>"`;
+
+exports[`ReactComponentCreator react + rk children prop 1`] = `"<div data-reactroot=\\"\\">текст</div>"`;
+
+exports[`ReactComponentCreator wasaby -> react + rk 1`] = `"<div tabindex=\\"0\\">текст</div>"`;

@@ -1,0 +1,3 @@
+<div class="{{_options.myClass}}">
+    {{ _options.value }}
+</div>
