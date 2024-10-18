@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`withAdaptive HOC Class react component 1`] = `
+<div>
+  <div
+    class="reactWithAdaptiveMode"
+  >
+    <div>
+      31415
+    </div>
+  </div>
+</div>
+`;
+
+exports[`withAdaptive HOC Wasaby control 1`] = `
+<div>
+  <div
+    class="wasabyWithAdaptiveMode"
+    tabindex="0"
+  >
+    <div>
+      31415
+    </div>
+  </div>
+</div>
+`;

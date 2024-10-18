@@ -1,0 +1,11 @@
+<ws:template name="child2">
+   <ReactUnitTest._base.resources.ChildrenTest.ChildrenRef.Child2 name="MyControl"/>
+</ws:template>
+
+<ws:template name="child1">
+   <ReactUnitTest._base.resources.ChildrenTest.ChildrenRef.Child1 scope="{{ myOptions }}">
+      <ws:partial template="child2"/>
+   </ReactUnitTest._base.resources.ChildrenTest.ChildrenRef.Child1>
+</ws:template>
+
+<ws:partial template="child1" myOptions="{{ _options }}"/>

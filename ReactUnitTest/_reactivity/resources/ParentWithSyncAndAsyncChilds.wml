@@ -1,0 +1,8 @@
+<div>
+   <div>
+      <ReactUnitTest._reactivity.resources.AsyncChild />
+   </div>
+   <div>
+      <ReactUnitTest._reactivity.resources.SimpleChild />
+   </div>
+</div>

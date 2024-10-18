@@ -1,0 +1,3 @@
+<div class="styledWasaby" style="width: {{_wasabySize}}px; right: {{_wasabySize}}px;">
+   Styled Wasaby
+</div>

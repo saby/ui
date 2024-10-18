@@ -1,0 +1,3 @@
+<div id="enterHere" on:mouseEnter="_mouseEnterHandler(0)">
+    {{ _state }}
+</div>
