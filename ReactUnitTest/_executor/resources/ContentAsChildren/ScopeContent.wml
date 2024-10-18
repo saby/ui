@@ -1,0 +1,14 @@
+<div>
+   <ReactUnitTest._executor.resources.ContentAsChildren.SomeWasabyWithContent>
+      <ws:content>
+         <div class="objectContentInScope">
+            <ws:if data="{{ _options.allowPatchContent }}">
+               <ReactUnitTest._executor.resources.ContentAsChildren.PatchChildrenInsert scope="{{ _options }}" />
+            </ws:if>
+            <ws:else>
+               <ReactUnitTest._executor.resources.ContentAsChildren.SimpleChildrenInsert scope="{{ _options }}" />
+            </ws:else>
+         </div>
+      </ws:content>
+   </ReactUnitTest._executor.resources.ContentAsChildren.SomeWasabyWithContent>
+</div>

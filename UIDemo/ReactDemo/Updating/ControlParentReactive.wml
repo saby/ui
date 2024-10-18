@@ -1,0 +1,4 @@
+<div>
+    <h2>Before Updating</h2>
+    <UIDemo.ReactDemo.Updating.ControlChildReactive bind:value="value" />
+</div>

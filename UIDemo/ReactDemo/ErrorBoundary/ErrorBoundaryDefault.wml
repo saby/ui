@@ -1,0 +1,6 @@
+<div>
+    <span>
+    Использовать обработку ошибки по дефолту:
+    </span>
+    <UIDemo.ReactDemo.ErrorBoundary.ControlThrowError/>
+</div>
