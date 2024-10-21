@@ -1,0 +1,9 @@
+{
+    "links": {
+        "0": [1]
+    },
+    "nodes": {
+        "0": { "path": "Module4/Name.js" }
+    },
+    "nodesList": ["Module4/Name", "SomeModule4/Name"]
+}

@@ -1,0 +1,4 @@
+<div>
+    <ReactUnitTest._reactivity.UpdateReactiveDuringAsyncMount.ControlChildSync value="{{_value}}"/>
+    <ReactUnitTest._reactivity.UpdateReactiveDuringAsyncMount.ControlChildAsync value="{{_value}}"/>
+</div>

@@ -1,0 +1,4 @@
+<div>
+    <ReactUnitTest._events.resources.WasabyReact.ReactControl clickFn="{{ _options.clickFn }}" />
+    <ReactUnitTest._events.resources.WasabyReact.ReactControlUsingHoc clickFn="{{ _options.clickFn }}" />
+</div>

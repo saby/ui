@@ -1,0 +1,420 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReactFocus UI/Focus:FocusRoot FocusArea докидывает свои пропсы только до ближайшего FocusRoot, ниже они не спускаются 1`] = `
+<div>
+  <div>
+    <div
+      class="expectFocusAreaTabIndex"
+      tabindex="1"
+      ws-autofocus="true"
+    >
+      <div
+        class="expectDefaultTabIndex"
+        tabindex="0"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ReactFocus UI/Focus:FocusRoot При обновлении FocusRoot не теряются полученные из FocusArea пропсы: 1. Первая отрисовка, пропсы из FocusArea долетели до FocusRoot 1`] = `
+<div>
+  <div>
+    <div>
+      <div
+        class="a"
+        id="elementToClick"
+        tabindex="1"
+        ws-autofocus="true"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ReactFocus UI/Focus:FocusRoot При обновлении FocusRoot не теряются полученные из FocusArea пропсы: 2. FocusRoot обновился, пропсы из FocusArea не пропали 1`] = `
+<div>
+  <div>
+    <div>
+      <div
+        class="aa"
+        id="elementToClick"
+        tabindex="1"
+        ws-autofocus="true"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ReactFocus wml-react совместимость фокус-атрибуты из wml долетают до FocusRoot в реакте 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div
+    class="nowStanAsksAttributeOnRootTag"
+  >
+    <div
+      class="notFocusRoot"
+    >
+      <div
+        class="focusRootInReact"
+        tabindex="1"
+        ws-autofocus="true"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ReactFocus Восстановление фокуса при восстановлении фокуса корректно обрабатывается чистый реакт компонент опенер 1`] = `
+Array [
+  "ReactUnitTest/Focus/Input",
+  "ReactUnitTest/Focus/HOC",
+  "ReactUnitTest/Focus/RestoreFocus/Root",
+  "ReactOpener",
+  "ReactUnitTest/Focus/HOC",
+  "ReactUnitTest/Focus/RestoreFocus/RootWithReactOpener",
+]
+`;
+
+exports[`ReactFocus метод getElementProps Один большой тест, покрывающий метод целиком 1`] = `
+Object {
+  "anchorWithHref": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": true,
+    "tabCycling": false,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "anchorWithHrefDisplayNone": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "anchorWithHrefVisibilityHidden": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "anchorWithoutHref": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": true,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "anchorWithoutHrefDisplayNone": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "anchorWithoutHrefVisibilityHidden": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "attrWsCreatesContext": Object {
+    "createsContext": true,
+    "delegateFocusToChildren": false,
+    "enabled": true,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "attrWsCreatesContextDisplayNone": Object {
+    "createsContext": true,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "attrWsCreatesContextVisibilityHidden": Object {
+    "createsContext": true,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "attrWsDelegatesTabfocus": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": true,
+    "enabled": true,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "attrWsDelegatesTabfocusDisplayNone": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": true,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "attrWsDelegatesTabfocusVisibilityHidden": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": true,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "attrWsTabCycling": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": true,
+    "tabCycling": true,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "attrWsTabCyclingDisplayNone": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": true,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "attrWsTabCyclingVisibilityHidden": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": true,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "classWsDisabled": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "classWsDisabledDisplayNone": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "classWsDisabledVisibilityHidden": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "divContenteditable": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": true,
+    "tabCycling": false,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "divContenteditableDisplayNone": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "divContenteditableVisibilityHidden": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "focusRootContenteditable": Object {
+    "createsContext": true,
+    "delegateFocusToChildren": false,
+    "enabled": true,
+    "tabCycling": false,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "focusRootContenteditableDisplayNone": Object {
+    "createsContext": true,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "focusRootContenteditableVisibilityHidden": Object {
+    "createsContext": true,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "focusRootCycling": Object {
+    "createsContext": true,
+    "delegateFocusToChildren": true,
+    "enabled": true,
+    "tabCycling": true,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "focusRootCyclingDisplayNone": Object {
+    "createsContext": true,
+    "delegateFocusToChildren": true,
+    "enabled": false,
+    "tabCycling": true,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "focusRootCyclingVisibilityHidden": Object {
+    "createsContext": true,
+    "delegateFocusToChildren": true,
+    "enabled": false,
+    "tabCycling": true,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "focusRootSimple": Object {
+    "createsContext": true,
+    "delegateFocusToChildren": true,
+    "enabled": true,
+    "tabCycling": false,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "focusRootSimpleDisplayNone": Object {
+    "createsContext": true,
+    "delegateFocusToChildren": true,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "focusRootSimpleVisibilityHidden": Object {
+    "createsContext": true,
+    "delegateFocusToChildren": true,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "inputDisabled": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": true,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": true,
+  },
+  "inputDisabledDisplayNone": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": true,
+  },
+  "inputDisabledVisibilityHidden": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": true,
+  },
+  "inputEnabled": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": true,
+    "tabCycling": false,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "inputEnabledDisplayNone": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "inputEnabledVisibilityHidden": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": 0,
+    "tabStop": true,
+  },
+  "simlpeDiv": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": true,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "simlpeDivDisplayNone": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "simlpeDivVisibilityHidden": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": -1,
+    "tabStop": false,
+  },
+  "tabIndexDiv": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": true,
+    "tabCycling": false,
+    "tabIndex": 1,
+    "tabStop": true,
+  },
+  "tabIndexDivDisplayNone": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": 1,
+    "tabStop": true,
+  },
+  "tabIndexDivVisibilityHidden": Object {
+    "createsContext": false,
+    "delegateFocusToChildren": false,
+    "enabled": false,
+    "tabCycling": false,
+    "tabIndex": 1,
+    "tabStop": true,
+  },
+}
+`;
