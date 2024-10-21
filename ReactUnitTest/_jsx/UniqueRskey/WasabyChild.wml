@@ -1,0 +1,7 @@
+<div class="child">
+    <ReactUnitTest._jsx.UniqueRskey.WasabyGrandChild />
+    <ReactUnitTest._jsx.UniqueRskey.WasabyGrandChild />
+    <div>
+        <ReactUnitTest._jsx.UniqueRskey.WasabyGrandChild />
+    </div>
+</div>

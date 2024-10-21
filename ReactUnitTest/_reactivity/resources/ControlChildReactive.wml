@@ -1,0 +1,4 @@
+<div>
+    {{getValue()}}
+    <button id="ControlChildReactive" on:click="onClick()"/>
+</div>

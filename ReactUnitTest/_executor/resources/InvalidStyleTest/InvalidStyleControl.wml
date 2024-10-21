@@ -1,0 +1,3 @@
+<div>
+   <div id="divWithStyle" style="max-width: {{ maxWidth }}px;"></div>
+</div>

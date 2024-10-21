@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`withAdaptive HOC adaptiveMode through context 1`] = `
+<div>
+  <div>
+    <span>
+      container clientWidth: 
+      31415
+    </span>
+    <span>
+      container clientHeight: 
+      31415
+    </span>
+    <span>
+      window innerWidth: 
+      0
+    </span>
+    <span>
+      window innerHeight: 
+      0
+    </span>
+    <span>
+      window outerWidth: 
+      0
+    </span>
+    <span>
+      window outerHeight: 
+      0
+    </span>
+    <span>
+      window viewportWidth: 
+      0
+    </span>
+    <span>
+      window viewportHeight: 
+      0
+    </span>
+    <span>
+      window screenWidth: 
+      0
+    </span>
+    <span>
+      window screenHeight: 
+      0
+    </span>
+    <span>
+      device isPhone: 
+      true
+    </span>
+    <span>
+      device isTablet: 
+      false
+    </span>
+    <span>
+      device isTouch: 
+      true
+    </span>
+    <span>
+      orientation isVertical: 
+      false
+    </span>
+    <span>
+      orientation isHorizontal: 
+      true
+    </span>
+  </div>
+</div>
+`;

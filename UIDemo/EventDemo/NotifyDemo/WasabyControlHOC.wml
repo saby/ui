@@ -1,0 +1,18 @@
+<div>
+    <div>val: {{_val}}</div>
+
+    <UIDemo.EventDemo.NotifyDemo.ReactControlClass
+        onDidMount="{{ _onChildDidMount }}"
+        changeVal="{{ _changeVal }}"
+    />
+
+    <UIDemo.EventDemo.NotifyDemo.ReactControlFn
+        onDidMount="{{ _onChildDidMount }}"
+        changeVal="{{ _changeVal }}"
+    />
+
+    <UIDemo.EventDemo.NotifyDemo.WasabyOriginalControl
+        on:childMounted="_onChildDidMountOld()"
+        on:changeVal="_changeVal()"
+    />
+</div>

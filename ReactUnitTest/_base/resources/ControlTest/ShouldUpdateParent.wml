@@ -1,0 +1,5 @@
+<div>
+    <Controls.Container.Async templateName="wml!ReactUnitTest/_base/resources/ControlTest/ShouldUpdateChild">
+        <ws:templateOptions value = "{{ _value }}"/>
+    </Controls.Container.Async>
+</div>

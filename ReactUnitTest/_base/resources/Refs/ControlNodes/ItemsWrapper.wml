@@ -1,0 +1,9 @@
+<div>
+    <ws:for data="index, item in _items">
+        <ReactUnitTest._base.resources.Refs.ControlNodes.Item 
+            value="{{item.value}}"
+            on:click="clickHandler(item.value)"
+        />
+    </ws:for>    
+    <button on:click="changeHandler()" id="remove">remove 0</button>
+</div>

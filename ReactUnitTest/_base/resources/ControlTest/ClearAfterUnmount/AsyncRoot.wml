@@ -1,0 +1,6 @@
+<div on:notifyEvent="_notifyHandler()">
+    <div>{{ notifyResult }}</div>
+    <ws:if data="{{ showChild }}">
+        <ReactUnitTest._base.resources.ControlTest.ClearAfterUnmount.AsyncChild />
+    </ws:if>
+</div>

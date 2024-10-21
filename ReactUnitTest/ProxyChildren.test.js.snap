@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProxyChildren Нет спама варнингами, если _children прокидывают в дочерний шаблон или контрол 1`] = `
+<div>
+  <div
+    class="rootDownChlidren"
+    name="testChildren"
+    tabindex="0"
+  >
+    <div
+      class="downControl"
+      tabindex="0"
+    >
+      <div
+        class="downTemplate"
+        tabindex="0"
+      >
+        <span
+          class="value"
+        >
+          value is 2
+        </span>
+        <span
+          class="children"
+        >
+          rootDownChlidren
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
