@@ -1,0 +1,5 @@
+<ReactUnitTest._reactivity.ControlWithContentBind.Middle bind:value="value">
+    <ws:content>
+        <ReactUnitTest._reactivity.ControlWithContentBind.Bottom name="bottom" bind:value="content.value"/>
+    </ws:content>
+</ReactUnitTest._reactivity.ControlWithContentBind.Middle>

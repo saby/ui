@@ -1,0 +1,11 @@
+<div>
+   <ReactUnitTest._executor.resources.ContentAsChildren.CloneContentAsChildren>
+      <div class="contentRoot">
+         <ReactUnitTest._executor.resources.ContentAsChildren.ReactIndideContent />
+      </div>
+   </ReactUnitTest._executor.resources.ContentAsChildren.CloneContentAsChildren>
+   
+   <ReactUnitTest._executor.resources.ContentAsChildren.CloneContentAsChildren>
+      <ReactUnitTest._executor.resources.ContentAsChildren.ReactIndideContent attr:class="contentRoot" />
+   </ReactUnitTest._executor.resources.ContentAsChildren.CloneContentAsChildren>
+</div>

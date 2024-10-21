@@ -1,0 +1,3 @@
+<ReactUnitTest._templateCreator.Hoc value="{{value}}">
+   <ReactUnitTest._templateCreator.Child value="{{value}}"/>
+</ReactUnitTest._templateCreator.Hoc>

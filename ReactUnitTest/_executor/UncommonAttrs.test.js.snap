@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Передача атрибутов, которых нет в списке wasabyToReactAttrNames, на стыке wasaby и react атрибут style React задаёт, wasaby использует 1`] = `
+<div>
+  <div
+    class="reactWithWasaby"
+  >
+    <div
+      class="styledWasaby"
+      style="width: 100px; right: 123px; height: 123px; left: 0px;"
+      tabindex="0"
+    >
+      Styled Wasaby
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Передача атрибутов, которых нет в списке wasabyToReactAttrNames, на стыке wasaby и react атрибут style Wasaby задаёт, react использует 1`] = `
+<div>
+  <div
+    class="wasabyWithReact"
+    tabindex="0"
+  >
+    <div
+      class="styledReact"
+      style="width: 100px; right: 123px; height: 123px;"
+    >
+      Styled React
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Передача атрибутов, которых нет в списке wasabyToReactAttrNames, на стыке wasaby и react атрибут target React задаёт, wasaby использует 1`] = `
+<div>
+  <div
+    class="reactWithLinkWasaby"
+  >
+    <a
+      class="linkWasaby"
+      href="https://ya.ru/"
+      tabindex="0"
+      target="_blank"
+    >
+      Link Wasaby
+    </a>
+  </div>
+</div>
+`;
+
+exports[`Передача атрибутов, которых нет в списке wasabyToReactAttrNames, на стыке wasaby и react атрибут target Wasaby задаёт, react использует 1`] = `
+<div>
+  <div
+    class="wasabyWithLinkReact"
+    tabindex="0"
+  >
+    <a
+      class="linkReact"
+      href="https://ya.ru/"
+      target="_blank"
+    >
+      Link React
+    </a>
+  </div>
+</div>
+`;
