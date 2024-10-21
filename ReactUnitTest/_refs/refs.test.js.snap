@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Тестирование ref Цепочка ref работает, контрол строится 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    user control
+  </div>
+</div>
+`;

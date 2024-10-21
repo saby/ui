@@ -1,0 +1,4 @@
+<div>
+    <ReactUnitTest._base.OptionsVersions.Child2 record="{{ _options.record }}" />
+    <ReactUnitTest._base.OptionsVersions.Child3 record="{{ _options.record }}" />
+</div>

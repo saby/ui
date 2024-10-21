@@ -1,0 +1,20 @@
+<ws:template name="hocReact">
+    <ws:partial template="ReactUnitTest/_events/resources/WasabyReact/TransferEvent/ReactControl"
+        on:click="_clickHandlerInTemplate()"
+        on:mousedown="_mouseDownHandler()"
+        on:myclick="_myClickHandler()"
+        pushToQueue="{{pushToQueue}}"
+    />
+</ws:template>
+
+<div>
+    <ws:partial template="hocReact" on:click="_clickHandler()" />
+    <button on:click="_applyEventQueue()" id="checkButton">check</button>
+    <div>
+        <ws:for data="value in _eventQueue">
+            <div>
+                {{value}}
+            </div>
+        </ws:for>
+    </div>
+</div>

@@ -1,0 +1,3 @@
+<a class="linkWasaby" href="{{ _options.href }}">
+   Link Wasaby
+</a>

@@ -1,0 +1,9 @@
+<div>
+    <div>
+    root val count: {{_valCount}}
+    <ws:for data="i in _val">
+        <div>{{i}}</div>
+    </ws:for>
+    </div>
+    <UIDemo.EventDemo.NotifyDemo.WasabyControlHOC on:childMounted="handler()" />
+</div>

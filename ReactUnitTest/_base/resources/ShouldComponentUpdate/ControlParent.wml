@@ -1,0 +1,5 @@
+<ReactUnitTest._base.resources.ShouldComponentUpdate.ControlChild
+    name="child"
+    testOption="{{ _testOption }}"
+    timeToMountChild="{{ _timeToMountChild }}"
+/>
