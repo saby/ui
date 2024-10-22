@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui_module id="24fe698c-de89-4825-b2ff-2c5d264543b1" name="VirtualDom" package="Wasaby" kaizen_zone="cf0628a5-e0cb-4894-81b8-a7bba0fb4fce" responsible="Кондаков Р.Н." responsible_uuid="dcbb139c-7ab8-494a-b723-301d85312a31" version="1.00">
+
+  <description>VirtualDom</description>
+
+  <depends/>
+
+  <load_after/>
+
+  <parameters/>
+
+  <resources/>
+
+  <preload/>
+
+  <typescript>
+    <arg key="typecheck" value="0"/>
+  </typescript>
+</ui_module>

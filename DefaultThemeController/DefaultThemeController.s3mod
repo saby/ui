@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui_module id="4faefc42-6d2d-4c62-8a73-8de7ae255183" name="DefaultThemeController" kaizen_zone="ac7fdb9c-1706-4d4d-80e8-dc9fb94151ba" package="Wasaby" responsible="Санников К.А." responsible_uuid="eaa71514-f494-4ba4-9655-83ec59b449ef" required="1" version="1.00">
+
+  <description>Модуль дефолтных загрузки и удаления стилей на клиенте и СП</description>
+
+  <depends>
+    <module id="0f15ac6b-86b2-4265-9da1-05eac93ebdf6" name="UICommon" />
+  </depends>
+ 
+  <features_provided>
+    <feature name="ThemeInitializer"/>
+  </features_provided>
+
+  <load_after/>
+
+  <parameters/>
+
+  <resources/>
+
+  <preload/>
+
+  <typescript>
+    <arg key="typecheck" value="0"/>
+  </typescript>
+</ui_module>

@@ -1,0 +1,5 @@
+<div attr="test-container">
+   <ws:if data="{{ value }}">
+      <ReactUnitTest._beforeUnmountDecorator.Middle scope="{{_options}}"/>
+   </ws:if>
+</div>
