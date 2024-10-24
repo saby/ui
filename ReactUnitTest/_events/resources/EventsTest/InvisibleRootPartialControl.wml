@@ -1,0 +1,7 @@
+<div>
+    <div>{{value}}</div>
+    <div id="button">
+        <ws:partial template="ReactUnitTest/_events/resources/EventsTest/InvisibleInner" on:click="_innerClick()"/>
+    </div>
+</div>
+

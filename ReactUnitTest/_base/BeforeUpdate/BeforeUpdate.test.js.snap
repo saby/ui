@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Порядок вызова _beforeUpdate вложенных контролов синхронный|Асинхронный|синхронный - версионируемое реактивное свойство приводит к обновлению ребенка 1`] = `
+<div>
+  <span
+    tabindex="0"
+  >
+     updated 
+  </span>
+</div>
+`;
+
+exports[`Порядок вызова _beforeUpdate вложенных контролов изменямеый синхронно синхронный|*асинхронный*|асинхронный 1`] = `
+<div>
+  <span
+    tabindex="0"
+  >
+     before Mount dynamic 
+  </span>
+</div>
+`;

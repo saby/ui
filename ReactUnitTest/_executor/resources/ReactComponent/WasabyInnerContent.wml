@@ -1,0 +1,7 @@
+<ws:template name="test">
+    <div>Is content Template</div>
+</ws:template>
+
+<div>
+    <ws:partial template="test" />
+</div>

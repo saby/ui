@@ -1,0 +1,4 @@
+<div>
+   {{_options.topValue}}
+   {{middleValue}}
+</div>

@@ -1,0 +1,3 @@
+<div class="wasabyWithAdaptiveMode">
+   <div>{{ '' + _options.adaptiveMode.container.clientWidth.value }}</div>
+</div>

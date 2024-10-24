@@ -1,0 +1,22 @@
+<div>
+    <UIDemo.Adaptive.SomeControl/>
+    forced sm:
+    <div style="width: 640px">
+        <UI.Adaptive:AdaptiveContainer width="{{DEFAULT_BREAKPOINTS.sm}}">
+            <UIDemo.Adaptive.SomeControl/>
+        </UI.Adaptive:AdaptiveContainer>
+    </div>
+    forced md:
+    <div style="width: 768px">
+        <UI.Adaptive:AdaptiveContainer width="{{DEFAULT_BREAKPOINTS.md}}">
+            <UIDemo.Adaptive.SomeControl/>
+        </UI.Adaptive:AdaptiveContainer>
+    </div>
+    forced lg:
+    <div style="width: 1024px">
+        <UI.Adaptive:AdaptiveContainer width="{{DEFAULT_BREAKPOINTS.lg}}">
+            <UIDemo.Adaptive.SomeControl/>
+        </UI.Adaptive:AdaptiveContainer>
+    </div>
+</div>
+

@@ -1,0 +1,5 @@
+<div on:customEvent="_customEventHandler()">
+   <ws:if data="{{ value }}">
+      <ReactUnitTest._beforeUnmountDecorator.EventMiddle name="eventMiddle" scope="{{_options}}"/>
+   </ws:if>
+</div>
