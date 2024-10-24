@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WasabyReact Events Проверяем события, если именование опции совпадает с именем реакт-события, но не является обработчиком 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <button
+      id="testButton"
+      tabindex="0"
+    >
+      true
+    </button>
+    <button
+      id="testButton"
+      tabindex="0"
+    >
+      123
+    </button>
+    <button
+      id="testButton"
+      tabindex="0"
+    >
+      test
+    </button>
+  </div>
+</div>
+`;

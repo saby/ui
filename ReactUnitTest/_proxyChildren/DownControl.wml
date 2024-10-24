@@ -1,0 +1,6 @@
+<div class="downControl">
+   <ws:partial
+      template="{{ _downTemplate }}"
+      scope="{{ _options }}"
+   />
+</div>

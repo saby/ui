@@ -1,0 +1,343 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Children в tsx преобразовывается в content wml FocusRoot не получает лишних пропсов из wml 1`] = `
+<div>
+  <div
+    class="rootReactComponent"
+  >
+    <div
+      class="wasabyPatchedContent"
+      tabindex="0"
+    >
+      <div
+        class="patchedClass focusRootElement"
+        tabindex="0"
+      >
+        Hello content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml children - массив, контент не в корне контрола 1`] = `
+<div>
+  <div
+    class="rootReactArrayChildren"
+  >
+    <div
+      class="wasabySimpleContent"
+      tabindex="0"
+    >
+      <div
+        class="firstChild"
+      >
+        child 1
+      </div>
+      <div
+        class="secondChild"
+      >
+        child 2
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml children прокомментирован 1`] = `
+<div>
+  <div
+    class="rootReactCommentChildren"
+  >
+    <div
+      class="wasabyContentInRoot afterCommentChild"
+    >
+      child
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml children прокомментирован, компиляция через createElement 1`] = `
+<div>
+  <div
+    class="rootReactCommentChildren"
+  >
+    <div
+      class="wasabyContentInRoot afterCommentChildByCreateElement"
+    >
+      child
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml tsx вставляет Wasaby в Wasaby: Мержатся все 4 класса, объявленные на всех уровнях 1`] = `
+<div>
+  <div>
+    <div
+      class="inner-class react-inner patched-wasaby-class react-outer"
+      data-text="data-text from OuterWasaby.wml"
+      tabindex="0"
+    >
+      Text from WasabyInWasaby.tsx
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml Объединение ref, в Wasaby вставляется HTMLElement: Проверка вёрстки 1`] = `
+<div>
+  <div
+    class="rootReactForwardingRef"
+  >
+    <div
+      class="wasabyContentInRoot contentWithRef"
+    >
+      Hello content
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml Объединение ref, в Wasaby вставляется Wasaby: Проверка вёрстки 1`] = `
+<div>
+  <div
+    class="rootReactForwardingRef"
+  >
+    <div
+      class="inner-class contentWithRef wasabyContentInRoot"
+      tabindex="0"
+    >
+      Wasaby
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml Происходит склейка className когда контент это реакт компонент: должны склеиться классы patchedClass и content 1`] = `
+<div>
+  <div
+    class="rootReactComponent"
+  >
+    <div
+      class="wasabyPatchedContent"
+      tabindex="0"
+    >
+      <div
+        class="patchedClass content"
+      >
+        Hello content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml контрол не патчит content 1`] = `
+<div>
+  <div
+    class="rootReactComponent"
+  >
+    <div
+      class="wasabySimpleContent"
+      tabindex="0"
+    >
+      <div
+        class="content"
+      >
+        Hello content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml контрол патчит content 1`] = `
+<div>
+  <div
+    class="rootReactComponent"
+  >
+    <div
+      class="wasabyPatchedContent"
+      tabindex="0"
+    >
+      <div
+        class="patchedClass content"
+      >
+        Hello content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml контрол прокидывает content дальше 1`] = `
+<div>
+  <div
+    class="rootReactComponent"
+  >
+    <div
+      class="wasabySimpleContent wasabyProxyContent"
+      tabindex="0"
+    >
+      <div
+        class="content"
+      >
+        Hello content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml контрол прокидывает content дальше, content перерисовывается при смене children: 1. before click 1`] = `
+<div>
+  <div
+    data-qa="changeTagOnClick"
+  >
+    <div
+      class="rootReactComponent"
+    >
+      <div
+        class="wasabySimpleContent wasabyProxyContentWithNewPartial"
+        tabindex="0"
+      >
+        <div
+          class="first"
+        >
+          Hello content
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml контрол прокидывает content дальше, content перерисовывается при смене children: 2. after click 1`] = `
+<div>
+  <div
+    data-qa="changeTagOnClick"
+  >
+    <div
+      class="rootReactComponent"
+    >
+      <div
+        class="wasabySimpleContent wasabyProxyContentWithNewPartial"
+        tabindex="0"
+      >
+        <div
+          class="second"
+        >
+          Hello content
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml не происходит лишних перерисовок 1 (перерисовка по клику происходит и счетчик выводится) 1`] = `
+<div>
+  <div>
+    <button>
+      +1
+    </button>
+    <div>
+      0
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml не происходит лишних перерисовок 1 (перерисовка по клику происходит и счетчик выводится) 2`] = `
+<div>
+  <div>
+    <button>
+      +1
+    </button>
+    <div>
+      1
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml не происходит лишних перерисовок 2 (перерисовка по клику не происходит) 1`] = `
+<div>
+  <div>
+    <button>
+      +1
+    </button>
+    <div>
+      0
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml не происходит лишних перерисовок 2 (перерисовка по клику не происходит) 2`] = `
+<div>
+  <div>
+    <button>
+      +1
+    </button>
+    <div>
+      0
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml пропсы из логического родителя в приоритете перед опциями контента: anotherOption не перетирается в wml 1`] = `
+<div>
+  <div
+    class="wasabyPatchedContent"
+    tabindex="0"
+  >
+    <div
+      class="patchedClass"
+    >
+      anotherOption: tsx value
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml шаблон не патчит content 1`] = `
+<div>
+  <div
+    class="rootReactComponent"
+  >
+    <div
+      class="wasabySimpleContent"
+      tabindex="0"
+    >
+      <div
+        class="content"
+      >
+        Hello content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Children в tsx преобразовывается в content wml шаблон патчит content 1`] = `
+<div>
+  <div
+    class="rootReactComponent"
+  >
+    <div
+      class="wasabyPatchedContent"
+      tabindex="0"
+    >
+      <div
+        class="patchedClass content"
+      >
+        Hello content
+      </div>
+    </div>
+  </div>
+</div>
+`;
