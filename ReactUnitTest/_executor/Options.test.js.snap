@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Markup inherit options readOnly не указан и наследуется в inline шаблоне вставленном через if 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div
+    tabindex="0"
+  >
+    default
+    default
+  </div>
+</div>
+`;
+
+exports[`Markup inherit options readOnly указан и наследуется в inline шаблоне вставленном через if 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div
+    tabindex="0"
+  >
+    readOnly
+    myTheme
+  </div>
+</div>
+`;

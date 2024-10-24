@@ -1,0 +1,7 @@
+<div class="root">
+    <ws:for data="iterator.init(); iterator.test(); iterator.update()">
+        <div class="item">
+            {{ iterator.getText(userName) }}
+        </div>
+    </ws:for>
+</div>
