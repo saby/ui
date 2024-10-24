@@ -1,0 +1,12 @@
+<ws:if data="{{ _options.contentOption }}">
+    <ReactUnitTest._jsx.ForwardedRef.Wrapper.WasabyReactFn>
+        <ReactUnitTest._jsx.ForwardedRef.Wrapper.WasabyReactFn>
+            <div>{{ _hasContainer ? 'ok' : 'not ok' }}</div>
+        </ReactUnitTest._jsx.ForwardedRef.Wrapper.WasabyReactFn>
+    </ReactUnitTest._jsx.ForwardedRef.Wrapper.WasabyReactFn>
+</ws:if>
+<ws:else>
+    <ReactUnitTest._jsx.ForwardedRef.Wrapper.WasabyReactFn>
+        <ReactUnitTest._jsx.ForwardedRef.Wrapper.WasabyReactFn hasContainer="{{ _hasContainer }}"/>
+    </ReactUnitTest._jsx.ForwardedRef.Wrapper.WasabyReactFn>
+</ws:else>

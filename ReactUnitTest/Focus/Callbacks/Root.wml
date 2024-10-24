@@ -1,0 +1,33 @@
+<div id="focusCallbacks">
+   <ReactUnitTest.Focus.HOC
+      on:activated="commonHOCActivatedCallback()"
+      on:deactivated="commonHOCDeactivatedCallback()"
+   >
+      <div>
+         <ReactUnitTest.Focus.HOC
+            on:activated="firstHOCActivatedCallback()"
+            on:deactivated="firstHOCDeactivatedCallback()"
+         >
+            <ReactUnitTest.Focus.Input
+               attr:id="firstInput"
+               inputId="firstInputElement"
+               on:activated="firstInputActivatedCallback()"
+               on:deactivated="firstInputDeactivatedCallback()"
+            />
+         </ReactUnitTest.Focus.HOC>
+
+         <ReactUnitTest.Focus.HOC
+            on:activated="secondHOCActivatedCallback()"
+            on:deactivated="secondHOCDeactivatedCallback()"
+         >
+            <ReactUnitTest.Focus.Input
+               attr:id="secondInput"
+               inputId="secondInputElement"
+               on:activated="secondInputActivatedCallback()"
+               on:deactivated="secondInputDeactivatedCallback()"
+            />
+         </ReactUnitTest.Focus.HOC>
+      </div>
+
+   </ReactUnitTest.Focus.HOC>
+</div>

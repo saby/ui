@@ -1,0 +1,8 @@
+<div>
+    <div>
+        {{result}}
+    </div>
+    <ReactUnitTest._jsx.resources.WasabyCallback.ReactControl on:event="resultHandlerEvent()" isEvent="{{true}}" />
+    <ReactUnitTest._jsx.resources.WasabyCallback.ReactControl on:event="resultHandlerEvent()" isNoEvent="{{true}}"/>
+    <ReactUnitTest._jsx.resources.WasabyCallback.ReactControl on:event="resultHandlerEvent('myVal', 'myVal1')" isEmpty="{{true}}" />
+</div>
