@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdaptiveInitializer isPhoneForced = false 1`] = `
+<body>
+  <div>
+    <div>
+      adaptiveMode: 
+      {"$serialized$":"inst","module":"UICore/Adaptive:_AdaptiveModeClass","id":2,"state":{"containerClientWidth":0,"containerClientHeight":0}}
+      domElementWithSizes: 
+      isPhoneForced: 
+      false
+    </div>
+  </div>
+</body>
+`;
+
+exports[`AdaptiveInitializer isPhoneForced = true 1`] = `
+<body>
+  <div>
+    <div>
+      adaptiveMode: 
+      {"$serialized$":"inst","module":"UICore/Adaptive:_AdaptiveModeClass","id":1,"state":{"containerClientWidth":0,"containerClientHeight":0}}
+      domElementWithSizes: 
+      isPhoneForced: 
+      true
+    </div>
+  </div>
+</body>
+`;
+
+exports[`AdaptiveInitializer with special domElementWithSizes isPhoneForced = false 1`] = `
+<body>
+  <div
+    style="width:1000px;height:1000px;"
+  >
+    <div
+      style="height: 100%; width: 100%; display: contents;"
+    >
+      <div>
+        adaptiveMode: 
+        {"$serialized$":"inst","module":"UICore/Adaptive:_AdaptiveModeClass","id":5,"state":{"containerClientWidth":0,"containerClientHeight":0}}
+        domElementWithSizes: 
+        width:1000px;height:1000px;
+        isPhoneForced: 
+        false
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`AdaptiveInitializer with special domElementWithSizes isPhoneForced = true 1`] = `
+<body>
+  <div
+    style="width:1000px;height:1000px;"
+  >
+    <div
+      style="height: 100%; width: 100%; display: contents;"
+    >
+      <div>
+        adaptiveMode: 
+        {"$serialized$":"inst","module":"UICore/Adaptive:_AdaptiveModeClass","id":4,"state":{"containerClientWidth":0,"containerClientHeight":0}}
+        domElementWithSizes: 
+        width:1000px;height:1000px;
+        isPhoneForced: 
+        true
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`AdaptiveInitializer with special domElementWithSizes without isPhoneForced 1`] = `
+<body>
+  <div
+    style="width:1000px;height:1000px;"
+  >
+    <div
+      style="height: 100%; width: 100%; display: contents;"
+    >
+      <div>
+        adaptiveMode: 
+        {"$serialized$":"inst","module":"UICore/Adaptive:_AdaptiveModeClass","id":6,"state":{"containerClientWidth":0,"containerClientHeight":0}}
+        domElementWithSizes: 
+        width:1000px;height:1000px;
+        isPhoneForced: 
+        undefined
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`AdaptiveInitializer without isPhoneForced 1`] = `
+<body>
+  <div>
+    <div>
+      adaptiveMode: 
+      {"$serialized$":"inst","module":"UICore/Adaptive:_AdaptiveModeClass","id":3,"state":{"containerClientWidth":0,"containerClientHeight":0}}
+      domElementWithSizes: 
+      isPhoneForced: 
+      undefined
+    </div>
+  </div>
+</body>
+`;

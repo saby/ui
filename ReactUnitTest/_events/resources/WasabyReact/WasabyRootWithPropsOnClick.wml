@@ -1,0 +1,5 @@
+<div>
+    <ReactUnitTest._events.resources.WasabyReact.WasabyChildWithPropsOnClick onClick="{{ true }}" />
+    <ReactUnitTest._events.resources.WasabyReact.WasabyChildWithPropsOnClick onClick="{{ 123 }}" />
+    <ReactUnitTest._events.resources.WasabyReact.WasabyChildWithPropsOnClick onClick="{{ 'test' }}" />
+</div>

@@ -1,0 +1,6 @@
+<div class="contentOptionOwner">
+    <ReactUnitTest._base.resources.ChildrenTest.NameUpperThenContentOption.ContentOptionUser
+        name="contentOptionUser"
+        contentOption="{{ contentOptionControl }}"
+    />
+</div>

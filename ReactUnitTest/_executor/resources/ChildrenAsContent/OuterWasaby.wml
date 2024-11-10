@@ -1,0 +1,6 @@
+<ws:partial
+   template="{{ _options.content }}"
+   text="Text from OuterWasaby.wml"
+   attr:data-text="data-text from OuterWasaby.wml"
+   attr:class="patched-wasaby-class"
+/>

@@ -1,0 +1,146 @@
+<div class="compatibleDemo__column">
+    <div class="compatibleDemo__column">
+        <div class="compatibleDemo__row">
+            <b>Загрузка WS3-контрола в новом окружении без слоя совместимости.</b>
+        </div>
+        <div class="compatibleDemo__row">
+            Проблемы:
+        </div>
+        <div class="compatibleDemo__row">
+            <div class="compatibleDemo__column">
+                <div class="compatibleDemo__row">
+                    1) Не построится контрол. В консоль упадет ошибка
+                </div>
+            </div>
+        </div>
+        <div class="compatibleDemo__row">
+            <Controls.buttons:Button href="{{'/UIDemo/app/CompatibleDemo%252FWasabyEnv%252FWS3%252FWithoutCompatible'}}" fontSize="s" inlineHeight="l" caption="Wasaby без слоя совместимости"/>
+        </div>
+    </div>
+    <hr/>
+    <div class="compatibleDemo__column">
+        <div class="compatibleDemo__row">
+            <b>Загрузка WS3-контрола в новом окружении через CompoundContainer без ws:handlers</b>
+        </div>
+        <div class="compatibleDemo__row">
+            Проблемы:
+        </div>
+        <div class="compatibleDemo__row">
+            <Controls.buttons:Button href="{{'/UIDemo/app/CompatibleDemo%252FWasabyEnv%252FWS3%252FWS3'}}" fontSize="s" inlineHeight="l" caption="WS3 в CompoundContainer без ws:handlers"/>
+        </div>
+    </div>
+    <hr/>
+    <div class="compatibleDemo__column">
+        <div class="compatibleDemo__row">
+            <b>Загрузка WS3-контрола в новом окружении через CompoundContainer с ws:handlers</b>
+        </div>
+        <div class="compatibleDemo__row">
+            Проблемы:
+        </div>
+        <div class="compatibleDemo__row">
+            <div class="compatibleDemo__column">
+                <div class="compatibleDemo__row">
+                    1) Сбрасывается фокус при вводе текста в старом контроле, если в событие данные отдаются в родительский контрол.
+                </div>
+            </div>
+        </div>
+        <div class="compatibleDemo__row">
+            <Controls.buttons:Button href="{{'/UIDemo/app/CompatibleDemo%252FWasabyEnv%252FWS3%252FWS3WithHandlers'}}" fontSize="s" inlineHeight="l" caption="WS3 в CompoundContainer с ws:handlers"/>
+        </div>
+    </div>
+    <hr/>
+    <div class="compatibleDemo__column">
+        <div class="compatibleDemo__row">
+            <b>Загрузка WS3-контрола в контроле-обертке в новом окружении через CompoundContainer с ws:handlers в дочернем контроле</b>
+        </div>
+        <div class="compatibleDemo__row">
+            <div class="compatibleDemo__column">
+                <div class="compatibleDemo__row">
+                    1) Сбрасывается фокус при вводе текста в старом контроле, если в событие данные отдаются в родительский контрол.
+                </div>
+            </div>
+        </div>
+        <div class="compatibleDemo__row">
+            <Controls.buttons:Button href="{{'/UIDemo/app/CompatibleDemo%252FWasabyEnv%252FWS3%252FWS3Wrapper'}}" fontSize="s" inlineHeight="l" caption="WS3 в обертке через CompoundContainer"/>
+        </div>
+    </div>
+    <hr/>
+    <div class="compatibleDemo__column">
+        <div class="compatibleDemo__row">
+            <b>Загрузка Wasaby-контрола из WS3-контрола-обертки в новом окружении через CompoundContainer без ws:componentOptions</b>
+        </div>
+        <div class="compatibleDemo__row">
+            <Controls.buttons:Button href="{{'/UIDemo/app/CompatibleDemo%252FWasabyEnv%252FWasaby%252FWrappedWS3'}}" fontSize="s" inlineHeight="l" caption="Wasaby в WS3 через CompoundContainer"/>
+        </div>
+    </div>
+    <hr/>
+    <div class="compatibleDemo__column">
+        <div class="compatibleDemo__row">
+            <b>Загрузка Wasaby-контрола из WS3-контрола-обертки в новом окружении через CompoundContainer с ws:componentOptions</b>
+        </div>
+        <div class="compatibleDemo__row">
+            <div class="compatibleDemo__column">
+                <div class="compatibleDemo__row">
+                    1) Если дочерний WS3-контрол получает опцию, то вызывается init(), если в init() создается wasaby-контрол, это вызывает "моргание".
+                </div>
+            </div>
+        </div>
+        <div class="compatibleDemo__row">
+            <Controls.buttons:Button href="{{'/UIDemo/app/CompatibleDemo%252FWasabyEnv%252FWasaby%252FWrappedWS3WithOptions'}}" fontSize="s" inlineHeight="l" caption="Wasaby в WS3 через CompoundContainer"/>
+        </div>
+    </div>
+    <hr/>
+    <div class="compatibleDemo__column">
+        <div class="compatibleDemo__row">
+            <b>Загрузка WS3-контрола в котором создается wasaby-контрол, который содержит в себе WS-контрол</b>
+        </div>
+        <div class="compatibleDemo__row">
+            <div class="compatibleDemo__column">
+                <div class="compatibleDemo__row">
+                    1) Все проблемы описанные выше.
+                </div>
+            </div>
+        </div>
+        <div class="compatibleDemo__row">
+            <Controls.buttons:Button href="{{'/UIDemo/app/CompatibleDemo%252FWasabyEnv%252FMixed%252FMixed'}}" fontSize="s" inlineHeight="l" caption="Вложенная совместимость"/>
+        </div>
+    </div>
+    <hr/>
+    <div class="compatibleDemo__column">
+        <div class="compatibleDemo__row">
+            <b>Создание wasaby-контрола в cлое совместимости через Base.Control.createControl().</b>
+        </div>
+        <div class="compatibleDemo__row">
+            <Controls.buttons:Button href="{{'/UIDemo/app/CompatibleDemo%252FCompat%252FWasaby%252FCreateControl%252FIndex'}}" fontSize="s" inlineHeight="l" caption="Wasaby-контрол в ws3 окружении"/>
+        </div>
+    </div>
+    <hr/>
+    <div class="compatibleDemo__column">
+        <div class="compatibleDemo__row">
+            <b>Создание wasaby-контрола в ws3 окружении через CoreCreator.</b>
+        </div>
+        <div class="compatibleDemo__row">
+            <Controls.buttons:Button href="{{'/UIDemo/app/CompatibleDemo%252FCompat%252FWasaby%252FCoreCreator%252FIndex'}}" fontSize="s" inlineHeight="l" caption="Wasaby-контрол в ws3 окружении"/>
+        </div>
+    </div>
+    <hr/>
+    <div class="compatibleDemo__column">
+        <div class="compatibleDemo__row">
+            <b>Создание wasaby-контрола в ws3 окружении через Base.Control.createControl(). С опцией value</b>
+        </div>
+        <div class="compatibleDemo__row">
+            Проблемы:
+        </div>
+        <div class="compatibleDemo__row">
+            <div class="compatibleDemo__column">
+                <div class="compatibleDemo__row">
+                    1) Контрол нельзя будет редактировать.
+                </div>
+            </div>
+        </div>
+        <div class="compatibleDemo__row">
+            <Controls.buttons:Button href="{{'/UIDemo/app/CompatibleDemo%252FCompat%252FWasaby%252FCreateControlWithValue%252FIndex'}}" fontSize="s" inlineHeight="l" caption="Wasaby-контрол в ws3 окружении с опцией value"/>
+        </div>
+    </div>
+    <hr/>
+</div>
