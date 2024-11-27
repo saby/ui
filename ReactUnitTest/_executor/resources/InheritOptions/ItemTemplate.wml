@@ -1,0 +1,13 @@
+<ws:template name="defaultTpl">
+    <div>
+        <ws:if data="{{_options.readOnly}}">
+            readOnly
+        </ws:if>
+        <ws:else>
+            default
+        </ws:else>
+        {{ _options.theme }}
+    </div>
+</ws:template>
+
+<ws:partial template="{{userItemTemplate !== undefined ? userItemTemplate : 'defaultTpl'}}" />

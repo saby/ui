@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConvertContentToElement Задание контента в tsx DOM элемент 1`] = `
+<div>
+  <div
+    class="customContentDiv"
+  >
+    <div
+      class="InnerReactWithContent"
+    >
+      <div
+        class="converterUserClassName divContent"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ConvertContentToElement Задание контента в tsx Wasaby как компонент 1`] = `
+<div>
+  <div
+    class="customContentWasaby"
+  >
+    <div
+      class="InnerReactWithContent"
+    >
+      <div
+        class="simpleWasaby converterUserClassName"
+        tabindex="0"
+      >
+        SimpleWasaby
+      </div>
+    </div>
+    <div
+      class="InnerReactWithContent"
+    >
+      <div
+        class="simpleWasaby converterUserClassName"
+        tabindex="0"
+      >
+        SimpleWasaby
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ConvertContentToElement Задание контента в tsx Wasaby как реакт элемент 1`] = `
+<div>
+  <div
+    class="customContentWasabyAsElement"
+  >
+    <div
+      class="InnerReactWithContent"
+    >
+      <div
+        class="simpleWasaby wmlContent converterUserClassName"
+        tabindex="0"
+      >
+        SimpleWasaby
+      </div>
+    </div>
+    <div
+      class="InnerReactWithContent"
+    >
+      <div
+        class="simpleWasaby controlContent converterUserClassName"
+        tabindex="0"
+      >
+        SimpleWasaby
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ConvertContentToElement Задание контента в tsx Чистый реакт компонент 1`] = `
+<div>
+  <div
+    class="customContentReact"
+  >
+    <div
+      class="InnerReactWithContent"
+    >
+      <div
+        class="classNamed converterUserClassName "
+      >
+        ClassNamed
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ConvertContentToElement Задание контента в tsx Чистый реакт компонент как реакт элемент 1`] = `
+<div>
+  <div
+    class="customContentReactAsElement"
+  >
+    <div
+      class="InnerReactWithContent"
+    >
+      <div
+        class="classNamed converterUserClassName reactComponent"
+      >
+        ClassNamed
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ConvertContentToElement Задание контента в wml Контентная опция 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div
+    class="customContentFromWml"
+  >
+    <div
+      class="InnerReactWithContent"
+    >
+      <div
+        class="divContent converterUserClassName"
+        tabindex="0"
+      >
+        divContent
+      </div>
+    </div>
+    <div
+      class="InnerReactWithContent"
+    >
+      <div
+        class="simpleWasaby wasabyContent converterUserClassName"
+        tabindex="0"
+      >
+        SimpleWasaby
+      </div>
+    </div>
+    <div
+      class="InnerReactWithContent"
+    >
+      <div
+        class="classNamed reactContent converterUserClassName"
+      >
+        ClassNamed
+      </div>
+    </div>
+  </div>
+</div>
+`;

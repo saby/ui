@@ -1,0 +1,9 @@
+<div id="rootUsingScopeOptions">
+   <h1>внешний контрол</h1>
+   <div>значение опции name: {{ '' + _options.name }}</div>
+   <div>значение опции _$createdFromCode: {{ '' + _options._$createdFromCode }}</div>
+   <div>прилетел forwardedRef: {{ '' + !!_options.forwardedRef }}</div>
+   <div>прилетел $wasabyRef: {{ '' + !!_options.$wasabyRef }}</div>
+   <ReactUnitTest._executor.resources.Generator.InnerCatchScopeOptions scope="{{ _options }}" />
+   <ReactUnitTest._executor.resources.Generator.InnerCatchScopeOptionsReact scope="{{ _options }}" />
+</div>

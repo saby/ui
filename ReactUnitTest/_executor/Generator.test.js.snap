@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Генератор Фильтр опций, которые не прокидываются через scope: Через скоуп прокидывается только anotherOption 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div
+    id="rootUsingScopeOptions"
+  >
+    <h1>
+      внешний контрол
+    </h1>
+    <div>
+      значение опции name: testName
+    </div>
+    <div>
+      значение опции _$createdFromCode: true
+    </div>
+    <div>
+      прилетел forwardedRef: true
+    </div>
+    <div>
+      прилетел $wasabyRef: true
+    </div>
+    <div
+      id="innerCatchScopeOptions"
+      tabindex="0"
+    >
+      <h1>
+        внутренний контрол
+      </h1>
+      <div>
+        значение опции name: undefined
+      </div>
+      <div>
+        значение опции _$createdFromCode: undefined
+      </div>
+      <div>
+        значение опции anotherOption: testOption
+      </div>
+    </div>
+    <div
+      id="innerCatchScopeOptionsReact"
+    >
+      <h1>
+        внутренний реакт компонент
+      </h1>
+      <div>
+        значение опции _$createdFromCode: undefined
+      </div>
+      <div>
+        значение опции anotherOption: testOption
+      </div>
+    </div>
+  </div>
+</div>
+`;

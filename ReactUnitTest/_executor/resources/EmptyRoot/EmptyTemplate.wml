@@ -1,0 +1,7 @@
+<div>
+    <ReactUnitTest._executor.resources.EmptyRoot.Wrapper>
+        <ws:if data="{{false}}">
+            <div>content</div>
+        </ws:if>
+    </ReactUnitTest._executor.resources.EmptyRoot.Wrapper>
+</div>

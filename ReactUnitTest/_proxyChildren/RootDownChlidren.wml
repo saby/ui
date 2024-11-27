@@ -1,0 +1,6 @@
+<div class="rootDownChlidren" name="testChildren">
+   <ReactUnitTest._proxyChildren.DownControl
+      children="{{ _children }}"
+      value="{{ _value }}"
+   />
+</div>

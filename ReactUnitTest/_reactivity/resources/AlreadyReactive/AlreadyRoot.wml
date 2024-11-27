@@ -1,0 +1,13 @@
+<ws:template name="childTemplate">
+    <div>{{ record.value }}</div>
+</ws:template>
+
+<div>
+    <ws:if data="{{ showChild }}">
+        <ReactUnitTest._reactivity.resources.AlreadyReactive.AlreadyChild record="{{ recObject }}">
+            <ws:partial template="childTemplate" record="{{ content.record }}" />
+        </ReactUnitTest._reactivity.resources.AlreadyReactive.AlreadyChild>
+    </ws:if>
+    <button id="changeBtn" on:click="changeRecObject()">change value</button>
+    <button id="toggleBtn" on:click="toggleChild()">toggle child</button>
+</div>

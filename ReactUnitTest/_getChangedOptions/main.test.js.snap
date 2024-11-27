@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`тесты UpdatePreventer базовая проверка на работоспособность с изменением атрибутов 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  вставка InnerControl:
+  <div>
+    updateCount=
+    3
+  </div>
+  вставка PreventedInnerControl:
+  <div>
+    updateCount=
+    3
+  </div>
+</div>
+`;
+
+exports[`тесты UpdatePreventer базовая проверка на работоспособность с изменением пропов 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  вставка контента из wasaby:
+  <div
+    tabindex="0"
+  >
+    Wasaby content updates = 3
+  </div>
+  вставка InnerControl без value:
+  <div>
+    updateCount=
+    3
+  </div>
+  вставка PreventedInnerControl без value:
+  <div>
+    updateCount=
+    0
+  </div>
+  вставка InnerControl c value:
+  <div>
+    updateCount=
+    3
+  </div>
+  вставка PreventedInnerControl c value:
+  <div>
+    updateCount=
+    3
+  </div>
+</div>
+`;
+
+exports[`тесты UpdatePreventer проверка на работоспособность с версионированными контролами 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  вставка контента из wasaby:
+  <div
+    tabindex="0"
+  >
+    Wasaby content updates = [object Object]
+  </div>
+  вставка InnerControl без value:
+  <div>
+    updateCount=
+    3
+  </div>
+  вставка PreventedInnerControl без value:
+  <div>
+    updateCount=
+    0
+  </div>
+  вставка InnerControl c value:
+  <div>
+    updateCount=
+    3
+  </div>
+  вставка PreventedInnerControl c value:
+  <div>
+    updateCount=
+    3
+  </div>
+</div>
+`;

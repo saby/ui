@@ -1,0 +1,6 @@
+<div>
+    <div>version: {{ valueObject._version }}</div>
+    <div>value: {{ valueObject.value }}</div>
+    <ReactUnitTest._reactivity.resources.ReactiveControl8Child valueObject="{{valueObject}}"/>
+    <button on:click="_changeValue()" id="start">next version</button>
+</div>
