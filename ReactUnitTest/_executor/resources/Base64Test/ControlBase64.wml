@@ -1,0 +1,6 @@
+<div class="ReactUnitTest-Executor__base64">
+  <div name="onlyBase64" attr:style="background-image: url({{ _value }})"></div>
+  <div name="otherPropBeforeBase64" attr:style="color: red; background-image: url({{ _value }})"></div>
+  <div name="otherAfterBeforeBase64" attr:style="background-image: url({{ _value }}); color: red;"></div>
+  <div name="otherPropsAroundBase64" attr:style="color: red; background-image: url({{ _value }}); margin: 8px;"></div>
+</div>

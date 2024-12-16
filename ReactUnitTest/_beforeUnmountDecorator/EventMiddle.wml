@@ -1,0 +1,3 @@
+<div on:customEvent="_customEventHandler()">
+   <ReactUnitTest._beforeUnmountDecorator.EventBottom scope="{{_options}}"/>
+</div>

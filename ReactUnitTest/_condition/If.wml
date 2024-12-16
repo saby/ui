@@ -1,0 +1,13 @@
+<ws:template name="MyTemplate">
+    <div>
+        <ws:if data="{{_options.value}}">
+            <div>I</div>
+        </ws:if>
+        <div>Am</div>
+        <ws:if data="{{_options.value}}">
+            <div>Fine</div>
+        </ws:if>
+    </div>
+</ws:template>
+
+<ws:partial template="MyTemplate"/>

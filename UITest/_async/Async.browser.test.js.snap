@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UI/Async:Async в браузере Асинхронная загрузка из библиотеки 1`] = `
+<div>
+  <div>
+    ExportControl
+  </div>
+</div>
+`;
+
+exports[`UI/Async:Async в браузере Асинхронная загрузка контрола 1`] = `
+<div>
+  <div>
+    TestControlAsync
+  </div>
+</div>
+`;
+
+exports[`UI/Async:Async в браузере Асинхронная загрузка контрола, с ошибкой 1`] = `
+<div>
+  <div>
+    У СБИС возникла проблема
+  </div>
+</div>
+`;
+
+exports[`UI/Async:Async в браузере Синхронная загрузка контрола 1`] = `
+<div>
+  <div>
+    TestControlSync
+  </div>
+</div>
+`;
+
+exports[`UI/Async:Async в браузере Синхронная загрузка контрола, с ошибкой 1`] = `
+<div>
+  <div>
+    У СБИС возникла проблема
+  </div>
+</div>
+`;

@@ -1,0 +1,9 @@
+<ws:template name="inline">
+    <ws:if data="{{show}}">
+        <div>
+            inline
+        </div>
+    </ws:if>
+</ws:template>
+
+<ws:partial template="inline" />
