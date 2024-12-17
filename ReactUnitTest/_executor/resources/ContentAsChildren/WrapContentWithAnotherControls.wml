@@ -1,0 +1,11 @@
+<div class="wrapContentWithAnotherControls">
+   <ReactUnitTest._executor.resources.ContentAsChildren.DrawContentWithScopeOptions scope="{{ _options }}">
+      <div class="scopeOptionsContent">
+         <ReactUnitTest._executor.resources.ContentAsChildren.SimpleChildrenInsert>
+            <div class="reactContent">
+               <ws:partial template="{{ _options.content }}" />
+            </div>
+         </ReactUnitTest._executor.resources.ContentAsChildren.SimpleChildrenInsert>
+      </div>
+   </ReactUnitTest._executor.resources.ContentAsChildren.DrawContentWithScopeOptions>
+</div>

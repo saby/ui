@@ -1,0 +1,5 @@
+<div>
+   <ReactUnitTest._base.resources.ControlTest.HooksCallOrder.ControlToUpdate
+      counter="{{ counter }}"
+   />
+</div>

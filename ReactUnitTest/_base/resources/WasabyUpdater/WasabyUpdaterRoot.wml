@@ -1,0 +1,14 @@
+<div>
+    <div>
+        <button id="toggleAsync" on:click="toggleAsync()">toggleAsync</button>
+        <button id="showSync" on:click="showSync()">showSync</button>
+    </div>
+    <div>
+        <ws:if data="{{ _showAsync }}">
+            <ReactUnitTest._base.resources.WasabyUpdater.SyncWrapper/>
+        </ws:if>
+        <ws:if data="{{ _showSync }}">
+            <ReactUnitTest._base.resources.WasabyUpdater.SyncChild/>
+        </ws:if>
+    </div>
+</div>
