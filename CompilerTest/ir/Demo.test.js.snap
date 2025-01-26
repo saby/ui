@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Compiler/IR should generate content option 1`] = `"<div class=\\"root\\"><div class=\\"inline\\"><span class=\\"content\\">Hello, Content option!</span></div></div>"`;
+
+exports[`Compiler/IR should generate dynamic inline template 1`] = `"<div class=\\"root\\"><div class=\\"inline\\">Text</div></div>"`;
+
+exports[`Compiler/IR should generate dynamic partial template 1`] = `"<div class=\\"root\\"><div class=\\"custom-class\\">Hello, World!</div></div>"`;
+
+exports[`Compiler/IR should generate inline template 1`] = `"<div class=\\"root\\"><div class=\\"inline\\">Text</div></div>"`;
+
+exports[`Compiler/IR should generate root tag 1`] = `"<div class=\\"custom-class\\">Hello, World!</div>"`;
+
+exports[`Compiler/IR should generate static partial template 1`] = `"<div class=\\"root\\"><div class=\\"custom-class\\">Hello, World!</div></div>"`;
+
+exports[`Compiler/IR should iterate collection via for method 1`] = `"<div class=\\"root\\"><div class=\\"item\\">Content of 0 item</div><div class=\\"item\\">Content of 1 item</div><div class=\\"item\\">Content of 2 item</div></div>"`;
+
+exports[`Compiler/IR should iterate collection via foreach method 1`] = `"<div class=\\"root\\"><div class=\\"item\\">array[0] = 111</div><div class=\\"item\\">array[1] = 222</div><div class=\\"item\\">array[2] = 333</div></div>"`;
+
+exports[`Compiler/IR test conditional chain should generate body of elif node 1`] = `"<div class=\\"elif-branch\\">Hello, User! It's 3rd expression</div>"`;
+
+exports[`Compiler/IR test conditional chain should generate body of else node 1`] = `"<div class=\\"else-branch\\">Hello, User! It's 4th expression</div>"`;
+
+exports[`Compiler/IR test conditional chain should generate body of if node 1`] = `"<div class=\\"if-branch\\">Hello, User! It's 2nd expression</div>"`;

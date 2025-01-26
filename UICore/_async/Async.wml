@@ -1,0 +1,17 @@
+<ws:template name="withFakeNode">
+    <div style="display: 'contents'; width: 100%; height: 100%">
+        <ws:partial template="{{ _options.content || optionsForComponent.resolvedTemplate }}" scope="{{ optionsForComponent }}" />
+    </div>
+</ws:template>
+
+<ws:if data="{{ error }}">
+    <div>{{ userErrorMessage }}</div>
+</ws:if>
+<ws:else>
+    <ws:if data="{{ _options.noBubbleEvents }}">
+        <ws:partial template="withFakeNode" />
+    </ws:if>
+    <ws:else>
+        <ws:partial template="{{ _options.content || optionsForComponent.resolvedTemplate }}" scope="{{ optionsForComponent }}" />
+    </ws:else>
+</ws:else>

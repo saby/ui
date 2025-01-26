@@ -1,0 +1,4 @@
+<div style="color: {{ statusColor }};" class="UIDemo-AsyncChildDemo__child">
+  Child control: {{ status }}
+  <UIDemo.AsyncChildDemo.Index.SecondChild secondProp="{{ secondProp }}"/>
+</div>

@@ -1,0 +1,3 @@
+<div>
+    <ReactUnitTest._reactivity.resources.ControlWithReactiveModel2 _model="{{_viewModel}}" on:valueChanged="_valueChangedProxy()"/>
+</div>

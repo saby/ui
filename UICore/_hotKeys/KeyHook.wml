@@ -1,0 +1,1 @@
+<ws:partial attr:class="keyhook" template="{{_options.content}}" scope="{{_options}}"/>
