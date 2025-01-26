@@ -1,0 +1,24 @@
+<div>
+   <ReactUnitTest._shouldComponentUpdate.Control a="{{ aaa }}" b="123" name="control">
+      <ws:c>
+         <ws:String>bbb</ws:String>
+      </ws:c>
+      <ws:d>
+         <div attr="test-container"></div>
+      </ws:d>
+      <ws:e>
+         <ws:Array>
+            <ws:String>1</ws:String>
+            <ws:String>2</ws:String>
+            <ws:String>3</ws:String>
+         </ws:Array>
+      </ws:e>
+      <ws:f>
+         <ws:Object>
+            <ws:value>
+               123
+            </ws:value>
+         </ws:Object>
+      </ws:f>
+   </ReactUnitTest._shouldComponentUpdate.Control>
+</div>

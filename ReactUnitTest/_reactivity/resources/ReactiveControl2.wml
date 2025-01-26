@@ -1,0 +1,4 @@
+<div>
+    <div>value: {{value}} </div>
+    <button on:click="_changeValue()" id="start">start</button>
+</div>

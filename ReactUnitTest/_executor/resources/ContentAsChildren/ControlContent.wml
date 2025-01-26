@@ -1,0 +1,12 @@
+<div>
+   <ws:if data="{{ _options.allowPatchContent }}">
+      <ReactUnitTest._executor.resources.ContentAsChildren.PatchChildrenInsert>
+         <ReactUnitTest._executor.resources.ContentAsChildren.Control />
+      </ReactUnitTest._executor.resources.ContentAsChildren.PatchChildrenInsert>
+   </ws:if>
+   <ws:else>
+      <ReactUnitTest._executor.resources.ContentAsChildren.SimpleChildrenInsert>
+         <ReactUnitTest._executor.resources.ContentAsChildren.Control />
+      </ReactUnitTest._executor.resources.ContentAsChildren.SimpleChildrenInsert>
+   </ws:else>
+</div>

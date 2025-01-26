@@ -1,0 +1,5 @@
+<div>
+    <UIDemo.PropsDemo.ReactWrapper var="{{ _options.var }}">
+        Wasaby control
+    </UIDemo.PropsDemo.ReactWrapper>
+</div>
