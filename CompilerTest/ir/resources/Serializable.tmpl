@@ -1,0 +1,27 @@
+<ws:template name="component">
+    <div>
+        <ws:partial template="{{ content }}" />
+    </div>
+</ws:template>
+
+<ws:template name="inline">
+    <div>{[Inline template definition]}</div>
+</ws:template>
+
+<div>
+    <ws:partial template="component">
+        <div>{{ rk("one-root content option") }}</div>
+    </ws:partial>
+
+    <ws:partial template="component">
+        <div>{{ rk("first root content option") }}</div>
+        <div>{[ second root content option ]}</div>
+        <div on:click="_handler()">third root content option</div>
+    </ws:partial>
+
+    <ws:partial template="component">
+        <ws:content type="string">
+            <div>instantly evaluated content option</div>
+        </ws:content>
+    </ws:partial>
+</div>

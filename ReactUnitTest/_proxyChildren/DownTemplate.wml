@@ -1,0 +1,4 @@
+<div class="downTemplate">
+   <span class="value">value is {{ _options.value }}</span>
+   <span class="children">{{ _options.children.hasOwnProperty('testChildren') ? _options.children.testChildren.className : '' }}</span>
+</div>

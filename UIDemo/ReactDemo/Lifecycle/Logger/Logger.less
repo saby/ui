@@ -1,0 +1,23 @@
+.logger {
+   width: 500px;
+   padding: 8px;
+   border: 1px solid #000;
+   height: 300px;
+   overflow-y: scroll;
+   display: flex;
+   flex-direction: column-reverse;
+
+   &_error {
+      color: #f00;
+   }
+
+   &_success {
+      color: #008000;
+   }
+
+   /* stylelint-disable-next-line selector-max-type */
+   div {
+      margin-bottom: 8px;
+      white-space: pre-line;
+   }
+}

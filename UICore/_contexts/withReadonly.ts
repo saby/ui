@@ -1,0 +1,62 @@
+/**
+ * @kaizen_zone aed53143-c89f-413e-a8e4-de8b6ad43abe
+ */
+import { createElement, useContext, forwardRef, Ref, ComponentType } from 'react';
+import { Optional } from './Optional';
+import { getWasabyContext } from './WasabyContext';
+import { Logger } from 'UICommon/Utils';
+
+interface IReadOnlyComponent {
+    readOnly: boolean;
+    forwardedRef?: Ref<any>;
+}
+
+/**
+ * Принимает компонент и возвращает обёртку над ним, которая получает readOnly из контекста и передаёт в опции.
+ * Нужно использовать в тех случаях, когда в чистом реактовском классе нужно значение readOnly.
+ * Для функциональных компонентов лучше пользоваться хуком {@link useReadonly}.
+ * @public
+ * @example
+ * <pre>
+ *    class Button extends React.Component {
+ *       // ...код кнопки
+ *    }
+ *    export default withReadonly(Button);
+ * </pre>
+ * @param WrappedComponent Компонент, который нужно обернуть.
+ * @see useReadonly
+ */
+export function withReadonly<T extends IReadOnlyComponent = IReadOnlyComponent>(
+    WrappedComponent: ComponentType<T>
+) {
+    const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
+
+    const ComponentWithReadOnly = (props: Optional<T, keyof IReadOnlyComponent>, ref: Ref<any>) => {
+        const readOnlyValue = useReadonly();
+
+        if (typeof props.readOnly !== 'undefined' && props.readOnly !== readOnlyValue) {
+            Logger.error(
+                `[${displayName}] Значение опции readOnly переданное в опции не совпадает со значением из контекста (опции: ${props.readOnly}, контекст: ${readOnlyValue}). Задание опции readOnly через опцию устарело, используйте контекст.`
+            );
+        }
+
+        return createElement(WrappedComponent, {
+            ...(props as T),
+            forwardedRef: props.forwardedRef ?? ref,
+            readOnly: readOnlyValue,
+        });
+    };
+
+    ComponentWithReadOnly.displayName = `withReadOnly(${displayName})`;
+
+    return forwardRef(ComponentWithReadOnly);
+}
+
+/**
+ * Хук для получения значения readOnly. Если компонент может вставляться в Wasaby шаблон, нужно передать props.
+ * @public
+ */
+export function useReadonly(props: Partial<IReadOnlyComponent> = {}): boolean {
+    const readOnlyFromContext = useContext(getWasabyContext()).readOnly;
+    return props.readOnly ?? readOnlyFromContext;
+}

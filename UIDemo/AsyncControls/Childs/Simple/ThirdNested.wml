@@ -1,0 +1,3 @@
+<div class="asyncDemo__nbsp">
+    {{_options.value}} {{_options.delay}};
+</div>

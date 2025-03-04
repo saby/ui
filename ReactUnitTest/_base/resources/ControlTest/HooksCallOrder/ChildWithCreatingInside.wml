@@ -1,0 +1,5 @@
+<div attr="test-container">
+   <ws:if data="{{ shouldShowChild }}">
+      <ReactUnitTest._base.resources.ControlTest.HooksCallOrder.ControlToCreate />
+   </ws:if>
+</div>
