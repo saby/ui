@@ -1,0 +1,313 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIReact/UICore/_base/Control jsdom Атрибуты В атрибутах декорируются только свойства из списка 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      class="myClass"
+      tabindex="0"
+    >
+      1
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom Атрибуты сохраняем в атрибутах className из react props в react вставляем wasaby-контрол без класса на корневой ноде вставляем wasaby HOC с опцией class и scope = {{_options}} 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      <div
+        class="wasabyHocClass reactClass"
+        tabindex="0"
+      >
+        wasabyHocClass reactClass
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom Атрибуты сохраняем в атрибутах className из react props в react вставляем wasaby-контрол без класса на корневой ноде вставляем wasaby template с опцией class и scope = {{_options}} 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      <div
+        class="wasabyHocTemplateClass reactClass"
+        tabindex="0"
+      >
+        wasabyHocTemplateClass reactClass
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom Атрибуты сохраняем в атрибутах className из react props в react вставляем wasaby-контрол без класса на корневой ноде прямая вставка 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      <div
+        class="reactClass"
+        tabindex="0"
+      >
+        reactClass
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom Атрибуты сохраняем в атрибутах className из react props в react вставляем wasaby-контрол с классом на корневой ноде вставляем wasaby HOC с опцией class и scope = {{_options}} 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      <div
+        class="wasabyClass wasabyHocClass reactClass"
+        tabindex="0"
+      >
+        wasabyClass wasabyHocClass reactClass
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom Атрибуты сохраняем в атрибутах className из react props в react вставляем wasaby-контрол с классом на корневой ноде вставляем wasaby template с опцией class и scope = {{_options}} 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      <div
+        class="wasabyClass wasabyHocTemplateClass reactClass"
+        tabindex="0"
+      >
+        wasabyClass wasabyHocTemplateClass reactClass
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom Атрибуты сохраняем в атрибутах className из react props в react вставляем wasaby-контрол с классом на корневой ноде прямая вставка 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      <div
+        class="wasabyClass reactClass"
+        tabindex="0"
+      >
+        wasabyClass reactClass
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom Опции на клиенте undefined удаляется из defaultProps  1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div
+      id="testContainer"
+      tabindex="0"
+    >
+      5 / 100
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom Опции на клиенте Опции правильно мержатся с опциями по умолчанию  1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      tabindex="0"
+    >
+      <div>
+         some value 
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom Опции на клиенте Опция "key" восстанавливается 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      Top Wasaby control has needless key: false
+    </div>
+    <div
+      tabindex="0"
+    >
+      null key
+    </div>
+    <div
+      tabindex="0"
+    >
+      0 key
+    </div>
+    <div
+      tabindex="0"
+    >
+      normal key: keyVal
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom Опции на клиенте нет лишней перерисовки из-за перегенерации getDefaultOptions 1`] = `
+<div>
+  <div
+    tabindex="0"
+  >
+    <div>
+      1
+    </div>
+    <div
+      tabindex="0"
+    >
+      <div
+        tabindex="0"
+      >
+        test
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom Служебные поля Поле _container. Нет ошибки в консоли, если реакт в корне прокинул ref.: В поле _container верный элемент 1`] = `
+<div>
+  Simple component
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom Служебные поля Поле _container. Ошибка в консоли, если реакт в корне не прокинул ref.: Всё построилось, несмотря на ошибку 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    Simple component
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom Создание контрола Создание корневого контрола внутри ws3: Атрибуты смержены 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div
+    class="compatilbe"
+  >
+    compatible some value
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom хуки жизненного цикла _beforeUpdate сравнение старых и новых опций по ссылке 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div
+      tabindex="0"
+    >
+      <div />
+      <div>
+        new
+      </div>
+    </div>
+    <div
+      tabindex="0"
+    >
+      <div />
+      <div>
+        init
+      </div>
+    </div>
+    <button
+      id="updateVersion"
+    >
+      update version
+    </button>
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom хуки жизненного цикла _notify не стреляет из разрушенных контролов 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div />
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom хуки жизненного цикла _notify стреляет из _beforeUnmount контролов 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <div>
+      notified
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom хуки жизненного цикла Асинхронный Wasaby контрол должен перерисовываться при изменении реактивного свойства 1`] = `
+<div>
+  <div
+    id="testContainer"
+    tabindex="0"
+  >
+    1
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom хуки жизненного цикла Синхронный Wasaby контрол должен перерисовываться при изменении реактивного свойства 1`] = `
+<div>
+  <div
+    id="testContainer"
+    tabindex="0"
+  >
+    1
+  </div>
+</div>
+`;
+
+exports[`UIReact/UICore/_base/Control jsdom хуки жизненного цикла ссылка на родителький DOM-элемент удаляется, только если существует 1`] = `
+<div
+  style="height: 100%; width: 100%; display: contents;"
+>
+  <div>
+    <button
+      id="showButton"
+    >
+      show
+    </button>
+  </div>
+</div>
+`;

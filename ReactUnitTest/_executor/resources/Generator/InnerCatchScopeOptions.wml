@@ -1,0 +1,6 @@
+<div id="innerCatchScopeOptions">
+   <h1>внутренний контрол</h1>
+   <div>значение опции name: {{ '' + _options.name }}</div>
+   <div>значение опции _$createdFromCode: {{ '' + _options._$createdFromCode }}</div>
+   <div>значение опции anotherOption: {{ '' + _options.anotherOption }}</div>
+</div>

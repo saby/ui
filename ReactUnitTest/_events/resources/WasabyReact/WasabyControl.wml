@@ -1,0 +1,3 @@
+<div on:click="_onClick()" id="{{ _options._id }}">
+    {{ _options.caption }} {{ value }}
+</div>

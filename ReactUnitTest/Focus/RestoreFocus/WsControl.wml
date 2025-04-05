@@ -1,0 +1,3 @@
+<div>
+   <input data-qa="ws3input" type="text"/>
+</div>

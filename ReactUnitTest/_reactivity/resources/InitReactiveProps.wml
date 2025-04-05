@@ -1,0 +1,5 @@
+<div>
+    <div>{{value}}</div>
+    <div class="{{class}}">{{value2}}</div>
+    <div>{{_options.value3}}</div>
+</div>

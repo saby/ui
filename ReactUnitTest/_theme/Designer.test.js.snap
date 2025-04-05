@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Темизация Designer Все свойства прокидываются на детей, useChildrenContainer=false 1`] = `
+<div>
+  <style>
+    .g-t--614730252 { --brandbook_background-color: #ffffff; --brandbook_background-image: url("path");  }
+  </style>
+  <div
+    class="test-class controls_theme-default g-t--614730252 ui_theme-background tw-relative tw-h-full ui-Theme__backgroundviewer-t--976164754"
+    style="z-index: 0;"
+  >
+    <div
+      class="tw-absolute tw-h-full tw-w-full"
+      style="background-color: rgb(255, 255, 255); background-image: url(image.png); background-repeat: repeat; background-position: top center; background-size: cover; filter: opacity(100%) blur(0px) hue-rotate(0deg) contrast(100%) saturate(100%); left: 0px; top: 0px; z-index: -1;"
+    />
+    <div
+      data-testid="child"
+    >
+      Child Content
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Темизация Designer Все свойства прокидываются на детей, useChildrenContainer=true 1`] = `
+<div>
+  <style>
+    .g-t-1468404714 { --brandbook_background-color: #ffffff; --brandbook_background-image: url("path");  }
+  </style>
+  <div
+    class="test-class controls_theme-default g-t-1468404714 ui_theme-background ui-Theme__backgroundviewer-t-1082732270"
+    data-testid="child"
+  >
+    Child Content
+  </div>
+</div>
+`;

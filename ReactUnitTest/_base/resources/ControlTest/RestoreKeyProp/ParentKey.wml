@@ -1,0 +1,6 @@
+<div>
+    <div>Top Wasaby control has needless key: {{ hasOwnKey }}</div>
+    <ReactUnitTest._base.resources.ControlTest.RestoreKeyProp.ChildKey key="{{ null }}" />
+    <ReactUnitTest._base.resources.ControlTest.RestoreKeyProp.ChildKey key="{{ 0 }}" />
+    <ReactUnitTest._base.resources.ControlTest.RestoreKeyProp.ChildKey key="{{ 'keyVal' }}" />
+</div>
