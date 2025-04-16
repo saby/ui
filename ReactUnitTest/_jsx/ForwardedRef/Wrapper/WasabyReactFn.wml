@@ -1,0 +1,3 @@
+<ReactUnitTest._jsx.ForwardedRef.Wrapper.ReactFn
+    content="{{ _options.content}}"
+    hasContainer="{{ _options.hasContainer }}" />

@@ -1,0 +1,3 @@
+<ReactUnitTest._getChangedOptions.ReactControl value="{{value}}">
+    <div>Wasaby content updates = {{value}}</div>
+</ReactUnitTest._getChangedOptions.ReactControl>

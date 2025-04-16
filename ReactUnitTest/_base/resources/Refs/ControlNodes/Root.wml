@@ -1,0 +1,4 @@
+<div>
+    <div>update controlNode events: {{wasChildrenControlNodeUpdate}}</div>
+    <ReactUnitTest._base.resources.Refs.ControlNodes.ItemsWrapper on:itemClick="itemClickHandler()"/>
+</div>

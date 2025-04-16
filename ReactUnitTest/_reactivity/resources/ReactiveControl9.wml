@@ -1,0 +1,7 @@
+<div>
+    <ws:for data="element in valueArray">
+        <div>{{ element }}</div>
+    </ws:for>
+    <ReactUnitTest._reactivity.resources.ReactiveControl9Child valueArray="{{valueArray}}"/>
+    <button on:click="_pushToArray()" id="startPush">push to array</button>
+</div>

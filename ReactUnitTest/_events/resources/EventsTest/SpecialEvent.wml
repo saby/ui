@@ -1,0 +1,4 @@
+<div>
+    <p>{{ clickCount }}</p>
+    <button on:click="_specialHandler()" id="specialButton">clickMe</button>
+</div>

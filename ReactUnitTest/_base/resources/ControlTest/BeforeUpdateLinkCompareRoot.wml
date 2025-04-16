@@ -1,0 +1,7 @@
+<div>
+    <ReactUnitTest._base.resources.ControlTest.BeforeUpdateLinkCompareChild version="{{ _version }}" />
+    <ReactUnitTest._base.resources.ControlTest.BeforeUpdateLinkCompareChild />
+    <button id="updateVersion" on:click="updateVersion()">
+        update version
+    </button>
+</div>

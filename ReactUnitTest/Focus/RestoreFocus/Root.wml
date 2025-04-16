@@ -1,0 +1,16 @@
+<div id="restoreFocus">
+   <ReactUnitTest.Focus.HOC attr:id="restoreFocusHere">
+      <div>
+         <ws:if data="{{ showFirstInput }}">
+            <ReactUnitTest.Focus.Input
+               attr:id="firstInput"
+               inputId="firstInputElement"
+            />
+         </ws:if>
+         <ReactUnitTest.Focus.Input
+            attr:id="secondInput"
+            inputId="secondInputElement"
+         />
+      </div>
+   </ReactUnitTest.Focus.HOC>
+</div>

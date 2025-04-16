@@ -1,0 +1,11 @@
+{
+    "ui-modules":
+    [
+        "DefaultThemeController",
+        "Compiler",
+        "UICommon",
+        "UICore",
+        "UI",
+        "ThemesModule"
+    ]
+}

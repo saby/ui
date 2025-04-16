@@ -1,0 +1,1 @@
+<span> {{ _options.record.field }} </span>

@@ -1,0 +1,40 @@
+<div attr="test-container">
+    <ws:if data="{{_options.reactFunction}}">
+        <ReactUnitTest._executor.resources.ReactComponent.ReactFunction />
+    </ws:if>
+    <ws:if data="{{_options.reactComponent}}">
+        <ReactUnitTest._executor.resources.ReactComponent.ReactComponent />
+    </ws:if>
+    <ws:if data="{{_options.extendedReactComponent}}">
+        <ReactUnitTest._executor.resources.ReactComponent.ExtendedReactComponent />
+    </ws:if>
+    <ws:if data="{{_options.memoizedReactComponent}}">
+        <ReactUnitTest._executor.resources.ReactComponent.MemoizedReactComponent forwardedRef="{{ htmlElementRef }}" />
+    </ws:if>
+    <ws:if data="{{_options.reactPureComponent}}">
+        <ReactUnitTest._executor.resources.ReactComponent.ReactPureComponent />
+    </ws:if>
+    <ws:if data="{{_options.wasabyControl}}">
+        <ReactUnitTest._executor.resources.ReactComponent.WasabyInner />
+    </ws:if>
+    <ws:if data="{{_options.wasabyControlContent}}">
+        <ReactUnitTest._executor.resources.ReactComponent.WasabyInnerContent />
+    </ws:if>
+    <ws:if data="{{_options.withForwardRef}}">
+        <ReactUnitTest._executor.resources.ReactComponent.WithForwardRef forwardedRef="{{ htmlElementRef }}" />
+    </ws:if>
+    <ws:if data="{{_options.contextProvider}}">
+        <ReactUnitTest._executor.resources.ReactComponent.ContextProvider value="valueFromWasabyRoot">
+            <ReactUnitTest._executor.resources.ReactComponent.ContextUser />
+        </ReactUnitTest._executor.resources.ReactComponent.ContextProvider>
+    </ws:if>
+    <ws:if data="{{_options.contextConsumer}}">
+        <ReactUnitTest._executor.resources.ReactComponent.ContextConsumer>
+            <ws:children>
+                <ws:Function>
+                    ReactUnitTest/_executor/resources/ReactComponent/contextConsumerChildren:default
+                </ws:Function>
+            </ws:children>
+        </ReactUnitTest._executor.resources.ReactComponent.ContextConsumer>
+    </ws:if>
+</div>
