@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui_module id="1456f36f-76ef-4323-a2dd-a22bc91e7209" name="Compiler" kaizen_zone="48b50108-6a47-499e-94df-b92c19412d46" package="Wasaby" responsible="Крылов М.А." responsible_uuid="c6a8a97a-9826-4c73-bb89-d86578486eec" required="1" version="1.00">
+  <description>
+    Интерфесный модуль компилятора шаблонов WML фреймворка Wasaby
+  </description>
+
+  <depends>
+    <module id="323fd54f-1fab-42a6-8aea-6726d6392d53" name="Application"/>
+    <module id="0f15ac6b-86b2-4265-9da1-05eac93ebdf6" name="UICommon" />
+    <module id="f27abe12-19df-4c9f-b886-634bd20a0011" name="UI"/>
+    <module id="686f183d-0bcc-4732-b4e4-6016c2a67a0f" name="Types"/>
+  </depends>
+
+  <load_after/>
+
+  <parameters/>
+
+  <resources/>
+
+  <preload/>
+
+  <typescript>
+    <arg key="typecheck" value="0"/>
+  </typescript>
+</ui_module>

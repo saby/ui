@@ -1,0 +1,22 @@
+{
+  "id": "fed49915-5aed-4a86-97a0-c25660554673",
+  "responsible": "Шипин А.А.",
+  "locale": {
+    "ru": {
+      "name": "Вывести количество задач"
+    },
+    "en": {
+      "name": "Show tasks count"
+    }
+  },
+  "actionName": "CurrentEmployee.Tasks.CountTasks",
+  "actionParams": {},
+  "keys": {
+    "keyCode": 75,
+    "ctrlKey": true,
+    "altKey": true,
+    "shiftKey": false,
+    "metaKey": false
+  },
+  "pageBindings": []
+}

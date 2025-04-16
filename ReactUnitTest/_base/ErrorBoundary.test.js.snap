@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorBoundary ErrorBoundary должен отрисовать заглушку 1`] = `
+<div>
+  <div>
+    <div>
+      Что-то пошло не так
+    </div>
+  </div>
+</div>
+`;

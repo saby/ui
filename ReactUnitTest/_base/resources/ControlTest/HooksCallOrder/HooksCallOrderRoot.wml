@@ -1,0 +1,8 @@
+<div>
+   <ReactUnitTest._base.resources.ControlTest.HooksCallOrder.ChildWithCreatingInside
+      name="childWithCreatingInside"
+   />
+   <ReactUnitTest._base.resources.ControlTest.HooksCallOrder.ChildWithUpdatingInside
+      name="childWithUpdatingInside"
+   />
+</div>
