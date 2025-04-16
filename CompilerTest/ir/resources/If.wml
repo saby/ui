@@ -1,0 +1,9 @@
+<ws:if data="{{ ifCondition }}">
+    <div class="if-branch">Hello, {{ userName }}! It's 2nd expression</div>
+</ws:if>
+<ws:else data="{{ elifCondition }}">
+    <div class="elif-branch">Hello, {{ userName }}! It's 3rd expression</div>
+</ws:else>
+<ws:else>
+    <div class="else-branch">Hello, {{ userName }}! It's 4th expression</div>
+</ws:else>

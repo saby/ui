@@ -1,0 +1,18 @@
+/* чтоб как на стендах онлайна не было скролла. а то в демке сначала появляется, потом пропадает,
+это влечет за собой изменение размера body - и дополнительную перерисовку */
+
+/* stylelint-disable-next-line selector-max-type */
+html,
+body {
+   height: 100%;
+   box-sizing: border-box;
+}
+/* stylelint-disable-next-line selector-max-type */
+html {
+   overflow-x: auto;
+}
+/* stylelint-disable-next-line selector-max-type */
+body {
+   overflow: hidden;
+   position: relative;
+}

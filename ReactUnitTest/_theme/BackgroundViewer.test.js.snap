@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Темизация BackgroundViewer Проверяем если мы верхний вьювер (isUpperScope = true) Фон задали градиентным цветом  1`] = `
+<div>
+  <div
+    class="t-light controls_themes__wrapper tw-relative tw-h-full ui-Theme__backgroundviewer-t--1586402302"
+    style="z-index: 0;"
+  >
+    <div
+      class="tw-absolute tw-h-full tw-w-full"
+      style="left: 0px; top: 0px; z-index: -1;"
+    />
+    <div
+      data-testid="child"
+    >
+      Child Content
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Темизация BackgroundViewer Проверяем если мы верхний вьювер (isUpperScope = true) Фон задали картинкой 1`] = `
+<div>
+  <div
+    class="t-dark controls_themes__wrapper tw-relative tw-h-full ui-Theme__backgroundviewer-t-1198187481"
+    style="z-index: 0;"
+  >
+    <div
+      class="tw-absolute tw-h-full tw-w-full"
+      style="background-image: url(/previewer/cache/disk/api/v1/000000000-0000-0000-0000-000000000000); background-size: cover; filter: opacity(100%) blur(0px) hue-rotate(0deg) contrast(100%) saturate(100%); background-position: top center; left: 0px; top: 0px; z-index: -1;"
+    />
+    <div
+      data-testid="child"
+    >
+      Child Content
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Темизация BackgroundViewer Проверяем если мы верхний вьювер (isUpperScope = true) Фон задают однотонным цветом 1`] = `
+<div>
+  <div
+    class="t-light controls_themes__wrapper tw-relative tw-h-full"
+    style="z-index: 0;"
+  >
+    <div
+      class="tw-absolute tw-h-full tw-w-full"
+      style="background-color: rgb(255, 255, 255); left: 0px; top: 0px; z-index: -1;"
+    />
+    <div
+      data-testid="child"
+    >
+      Child Content
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Темизация BackgroundViewer Проверяем если мы вложенный вьювер (isUpperScope = false) Оборачиваем DOM-элемент Фон задали градиентным цветом  1`] = `
+<div>
+  <div
+    class="t-light controls_themes__wrapper tw-relative tw-h-full ui-Theme__backgroundviewer-t--1586402302"
+    style="z-index: 0;"
+  >
+    <div
+      class="tw-absolute tw-h-full tw-w-full"
+      style="left: 0px; top: 0px; z-index: -1;"
+    />
+    <div
+      data-testid="child"
+    >
+      Child Content
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Темизация BackgroundViewer Проверяем если мы вложенный вьювер (isUpperScope = false) Оборачиваем DOM-элемент Фон задали картинкой 1`] = `
+<div>
+  <div
+    class="t-dark controls_themes__wrapper tw-relative tw-h-full ui-Theme__backgroundviewer-t-1198187481"
+    style="z-index: 0;"
+  >
+    <div
+      class="tw-absolute tw-h-full tw-w-full"
+      style="background-image: url(/previewer/cache/disk/api/v1/000000000-0000-0000-0000-000000000000); background-size: cover; filter: opacity(100%) blur(0px) hue-rotate(0deg) contrast(100%) saturate(100%); background-position: top center; left: 0px; top: 0px; z-index: -1;"
+    />
+    <div
+      data-testid="child"
+    >
+      Child Content
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Темизация BackgroundViewer Проверяем если мы вложенный вьювер (isUpperScope = false) Оборачиваем DOM-элемент Фон задают однотонным цветом 1`] = `
+<div>
+  <div
+    class="t-light controls_themes__wrapper tw-relative tw-h-full"
+    style="z-index: 0;"
+  >
+    <div
+      class="tw-absolute tw-h-full tw-w-full"
+      style="background-color: rgb(255, 255, 255); left: 0px; top: 0px; z-index: -1;"
+    />
+    <div
+      data-testid="child"
+    >
+      Child Content
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Темизация BackgroundViewer Проверяем если мы вложенный вьювер (isUpperScope = false) Оборачиваем react-контрол Фон задали градиентным цветом  1`] = `
+<div>
+  <div
+    class="t-light controls_themes__wrapper ui-Theme__backgroundviewer-t--1586402302"
+    data-testid="child"
+  >
+    Child Component
+  </div>
+</div>
+`;
+
+exports[`Темизация BackgroundViewer Проверяем если мы вложенный вьювер (isUpperScope = false) Оборачиваем react-контрол Фон задали картинкой 1`] = `
+<div>
+  <div
+    class="t-dark controls_themes__wrapper ui-Theme__backgroundviewer-t-1198187481"
+    data-testid="child"
+  >
+    Child Component
+  </div>
+</div>
+`;
+
+exports[`Темизация BackgroundViewer Проверяем если мы вложенный вьювер (isUpperScope = false) Оборачиваем react-контрол Фон задают однотонным цветом 1`] = `
+<div>
+  <div
+    class="t-light controls_themes__wrapper"
+    data-testid="child"
+  >
+    Child Component
+  </div>
+</div>
+`;

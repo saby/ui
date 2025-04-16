@@ -1,0 +1,3 @@
+<button on:click="throwError()">
+    {{labelButton}}
+</button>

@@ -1,0 +1,11 @@
+<ws:template name="test">
+    <ws:if data="{{show}}">
+        <div>show</div>
+    </ws:if>
+    <ws:else>
+        <invisible-node />
+    </ws:else>
+</ws:template>
+<div>
+    <ws:partial template="test" />
+</div>
